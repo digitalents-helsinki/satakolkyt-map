@@ -15,6 +15,7 @@ import MapBox from 'mapbox-gl-vue'
 
 export default {
   name: 'map-view',
+  props: ['data'],
   components: {
     MapBox
   },
@@ -42,12 +43,13 @@ export default {
         },
         paint: {
           'line-color': '#475DCC',
-          'line-width': 10
+          'line-width': 5
         }
       }
     },
 
     mapLoaded(map) {
+      console.log(this.$props.data)
       map.addLayer({
         id: 'shore',
         type: 'line',
@@ -55,26 +57,10 @@ export default {
           type: 'geojson',
           data: {
             type: 'FeatureCollection',
-            features: [
-              {
-                type: 'Feature',
-                properties: {
-                  id: 'Sammakkoranta 1',
-                  state: ['needs_maintanance', 'Kaivataan apua']
-                },
-                geometry: {
-                  type: 'LineString',
-                  coordinates: [
-                    [24.88279256242609, 60.19267608960577],
-                    [24.88328690268134, 60.19281165048346],
-                    [24.883422946609258, 60.19307434594926],
-                    [24.884866256677334, 60.194075613496345],
-                    [24.88633150212888, 60.19569154980847],
-                    [24.886932824640947, 60.195607664428465]
-                  ]
-                }
-              }
-            ]
+            features:
+            this.$props.data
+
+
           }
         },
         ...this.generateLineStringStyle()

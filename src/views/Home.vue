@@ -2,7 +2,11 @@
   <div class="home">
     <div class="map-container">
       <div class="dimmer" v-if="showOverlay" @click="toggleOverlay" />
-      <map-view v-if="showMap" @shore-click="populateSelectedShoreData" />
+      <map-view
+        v-bind:data="this.json"
+        v-if="showMap"
+        @shore-click="populateSelectedShoreData"
+      />
       <section v-else class="initial">
         <h1>Avataanko Karttanäkymä?</h1>
         <button @click="() => (showMap = true)">Avaa</button>
@@ -25,13 +29,14 @@
 import OverlayBox from '@/components/OverlayBox'
 import ShoreInfo from '@/components/ShoreInfo'
 import MapView from '@/components/MapView'
-
+import axios from 'axios'
 export default {
   name: 'home',
 
   data() {
     return {
       // Map
+      json: {},
       showMap: false,
       startMapOnMounted: false,
       // Overlay box
@@ -50,6 +55,14 @@ export default {
 
   methods: {
     initMap() {
+      axios
+        .get('http://192.168.50.68:8089/hello.json')
+        .then(response => {
+          this.json = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
       this.$nextTick(() => {
         this.showMap = this.startMapOnMounted
       })
