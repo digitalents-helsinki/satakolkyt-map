@@ -56,7 +56,7 @@ export default {
   methods: {
     initMap() {
       axios
-        .get('http://192.168.50.68:8089/hello.json')
+        .get('http://127.0.0.1:8089/hello.json')
         .then(response => {
           this.json = response.data
         })
