@@ -55,10 +55,12 @@ export default {
 
   methods: {
     initMap() {
-      axios
-        .get('http://127.0.0.1:8089/hello.json')
+      fetch('http://localhost:8089/api/map/shores')
         .then(response => {
-          this.json = response.data
+          return response.json()
+        })
+        .then(shores => {
+          this.json = shores.data
         })
         .catch(error => {
           console.log(error)
