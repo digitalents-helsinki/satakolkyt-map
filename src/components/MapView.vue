@@ -49,7 +49,10 @@ export default {
     },
 
     mapLoaded(map) {
-      console.log(this.$props.data)
+      const enhancedData = this.$props.data.map(d => ({
+        ...d,
+        properties: { ...d.properties, key: d._key }
+      }))
       map.addLayer({
         id: 'shore',
         type: 'line',
@@ -57,16 +60,12 @@ export default {
           type: 'geojson',
           data: {
             type: 'FeatureCollection',
-            features:
-            this.$props.data
-
-
+            features: enhancedData
           }
         },
         ...this.generateLineStringStyle()
       })
       map.on('click', 'shore', e => {
-        console.log(e.lngLat)
         this.$emit('shore-click', e.features[0].properties)
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 15 })
       })

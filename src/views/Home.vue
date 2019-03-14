@@ -3,7 +3,7 @@
     <div class="map-container">
       <div class="dimmer" v-if="showOverlay" @click="toggleOverlay" />
       <map-view
-        v-bind:data="this.json"
+        v-bind:data="json"
         v-if="showMap"
         @shore-click="populateSelectedShoreData"
       />
@@ -60,6 +60,7 @@ export default {
           return response.json()
         })
         .then(shores => {
+          console.log(shores.data)
           this.json = shores.data
         })
         .catch(error => {
