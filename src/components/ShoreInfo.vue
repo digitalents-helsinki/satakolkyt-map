@@ -18,12 +18,8 @@ export default {
       axios({
         method: 'POST',
         url: 'http://localhost:8089/api/map/cleanbeach',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: {
-          key: this.data.key
-        }
+
+        data: { key: this.data.key }
       })
     }
   },
