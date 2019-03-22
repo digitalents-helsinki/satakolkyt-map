@@ -15,7 +15,7 @@ import MapBox from 'mapbox-gl-vue'
 
 export default {
   name: 'map-view',
-  props: ['data'],
+  props: ['data','data2'],
   components: {
     MapBox
   },
@@ -47,12 +47,40 @@ export default {
         }
       }
     },
+    generateLineStringStyle2() {
+      return {
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#ff0000',
+          'line-width': 5
+        }
+      }
+    },
 
     mapLoaded(map) {
       const enhancedData = this.$props.data.map(d => ({
         ...d,
         properties: { ...d.properties, key: d._key }
       }))
+      const enhancedData2 = this.$props.data2.map(d => ({
+        ...d,
+        properties: { ...d.properties, key: d._key }
+      }))
+      map.addLayer({
+        id: 'shore2',
+        type: 'line',
+        source: {
+          type: 'geojson',
+          data: {
+            type: 'FeatureCollection',
+            features: enhancedData2
+          }
+        },
+        ...this.generateLineStringStyle2()
+      })
       map.addLayer({
         id: 'shore',
         type: 'line',
@@ -66,6 +94,10 @@ export default {
         ...this.generateLineStringStyle()
       })
       map.on('click', 'shore', e => {
+        this.$emit('shore-click', e.features[0].properties)
+        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 15 })
+      })
+      map.on('click', 'shore2', e => {
         this.$emit('shore-click', e.features[0].properties)
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 15 })
       })

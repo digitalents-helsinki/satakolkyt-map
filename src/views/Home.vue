@@ -4,6 +4,7 @@
       <div class="dimmer" v-if="showOverlay" @click="toggleOverlay" />
       <map-view
         v-bind:data="json"
+        v-bind:data2="json2"
         v-if="showMap"
         @shore-click="populateSelectedShoreData"
       />
@@ -37,6 +38,7 @@ export default {
     return {
       // Map
       json: {},
+      json2: {},
       showMap: false,
       startMapOnMounted: false,
       // Overlay box
@@ -62,6 +64,17 @@ export default {
         .then(shores => {
           console.log(shores.data)
           this.json = shores.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      fetch('http://localhost:8089/api/map/shores/reserved')
+        .then(response => {
+          return response.json()
+        })
+        .then(shores => {
+          console.log(shores.data)
+          this.json2 = shores.data
         })
         .catch(error => {
           console.log(error)
