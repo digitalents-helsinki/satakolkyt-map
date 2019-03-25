@@ -69,16 +69,15 @@ export default {
         ...d,
         properties: { ...d.properties, key: d._key }
       }))
+      var data = {
+        type: 'FeatureCollection',
+        features: enhancedData2
+      }
+      map.addSource('shore2', { type: 'geojson', data:  data });
       map.addLayer({
         id: 'shore2',
         type: 'line',
-        source: {
-          type: 'geojson',
-          data: {
-            type: 'FeatureCollection',
-            features: enhancedData2
-          }
-        },
+        source: 'shore2',
         ...this.generateLineStringStyle2()
       })
       map.addLayer({

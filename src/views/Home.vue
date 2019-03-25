@@ -18,7 +18,10 @@
           class="overlay-box-wrapper"
         >
           <overlay-box>
-            <shore-info :data="selectedShoreData" />
+            <shore-info
+              @reserve-intention="saveReservation"
+              :data="selectedShoreData"
+            />
           </overlay-box>
         </div>
       </transition>
@@ -56,6 +59,11 @@ export default {
   },
 
   methods: {
+    saveReservation(json) {
+      console.log(json._key)
+      this.json2.push(json)
+      console.log(this.json2)
+    },
     initMap() {
       fetch('http://localhost:8089/api/map/shores')
         .then(response => {

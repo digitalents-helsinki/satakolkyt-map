@@ -20,6 +20,8 @@ export default {
         url: 'http://localhost:8089/api/map/cleanbeach',
 
         data: { key: this.data.key }
+      }).then(response => {
+        this.$emit('reserve-intention', response.data.json)
       })
     }
   },
