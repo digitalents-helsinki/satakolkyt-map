@@ -21,6 +21,8 @@ export default {
   },
   data() {
     return {
+
+
       accessToken:
         'pk.eyJ1IjoiZGlnaXRhbGVudHMiLCJhIjoiY2pzZWppdm01MDV1NzQ0bzJmczQ5cDR2ZCJ9.p8qNiWhX3bWj9FB8IjdmLA',
       mapOptions: {
@@ -73,6 +75,8 @@ export default {
         type: 'FeatureCollection',
         features: enhancedData2
       }
+      this.map = map;
+      console.log(this.map)
       map.addSource('shore2', { type: 'geojson', data:  data });
       map.addLayer({
         id: 'shore2',
@@ -80,18 +84,20 @@ export default {
         source: 'shore2',
         ...this.generateLineStringStyle2()
       })
+       data = {
+        type: 'FeatureCollection',
+        features: enhancedData
+      }
+      map.addSource('shore', { type: 'geojson', data:  data });
+
       map.addLayer({
         id: 'shore',
         type: 'line',
-        source: {
-          type: 'geojson',
-          data: {
-            type: 'FeatureCollection',
-            features: enhancedData
-          }
-        },
+        source: 'shore',
         ...this.generateLineStringStyle()
       })
+      this.$emit('map-loaded', map)
+
       map.on('click', 'shore', e => {
         this.$emit('shore-click', e.features[0].properties)
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 15 })

@@ -6,6 +6,7 @@
         v-bind:data="json"
         v-bind:data2="json2"
         v-if="showMap"
+        @map-loaded="mapLoaded"
         @shore-click="populateSelectedShoreData"
       />
       <section v-else class="initial">
@@ -59,13 +60,64 @@ export default {
   },
 
   methods: {
+    generateLineStringStyle() {
+      return {
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#475DCC',
+          'line-width': 5
+        }
+      }
+    },
+    mapLoaded(map) {
+      console.log(map)
+      this.map = map
+    },
+
     saveReservation(json) {
       console.log(json._key)
       this.json2.push(json)
       console.log(this.json2)
+      const enhancedData2 = this.json2.map(d => ({
+        ...d,
+        properties: { ...d.properties, key: d._key }
+      }))
+      var data = {
+        type: 'FeatureCollection',
+        features: enhancedData2
+      }
+      this.map.removeLayer('shore')
+      this.map.removeSource('shore')
+
+      this.json = this.json.filter(function(item) {
+        return item._key !== json._key
+      })
+      console.log(this.json)
+      this.map.getSource('shore2').setData(data)
+      const enhancedData = this.json.map(d => ({
+        ...d,
+        properties: { ...d.properties, key: d._key }
+      }))
+      data = {
+        type: 'FeatureCollection',
+        features: enhancedData
+      }
+      this.map.addSource('shore', { type: 'geojson', data: data })
+
+      this.map.addLayer({
+        id: 'shore',
+        type: 'line',
+        source: 'shore',
+        ...this.generateLineStringStyle()
+      })
+
+      console.log(this.map)
     },
     initMap() {
-      fetch('http://localhost:8089/api/map/shores')
+      fetch('http://192.168.50.68:8089/api/map/shores')
         .then(response => {
           return response.json()
         })
@@ -76,7 +128,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
-      fetch('http://localhost:8089/api/map/shores/reserved')
+      fetch('http://192.168.50.68:8089/api/map/shores/reserved')
         .then(response => {
           return response.json()
         })
