@@ -2,6 +2,8 @@
   <div class="home">
     <div class="map-container">
       <div class="dimmer" v-if="showOverlay" @click="toggleOverlay" />
+      <div class="dimmer" v-if="showReservationForm" @click="toggleModal" />
+
       <map-view
         v-bind:data="json"
         v-bind:data2="json2"
@@ -13,6 +15,7 @@
         <h1>Avataanko Karttanäkymä?</h1>
         <button @click="() => (showMap = true)">Avaa</button>
       </section>
+
       <transition name="overlayPop">
         <div
           v-if="showOverlay && selectedShoreData"
@@ -21,11 +24,18 @@
           <overlay-box>
             <shore-info
               @reserve-intention="saveReservation"
+              @delete-shore="hideShore"
+              @show-reservationform="showReservationForm = true"
               :data="selectedShoreData"
             />
           </overlay-box>
         </div>
       </transition>
+      <div v-if="showReservationForm">
+        <transition name="modal">
+          <Modal @close="showReservationForm = false"> </Modal>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -34,6 +44,7 @@
 import OverlayBox from '@/components/OverlayBox'
 import ShoreInfo from '@/components/ShoreInfo'
 import MapView from '@/components/MapView'
+import Modal from '@/components/Modal'
 import axios from 'axios'
 export default {
   name: 'home',
@@ -45,6 +56,7 @@ export default {
       json2: {},
       showMap: false,
       startMapOnMounted: false,
+      showReservationForm: false,
       // Overlay box
       showOverlay: false,
       dimBackground: true,
@@ -56,7 +68,8 @@ export default {
   components: {
     MapView,
     ShoreInfo,
-    OverlayBox
+    OverlayBox,
+    Modal
   },
 
   methods: {
@@ -76,7 +89,33 @@ export default {
       console.log(map)
       this.map = map
     },
+    hideShore(json) {
+      this.json = this.json.filter(function(item) {
+        return item._key !== json._key
+      })
+      this.json2 = this.json2.filter(function(item) {
+        return item._key !== json._key
+      })
+      const enhancedData2 = this.json2.map(d => ({
+        ...d,
+        properties: { ...d.properties, key: d._key }
+      }))
+      var data2 = {
+        type: 'FeatureCollection',
+        features: enhancedData2
+      }
 
+      const enhancedData = this.json.map(d => ({
+        ...d,
+        properties: { ...d.properties, key: d._key }
+      }))
+      var data = {
+        type: 'FeatureCollection',
+        features: enhancedData
+      }
+      this.map.getSource('shore2').setData(data2)
+      this.map.getSource('shore').setData(data)
+    },
     saveReservation(json) {
       console.log(json._key)
       this.json2.push(json)
@@ -117,7 +156,7 @@ export default {
       console.log(this.map)
     },
     initMap() {
-      fetch('http://192.168.50.68:8089/api/map/shores')
+      fetch('http://localhost:8089/api/map/shores')
         .then(response => {
           return response.json()
         })
@@ -128,7 +167,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
-      fetch('http://192.168.50.68:8089/api/map/shores/reserved')
+      fetch('http://localhost:8089/api/map/shores/reserved')
         .then(response => {
           return response.json()
         })
@@ -139,6 +178,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
+
       this.$nextTick(() => {
         this.showMap = this.startMapOnMounted
       })
@@ -150,6 +190,9 @@ export default {
       }
 
       this.showOverlay = !this.showOverlay
+    },
+    toggleModal() {
+      this.showModal = !this.showModal
     },
 
     populateSelectedShoreData(data) {

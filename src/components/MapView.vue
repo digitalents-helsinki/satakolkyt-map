@@ -76,7 +76,6 @@ export default {
         features: enhancedData2
       }
       this.map = map;
-      console.log(this.map)
       map.addSource('shore2', { type: 'geojson', data:  data });
       map.addLayer({
         id: 'shore2',
@@ -96,6 +95,7 @@ export default {
         source: 'shore',
         ...this.generateLineStringStyle()
       })
+    
       this.$emit('map-loaded', map)
 
       map.on('click', 'shore', e => {

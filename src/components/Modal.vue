@@ -1,0 +1,139 @@
+<template>
+  <div class="modal-mask">
+    <div class="modal-wrapper" @click="$emit('close')">
+      <div class="modal-container" @click.stop>
+        <form v-on:submit.prevent="">
+          <div class="modal-header">
+            <slot name="header">
+              Alotuispäivä
+              <input v-model="startdate" type="date" />
+              Alotuisaika
+              <input v-model="starttime" type="time" />
+              Loppumispäivä
+              <input v-model="enddate" type="date" />
+              Loppumisaika
+              <input v-model="endtime" type="time" />
+            </slot>
+          </div>
+
+          <div class="modal-body">
+            <slot name="body">
+              Onko kyseessä?
+              <select v-model="type" class="" name="type">
+                <option value="">Avoimet Talkoot</option>
+                <option value="">oman porukan talkoot </option>
+              </select>
+            </slot>
+          </div>
+
+          <div class="modal-footer">
+            <slot name="footer">
+              Järjestävä taho
+              <input v-model="organizer" type="text" /> Yhteyshenkilö: Nimi
+              <input v-model="name" type="text" /> puhelin
+              <input v-model="phonenumbery" type="text" /> sähköposti
+              <input v-model="email" type="text" />
+              <button class="modal-default-button" @click="showModal = false">
+                OK
+              </button>
+            </slot>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  name: 'modal'
+}
+</script>
+<style scoped>
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 400px;
+  height: 80vh;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+  overflow: scroll;
+}
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+.modal-header {
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+.modal-footer {
+}
+.modal-footer div {
+  margin-bottom: 20px;
+}
+.modal-default-button {
+  width: 100%;
+}
+
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+input {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid green;
+}
+select {
+  padding: 16px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+}
+select,
+input {
+  width: 100%;
+}
+</style>
