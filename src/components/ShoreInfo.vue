@@ -2,7 +2,6 @@
   <div>
     <div class="shore-info">
       <h2>{{ data['hel:id'] }}</h2>
-      <button @click="clickHandler">CLEAN THIS SHORE PLS!</button>
       <button id="show-modal" @click="$emit('show-reservationform')">
         Show Modal
       </button>
