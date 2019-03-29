@@ -26,7 +26,7 @@ export default {
       accessToken:
         'pk.eyJ1IjoiZGlnaXRhbGVudHMiLCJhIjoiY2pzZWppdm01MDV1NzQ0bzJmczQ5cDR2ZCJ9.p8qNiWhX3bWj9FB8IjdmLA',
       mapOptions: {
-        style: 'mapbox://styles/mapbox/streets-v10',
+        style: 'mapbox://styles/obb123/cjtty0dz501c21fpdg8vg1hx6',
         center: [24.9476669, 60.1535843],
         zoom: 11
       },
@@ -95,7 +95,7 @@ export default {
         source: 'shore',
         ...this.generateLineStringStyle()
       })
-    
+
       this.$emit('map-loaded', map)
 
       map.on('click', 'shore', e => {

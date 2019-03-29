@@ -6,20 +6,20 @@
           <div class="modal-header">
             <slot name="header">
               Alotuispäivä
-              <input v-model="startdate" type="date" />
+              <input v-model="data.startdate" type="date" />
               Alotuisaika
-              <input v-model="starttime" type="time" />
+              <input v-model="data.starttime" type="time" />
               Loppumispäivä
-              <input v-model="enddate" type="date" />
+              <input v-model="data.enddate" type="date" />
               Loppumisaika
-              <input v-model="endtime" type="time" />
+              <input v-model="data.endtime" type="time" />
             </slot>
           </div>
 
           <div class="modal-body">
             <slot name="body">
               Onko kyseessä?
-              <select v-model="type" class="" name="type">
+              <select v-model="data.type" class="" name="type">
                 <option value="">Avoimet Talkoot</option>
                 <option value="">oman porukan talkoot </option>
               </select>
@@ -29,10 +29,10 @@
           <div class="modal-footer">
             <slot name="footer">
               Järjestävä taho
-              <input v-model="organizer" type="text" /> Yhteyshenkilö: Nimi
-              <input v-model="name" type="text" /> puhelin
-              <input v-model="phonenumbery" type="text" /> sähköposti
-              <input v-model="email" type="text" />
+              <input v-model="data.organizer" type="text" /> Yhteyshenkilö: Nimi
+              <input v-model="data.name" type="text" /> puhelin
+              <input v-model="data.phonenumbery" type="text" /> sähköposti
+              <input v-model="data.email" type="text" />
               <button class="modal-default-button" @click="showModal = false">
                 OK
               </button>
@@ -45,7 +45,12 @@
 </template>
 <script>
 export default {
-  name: 'modal'
+  name: 'modal',
+  data() {
+    return {
+      data: {}
+    }
+  }
 }
 </script>
 <style scoped>

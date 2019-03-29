@@ -87,6 +87,7 @@ export default {
     },
     mapLoaded(map) {
       console.log(map)
+
       this.map = map
     },
     hideShore(json) {
