@@ -33,7 +33,12 @@
       </transition>
       <div v-if="showReservationForm">
         <transition name="modal">
-          <Modal @close="showReservationForm = false"> </Modal>
+          <Modal
+            v-bind:selected="selectedShoreData"
+            @reservation-action="saveContactInfo"
+            @close="showReservationForm = false"
+          >
+          </Modal>
         </transition>
       </div>
     </div>
@@ -155,6 +160,15 @@ export default {
       })
 
       console.log(this.map)
+    },
+    saveContactInfo(data) {
+      console.log(data)
+      axios({
+        method: 'POST',
+        url: 'http://localhost:8089/api/map/reserve',
+
+        data: data
+      }).then(response => {})
     },
     initMap() {
       fetch('http://localhost:8089/api/map/shores')

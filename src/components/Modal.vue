@@ -2,7 +2,7 @@
   <div class="modal-mask">
     <div class="modal-wrapper" @click="$emit('close')">
       <div class="modal-container" @click.stop>
-        <form v-on:submit.prevent="">
+        <form v-on:submit.prevent="saveContactInfo">
           <div class="modal-header">
             <slot name="header">
               Alotuispäivä
@@ -20,8 +20,8 @@
             <slot name="body">
               Onko kyseessä?
               <select v-model="data.type" class="" name="type">
-                <option value="">Avoimet Talkoot</option>
-                <option value="">oman porukan talkoot </option>
+                <option value="open">Avoimet Talkoot</option>
+                <option value="private">oman porukan talkoot </option>
               </select>
             </slot>
           </div>
@@ -46,9 +46,20 @@
 <script>
 export default {
   name: 'modal',
+  props: ['selected'],
+
   data() {
     return {
       data: {}
+    }
+  },
+  mounted() {
+    this.data.selected = this.$props.selected
+  },
+  methods: {
+    saveContactInfo() {
+      console.log(this.$props)
+      this.$emit('reservation-action', this.data)
     }
   }
 }
