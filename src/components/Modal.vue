@@ -58,7 +58,6 @@ export default {
   },
   methods: {
     saveContactInfo() {
-      console.log(this.$props)
       this.$emit('reservation-action', this.data)
     }
   }
@@ -98,13 +97,9 @@ export default {
   margin-top: 0;
   color: #42b983;
 }
-.modal-header {
-}
 
 .modal-body {
   margin: 20px 0;
-}
-.modal-footer {
 }
 .modal-footer div {
   margin-bottom: 20px;

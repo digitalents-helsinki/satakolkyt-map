@@ -91,8 +91,6 @@ export default {
       }
     },
     mapLoaded(map) {
-      console.log(map)
-
       this.map = map
     },
     hideShore(json) {
@@ -123,9 +121,7 @@ export default {
       this.map.getSource('shore').setData(data)
     },
     saveReservation(json) {
-      console.log(json._key)
       this.json2.push(json)
-      console.log(this.json2)
       const enhancedData2 = this.json2.map(d => ({
         ...d,
         properties: { ...d.properties, key: d._key }
@@ -140,7 +136,6 @@ export default {
       this.json = this.json.filter(function(item) {
         return item._key !== json._key
       })
-      console.log(this.json)
       this.map.getSource('shore2').setData(data)
       const enhancedData = this.json.map(d => ({
         ...d,
@@ -158,11 +153,8 @@ export default {
         source: 'shore',
         ...this.generateLineStringStyle()
       })
-
-      console.log(this.map)
     },
     saveContactInfo(data) {
-      console.log(data)
       axios({
         method: 'POST',
         url: 'http://localhost:8089/api/map/reserve',
@@ -176,7 +168,6 @@ export default {
           return response.json()
         })
         .then(shores => {
-          console.log(shores.data)
           this.json = shores.data
         })
         .catch(error => {
@@ -187,7 +178,6 @@ export default {
           return response.json()
         })
         .then(shores => {
-          console.log(shores.data)
           this.json2 = shores.data
         })
         .catch(error => {

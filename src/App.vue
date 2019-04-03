@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header ref="nav">
+    <header ref="nav" v-if="this.$route.name === 'home'">
       <app-header />
     </header>
     <main :style="mainStyle">
@@ -63,9 +63,6 @@ header {
   position: fixed;
   width: 100vw;
   z-index: 100;
-}
-
-main {
 }
 
 button {

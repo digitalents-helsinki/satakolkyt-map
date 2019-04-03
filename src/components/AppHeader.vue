@@ -17,6 +17,7 @@ export default {
   box-shadow: 0 6px 2px -4px rgba(black, 0.15), 0 0 0 1px rgba(black, 0.05);
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   border-radius: 5px;
   margin: 1rem;
   padding-top: 1.2rem;
