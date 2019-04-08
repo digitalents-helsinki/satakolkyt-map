@@ -28,14 +28,23 @@
             <p>{{ reservation.email }}</p>
           </div>
           <div class="reservation-cta">
-            <button>Näytä kartassa</button>
+            <button
+              v-bind:id="reservation.selected.key"
+              v-on:click="showreservation"
+            >
+              Näytä kartassa
+            </button>
             <button class="green">Vahvista varaus</button>
           </div>
         </li>
       </div>
       <div class="editor">
         Edit Map
-        <admin-map-box v-bind:data="json" v-bind:data2="json2" />
+        <admin-map-box
+          @map-loaded="mapLoaded"
+          v-bind:data="json"
+          v-bind:data2="json2"
+        />
       </div>
     </div>
   </div>
@@ -50,13 +59,39 @@ export default {
     return {
       reservations: {},
       json: {},
-      json2: {}
+      json2: {},
+      selected: {}
     }
   },
   components: {
     AdminMapBox
   },
   methods: {
+    mapLoaded(map) {
+      this.map = map
+    },
+    showreservation(e) {
+      var id = e.target.id
+      //get shore and show on map
+      fetch('http://localhost:8089/api/map/shore/' + e.target.id)
+        .then(response => {
+          return response.json()
+        })
+        .then(shores => {
+          this.selected = shores.data
+          console.log()
+          this.map.flyTo({
+            center: [
+              shores.data.geometry.coordinates[0][0],
+              shores.data.geometry.coordinates[0][1]
+            ],
+            zoom: 15
+          })
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     initMap() {
       fetch('http://localhost:8089/api/map/shores')
         .then(response => {

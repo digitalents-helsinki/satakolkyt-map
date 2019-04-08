@@ -74,6 +74,8 @@ export default {
         features: enhancedData2
       }
       this.map = map;
+      this.$emit('map-loaded', map)
+
       map.addSource('shore2', { type: 'geojson', data:  data });
       map.addLayer({
         id: 'shore2',
