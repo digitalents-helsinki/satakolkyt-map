@@ -3,7 +3,7 @@
     <div class="shore-info">
       <h2>{{ data['hel:id'] }}</h2>
       <button id="show-modal" @click="$emit('show-reservationform')">
-        Show Modal
+        Reserve this beach
       </button>
       <button v-on:click="deleteHandler">Delete this beach</button>
     </div>
@@ -53,6 +53,9 @@ export default {
 .shore-info {
   h2 {
     font-weight: bold;
+  }
+  #show-modal {
+    border-color: green;
   }
 }
 </style>

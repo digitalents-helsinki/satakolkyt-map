@@ -66,13 +66,15 @@ header {
 }
 
 button {
-  background-color: #475dcc;
-  color: white;
+  background-color: transparent;
+  color: #000;
   padding: 0.8rem 1rem;
-  border-radius: 3px;
+  border-radius: 40px;
   font-size: 1rem;
   min-width: 20ex;
   font-weight: bold;
   font-family: inherit;
+  border: 3px solid #475dcc;
+  margin-right: 5px;
 }
 </style>

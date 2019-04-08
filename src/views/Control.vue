@@ -143,7 +143,7 @@ export default {
   justify-content: space-between;
 
   button.green {
-    background: green;
+    border: 3px solid green;
   }
   .reservations {
     .reservation {
