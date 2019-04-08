@@ -8,11 +8,17 @@
               Alotuispäivä
               <input v-model="data.startdate" type="date" />
               Alotuisaika
-              <input v-model="data.starttime" type="time" />
+              <vue-timepicker
+                v-model="data.starttime"
+                format="HH:mm"
+              ></vue-timepicker>
               Loppumispäivä
               <input v-model="data.enddate" type="date" />
               Loppumisaika
-              <input v-model="data.endtime" type="time" />
+              <vue-timepicker
+                v-model="data.endtime"
+                format="HH:mm"
+              ></vue-timepicker>
             </slot>
           </div>
 
@@ -44,13 +50,24 @@
   </div>
 </template>
 <script>
+import VueTimepicker from 'vue2-timepicker'
 export default {
+  components: { VueTimepicker },
   name: 'modal',
   props: ['selected'],
 
   data() {
     return {
-      data: {}
+      data: {
+        starttime: {
+          hh: '',
+          mm: ''
+        },
+        endtime: {
+          hh: '',
+          mm: ''
+        }
+      }
     }
   },
   mounted() {
@@ -58,7 +75,13 @@ export default {
   },
   methods: {
     saveContactInfo() {
-      this.$emit('reservation-action', this.data)
+      console.log(this.data)
+      var reservation = JSON.parse(JSON.stringify(this.data))
+      reservation.endtime = this.data.endtime.hh + ':' + this.data.endtime.mm
+      reservation.starttime =
+        this.data.starttime.hh + ':' + this.data.starttime.mm
+
+      this.$emit('reservation-action', reservation)
     }
   }
 }

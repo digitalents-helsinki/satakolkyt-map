@@ -1,0 +1,2 @@
+in Control.vue
+  add a button to confirm the reservation

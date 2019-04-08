@@ -27,21 +27,58 @@
             <p>{{ reservation.phonenumbery }}</p>
             <p>{{ reservation.email }}</p>
           </div>
+          <div class="reservation-cta">
+            <button>Näytä kartassa</button>
+            <button class="green">Vahvista varaus</button>
+          </div>
         </li>
+      </div>
+      <div class="editor">
+        Edit Map
+        <admin-map-box v-bind:data="json" v-bind:data2="json2" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import AdminMapBox from '@/components/AdminMapBox'
+
 export default {
   name: 'control',
   data() {
     return {
-      reservations: {}
+      reservations: {},
+      json: {},
+      json2: {}
     }
   },
+  components: {
+    AdminMapBox
+  },
   methods: {
+    initMap() {
+      fetch('http://localhost:8089/api/map/shores')
+        .then(response => {
+          return response.json()
+        })
+        .then(shores => {
+          this.json = shores.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      fetch('http://localhost:8089/api/map/shores/reserved')
+        .then(response => {
+          return response.json()
+        })
+        .then(shores => {
+          this.json2 = shores.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     getReservations() {
       fetch('http://localhost:8089/api/map/reservations/')
         .then(response => {
@@ -57,6 +94,7 @@ export default {
   },
   mounted() {
     this.getReservations()
+    this.initMap()
   }
 }
 </script>
@@ -67,8 +105,11 @@ export default {
   height: 100%;
   background-color: white;
   display: flex;
-  flex-flow: column wrap;
+  justify-content: space-between;
 
+  button.green {
+    background: green;
+  }
   .reservations {
     .reservation {
       padding: 5px;
