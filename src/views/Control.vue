@@ -70,6 +70,18 @@ export default {
     mapLoaded(map) {
       this.map = map
     },
+    generateLineStringStyle() {
+      return {
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#FF00FF',
+          'line-width': 5
+        }
+      }
+    },
     showreservation(e) {
       var id = e.target.id
       //get shore and show on map
@@ -79,7 +91,24 @@ export default {
         })
         .then(shores => {
           this.selected = shores.data
-          console.log()
+          var data = {
+            type: 'FeatureCollection',
+            features: [this.selected]
+          }
+
+          this.map.addSource('shore3', { type: 'geojson', data: data })
+          this.map.addLayer({
+            id: 'shore3',
+            type: 'line',
+            source: 'shore3',
+            ...this.generateLineStringStyle()
+          })
+
+          this.map.removeLayer('shore')
+          this.map.removeSource('shore')
+          this.map.removeLayer('shore2')
+          this.map.removeSource('shore2')
+          console.log(this.map)
           this.map.flyTo({
             center: [
               shores.data.geometry.coordinates[0][0],

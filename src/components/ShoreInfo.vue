@@ -5,7 +5,7 @@
       <button id="show-modal" @click="$emit('show-reservationform')">
         Reserve this beach
       </button>
-      <button v-on:click="deleteHandler">Delete this beach</button>
+      <button id="delete" v-on:click="deleteHandler">Delete this beach</button>
     </div>
   </div>
 </template>
@@ -56,6 +56,9 @@ export default {
   }
   #show-modal {
     border-color: green;
+  }
+  #delete {
+    border-color: red;
   }
 }
 </style>
