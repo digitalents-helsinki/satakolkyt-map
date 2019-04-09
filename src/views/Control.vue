@@ -34,7 +34,13 @@
             >
               Näytä kartassa
             </button>
-            <button class="green">Vahvista varaus</button>
+            <button
+              v-on:click="addreservation"
+              v-bind:id="reservation.selected.key"
+              class="green"
+            >
+              Vahvista varaus
+            </button>
           </div>
         </li>
       </div>
@@ -52,7 +58,7 @@
 
 <script>
 import AdminMapBox from '@/components/AdminMapBox'
-
+import axios from 'axios'
 export default {
   name: 'control',
   data() {
@@ -81,6 +87,20 @@ export default {
           'line-width': 5
         }
       }
+    },
+    addreservation(e) {
+      alert(e.target.id)
+      var id = e.target.id
+      axios
+        .post('http://localhost:8089/api/map/cleanbeach/', {
+          key: id
+        })
+        .then(function(response) {
+          console.log(response)
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
     },
     showreservation(e) {
       var id = e.target.id

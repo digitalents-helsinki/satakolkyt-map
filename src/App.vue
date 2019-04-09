@@ -49,10 +49,12 @@ export default {
 <style src="nanoreset"></style>
 <style src="mapbox-gl/dist/mapbox-gl.css"></style>
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans|Ubuntu');
 html {
   overflow-y: auto;
-  font-family: 'Inter UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Noto Sans', 'Ubuntu' 'Inter UI', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
 }
 
 body {
