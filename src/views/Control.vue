@@ -48,17 +48,35 @@
         Edit Map
         <admin-map-box
           @map-loaded="mapLoaded"
+          @shore-click="populateSelectedShoreData"
           v-bind:data="json"
           v-bind:data2="json2"
         />
       </div>
+      <transition name="overlayPop">
+        <div
+          v-if="showOverlay && selectedShoreData"
+          class="overlay-box-wrapper"
+        >
+          <overlay-box>
+            <admin-shore-info
+              @delete-shore="hideShore"
+              :data="selectedShoreData"
+            >
+            </admin-shore-info>
+          </overlay-box>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
+import OverlayBox from '@/components/OverlayBox'
+import AdminShoreInfo from '@/components/AdminShoreInfo'
 import AdminMapBox from '@/components/AdminMapBox'
 import axios from 'axios'
+
 export default {
   name: 'control',
   data() {
@@ -66,15 +84,72 @@ export default {
       reservations: {},
       json: {},
       json2: {},
-      selected: {}
+      selected: {},
+      showOverlay: false,
+      selectedShoreData: {}
     }
   },
   components: {
+    AdminShoreInfo,
+    OverlayBox,
     AdminMapBox
   },
   methods: {
     mapLoaded(map) {
       this.map = map
+    },
+    deleteHandler() {
+      axios({
+        method: 'POST',
+        url:
+          'http://' +
+          location.hostname +
+          ':8089/api/map/delete/' +
+          this.data.key,
+
+        data: { key: this.data.key }
+      }).then(response => {
+        this.hideShore(response.data.json)
+      })
+    },
+    hideShore(json) {
+      console.log(json)
+      this.json = this.json.filter(function(item) {
+        return item._key !== json._key
+      })
+      this.json2 = this.json2.filter(function(item) {
+        return item._key !== json._key
+      })
+      const enhancedData2 = this.json2.map(d => ({
+        ...d,
+        properties: { ...d.properties, key: d._key }
+      }))
+      var data2 = {
+        type: 'FeatureCollection',
+        features: enhancedData2
+      }
+
+      const enhancedData = this.json.map(d => ({
+        ...d,
+        properties: { ...d.properties, key: d._key }
+      }))
+      var data = {
+        type: 'FeatureCollection',
+        features: enhancedData
+      }
+      this.map.getSource('shore2').setData(data2)
+      this.map.getSource('shore').setData(data)
+    },
+    populateSelectedShoreData(data) {
+      this.selectedShoreData = data
+      this.toggleOverlay()
+    },
+    toggleOverlay() {
+      if (!this.selectedShoreData) {
+        this.showOverlay = false
+      }
+
+      this.showOverlay = !this.showOverlay
     },
     generateLineStringStyle() {
       return {
@@ -92,7 +167,7 @@ export default {
       alert(e.target.id)
       var id = e.target.id
       axios
-        .post('http://localhost:8089/api/map/cleanbeach/', {
+        .post('http://' + location.hostname + ':8089/api/map/cleanbeach/', {
           key: id
         })
         .then(function(response) {
@@ -105,7 +180,9 @@ export default {
     showreservation(e) {
       var id = e.target.id
       //get shore and show on map
-      fetch('http://localhost:8089/api/map/shore/' + e.target.id)
+      fetch(
+        'http://' + location.hostname + ':8089/api/map/shore/' + e.target.id
+      )
         .then(response => {
           return response.json()
         })
@@ -142,7 +219,7 @@ export default {
         })
     },
     initMap() {
-      fetch('http://localhost:8089/api/map/shores')
+      fetch('http://' + location.hostname + ':8089/api/map/shores')
         .then(response => {
           return response.json()
         })
@@ -152,7 +229,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
-      fetch('http://localhost:8089/api/map/shores/reserved')
+      fetch('http://' + location.hostname + ':8089/api/map/shores/reserved')
         .then(response => {
           return response.json()
         })
@@ -164,7 +241,7 @@ export default {
         })
     },
     getReservations() {
-      fetch('http://localhost:8089/api/map/reservations/')
+      fetch('http://' + location.hostname + ':8089/api/map/reservations/')
         .then(response => {
           return response.json()
         })

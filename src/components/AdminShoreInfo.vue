@@ -3,9 +3,6 @@
     <div class="shore-info">
       <h2>{{ data['hel:id'] }}</h2>
       <slot name="header">
-        <button id="show-modal" @click="$emit('show-reservationform')">
-          Reserve this beach
-        </button>
         <button id="delete" v-on:click="deleteHandler">
           Delete this beach
         </button>
@@ -17,7 +14,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'shore-info',
+  name: 'admin-shore-info',
 
   props: ['data'],
 

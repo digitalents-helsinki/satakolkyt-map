@@ -157,13 +157,13 @@ export default {
     saveContactInfo(data) {
       axios({
         method: 'POST',
-        url: 'http://localhost:8089/api/map/reserve',
+        url: 'http://' + location.hostname + ':8089/api/map/reserve',
 
         data: data
       }).then(response => {})
     },
     initMap() {
-      fetch('http://localhost:8089/api/map/shores')
+      fetch('http://' + location.hostname + ':8089/api/map/shores')
         .then(response => {
           return response.json()
         })
@@ -173,7 +173,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
-      fetch('http://localhost:8089/api/map/shores/reserved')
+      fetch('http://' + location.hostname + ':8089/api/map/shores/reserved')
         .then(response => {
           return response.json()
         })

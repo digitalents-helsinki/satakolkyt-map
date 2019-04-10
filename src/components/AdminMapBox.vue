@@ -95,7 +95,14 @@ export default {
         source: 'shore',
         ...this.generateLineStringStyle()
       })
-
+      map.on('click', 'shore', e => {
+        this.$emit('shore-click', e.features[0].properties)
+        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 20 })
+      })
+      map.on('click', 'shore2', e => {
+        this.$emit('shore-click', e.features[0].properties)
+        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 20 })
+      })
 
     }
   }
