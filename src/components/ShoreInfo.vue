@@ -6,8 +6,8 @@
         <button id="show-modal" @click="$emit('show-reservationform')">
           Reserve this beach
         </button>
-        <button id="delete" v-on:click="deleteHandler">
-          Delete this beach
+        <button id="show-modal2" @click="$emit('show-cleanform')">
+          Claim Cleaned Beach
         </button>
       </slot>
     </div>
