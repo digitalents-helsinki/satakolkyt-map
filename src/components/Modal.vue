@@ -3,7 +3,7 @@
     <div class="modal-wrapper" @click="$emit('close')">
       <div class="modal-container" @click.stop>
         <template v-if="!saved">
-          <font-awesome-icon icon="times" />
+          <font-awesome-icon icon="times" @click="$emit('close')" />
           <form v-on:submit.prevent="saveContactInfo">
             <div class="modal-header">
               <slot name="header">

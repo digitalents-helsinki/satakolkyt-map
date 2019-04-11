@@ -3,13 +3,35 @@
     <div class="modal-wrapper" @click="$emit('close')">
       <div class="modal-container" @click.stop>
         <template v-if="!saved">
-          <font-awesome-icon icon="times" />
+          <font-awesome-icon icon="times" @click="$emit('close')" />
           <form v-on:submit.prevent="saveCleaned">
             <div class="modal-header">
-              Siivoa ranta
+              Siivoa ranta Siivouksen ajankohta <input type="date" /> Rannan
+              siivonnut taho <input type="text" />
             </div>
 
-            <div class="modal-body"></div>
+            <div class="modal-body">
+              Yhteyshenkilö nimi <input type="text" /> sähköposti
+              <input type="email" /> puhelinnumero <input type="text" /> Montako
+              osallistui siivoukseen <input type="number" />
+              Kuinka paljon rannalta löytyi roskaa
+              <select>
+                <optgroup label="vähäinen määrä">
+                  <option value="">ei juuri lainkaan</option>
+                  <option value="">muovipussillinen</option>
+                </optgroup>
+                <optgroup label="iso määrä">
+                  <option value="">jätesäkillinen</option>
+                  <option value="">monta jätesäkillistä</option>
+                </optgroup>
+              </select>
+              Jäikö rannalle pois vietäviä roskasäkkejä
+
+              <select>
+                <option value="">kyllä</option>
+                <option value="">ei</option>
+              </select>
+            </div>
 
             <div class="modal-footer"></div>
           </form>
@@ -35,17 +57,7 @@ export default {
 
   data() {
     return {
-      data: {
-        saved: false,
-        starttime: {
-          hh: '',
-          mm: ''
-        },
-        endtime: {
-          hh: '',
-          mm: ''
-        }
-      }
+      data: {}
     }
   },
   mounted() {},
