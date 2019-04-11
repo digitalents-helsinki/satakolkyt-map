@@ -100,11 +100,14 @@ export default {
       this.$emit('map-loaded', map)
 
       map.on('zoom', function() {
-        if (map.getZoom() > 13) {
+        if (map.getZoom() > 15) {
+          map.setPaintProperty('shore', 'line-width', 10)
+          map.setPaintProperty('shore2', 'line-width', 10)
+        }
+        else if (map.getZoom() > 13) {
           map.setPaintProperty('shore', 'line-width', 5)
           map.setPaintProperty('shore2', 'line-width', 5)
-        }
-        else {
+        } else {
           map.setPaintProperty('shore', 'line-width', 1)
           map.setPaintProperty('shore2', 'line-width', 1)
         }

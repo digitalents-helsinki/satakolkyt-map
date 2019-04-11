@@ -3,44 +3,53 @@
     <div class="modal-wrapper" @click="$emit('close')">
       <div class="modal-container" @click.stop>
         <template v-if="!saved">
-          <font-awesome-icon icon="times" @click="$emit('close')" />
+          <font-awesome-icon
+            icon="times"
+            class="cross-icon"
+            @click="$emit('close')"
+          />
           <form v-on:submit.prevent="saveContactInfo">
             <div class="modal-header">
               <slot name="header">
-                Alotuispäivä
-                <input v-model="data.startdate" type="date" />
-                Alotuisaika
-                <vue-timepicker
-                  v-model="data.starttime"
-                  format="HH:mm"
-                ></vue-timepicker>
-                Loppumispäivä
-                <input v-model="data.enddate" type="date" />
-                Loppumisaika
-                <vue-timepicker
-                  v-model="data.endtime"
-                  format="HH:mm"
-                ></vue-timepicker>
+                <h3>Varaa ranta siivoukseen</h3>
               </slot>
             </div>
 
             <div class="modal-body">
               <slot name="body">
-                Onko kyseessä?
+                <p>Päivämäärä aloitukselle</p>
+                <input v-model="data.startdate" type="date" />
+                <p>Kellonaika aloitukselle</p>
+                <vue-timepicker
+                  v-model="data.starttime"
+                  format="HH:mm"
+                ></vue-timepicker>
+                <p>Päivämäärä lopetukselle</p>
+                <input v-model="data.enddate" type="date" />
+                <p>Kellonaika lopetukselle</p>
+                <vue-timepicker
+                  v-model="data.endtime"
+                  format="HH:mm"
+                ></vue-timepicker>
+                <p>Minkäläiset talkoot</p>
                 <select v-model="data.type" class="" name="type">
-                  <option value="open">Avoimet Talkoot</option>
+                  <option value="open">Avoimet talkoot</option>
                   <option value="private">oman porukan talkoot </option>
                 </select>
+                <p>Järjestävän taho</p>
+                <input v-model="data.organizer" type="text" />
+                <p>Yhteyshenkilön</p>
+                <p>Nimi</p>
+                <input v-model="data.name" type="text" />
+                <p>puhelinnumero</p>
+                <input v-model="data.phonenumbery" type="text" />
+                <p>sähköposti</p>
+                <input v-model="data.email" type="text" />
               </slot>
             </div>
 
             <div class="modal-footer">
               <slot name="footer">
-                Järjestävä taho
-                <input v-model="data.organizer" type="text" /> Yhteyshenkilö:
-                Nimi <input v-model="data.name" type="text" /> puhelin
-                <input v-model="data.phonenumbery" type="text" /> sähköposti
-                <input v-model="data.email" type="text" />
                 <button class="modal-default-button" @click="showModal = false">
                   OK
                 </button>
@@ -121,6 +130,10 @@ export default {
   vertical-align: middle;
 }
 
+.cross-icon {
+  float: right;
+}
+
 .modal-container {
   width: 400px;
   height: 85vh;
@@ -134,8 +147,7 @@ export default {
   overflow: scroll;
 }
 .modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
+  font-weight: 700;
 }
 
 .modal-body {

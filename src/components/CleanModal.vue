@@ -3,18 +3,30 @@
     <div class="modal-wrapper" @click="$emit('close')">
       <div class="modal-container" @click.stop>
         <template v-if="!saved">
-          <font-awesome-icon icon="times" @click="$emit('close')" />
+          <font-awesome-icon
+            icon="times"
+            class="cross-icon"
+            @click="$emit('close')"
+          />
           <form v-on:submit.prevent="saveCleaned">
             <div class="modal-header">
-              Siivoa ranta Siivouksen ajankohta <input type="date" /> Rannan
-              siivonnut taho <input type="text" />
+              <h3>Ilmoita ranta siivotuksi</h3>
             </div>
-
             <div class="modal-body">
-              Yhteyshenkilö nimi <input type="text" /> sähköposti
-              <input type="email" /> puhelinnumero <input type="text" /> Montako
-              osallistui siivoukseen <input type="number" />
-              Kuinka paljon rannalta löytyi roskaa
+              <p>Siivouksen ajankohta</p>
+              <input type="date" />
+              <p>Rannan siivonnut taho</p>
+              <input type="text" />
+              <p>Yhteyshenkilön</p>
+              <p>nimi</p>
+              <input type="text" />
+              <p>sähköposti</p>
+              <input type="email" />
+              <p>puhelinnumero</p>
+              <input type="text" />
+              <p>Montako osallistui siivoukseen</p>
+              <input type="number" />
+              <p>Kuinka paljon rannalta löytyi roskaa</p>
               <select>
                 <optgroup label="vähäinen määrä">
                   <option value="">ei juuri lainkaan</option>
@@ -25,15 +37,17 @@
                   <option value="">monta jätesäkillistä</option>
                 </optgroup>
               </select>
-              Jäikö rannalle pois vietäviä roskasäkkejä
-
+              <p>Jäikö rannalle pois vietäviä roskasäkkejä</p>
               <select>
                 <option value="">kyllä</option>
                 <option value="">ei</option>
               </select>
             </div>
-
-            <div class="modal-footer"></div>
+            <div class="modal-footer">
+              <button type="submit">
+                OK
+              </button>
+            </div>
           </form>
         </template>
         <template v-if="saved">
@@ -77,6 +91,10 @@ export default {
   transition: opacity 0.3s ease;
 }
 
+.cross-icon {
+  float: right;
+}
+
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
@@ -95,8 +113,8 @@ export default {
   overflow: scroll;
 }
 .modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .modal-body {
