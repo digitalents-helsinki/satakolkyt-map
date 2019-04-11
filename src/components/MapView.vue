@@ -45,7 +45,7 @@ export default {
         },
         paint: {
           'line-color': '#475DCC',
-          'line-width': 5
+          'line-width': 1
         }
       }
     },
@@ -57,7 +57,7 @@ export default {
         },
         paint: {
           'line-color': '#ff0000',
-          'line-width': 5
+          'line-width': 1
         }
       }
     },
@@ -83,7 +83,7 @@ export default {
         source: 'shore2',
         ...this.generateLineStringStyle2()
       })
-       data = {
+      data = {
         type: 'FeatureCollection',
         features: enhancedData
       }
@@ -97,6 +97,17 @@ export default {
       })
 
       this.$emit('map-loaded', map)
+
+      map.on('zoom', function() {
+        if (map.getZoom() > 13) {
+          map.setPaintProperty('shore', 'line-width', 5)
+          map.setPaintProperty('shore2', 'line-width', 5)
+        }
+        else {
+          map.setPaintProperty('shore', 'line-width', 1)
+          map.setPaintProperty('shore2', 'line-width', 1)
+        }
+      })
 
       map.on('click', 'shore', e => {
         this.$emit('shore-click', e.features[0].properties)
