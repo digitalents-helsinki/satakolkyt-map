@@ -4,51 +4,14 @@
       <div class="modal-container" @click.stop>
         <template v-if="!saved">
           <font-awesome-icon icon="times" />
-          <form v-on:submit.prevent="saveContactInfo">
+          <form v-on:submit.prevent="saveCleaned">
             <div class="modal-header">
-              <slot name="header">
-                Alotuispäivä
-                <input v-model="data.startdate" type="date" />
-                Alotuisaika
-                <vue-timepicker
-                  v-model="data.starttime"
-                  format="HH:mm"
-                ></vue-timepicker>
-                Loppumispäivä
-                <input v-model="data.enddate" type="date" />
-                Loppumisaika
-                <vue-timepicker
-                  v-model="data.endtime"
-                  format="HH:mm"
-                ></vue-timepicker>
-              </slot>
+              Siivoa ranta
             </div>
 
-            <div class="modal-body">
-              <slot name="body">
-                Onko kyseessä?
-                <select v-model="data.type" class="" name="type">
-                  <option value="open">Avoimet Talkoot</option>
-                  <option value="private">oman porukan talkoot </option>
-                </select>
-              </slot>
-            </div>
+            <div class="modal-body"></div>
 
-            <div class="modal-footer">
-              <slot name="footer">
-                Järjestävä taho
-                <input v-model="data.organizer" type="text" /> Yhteyshenkilö:
-                Nimi <input v-model="data.name" type="text" /> puhelin
-                <input v-model="data.phonenumbery" type="text" /> sähköposti
-                <input v-model="data.email" type="text" />
-                <button class="modal-default-button" @click="showModal = false">
-                  OK
-                </button>
-                <button class="modal-default-button" @click="$emit('close')">
-                  Sulje
-                </button>
-              </slot>
-            </div>
+            <div class="modal-footer"></div>
           </form>
         </template>
         <template v-if="saved">
@@ -66,10 +29,8 @@
   </div>
 </template>
 <script>
-import VueTimepicker from 'vue2-timepicker'
 export default {
-  components: { VueTimepicker },
-  name: 'modal',
+  name: 'clean-modal',
   props: ['selected'],
 
   data() {
@@ -87,20 +48,8 @@ export default {
       }
     }
   },
-  mounted() {
-    this.data.selected = this.$props.selected
-  },
-  methods: {
-    saveContactInfo() {
-      console.log(this.data)
-      var reservation = JSON.parse(JSON.stringify(this.data))
-      reservation.endtime = this.data.endtime.hh + ':' + this.data.endtime.mm
-      reservation.starttime =
-        this.data.starttime.hh + ':' + this.data.starttime.mm
-      this.saved = true
-      //this.$emit('reservation-action', reservation)
-    }
-  }
+  mounted() {},
+  methods: {}
 }
 </script>
 <style scoped>

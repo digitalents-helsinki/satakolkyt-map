@@ -31,7 +31,8 @@ export default {
         zoom: 11
       },
       navControl: {
-        show: false
+        show: true,
+        position: 'bottom-right'
       }
     }
   },
@@ -122,11 +123,30 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .map-view {
   height: 100%;
 }
 #map {
   height: 100%;
+}
+.mapboxgl-ctrl-icon.mapboxgl-ctrl-zoom-in {
+	min-width: 1ex !important;
+	border-radius: 0px;
+}
+.mapboxgl-ctrl > button {
+	min-width: 1ex !important;
+	border-radius: 0px;
+}
+
+.mapboxgl-canvas-container.mapboxgl-interactive, .mapboxgl-ctrl-group > button.mapboxgl-ctrl-compass {
+	cursor: -webkit-grab;
+	cursor: grab;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	min-width: 1ex !important;
+	border-radius: 0px;
 }
 </style>

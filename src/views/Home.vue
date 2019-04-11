@@ -26,6 +26,7 @@
               @reserve-intention="saveReservation"
               @delete-shore="hideShore"
               @show-reservationform="showReservationForm = true"
+              @show-cleanform="showCleaned = true"
               :data="selectedShoreData"
             />
           </overlay-box>
@@ -41,6 +42,11 @@
           </Modal>
         </transition>
       </div>
+      <div v-if="showCleaned">
+        <transition name="modal">
+          <CleanModal @close="showCleaned = false"> </CleanModal>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +56,8 @@ import OverlayBox from '@/components/OverlayBox'
 import ShoreInfo from '@/components/ShoreInfo'
 import MapView from '@/components/MapView'
 import Modal from '@/components/Modal'
+import CleanModal from '@/components/CleanModal'
+
 import axios from 'axios'
 export default {
   name: 'home',
@@ -61,6 +69,7 @@ export default {
       json2: {},
       showMap: false,
       startMapOnMounted: false,
+      showCleaned: false,
       showReservationForm: false,
       // Overlay box
       showOverlay: false,
@@ -74,7 +83,8 @@ export default {
     MapView,
     ShoreInfo,
     OverlayBox,
-    Modal
+    Modal,
+    CleanModal
   },
 
   methods: {
@@ -157,13 +167,13 @@ export default {
     saveContactInfo(data) {
       axios({
         method: 'POST',
-        url: 'http://localhost:8089/api/map/reserve',
+        url: 'http://' + location.hostname + ':8089/api/map/reserve',
 
         data: data
       }).then(response => {})
     },
     initMap() {
-      fetch('http://localhost:8089/api/map/shores')
+      fetch('http://' + location.hostname + ':8089/api/map/shores')
         .then(response => {
           return response.json()
         })
@@ -173,7 +183,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
-      fetch('http://localhost:8089/api/map/shores/reserved')
+      fetch('http://' + location.hostname + ':8089/api/map/shores/reserved')
         .then(response => {
           return response.json()
         })
