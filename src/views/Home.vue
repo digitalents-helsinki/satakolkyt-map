@@ -44,7 +44,11 @@
       </div>
       <div v-if="showCleaned">
         <transition name="modal">
-          <CleanModal @close="showCleaned = false"> </CleanModal>
+          <CleanModal
+            v-bind:selected="selectedShoreData"
+            @close="showCleaned = false"
+          >
+          </CleanModal>
         </transition>
       </div>
     </div>

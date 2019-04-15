@@ -14,33 +14,33 @@
             </div>
             <div class="modal-body">
               <p>Siivouksen ajankohta</p>
-              <input type="date" />
+              <input v-model="data.date" type="date" />
               <p>Rannan siivonnut taho</p>
-              <input type="text" />
+              <input v-model="data.organizer_name" type="text" />
               <p>Yhteyshenkilön</p>
               <p>nimi</p>
-              <input type="text" />
+              <input v-model="data.leader_name" type="text" />
               <p>sähköposti</p>
-              <input type="email" />
+              <input v-model="data.leader_email" type="email" />
               <p>puhelinnumero</p>
-              <input type="text" />
+              <input v-model="data.leader_phone" type="text" />
               <p>Montako osallistui siivoukseen</p>
-              <input type="number" />
+              <input v-model="data.group_size" type="number" />
               <p>Kuinka paljon rannalta löytyi roskaa</p>
-              <select>
+              <select v-model="data.trash_amount">
                 <optgroup label="vähäinen määrä">
-                  <option value="">ei juuri lainkaan</option>
-                  <option value="">muovipussillinen</option>
+                  <option value="1">ei juuri lainkaan</option>
+                  <option value="2">muovipussillinen</option>
                 </optgroup>
                 <optgroup label="iso määrä">
-                  <option value="">jätesäkillinen</option>
-                  <option value="">monta jätesäkillistä</option>
+                  <option value="3">jätesäkillinen</option>
+                  <option value="4">monta jätesäkillistä</option>
                 </optgroup>
               </select>
               <p>Jäikö rannalle pois vietäviä roskasäkkejä</p>
-              <select>
-                <option value="">kyllä</option>
-                <option value="">ei</option>
+              <select v-model="data.trash_left">
+                <option value="yes">kyllä</option>
+                <option value="no">ei</option>
               </select>
             </div>
             <div class="modal-footer">
@@ -65,17 +65,30 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   name: 'clean-modal',
   props: ['selected'],
 
   data() {
     return {
-      data: {}
+      data: {},
+      saved: false
     }
   },
-  mounted() {},
-  methods: {}
+  mounted() {
+    this.data.selected = this.$props.selected
+  },
+  methods: {
+    saveCleaned() {
+      axios({
+        method: 'POST',
+        url: 'http://' + location.hostname + ':8089/api/map/cleaninfo',
+
+        data: this.data
+      }).then(response => {})
+    }
+  }
 }
 </script>
 <style scoped>

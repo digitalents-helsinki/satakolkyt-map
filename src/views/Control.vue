@@ -1,6 +1,36 @@
 <template>
   <div class="controlpanel-wrapper" @click="$emit('close')">
     <div class="controlpanel-container" @click.stop>
+      <div class="clean-infos">
+        <h1>Siivotut rannat</h1>
+        <li class="clean-info" v-for="clean in cleaned" :key="clean._id">
+          <div class="clean-time">
+            <h3>Ajankohta</h3>
+            <p>
+              alkaa:
+              {{ clean.date | moment('DD MMMM[ta] YYYY') }}
+            </p>
+          </div>
+          <div class="reservation-contact">
+            <h3>Yhteystiedot</h3>
+            <p>{{ clean.organizer_name }}</p>
+            <p>{{ clean.leader_phone }}</p>
+            <p>{{ clean.leader_email }}</p>
+          </div>
+          <div class="reservation-cta">
+            <button v-bind:id="clean.selected.key" v-on:click="showreservation">
+              Näytä kartassa
+            </button>
+            <button
+              v-on:click="addcleaned"
+              v-bind:id="clean.selected.key"
+              class="green"
+            >
+              Vahvista Siivottu ranta
+            </button>
+          </div>
+        </li>
+      </div>
       <div class="reservations">
         <h1>Varaukset</h1>
         <li
@@ -51,6 +81,7 @@
           @shore-click="populateSelectedShoreData"
           v-bind:data="json"
           v-bind:data2="json2"
+          v-bind:data3="json3"
         />
       </div>
       <transition name="overlayPop">
@@ -76,7 +107,6 @@ import OverlayBox from '@/components/OverlayBox'
 import AdminShoreInfo from '@/components/AdminShoreInfo'
 import AdminMapBox from '@/components/AdminMapBox'
 import axios from 'axios'
-
 export default {
   name: 'control',
   data() {
@@ -84,8 +114,10 @@ export default {
       reservations: {},
       json: {},
       json2: {},
+      json3: {},
       selected: {},
       showOverlay: false,
+      cleaned: {},
       selectedShoreData: {}
     }
   },
@@ -95,6 +127,7 @@ export default {
     AdminMapBox
   },
   methods: {
+    saveCleaned() {},
     mapLoaded(map) {
       this.map = map
     },
@@ -106,7 +139,6 @@ export default {
           location.hostname +
           ':8089/api/map/delete/' +
           this.data.key,
-
         data: { key: this.data.key }
       }).then(response => {
         this.hideShore(response.data.json)
@@ -128,7 +160,6 @@ export default {
         type: 'FeatureCollection',
         features: enhancedData2
       }
-
       const enhancedData = this.json.map(d => ({
         ...d,
         properties: { ...d.properties, key: d._key }
@@ -148,7 +179,6 @@ export default {
       if (!this.selectedShoreData) {
         this.showOverlay = false
       }
-
       this.showOverlay = !this.showOverlay
     },
     generateLineStringStyle() {
@@ -177,6 +207,20 @@ export default {
           console.log(error)
         })
     },
+    addcleaned(e) {
+      alert(e.target.id)
+      var id = e.target.id
+      axios
+        .post('http://' + location.hostname + ':8089/api/map/clean/', {
+          key: id
+        })
+        .then(function(response) {
+          console.log(response)
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+    },
     showreservation(e) {
       var id = e.target.id
       //get shore and show on map
@@ -192,7 +236,6 @@ export default {
             type: 'FeatureCollection',
             features: [this.selected]
           }
-
           this.map.addSource('shore3', { type: 'geojson', data: data })
           this.map.addLayer({
             id: 'shore3',
@@ -200,7 +243,6 @@ export default {
             source: 'shore3',
             ...this.generateLineStringStyle()
           })
-
           this.map.removeLayer('shore')
           this.map.removeSource('shore')
           this.map.removeLayer('shore2')
@@ -239,6 +281,16 @@ export default {
         .catch(error => {
           console.log(error)
         })
+      fetch('http://' + location.hostname + ':8089/api/map/shores/cleaned')
+        .then(response => {
+          return response.json()
+        })
+        .then(shores => {
+          this.json3 = shores.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     getReservations() {
       fetch('http://' + location.hostname + ':8089/api/map/reservations/')
@@ -251,10 +303,24 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    getCleaned() {
+      fetch('http://' + location.hostname + ':8089/api/map/cleaninfos/')
+        .then(response => {
+          return response.json()
+        })
+        .then(reservation => {
+          this.cleaned = reservation.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
+
   mounted() {
     this.getReservations()
+    this.getCleaned()
     this.initMap()
   }
 }

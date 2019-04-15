@@ -14,7 +14,7 @@ import MapBox from 'mapbox-gl-vue'
 
 export default {
   name: 'admin-map-box',
-  props: ['data','data2'],
+  props: ['data','data2','data3'],
   components: {
     MapBox
   },
@@ -59,6 +59,18 @@ export default {
         }
       }
     },
+    generateLineStringStyle3() {
+      return {
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#00ff00',
+          'line-width': 5
+        }
+      }
+    },
 
     mapLoaded(map) {
       const enhancedData = this.$props.data.map(d => ({
@@ -66,6 +78,10 @@ export default {
         properties: { ...d.properties, key: d._key }
       }))
       const enhancedData2 = this.$props.data2.map(d => ({
+        ...d,
+        properties: { ...d.properties, key: d._key }
+      }))
+      const enhancedData3 = this.$props.data3.map(d => ({
         ...d,
         properties: { ...d.properties, key: d._key }
       }))
@@ -94,6 +110,18 @@ export default {
         type: 'line',
         source: 'shore',
         ...this.generateLineStringStyle()
+      })
+       data = {
+        type: 'FeatureCollection',
+        features: enhancedData3
+      }
+      map.addSource('shore3', { type: 'geojson', data:  data });
+
+      map.addLayer({
+        id: 'shore3',
+        type: 'line',
+        source: 'shore3',
+        ...this.generateLineStringStyle3()
       })
       map.on('click', 'shore', e => {
         this.$emit('shore-click', e.features[0].properties)
