@@ -107,7 +107,7 @@ export default {
       reservation.starttime =
         this.data.starttime.hh + ':' + this.data.starttime.mm
       this.saved = true
-      //this.$emit('reservation-action', reservation)
+      this.$emit('reservation-action', reservation)
     }
   }
 }

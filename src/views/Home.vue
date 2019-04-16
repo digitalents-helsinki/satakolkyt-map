@@ -7,6 +7,7 @@
       <map-view
         v-bind:data="json"
         v-bind:data2="json2"
+        v-bind:data3="json3"
         v-if="showMap"
         @map-loaded="mapLoaded"
         @shore-click="populateSelectedShoreData"
@@ -71,6 +72,7 @@ export default {
       // Map
       json: {},
       json2: {},
+      json3: {},
       showMap: false,
       startMapOnMounted: false,
       showCleaned: false,
@@ -193,6 +195,16 @@ export default {
         })
         .then(shores => {
           this.json2 = shores.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      fetch('http://' + location.hostname + ':8089/api/map/shores/cleaned')
+        .then(response => {
+          return response.json()
+        })
+        .then(shores => {
+          this.json3 = shores.data
         })
         .catch(error => {
           console.log(error)

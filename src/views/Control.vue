@@ -11,13 +11,13 @@
               {{ clean.date | moment('DD MMMM[ta] YYYY') }}
             </p>
           </div>
-          <div class="reservation-contact">
+          <div class="cleanform-contact">
             <h3>Yhteystiedot</h3>
             <p>{{ clean.organizer_name }}</p>
             <p>{{ clean.leader_phone }}</p>
             <p>{{ clean.leader_email }}</p>
           </div>
-          <div class="reservation-cta">
+          <div class="clean-cta">
             <button v-bind:id="clean.selected.key" v-on:click="showreservation">
               Näytä kartassa
             </button>

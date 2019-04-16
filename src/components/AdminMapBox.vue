@@ -66,7 +66,7 @@ export default {
           'line-cap': 'round'
         },
         paint: {
-          'line-color': '#00ff00',
+          'line-color': '#006625',
           'line-width': 5
         }
       }

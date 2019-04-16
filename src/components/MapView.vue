@@ -15,7 +15,7 @@ import MapBox from 'mapbox-gl-vue'
 
 export default {
   name: 'map-view',
-  props: ['data','data2'],
+  props: ['data','data2','data3'],
   components: {
     MapBox
   },
@@ -62,6 +62,18 @@ export default {
         }
       }
     },
+    generateLineStringStyle3() {
+      return {
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#006625',
+          'line-width': 5
+        }
+      }
+    },
 
     mapLoaded(map) {
       const enhancedData = this.$props.data.map(d => ({
@@ -69,6 +81,10 @@ export default {
         properties: { ...d.properties, key: d._key }
       }))
       const enhancedData2 = this.$props.data2.map(d => ({
+        ...d,
+        properties: { ...d.properties, key: d._key }
+      }))
+      const enhancedData3 = this.$props.data3.map(d => ({
         ...d,
         properties: { ...d.properties, key: d._key }
       }))
@@ -96,6 +112,18 @@ export default {
         source: 'shore',
         ...this.generateLineStringStyle()
       })
+      data = {
+        type: 'FeatureCollection',
+        features: enhancedData3
+      }
+      map.addSource('shore3', { type: 'geojson', data:  data });
+
+      map.addLayer({
+        id: 'shore3',
+        type: 'line',
+        source: 'shore3',
+        ...this.generateLineStringStyle3()
+      })
 
       this.$emit('map-loaded', map)
 
@@ -103,13 +131,19 @@ export default {
         if (map.getZoom() > 15) {
           map.setPaintProperty('shore', 'line-width', 10)
           map.setPaintProperty('shore2', 'line-width', 10)
+          map.setPaintProperty('shore3', 'line-width', 10)
+
         }
         else if (map.getZoom() > 13) {
           map.setPaintProperty('shore', 'line-width', 5)
           map.setPaintProperty('shore2', 'line-width', 5)
+          map.setPaintProperty('shore3', 'line-width', 5)
+
         } else {
           map.setPaintProperty('shore', 'line-width', 1)
           map.setPaintProperty('shore2', 'line-width', 1)
+          map.setPaintProperty('shore3', 'line-width', 1)
+
         }
       })
 
