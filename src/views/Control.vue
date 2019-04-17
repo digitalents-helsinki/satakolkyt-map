@@ -64,13 +64,24 @@
             >
               Näytä kartassa
             </button>
-            <button
-              v-on:click="addreservation($event, reservation._key)"
-              v-bind:id="reservation.selected.key"
-              class="green"
-            >
-              Vahvista varaus
-            </button>
+            <template v-if="reservation.confirm">
+              <button
+                @click="removereservation($event, reservation)"
+                v-bind:id="reservation.selected.key"
+                class="red"
+              >
+                Peru varaus
+              </button>
+            </template>
+            <template v-else>
+              <button
+                v-on:click="addreservation($event, reservation)"
+                v-bind:id="reservation.selected.key"
+                class="green"
+              >
+                Vahvista varaus
+              </button>
+            </template>
           </div>
         </li>
       </div>
@@ -195,17 +206,40 @@ export default {
         }
       }
     },
-    addreservation(e, reservationid) {
-      alert(reservationid)
+    addreservation(e, reservation) {
       var id = e.target.id
 
       axios
         .post('http://' + location.hostname + ':8089/api/map/cleanbeach/', {
           key: id,
-          reservation: reservationid
+          reservation: reservation._key
         })
         .then(function(response) {
           console.log(response)
+          if (response.data.status === 'ok') {
+            reservation.confirm = true
+            alert('reserved')
+          }
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+    },
+    removereservation(e, reservation) {
+      axios
+        .post(
+          'http://' + location.hostname + ':8089/api/map/cancelcleanbeach/',
+          {
+            key: e.target.id,
+            reservation: reservation._key
+          }
+        )
+        .then(function(response) {
+          console.log(response)
+          if (response.data.status === 'ok') {
+            reservation.confirm = false
+            alert('canceled')
+          }
         })
         .catch(function(error) {
           console.log(error)
@@ -343,7 +377,10 @@ export default {
   justify-content: space-between;
 
   button.green {
-    border: 3px solid green;
+    border-color: green;
+  }
+  button.red {
+    border-color: red;
   }
   .reservations {
     .reservation {
