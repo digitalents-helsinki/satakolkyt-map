@@ -238,17 +238,21 @@ export default {
             type: 'FeatureCollection',
             features: [this.selected]
           }
-          this.map.addSource('shore3', { type: 'geojson', data: data })
+          var mapLayer = this.map.getLayer('shore4')
+
+          if (typeof mapLayer !== 'undefined') {
+            // Remove map layer & source.
+            this.map.removeLayer('shore4').removeSource('shore4')
+          }
+
+          this.map.addSource('shore4', { type: 'geojson', data: data })
           this.map.addLayer({
-            id: 'shore3',
+            id: 'shore4',
             type: 'line',
-            source: 'shore3',
+            source: 'shore4',
             ...this.generateLineStringStyle()
           })
-          this.map.removeLayer('shore')
-          this.map.removeSource('shore')
-          this.map.removeLayer('shore2')
-          this.map.removeSource('shore2')
+
           console.log(this.map)
           this.map.flyTo({
             center: [
