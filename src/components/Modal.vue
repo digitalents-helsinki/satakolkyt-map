@@ -51,7 +51,7 @@
             <div class="modal-footer">
               <slot name="footer">
                 <button class="modal-default-button" @click="showModal = false">
-                  OK
+                  Ok
                 </button>
                 <button class="modal-default-button" @click="$emit('close')">
                   Sulje
