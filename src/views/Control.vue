@@ -74,30 +74,32 @@
           </div>
         </li>
       </div>
-      <div class="editor">
-        Edit Map
-        <admin-map-box
-          @map-loaded="mapLoaded"
-          @shore-click="populateSelectedShoreData"
-          v-bind:data="json"
-          v-bind:data2="json2"
-          v-bind:data3="json3"
-        />
-      </div>
-      <transition name="overlayPop">
-        <div
-          v-if="showOverlay && selectedShoreData"
-          class="overlay-box-wrapper"
-        >
-          <overlay-box>
-            <admin-shore-info
-              @delete-shore="hideShore"
-              :data="selectedShoreData"
-            >
-            </admin-shore-info>
-          </overlay-box>
+      <div class="editor-wrapper">
+        <div class="editor">
+          Edit Map
+          <admin-map-box
+            @map-loaded="mapLoaded"
+            @shore-click="populateSelectedShoreData"
+            v-bind:data="json"
+            v-bind:data2="json2"
+            v-bind:data3="json3"
+          />
         </div>
-      </transition>
+        <transition name="overlayPop">
+          <div
+            v-if="showOverlay && selectedShoreData"
+            class="overlay-box-wrapper"
+          >
+            <overlay-box>
+              <admin-shore-info
+                @delete-shore="hideShore"
+                :data="selectedShoreData"
+              >
+              </admin-shore-info>
+            </overlay-box>
+          </div>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -357,6 +359,16 @@ export default {
 
   h1 {
     font-weight: bold;
+  }
+
+  .editor-wrapper {
+    position: relative;
+
+    .overlay-box-wrapper {
+      position: absolute;
+      bottom: 100px;
+      left: 110px;
+    }
   }
 }
 </style>
