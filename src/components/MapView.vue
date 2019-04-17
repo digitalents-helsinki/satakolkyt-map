@@ -149,11 +149,11 @@ export default {
 
       map.on('click', 'shore', e => {
         this.$emit('shore-click', e.features[0].properties)
-        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 20 })
+        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
       })
       map.on('click', 'shore2', e => {
         this.$emit('shore-click', e.features[0].properties)
-        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 20 })
+        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
       })
 
       const canv = map.getCanvas();
@@ -161,6 +161,12 @@ export default {
         canv.style.cursor = "pointer";
       })
       map.on("mouseleave", "shore", e => {
+        canv.style.cursor = "grab";
+      })
+      map.on("mouseenter", "shore2", e => {
+        canv.style.cursor = "pointer";
+      })
+      map.on("mouseleave", "shore2", e => {
         canv.style.cursor = "grab";
       })
     }
