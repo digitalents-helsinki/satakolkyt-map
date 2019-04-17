@@ -65,7 +65,7 @@
               Näytä kartassa
             </button>
             <button
-              v-on:click="addreservation"
+              v-on:click="addreservation($event, reservation._key)"
               v-bind:id="reservation.selected.key"
               class="green"
             >
@@ -193,12 +193,14 @@ export default {
         }
       }
     },
-    addreservation(e) {
-      alert(e.target.id)
+    addreservation(e, reservationid) {
+      alert(reservationid)
       var id = e.target.id
+
       axios
         .post('http://' + location.hostname + ':8089/api/map/cleanbeach/', {
-          key: id
+          key: id,
+          reservation: reservationid
         })
         .then(function(response) {
           console.log(response)
