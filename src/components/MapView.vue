@@ -129,9 +129,9 @@ export default {
 
       map.on('zoom', function() {
         if (map.getZoom() > 15) {
-          map.setPaintProperty('shore', 'line-width', 10)
-          map.setPaintProperty('shore2', 'line-width', 10)
-          map.setPaintProperty('shore3', 'line-width', 10)
+          map.setPaintProperty('shore', 'line-width', 15)
+          map.setPaintProperty('shore2', 'line-width', 15)
+          map.setPaintProperty('shore3', 'line-width', 15)
 
         }
         else if (map.getZoom() > 13) {
@@ -155,6 +155,14 @@ export default {
         this.$emit('shore-click', e.features[0].properties)
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 20 })
       })
+
+      const canv = map.getCanvas();
+      map.on("mouseenter", "shore", e => {
+        canv.style.cursor = "pointer";
+      })
+      map.on("mouseleave", "shore", e => {
+        canv.style.cursor = "grab";
+      })
     }
   }
 }
@@ -163,6 +171,7 @@ export default {
 <style lang="scss" >
 .map-view {
   height: 100%;
+  cursor: pointer;
 }
 #map {
   height: 100%;
@@ -185,5 +194,9 @@ export default {
 	user-select: none;
 	min-width: 1ex !important;
 	border-radius: 0px;
+}
+
+canvas {
+  cursor: pointer;
 }
 </style>
