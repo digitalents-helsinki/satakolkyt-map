@@ -36,8 +36,10 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "husky": ">=1",
     "lint-staged": "^8.1.0",
     "node-sass": "^4.9.0",
+    "prettier": "^1.17.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.21"
   },
@@ -74,11 +76,21 @@
   "lint-staged": {
     "*.js": [
       "vue-cli-service lint",
-      "git add"
+      "git add",
+      "eslint --fix"
     ],
     "*.vue": [
       "vue-cli-service lint",
       "git add"
+    ],
+    "*.{js,css,json,md,vue}": [
+      "prettier --write",
+      "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
