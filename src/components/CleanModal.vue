@@ -14,25 +14,48 @@
             </div>
             <div class="modal-body">
               <p>Siivouksen ajankohta</p>
-              <input required v-model="data.date" type="date" />
+              <input
+                :required="required ? true : false"
+                v-model="data.date"
+                type="date"
+              />
               <p>Rannan siivonnut taho</p>
-              <input required v-model="data.organizer_name" type="text" />
+              <input
+                :required="required ? true : false"
+                v-model="data.organizer_name"
+                type="text"
+              />
               <p>Yhteyshenkilön</p>
               <p>nimi</p>
-              <input required v-model="data.leader_name" type="text" />
+              <input
+                :required="required ? true : false"
+                v-model="data.leader_name"
+                type="text"
+              />
               <p>sähköposti</p>
-              <input required v-model="data.leader_email" type="email" />
+              <input
+                :required="required ? true : false"
+                v-model="data.leader_email"
+                type="email"
+              />
               <p>puhelinnumero</p>
               <input
-                required
+                :required="required ? true : false"
                 v-model="data.leader_phone"
                 type="tel"
                 pattern="[0-9]{3,11}"
               />
               <p>Montako osallistui siivoukseen</p>
-              <input required v-model="data.group_size" type="number" />
+              <input
+                :required="required ? true : false"
+                v-model="data.group_size"
+                type="number"
+              />
               <p>Kuinka paljon rannalta löytyi roskaa</p>
-              <select required v-model="data.trash_amount">
+              <select
+                :required="required ? true : false"
+                v-model="data.trash_amount"
+              >
                 <optgroup label="vähäinen määrä">
                   <option value="1">ei juuri lainkaan</option>
                   <option value="2">muovipussillinen</option>
@@ -43,7 +66,10 @@
                 </optgroup>
               </select>
               <p>Jäikö rannalle pois vietäviä roskasäkkejä</p>
-              <select required v-model="data.trash_left">
+              <select
+                :required="required ? true : false"
+                v-model="data.trash_left"
+              >
                 <option value="yes">kyllä</option>
                 <option value="no">ei</option>
               </select>
@@ -78,7 +104,8 @@ export default {
   data() {
     return {
       data: {},
-      saved: false
+      saved: false,
+      required: false
     }
   },
   mounted() {
