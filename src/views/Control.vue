@@ -21,13 +21,25 @@
             <button v-bind:id="clean.selected.key" v-on:click="showreservation">
               Näytä kartassa
             </button>
-            <button
-              v-on:click="addcleaned"
-              v-bind:id="clean.selected.key"
-              class="green"
-            >
-              Vahvista Siivottu ranta
-            </button>
+
+            <template v-if="clean.confirm">
+              <button
+                v-on:click="removecleaned($event, clean)"
+                v-bind:id="clean.selected.key"
+                class="red"
+              >
+                Peru Siivottu ranta
+              </button>
+            </template>
+            <template v-if="!clean.confirm">
+              <button
+                v-on:click="addcleaned($event, clean)"
+                v-bind:id="clean.selected.key"
+                class="green"
+              >
+                Vahvista Siivottu ranta
+              </button>
+            </template>
           </div>
         </li>
       </div>
@@ -225,6 +237,26 @@ export default {
           console.log(error)
         })
     },
+    removecleaned(e, cleaned) {
+      axios
+        .post(
+          'http://' + location.hostname + ':8089/api/map/cancelcleanedbeach/',
+          {
+            key: e.target.id,
+            clean: cleaned._key
+          }
+        )
+        .then(function(response) {
+          console.log(response)
+          if (response.data.status === 'ok') {
+            cleaned.confirm = false
+            alert('canceled')
+          }
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+    },
     removereservation(e, reservation) {
       axios
         .post(
@@ -245,12 +277,14 @@ export default {
           console.log(error)
         })
     },
-    addcleaned(e) {
+    addcleaned(e, clean) {
       alert(e.target.id)
+      clean.confirm = true
       var id = e.target.id
       axios
         .post('http://' + location.hostname + ':8089/api/map/clean/', {
-          key: id
+          key: id,
+          clean: clean._key
         })
         .then(function(response) {
           console.log(response)
