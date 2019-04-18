@@ -19,54 +19,68 @@
               <slot name="body">
                 <p>Päivämäärä aloitukselle</p>
                 <input
-                  required
+                  :required="required ? true : false"
                   v-model="reservationdata.startdate"
                   type="date"
                 />
                 <p>Kellonaika aloitukselle</p>
                 <vue-timepicker
-                  required
+                  :required="required ? true : false"
                   v-model="reservationdata.starttime"
                   format="HH:mm"
                 ></vue-timepicker>
                 <p>Päivämäärä lopetukselle</p>
-                <input required v-model="reservationdata.enddate" type="date" />
+                <input
+                  :required="required ? true : false"
+                  v-model="reservationdata.enddate"
+                  type="date"
+                />
                 <p>Kellonaika lopetukselle</p>
                 <vue-timepicker
-                  required
+                  :required="required ? true : false"
                   v-model="reservationdata.endtime"
                   format="HH:mm"
                 ></vue-timepicker>
                 <p>Minkäläiset talkoot</p>
                 <select
-                  required
+                  :required="required ? true : false"
                   v-model="reservationdata.type"
                   class=""
                   name="type"
                 >
-                  <option required value="open">Avoimet talkoot</option>
-                  <option required value="private"
+                  <option :required="required ? true : false" value="open"
+                    >Avoimet talkoot</option
+                  >
+                  <option :required="required ? true : false" value="private"
                     >oman porukan talkoot
                   </option>
                 </select>
                 <p>Järjestävän taho</p>
                 <input
-                  required
+                  :required="required ? true : false"
                   v-model="reservationdata.organizer"
                   type="text"
                 />
                 <p>Yhteyshenkilön</p>
                 <p>Nimi</p>
-                <input required v-model="reservationdata.name" type="text" />
+                <input
+                  :required="required ? true : false"
+                  v-model="reservationdata.name"
+                  type="text"
+                />
                 <p>puhelinnumero</p>
                 <input
-                  required
+                  :required="required ? true : false"
                   v-model="reservationdata.phonenumber"
                   pattern="[0-9]{3,11}"
                   type="tel"
                 />
                 <p>sähköposti</p>
-                <input required v-model="reservationdata.email" type="email" />
+                <input
+                  :required="required ? true : false"
+                  v-model="reservationdata.email"
+                  type="email"
+                />
               </slot>
             </div>
 
@@ -106,6 +120,7 @@ export default {
   data() {
     return {
       saved: false,
+      required: false,
       reservationdata: {
         confirm: false,
         starttime: {
