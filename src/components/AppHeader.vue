@@ -1,12 +1,30 @@
 <template>
   <div class="app-header">
     <h1>Satakolkyt Karttasovellus</h1>
+    <font-awesome-icon
+      icon="question-circle"
+      class="help-icon"
+      @click="showHelp = true"
+    />
+    <div v-if="showHelp">
+      <transition name="modal">
+        <Help @close="showHelp = false"> </Help>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
+import Help from './Help'
 export default {
-  name: 'app-header'
+  name: 'app-header',
+
+  components: { Help },
+  data() {
+    return {
+      showHelp: false
+    }
+  }
 }
 </script>
 
