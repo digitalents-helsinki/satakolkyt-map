@@ -100,12 +100,15 @@
       <div class="editor-wrapper">
         <div class="editor">
           Edit Map
+          <button v-if="showunhide" @click="unHideShore">Paljasta ranta</button>
           <admin-map-box
             @map-loaded="mapLoaded"
             @shore-click="populateSelectedShoreData"
+            @hidden-click="populateSelectedHideShoreData"
             v-bind:data="json"
             v-bind:data2="json2"
             v-bind:data3="json3"
+            v-bind:data4="json4"
           />
         </div>
         <transition name="overlayPop">
@@ -140,10 +143,13 @@ export default {
       json: {},
       json2: {},
       json3: {},
+      json4: {},
       selected: {},
       showOverlay: false,
+      showunhide: false,
       cleaned: {},
-      selectedShoreData: {}
+      selectedShoreData: {},
+      selectedHideShoreData: {}
     }
   },
   components: {
@@ -167,6 +173,16 @@ export default {
         data: { key: this.data.key }
       }).then(response => {
         this.hideShore(response.data.json)
+      })
+    },
+    unHideShore() {
+      let key = this.selectedHideShoreData.key
+      axios({
+        method: 'POST',
+        url: 'http://' + location.hostname + ':8089/api/map/unhidebeach',
+        data: { key: key }
+      }).then(response => {
+        this.showunhide = false
       })
     },
     hideShore(json) {
@@ -199,6 +215,10 @@ export default {
     populateSelectedShoreData(data) {
       this.selectedShoreData = data
       this.toggleOverlay()
+    },
+    populateSelectedHideShoreData(data) {
+      this.selectedHideShoreData = data
+      this.showunhide = true
     },
     toggleOverlay() {
       if (!this.selectedShoreData) {
@@ -363,6 +383,16 @@ export default {
         })
         .then(shores => {
           this.json3 = shores.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      fetch('http://' + location.hostname + ':8089/api/map/shores/hidden')
+        .then(response => {
+          return response.json()
+        })
+        .then(shores => {
+          this.json4 = shores.data
         })
         .catch(error => {
           console.log(error)

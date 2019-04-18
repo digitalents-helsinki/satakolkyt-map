@@ -14,14 +14,12 @@ import MapBox from 'mapbox-gl-vue'
 
 export default {
   name: 'admin-map-box',
-  props: ['data','data2','data3'],
+  props: ['data', 'data2', 'data3', 'data4'],
   components: {
     MapBox
   },
   data() {
     return {
-
-
       accessToken:
         'pk.eyJ1IjoiZGlnaXRhbGVudHMiLCJhIjoiY2pzZWppdm01MDV1NzQ0bzJmczQ5cDR2ZCJ9.p8qNiWhX3bWj9FB8IjdmLA',
       mapOptions: {
@@ -34,7 +32,7 @@ export default {
       }
     }
   },
-  methods:{
+  methods: {
     generateLineStringStyle() {
       return {
         layout: {
@@ -71,6 +69,18 @@ export default {
         }
       }
     },
+    generateLineStringStyle4() {
+      return {
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#ffdf00',
+          'line-width': 5
+        }
+      }
+    },
 
     mapLoaded(map) {
       const enhancedData = this.$props.data.map(d => ({
@@ -85,25 +95,29 @@ export default {
         ...d,
         properties: { ...d.properties, key: d._key }
       }))
+      const enhancedData4 = this.$props.data4.map(d => ({
+        ...d,
+        properties: { ...d.properties, key: d._key }
+      }))
       var data = {
         type: 'FeatureCollection',
         features: enhancedData2
       }
-      this.map = map;
+      this.map = map
       this.$emit('map-loaded', map)
 
-      map.addSource('shore2', { type: 'geojson', data:  data });
+      map.addSource('shore2', { type: 'geojson', data: data })
       map.addLayer({
         id: 'shore2',
         type: 'line',
         source: 'shore2',
         ...this.generateLineStringStyle2()
       })
-       data = {
+      data = {
         type: 'FeatureCollection',
         features: enhancedData
       }
-      map.addSource('shore', { type: 'geojson', data:  data });
+      map.addSource('shore', { type: 'geojson', data: data })
 
       map.addLayer({
         id: 'shore',
@@ -111,11 +125,11 @@ export default {
         source: 'shore',
         ...this.generateLineStringStyle()
       })
-       data = {
+      data = {
         type: 'FeatureCollection',
         features: enhancedData3
       }
-      map.addSource('shore3', { type: 'geojson', data:  data });
+      map.addSource('shore3', { type: 'geojson', data: data })
 
       map.addLayer({
         id: 'shore3',
@@ -123,27 +137,39 @@ export default {
         source: 'shore3',
         ...this.generateLineStringStyle3()
       })
+      data = {
+        type: 'FeatureCollection',
+        features: enhancedData4
+      }
+      map.addSource('hiddenData', { type: 'geojson', data: data })
+      map.addLayer({
+        id: 'hidden',
+        type: 'line',
+        source: 'hiddenData',
+        ...this.generateLineStringStyle4()
+      })
       map.on('click', 'shore', e => {
         this.$emit('shore-click', e.features[0].properties)
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 20 })
+      })
+      map.on('click', 'hidden', e => {
+        this.$emit('hidden-click', e.features[0].properties)
       })
       map.on('click', 'shore2', e => {
         this.$emit('shore-click', e.features[0].properties)
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 20 })
       })
-
     }
   }
+}
+</script>
 
-  }
-  </script>
-
-  <style lang="scss" scoped>
-  .map-view {
-    height: 100%;
-  }
-  #map {
-    width: 500px;
-    height: 500px;
-  }
-  </style>
+<style lang="scss" scoped>
+.map-view {
+  height: 100%;
+}
+#map {
+  width: 500px;
+  height: 500px;
+}
+</style>
