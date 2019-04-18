@@ -105,25 +105,76 @@ export default {
       map.on('zoom', function() {
         if (map.getZoom() > 15) {
           map.setPaintProperty('normalShore', 'line-width', 15)
+          map.setPaintProperty('selectedShore', 'line-width', 20)
           map.setPaintProperty('reservedShore', 'line-width', 15)
+          map.setPaintProperty('selectedReservedShore', 'line-width', 20)
           map.setPaintProperty('cleanedShore', 'line-width', 15)
         } else if (map.getZoom() > 13) {
           map.setPaintProperty('normalShore', 'line-width', 5)
+          map.setPaintProperty('selectedShore', 'line-width', 7)
           map.setPaintProperty('reservedShore', 'line-width', 5)
+          map.setPaintProperty('selectedReservedShore', 'line-width', 7)
           map.setPaintProperty('cleanedShore', 'line-width', 5)
         } else {
           map.setPaintProperty('normalShore', 'line-width', 1)
+          map.setPaintProperty('selectedShore', 'line-width', 2)
           map.setPaintProperty('reservedShore', 'line-width', 1)
+          map.setPaintProperty('selectedReservedShore', 'line-width', 2)
           map.setPaintProperty('cleanedShore', 'line-width', 1)
         }
       })
 
       map.on('click', 'normalShore', e => {
         this.$emit('shore-click', e.features[0].properties)
+
+        const selecteddata = {
+          type: 'FeatureCollection',
+          features: e.features
+        }
+
+        const selShData = map.getSource('selectedShoreData')
+        if (!selShData) {
+          map.addSource('selectedShoreData', {
+            type: 'geojson',
+            data: selecteddata
+          })
+          map.addLayer({
+            id: 'selectedShore',
+            type: 'line',
+            source: 'selectedShoreData',
+            ...this.generateLineStringStyle('#8595e5')
+          })
+        } else {
+          selShData.setData(selecteddata)
+        }
+
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
       })
+
       map.on('click', 'reservedShore', e => {
         this.$emit('shore-click', e.features[0].properties)
+
+        const selecteddata = {
+          type: 'FeatureCollection',
+          features: e.features
+        }
+
+        const selShData = map.getSource('selectedReservedShoreData')
+        if (!selShData) {
+          map.addSource('selectedReservedShoreData', {
+            type: 'geojson',
+            data: selecteddata
+          })
+          map.addLayer({
+            id: 'selectedReservedShore',
+            type: 'line',
+            source: 'selectedReservedShoreData',
+            ...this.generateLineStringStyle('#ff7575')
+          })
+        } else {
+          selShData.setData(selecteddata)
+        }
+
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
       })
 
