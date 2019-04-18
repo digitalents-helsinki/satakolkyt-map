@@ -94,14 +94,14 @@ export default {
   },
 
   methods: {
-    generateLineStringStyle() {
+    generateLineStringStyle(color) {
       return {
         layout: {
           'line-join': 'round',
           'line-cap': 'round'
         },
         paint: {
-          'line-color': '#475DCC',
+          'line-color': color,
           'line-width': 5
         }
       }
@@ -133,8 +133,8 @@ export default {
         type: 'FeatureCollection',
         features: enhancedData
       }
-      this.map.getSource('shore2').setData(data2)
-      this.map.getSource('shore').setData(data)
+      this.map.getSource('reservedShoreData').setData(data2)
+      this.map.getSource('normalShoreData').setData(data)
     },
     saveReservation(json) {
       this.json2.push(json)
@@ -146,13 +146,13 @@ export default {
         type: 'FeatureCollection',
         features: enhancedData2
       }
-      this.map.removeLayer('shore')
-      this.map.removeSource('shore')
+      this.map.removeLayer('normalShore')
+      this.map.removeSource('normalShoreData')
 
       this.json = this.json.filter(function(item) {
         return item._key !== json._key
       })
-      this.map.getSource('shore2').setData(data)
+      this.map.getSource('reservedShoreData').setData(data)
       const enhancedData = this.json.map(d => ({
         ...d,
         properties: { ...d.properties, key: d._key }
@@ -161,13 +161,13 @@ export default {
         type: 'FeatureCollection',
         features: enhancedData
       }
-      this.map.addSource('shore', { type: 'geojson', data: data })
+      this.map.addSource('normalShoreData', { type: 'geojson', data: data })
 
       this.map.addLayer({
-        id: 'shore',
+        id: 'normalShore',
         type: 'line',
-        source: 'shore',
-        ...this.generateLineStringStyle()
+        source: 'normalShoreData',
+        ...this.generateLineStringStyle('#475DCC')
       })
     },
     saveContactInfo(data) {

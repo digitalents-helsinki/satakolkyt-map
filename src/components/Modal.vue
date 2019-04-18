@@ -85,6 +85,7 @@ export default {
     return {
       saved: false,
       reservationdata: {
+        confirm: false,
         starttime: {
           hh: '',
           mm: ''

@@ -15,14 +15,12 @@ import MapBox from 'mapbox-gl-vue'
 
 export default {
   name: 'map-view',
-  props: ['data','data2','data3'],
+  props: ['data', 'data2', 'data3'],
   components: {
     MapBox
   },
   data() {
     return {
-
-
       accessToken:
         'pk.eyJ1IjoiZGlnaXRhbGVudHMiLCJhIjoiY2pzZWppdm01MDV1NzQ0bzJmczQ5cDR2ZCJ9.p8qNiWhX3bWj9FB8IjdmLA',
       mapOptions: {
@@ -38,39 +36,15 @@ export default {
   },
 
   methods: {
-    generateLineStringStyle() {
+    generateLineStringStyle(color) {
       return {
         layout: {
           'line-join': 'round',
           'line-cap': 'round'
         },
         paint: {
-          'line-color': '#475DCC',
+          'line-color': color,
           'line-width': 1
-        }
-      }
-    },
-    generateLineStringStyle2() {
-      return {
-        layout: {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        paint: {
-          'line-color': '#ff0000',
-          'line-width': 1
-        }
-      }
-    },
-    generateLineStringStyle3() {
-      return {
-        layout: {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        paint: {
-          'line-color': '#006625',
-          'line-width': 5
         }
       }
     },
@@ -88,93 +62,90 @@ export default {
         ...d,
         properties: { ...d.properties, key: d._key }
       }))
-      var data = {
-        type: 'FeatureCollection',
-        features: enhancedData2
-      }
-      this.map = map;
-      map.addSource('shore2', { type: 'geojson', data:  data });
-      map.addLayer({
-        id: 'shore2',
-        type: 'line',
-        source: 'shore2',
-        ...this.generateLineStringStyle2()
-      })
+      this.map = map
+
       data = {
         type: 'FeatureCollection',
         features: enhancedData
       }
-      map.addSource('shore', { type: 'geojson', data:  data });
-
+      map.addSource('normalShoreData', { type: 'geojson', data: data })
       map.addLayer({
-        id: 'shore',
+        id: 'normalShore',
         type: 'line',
-        source: 'shore',
-        ...this.generateLineStringStyle()
+        source: 'normalShoreData',
+        ...this.generateLineStringStyle('#475DCC')
       })
+
+      let data = {
+        type: 'FeatureCollection',
+        features: enhancedData2
+      }
+      map.addSource('reservedShoreData', { type: 'geojson', data: data })
+      map.addLayer({
+        id: 'reservedShore',
+        type: 'line',
+        source: 'reservedShoreData',
+        ...this.generateLineStringStyle('#ff0000')
+      })
+
       data = {
         type: 'FeatureCollection',
         features: enhancedData3
       }
-      map.addSource('shore3', { type: 'geojson', data:  data });
-
+      map.addSource('cleanedShoreData', { type: 'geojson', data: data })
       map.addLayer({
-        id: 'shore3',
+        id: 'cleanedShore',
         type: 'line',
-        source: 'shore3',
-        ...this.generateLineStringStyle3()
+        source: 'cleanedShoreData',
+        ...this.generateLineStringStyle('#006625')
       })
 
       this.$emit('map-loaded', map)
 
       map.on('zoom', function() {
         if (map.getZoom() > 15) {
-          map.setPaintProperty('shore', 'line-width', 15)
-          map.setPaintProperty('shore2', 'line-width', 15)
-          map.setPaintProperty('shore3', 'line-width', 15)
-
-        }
-        else if (map.getZoom() > 13) {
-          map.setPaintProperty('shore', 'line-width', 5)
-          map.setPaintProperty('shore2', 'line-width', 5)
-          map.setPaintProperty('shore3', 'line-width', 5)
-
+          map.setPaintProperty('normalShore', 'line-width', 15)
+          map.setPaintProperty('reservedShore', 'line-width', 15)
+          map.setPaintProperty('cleanedShore', 'line-width', 15)
+        } else if (map.getZoom() > 13) {
+          map.setPaintProperty('normalShore', 'line-width', 5)
+          map.setPaintProperty('reservedShore', 'line-width', 5)
+          map.setPaintProperty('cleanedShore', 'line-width', 5)
         } else {
-          map.setPaintProperty('shore', 'line-width', 1)
-          map.setPaintProperty('shore2', 'line-width', 1)
-          map.setPaintProperty('shore3', 'line-width', 1)
-
+          map.setPaintProperty('normalShore', 'line-width', 1)
+          map.setPaintProperty('reservedShore', 'line-width', 1)
+          map.setPaintProperty('cleanedShore', 'line-width', 1)
         }
       })
 
-      map.on('click', 'shore', e => {
+      map.on('click', 'normalShore', e => {
         this.$emit('shore-click', e.features[0].properties)
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
       })
-      map.on('click', 'shore2', e => {
+      map.on('click', 'reservedShore', e => {
         this.$emit('shore-click', e.features[0].properties)
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
       })
 
-      const canv = map.getCanvas();
-      map.on("mouseenter", "shore", e => {
-        canv.style.cursor = "pointer";
+      const canv = map.getCanvas()
+      map.on('mouseenter', 'normalShore', e => {
+        canv.style.cursor = 'pointer'
       })
-      map.on("mouseleave", "shore", e => {
-        canv.style.cursor = "grab";
+      map.on('mouseleave', 'normalShore', e => {
+        canv.style.cursor = 'grab'
       })
-      map.on("mouseenter", "shore2", e => {
-        canv.style.cursor = "pointer";
+      map.on('mouseenter', 'reservedShore', e => {
+        canv.style.cursor = 'pointer'
       })
-      map.on("mouseleave", "shore2", e => {
-        canv.style.cursor = "grab";
+      map.on('mouseleave', 'reservedShore', e => {
+        canv.style.cursor = 'grab'
       })
     }
   }
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .map-view {
   height: 100%;
   cursor: pointer;
@@ -183,23 +154,24 @@ export default {
   height: 100%;
 }
 .mapboxgl-ctrl-icon.mapboxgl-ctrl-zoom-in {
-	min-width: 1ex !important;
-	border-radius: 0px;
+  min-width: 1ex !important;
+  border-radius: 0px;
 }
 .mapboxgl-ctrl > button {
-	min-width: 1ex !important;
-	border-radius: 0px;
+  min-width: 1ex !important;
+  border-radius: 0px;
 }
 
-.mapboxgl-canvas-container.mapboxgl-interactive, .mapboxgl-ctrl-group > button.mapboxgl-ctrl-compass {
-	cursor: -webkit-grab;
-	cursor: grab;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	min-width: 1ex !important;
-	border-radius: 0px;
+.mapboxgl-canvas-container.mapboxgl-interactive,
+.mapboxgl-ctrl-group > button.mapboxgl-ctrl-compass {
+  cursor: -webkit-grab;
+  cursor: grab;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  min-width: 1ex !important;
+  border-radius: 0px;
 }
 
 canvas {
