@@ -18,33 +18,55 @@
             <div class="modal-body">
               <slot name="body">
                 <p>Päivämäärä aloitukselle</p>
-                <input v-model="reservationdata.startdate" type="date" />
+                <input
+                  required
+                  v-model="reservationdata.startdate"
+                  type="date"
+                />
                 <p>Kellonaika aloitukselle</p>
                 <vue-timepicker
+                  required
                   v-model="reservationdata.starttime"
                   format="HH:mm"
                 ></vue-timepicker>
                 <p>Päivämäärä lopetukselle</p>
-                <input v-model="reservationdata.enddate" type="date" />
+                <input required v-model="reservationdata.enddate" type="date" />
                 <p>Kellonaika lopetukselle</p>
                 <vue-timepicker
+                  required
                   v-model="reservationdata.endtime"
                   format="HH:mm"
                 ></vue-timepicker>
                 <p>Minkäläiset talkoot</p>
-                <select v-model="reservationdata.type" class="" name="type">
-                  <option value="open">Avoimet talkoot</option>
-                  <option value="private">oman porukan talkoot </option>
+                <select
+                  required
+                  v-model="reservationdata.type"
+                  class=""
+                  name="type"
+                >
+                  <option required value="open">Avoimet talkoot</option>
+                  <option required value="private"
+                    >oman porukan talkoot
+                  </option>
                 </select>
                 <p>Järjestävän taho</p>
-                <input v-model="reservationdata.organizer" type="text" />
+                <input
+                  required
+                  v-model="reservationdata.organizer"
+                  type="text"
+                />
                 <p>Yhteyshenkilön</p>
                 <p>Nimi</p>
-                <input v-model="reservationdata.name" type="text" />
+                <input required v-model="reservationdata.name" type="text" />
                 <p>puhelinnumero</p>
-                <input v-model="reservationdata.phonenumber" type="text" />
+                <input
+                  required
+                  v-model="reservationdata.phonenumber"
+                  pattern="[0-9]{3,11}"
+                  type="tel"
+                />
                 <p>sähköposti</p>
-                <input v-model="reservationdata.email" type="text" />
+                <input required v-model="reservationdata.email" type="email" />
               </slot>
             </div>
 
@@ -205,5 +227,11 @@ input {
 }
 .success {
   color: green;
+}
+
+input:invalid,
+select {
+  border-color: red;
+  box-shadow: none;
 }
 </style>

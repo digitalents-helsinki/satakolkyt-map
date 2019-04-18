@@ -14,20 +14,25 @@
             </div>
             <div class="modal-body">
               <p>Siivouksen ajankohta</p>
-              <input v-model="data.date" type="date" />
+              <input required v-model="data.date" type="date" />
               <p>Rannan siivonnut taho</p>
-              <input v-model="data.organizer_name" type="text" />
+              <input required v-model="data.organizer_name" type="text" />
               <p>Yhteyshenkilön</p>
               <p>nimi</p>
-              <input v-model="data.leader_name" type="text" />
+              <input required v-model="data.leader_name" type="text" />
               <p>sähköposti</p>
-              <input v-model="data.leader_email" type="email" />
+              <input required v-model="data.leader_email" type="email" />
               <p>puhelinnumero</p>
-              <input v-model="data.leader_phone" type="text" />
+              <input
+                required
+                v-model="data.leader_phone"
+                type="tel"
+                pattern="[0-9]{3,11}"
+              />
               <p>Montako osallistui siivoukseen</p>
-              <input v-model="data.group_size" type="number" />
+              <input required v-model="data.group_size" type="number" />
               <p>Kuinka paljon rannalta löytyi roskaa</p>
-              <select v-model="data.trash_amount">
+              <select required v-model="data.trash_amount">
                 <optgroup label="vähäinen määrä">
                   <option value="1">ei juuri lainkaan</option>
                   <option value="2">muovipussillinen</option>
@@ -38,7 +43,7 @@
                 </optgroup>
               </select>
               <p>Jäikö rannalle pois vietäviä roskasäkkejä</p>
-              <select v-model="data.trash_left">
+              <select required v-model="data.trash_left">
                 <option value="yes">kyllä</option>
                 <option value="no">ei</option>
               </select>
