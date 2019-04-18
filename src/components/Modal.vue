@@ -18,33 +18,33 @@
             <div class="modal-body">
               <slot name="body">
                 <p>Päivämäärä aloitukselle</p>
-                <input v-model="data.startdate" type="date" />
+                <input v-model="reservationdata.startdate" type="date" />
                 <p>Kellonaika aloitukselle</p>
                 <vue-timepicker
-                  v-model="data.starttime"
+                  v-model="reservationdata.starttime"
                   format="HH:mm"
                 ></vue-timepicker>
                 <p>Päivämäärä lopetukselle</p>
-                <input v-model="data.enddate" type="date" />
+                <input v-model="reservationdata.enddate" type="date" />
                 <p>Kellonaika lopetukselle</p>
                 <vue-timepicker
-                  v-model="data.endtime"
+                  v-model="reservationdata.endtime"
                   format="HH:mm"
                 ></vue-timepicker>
                 <p>Minkäläiset talkoot</p>
-                <select v-model="data.type" class="" name="type">
+                <select v-model="reservationdata.type" class="" name="type">
                   <option value="open">Avoimet talkoot</option>
                   <option value="private">oman porukan talkoot </option>
                 </select>
                 <p>Järjestävän taho</p>
-                <input v-model="data.organizer" type="text" />
+                <input v-model="reservationdata.organizer" type="text" />
                 <p>Yhteyshenkilön</p>
                 <p>Nimi</p>
-                <input v-model="data.name" type="text" />
+                <input v-model="reservationdata.name" type="text" />
                 <p>puhelinnumero</p>
-                <input v-model="data.phonenumbery" type="text" />
+                <input v-model="reservationdata.phonenumber" type="text" />
                 <p>sähköposti</p>
-                <input v-model="data.email" type="text" />
+                <input v-model="reservationdata.email" type="text" />
               </slot>
             </div>
 
@@ -83,8 +83,8 @@ export default {
 
   data() {
     return {
-      data: {
-        saved: false,
+      saved: false,
+      reservationdata: {
         starttime: {
           hh: '',
           mm: ''
@@ -97,15 +97,17 @@ export default {
     }
   },
   mounted() {
-    this.data.selected = this.$props.selected
+    this.reservationdata.selected = this.$props.selected
   },
   methods: {
     saveContactInfo() {
-      console.log(this.data)
-      var reservation = JSON.parse(JSON.stringify(this.data))
-      reservation.endtime = this.data.endtime.hh + ':' + this.data.endtime.mm
+      var reservation = JSON.parse(JSON.stringify(this.reservationdata))
+      reservation.endtime =
+        this.reservationdata.endtime.hh + ':' + this.reservationdata.endtime.mm
       reservation.starttime =
-        this.data.starttime.hh + ':' + this.data.starttime.mm
+        this.reservationdata.starttime.hh +
+        ':' +
+        this.reservationdata.starttime.mm
       this.saved = true
       this.$emit('reservation-action', reservation)
     }
