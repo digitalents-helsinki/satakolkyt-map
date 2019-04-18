@@ -26,7 +26,10 @@ export default {
       mapOptions: {
         style: 'mapbox://styles/obb123/cjtty0dz501c21fpdg8vg1hx6',
         center: [24.9476669, 60.1535843],
-        zoom: 11
+        zoom: 11,
+        pitchWithRotate: false,
+        dragRotate: false,
+        touchZoomRotate: false
       },
       navControl: {
         show: true,
@@ -177,7 +180,11 @@ export default {
 
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
       })
+      // disable map rotation using right click + drag
+      map.dragRotate.disable()
 
+      // disable map rotation using touch rotation gesture
+      map.touchZoomRotate.disableRotation()
       const canv = map.getCanvas()
       map.on('mouseenter', 'normalShore', e => {
         canv.style.cursor = 'pointer'
