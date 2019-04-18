@@ -148,6 +148,11 @@ export default {
         source: 'hiddenData',
         ...this.generateLineStringStyle4()
       })
+      // disable map rotation using right click + drag
+      map.dragRotate.disable()
+
+      // disable map rotation using touch rotation gesture
+      map.touchZoomRotate.disableRotation()
       map.on('click', 'shore', e => {
         this.$emit('shore-click', e.features[0].properties)
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 20 })
