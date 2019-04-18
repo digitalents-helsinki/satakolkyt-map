@@ -39,6 +39,7 @@
             v-bind:selected="selectedShoreData"
             @reservation-action="saveContactInfo"
             @close="showReservationForm = false"
+            ref="modal"
           >
           </Modal>
         </transition>
@@ -176,7 +177,13 @@ export default {
         url: 'http://' + location.hostname + ':8089/api/map/reserve',
 
         data: data
-      }).then(response => {})
+      }).then(response => {
+        if (response.data.status === 'ok') {
+          this.$refs.modal.reservationOk()
+        } else {
+          this.$refs.modal.reservationError()
+        }
+      })
     },
     initMap() {
       fetch('http://' + location.hostname + ':8089/api/map/shores')

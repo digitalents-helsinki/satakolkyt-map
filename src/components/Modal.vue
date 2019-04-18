@@ -131,8 +131,13 @@ export default {
         this.reservationdata.starttime.hh +
         ':' +
         this.reservationdata.starttime.mm
-      this.saved = true
       this.$emit('reservation-action', reservation)
+    },
+    reservationOk() {
+      this.saved = true
+    },
+    reservationError() {
+      alert('something went wrong: your reservation was rejected')
     }
   }
 }
