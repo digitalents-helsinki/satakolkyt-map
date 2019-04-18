@@ -2,24 +2,20 @@
   <div class="modal-mask">
     <div class="modal-wrapper" @click="$emit('close')">
       <div class="modal-container" @click.stop>
-        <template v-if="!saved">
-          <font-awesome-icon
-            icon="times"
-            class="cross-icon"
-            @click="$emit('close')"
+        <font-awesome-icon
+          icon="times"
+          class="cross-icon"
+          @click="$emit('close')"
+        />
+        <div class="modal-header"></div>
+
+        <div class="modal-body">
+          <img
+            src="https://media0.giphy.com/media/5AwCyyo8ZS9vl533IgU/giphy.gif"
           />
-          <form v-on:submit.prevent="saveContactInfo">
-            <div class="modal-header"></div>
+        </div>
 
-            <div class="modal-body">
-              <img
-                src="https://media0.giphy.com/media/5AwCyyo8ZS9vl533IgU/giphy.gif"
-              />
-            </div>
-
-            <div class="modal-footer"></div>
-          </form>
-        </template>
+        <div class="modal-footer"></div>
       </div>
     </div>
   </div>
