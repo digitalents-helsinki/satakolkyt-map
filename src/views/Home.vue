@@ -13,8 +13,10 @@
         @shore-click="populateSelectedShoreData"
       />
       <section v-else class="initial">
-        <h1>Avataanko Karttanäkymä?</h1>
-        <button @click="() => (showMap = true)">Avaa</button>
+        <h1>{{ $t('message.open_map') }}</h1>
+        <button @click="() => (showMap = true)">
+          {{ $t('message.open') }}
+        </button>
       </section>
 
       <transition name="overlayPop">

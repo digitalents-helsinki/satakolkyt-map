@@ -1,11 +1,18 @@
 <template>
   <div class="app-header">
-    <h1>Satakolkyt Karttasovellus</h1>
+    <h1>{{ $t('message.app') }}</h1>
     <font-awesome-icon
       icon="question-circle"
       class="help-icon"
       @click="showHelp = true"
     />
+    <template>
+      <div class="locale-changer">
+        <span style="margin-right: 5px;" @click="$i18n.locale = 'fi'">🇫🇮</span>
+        <span style="margin-right: 5px;" @click="$i18n.locale = 'en'">🇺🇸</span>
+      </div>
+    </template>
+
     <div v-if="showHelp">
       <transition name="modal">
         <Help @close="showHelp = false"> </Help>
@@ -22,7 +29,8 @@ export default {
   components: { Help },
   data() {
     return {
-      showHelp: false
+      showHelp: false,
+      langs: ['fi', 'en']
     }
   }
 }

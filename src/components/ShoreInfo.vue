@@ -4,10 +4,10 @@
       <h2>{{ data['hel:id'] }}</h2>
       <slot name="header">
         <button id="show-modal" @click="$emit('show-reservationform')">
-          Reserve this beach
+          {{ $t('message.reserve') }}
         </button>
         <button id="show-modal2" @click="$emit('show-cleanform')">
-          Claim Cleaned Beach
+          {{ $t('message.claim') }}
         </button>
       </slot>
     </div>
