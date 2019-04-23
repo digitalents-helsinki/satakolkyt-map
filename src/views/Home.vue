@@ -6,8 +6,8 @@
 
       <map-view
         v-bind:data="this.$store.state.maplayers.freelayer"
-        v-bind:data2="json2"
-        v-bind:data3="json3"
+        v-bind:data2="this.$store.state.maplayers.reservedlayer"
+        v-bind:data3="this.$store.state.maplayers.cleanlayer"
         v-if="showMap"
         @map-loaded="mapLoaded"
         @shore-click="populateSelectedShoreData"
@@ -153,26 +153,8 @@ export default {
     },
     initMap() {
       this.$store.dispatch('getfreelayer')
-      fetch('http://' + location.hostname + ':8089/api/map/shores/reserved')
-        .then(response => {
-          return response.json()
-        })
-        .then(shores => {
-          this.json2 = shores.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      fetch('http://' + location.hostname + ':8089/api/map/shores/cleaned')
-        .then(response => {
-          return response.json()
-        })
-        .then(shores => {
-          this.json3 = shores.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      this.$store.dispatch('getreservedlayer')
+      this.$store.dispatch('getcleanlayer')
 
       this.$nextTick(() => {
         this.showMap = this.startMapOnMounted
