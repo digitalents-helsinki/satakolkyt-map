@@ -68,10 +68,6 @@ export default {
 
   data() {
     return {
-      // Map
-      json: {},
-      json2: {},
-      json3: {},
       showMap: false,
       startMapOnMounted: false,
       showCleaned: false,
