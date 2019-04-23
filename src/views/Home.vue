@@ -5,7 +5,7 @@
       <div class="dimmer" v-if="showReservationForm" @click="toggleModal" />
 
       <map-view
-        v-bind:data="json"
+        v-bind:data="this.$store.state.maplayers.freelayer"
         v-bind:data2="json2"
         v-bind:data3="json3"
         v-if="showMap"
@@ -186,17 +186,7 @@ export default {
       })
     },
     initMap() {
-      fetch('http://' + location.hostname + ':8089/api/map/shores')
-        .then(response => {
-          return response.json()
-        })
-        .then(shores => {
-          this.json = shores.data
-          this.$store.commit('storefreelayer', shores.data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      this.$store.dispatch('getfreelayer')
       fetch('http://' + location.hostname + ':8089/api/map/shores/reserved')
         .then(response => {
           return response.json()
