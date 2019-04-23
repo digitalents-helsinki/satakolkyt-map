@@ -51,145 +51,106 @@ export default {
         }
       }
     },
+    addShoreType(map, name, data, color) {
+      const enhancedData = data.map(d => ({
+        ...d,
+        properties: { ...d.properties, key: d._key }
+      }))
 
-    mapLoaded(map) {
-      const enhancedData = this.$props.data.map(d => ({
-        ...d,
-        properties: { ...d.properties, key: d._key }
-      }))
-      const enhancedData2 = this.$props.data2.map(d => ({
-        ...d,
-        properties: { ...d.properties, key: d._key }
-      }))
-      const enhancedData3 = this.$props.data3.map(d => ({
-        ...d,
-        properties: { ...d.properties, key: d._key }
-      }))
-      this.map = map
-
-      data = {
+      const shoreData = {
         type: 'FeatureCollection',
         features: enhancedData
       }
-      map.addSource('normalShoreData', { type: 'geojson', data: data })
-      map.addLayer({
-        id: 'normalShore',
-        type: 'line',
-        source: 'normalShoreData',
-        ...this.generateLineStringStyle('#475DCC')
-      })
 
-      let data = {
-        type: 'FeatureCollection',
-        features: enhancedData2
-      }
-      map.addSource('reservedShoreData', { type: 'geojson', data: data })
+      map.addSource(name, { type: 'geojson', data: shoreData })
       map.addLayer({
-        id: 'reservedShore',
+        id: name,
         type: 'line',
-        source: 'reservedShoreData',
-        ...this.generateLineStringStyle('#ff0000')
+        source: name,
+        ...this.generateLineStringStyle(color)
       })
+    },
+    addSelectedShoreType(map, name, data, color) {
+      map.addSource(name, {
+        type: 'geojson',
+        data: data
+      })
+      map.addLayer({
+        id: name,
+        type: 'line',
+        source: name,
+        ...this.generateLineStringStyle(color)
+      })
+    },
+    addShoreClickHandler(map, layername, selectedColor) {
+      map.on('click', layername, e => {
+        this.$emit('shore-click', e.features[0].properties)
 
-      data = {
-        type: 'FeatureCollection',
-        features: enhancedData3
-      }
-      map.addSource('cleanedShoreData', { type: 'geojson', data: data })
-      map.addLayer({
-        id: 'cleanedShore',
-        type: 'line',
-        source: 'cleanedShoreData',
-        ...this.generateLineStringStyle('#006625')
+        const selecteddata = {
+          type: 'FeatureCollection',
+          features: e.features
+        }
+
+        const selShData = map.getSource(layername + 'Selected')
+        if (!selShData) {
+          this.addSelectedShoreType(
+            map,
+            layername + 'Selected',
+            selecteddata,
+            selectedColor
+          )
+        } else {
+          selShData.setData(selecteddata)
+        }
+
+        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
       })
+    },
+
+    mapLoaded(map) {
+      this.map = map
+
+      this.addShoreType(map, 'freeShore', this.$props.data, '#475DCC')
+      this.addShoreType(map, 'reservedShore', this.$props.data2, '#FF0000')
+      this.addShoreType(map, 'cleanedShore', this.$props.data3, '#006625')
 
       this.$emit('map-loaded', map)
 
       map.on('zoom', function() {
         if (map.getZoom() > 15) {
-          map.setPaintProperty('normalShore', 'line-width', 15)
-          map.setPaintProperty('selectedShore', 'line-width', 20)
+          map.setPaintProperty('freeShore', 'line-width', 15)
+          map.setPaintProperty('freeShoreSelected', 'line-width', 20)
           map.setPaintProperty('reservedShore', 'line-width', 15)
-          map.setPaintProperty('selectedReservedShore', 'line-width', 20)
+          map.setPaintProperty('reservedShoreSelected', 'line-width', 20)
           map.setPaintProperty('cleanedShore', 'line-width', 15)
         } else if (map.getZoom() > 13) {
-          map.setPaintProperty('normalShore', 'line-width', 5)
-          map.setPaintProperty('selectedShore', 'line-width', 7)
+          map.setPaintProperty('freeShore', 'line-width', 5)
+          map.setPaintProperty('freeShoreSelected', 'line-width', 7)
           map.setPaintProperty('reservedShore', 'line-width', 5)
-          map.setPaintProperty('selectedReservedShore', 'line-width', 7)
+          map.setPaintProperty('reservedShoreSelected', 'line-width', 7)
           map.setPaintProperty('cleanedShore', 'line-width', 5)
         } else {
-          map.setPaintProperty('normalShore', 'line-width', 1)
-          map.setPaintProperty('selectedShore', 'line-width', 2)
+          map.setPaintProperty('freeShore', 'line-width', 1)
+          map.setPaintProperty('freeShoreSelected', 'line-width', 2)
           map.setPaintProperty('reservedShore', 'line-width', 1)
-          map.setPaintProperty('selectedReservedShore', 'line-width', 2)
+          map.setPaintProperty('reservedShoreSelected', 'line-width', 2)
           map.setPaintProperty('cleanedShore', 'line-width', 1)
         }
       })
 
-      map.on('click', 'normalShore', e => {
-        this.$emit('shore-click', e.features[0].properties)
+      this.addShoreClickHandler(map, 'freeShore', '#8595E5')
+      this.addShoreClickHandler(map, 'reservedShore', 'FF7575')
 
-        const selecteddata = {
-          type: 'FeatureCollection',
-          features: e.features
-        }
-
-        const selShData = map.getSource('selectedShoreData')
-        if (!selShData) {
-          map.addSource('selectedShoreData', {
-            type: 'geojson',
-            data: selecteddata
-          })
-          map.addLayer({
-            id: 'selectedShore',
-            type: 'line',
-            source: 'selectedShoreData',
-            ...this.generateLineStringStyle('#8595e5')
-          })
-        } else {
-          selShData.setData(selecteddata)
-        }
-
-        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
-      })
-
-      map.on('click', 'reservedShore', e => {
-        this.$emit('shore-click', e.features[0].properties)
-
-        const selecteddata = {
-          type: 'FeatureCollection',
-          features: e.features
-        }
-
-        const selShData = map.getSource('selectedReservedShoreData')
-        if (!selShData) {
-          map.addSource('selectedReservedShoreData', {
-            type: 'geojson',
-            data: selecteddata
-          })
-          map.addLayer({
-            id: 'selectedReservedShore',
-            type: 'line',
-            source: 'selectedReservedShoreData',
-            ...this.generateLineStringStyle('#ff7575')
-          })
-        } else {
-          selShData.setData(selecteddata)
-        }
-
-        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
-      })
       // disable map rotation using right click + drag
       map.dragRotate.disable()
 
       // disable map rotation using touch rotation gesture
       map.touchZoomRotate.disableRotation()
       const canv = map.getCanvas()
-      map.on('mouseenter', 'normalShore', e => {
+      map.on('mouseenter', 'freeShore', e => {
         canv.style.cursor = 'pointer'
       })
-      map.on('mouseleave', 'normalShore', e => {
+      map.on('mouseleave', 'freeShore', e => {
         canv.style.cursor = 'grab'
       })
       map.on('mouseenter', 'reservedShore', e => {

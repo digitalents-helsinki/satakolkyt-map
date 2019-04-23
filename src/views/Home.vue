@@ -128,8 +128,8 @@ export default {
         type: 'FeatureCollection',
         features: enhancedData
       }
-      this.map.getSource('reservedShoreData').setData(data2)
-      this.map.getSource('normalShoreData').setData(data)
+      this.map.getSource('reservedShore').setData(data2)
+      this.map.getSource('freeShore').setData(data)
     },
     saveContactInfo(args) {
       axios({
