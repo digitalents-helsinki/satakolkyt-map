@@ -136,18 +136,23 @@ export default {
           map.setPaintProperty('reservedShoreSelected', 'line-width', 20)
           map.setPaintProperty('cleanedShore', 'line-width', 15)
           map.setPaintProperty('hiddenShore', 'line-width', 15)
+          map.setPaintProperty('hiddenShoreSelected', 'line-width', 20)
         } else if (map.getZoom() > 13) {
           map.setPaintProperty('freeShore', 'line-width', 5)
           map.setPaintProperty('freeShoreSelected', 'line-width', 7)
           map.setPaintProperty('reservedShore', 'line-width', 5)
           map.setPaintProperty('reservedShoreSelected', 'line-width', 7)
           map.setPaintProperty('cleanedShore', 'line-width', 5)
+          map.setPaintProperty('hiddenShore', 'line-width', 5)
+          map.setPaintProperty('hiddenShoreSelected', 'line-width', 7)
         } else {
           map.setPaintProperty('freeShore', 'line-width', 1)
           map.setPaintProperty('freeShoreSelected', 'line-width', 2)
           map.setPaintProperty('reservedShore', 'line-width', 1)
           map.setPaintProperty('reservedShoreSelected', 'line-width', 2)
           map.setPaintProperty('cleanedShore', 'line-width', 1)
+          map.setPaintProperty('hiddenShore', 'line-width', 1)
+          map.setPaintProperty('hiddenShoreSelected', 'line-width', 2)
         }
       })
 
