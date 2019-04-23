@@ -14,8 +14,17 @@
 import MapBox from 'mapbox-gl-vue'
 
 export default {
-  name: 'map',
-  props: ['freeshores', 'reservedshores', 'cleanedshores', 'hiddenshores'],
+  name: 'shore-map',
+  props: {
+    adminmode: {
+      type: Boolean,
+      default: false
+    },
+    freeshores: [Object, Array],
+    reservedshores: [Object, Array],
+    cleanedshores: [Object, Array],
+    hiddenshores: [Object, Array]
+  },
   components: {
     MapBox
   },
@@ -82,9 +91,9 @@ export default {
         ...this.generateLineStringStyle(color)
       })
     },
-    addShoreClickHandler(map, layername, selectedColor) {
+    addShoreClickHandler(map, layername, eventname, selectedColor) {
       map.on('click', layername, e => {
-        this.$emit('shore-click', e.features[0].properties)
+        this.$emit(eventname, e.features[0].properties)
 
         const selecteddata = {
           type: 'FeatureCollection',
@@ -110,9 +119,12 @@ export default {
     mapLoaded(map) {
       this.map = map
 
-      this.addShoreType(map, 'freeShore', this.$props.data, '#475DCC')
-      this.addShoreType(map, 'reservedShore', this.$props.data2, '#FF0000')
-      this.addShoreType(map, 'cleanedShore', this.$props.data3, '#006625')
+      this.addShoreType(map, 'freeShore', this.freeshores, '#475DCC')
+      this.addShoreType(map, 'reservedShore', this.reservedshores, '#FF0000')
+      this.addShoreType(map, 'cleanedShore', this.cleanedshores, '#006625')
+      if (this.adminmode) {
+        this.addShoreType(map, 'hiddenShore', this.hiddenshores, 'FFFF00')
+      }
 
       this.$emit('map-loaded', map)
 
@@ -123,6 +135,7 @@ export default {
           map.setPaintProperty('reservedShore', 'line-width', 15)
           map.setPaintProperty('reservedShoreSelected', 'line-width', 20)
           map.setPaintProperty('cleanedShore', 'line-width', 15)
+          map.setPaintProperty('hiddenShore', 'line-width', 15)
         } else if (map.getZoom() > 13) {
           map.setPaintProperty('freeShore', 'line-width', 5)
           map.setPaintProperty('freeShoreSelected', 'line-width', 7)
@@ -138,8 +151,11 @@ export default {
         }
       })
 
-      this.addShoreClickHandler(map, 'freeShore', '#8595E5')
-      this.addShoreClickHandler(map, 'reservedShore', 'FF7575')
+      this.addShoreClickHandler(map, 'freeShore', 'shore-click', '#8595E5')
+      this.addShoreClickHandler(map, 'reservedShore', 'shore-click', 'FF7575')
+      if (this.adminmode) {
+        this.addShoreClickHandler(map, 'hiddenShore', 'hidden-click', '#FFFF77')
+      }
 
       // disable map rotation using right click + drag
       map.dragRotate.disable()
