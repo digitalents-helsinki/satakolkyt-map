@@ -24,7 +24,6 @@
         >
           <overlay-box>
             <shore-info
-              @reserve-intention="saveReservation"
               @delete-shore="hideShore"
               @show-reservationform="showReservationForm = true"
               @show-cleanform="showCleaned = true"
@@ -37,9 +36,9 @@
         <transition name="modal">
           <Modal
             v-bind:selected="selectedShoreData"
+            :reservationstatus="resStatus"
             @reservation-action="saveContactInfo"
             @close="showReservationForm = false"
-            ref="modal"
           >
           </Modal>
         </transition>
@@ -82,7 +81,8 @@ export default {
       showOverlay: false,
       dimBackground: true,
       // Selected Shore
-      selectedShoreData: null
+      selectedShoreData: null,
+      resStatus: null
     }
   },
 
@@ -137,40 +137,6 @@ export default {
       this.map.getSource('reservedShoreData').setData(data2)
       this.map.getSource('normalShoreData').setData(data)
     },
-    saveReservation(json) {
-      this.json2.push(json)
-      const enhancedData2 = this.json2.map(d => ({
-        ...d,
-        properties: { ...d.properties, key: d._key }
-      }))
-      var data = {
-        type: 'FeatureCollection',
-        features: enhancedData2
-      }
-      this.map.removeLayer('normalShore')
-      this.map.removeSource('normalShoreData')
-
-      this.json = this.json.filter(function(item) {
-        return item._key !== json._key
-      })
-      this.map.getSource('reservedShoreData').setData(data)
-      const enhancedData = this.json.map(d => ({
-        ...d,
-        properties: { ...d.properties, key: d._key }
-      }))
-      data = {
-        type: 'FeatureCollection',
-        features: enhancedData
-      }
-      this.map.addSource('normalShoreData', { type: 'geojson', data: data })
-
-      this.map.addLayer({
-        id: 'normalShore',
-        type: 'line',
-        source: 'normalShoreData',
-        ...this.generateLineStringStyle('#475DCC')
-      })
-    },
     saveContactInfo(data) {
       axios({
         method: 'POST',
@@ -179,9 +145,9 @@ export default {
         data: data
       }).then(response => {
         if (response.data.status === 'ok') {
-          this.$refs.modal.reservationOk()
+          this.resStatus = 'ok'
         } else {
-          this.$refs.modal.reservationError()
+          this.resStatus = 'err'
         }
       })
     },

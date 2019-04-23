@@ -26,34 +26,7 @@ export default {
       showModal: false
     }
   },
-
-  methods: {
-    clickHandler() {
-      axios({
-        method: 'POST',
-        url: 'http://' + location.hostname + ':8089/api/map/cleanbeach',
-
-        data: { key: this.data.key }
-      }).then(response => {
-        this.$emit('reserve-intention', response.data.json)
-      })
-    },
-    deleteHandler() {
-      axios({
-        method: 'POST',
-        url:
-          'http://' +
-          location.hostname +
-          ':8089/api/map/delete/' +
-          this.data.key,
-
-        data: { key: this.data.key }
-      }).then(response => {
-        console.log(response)
-        this.$emit('delete-shore', response.data.json)
-      })
-    }
-  },
+  methods: {},
   mounted() {}
 }
 </script>
