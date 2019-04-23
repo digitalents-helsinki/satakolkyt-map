@@ -115,7 +115,7 @@ import VueTimepicker from 'vue2-timepicker'
 export default {
   components: { VueTimepicker },
   name: 'modal',
-  props: ['selected', 'reservationstatus'],
+  props: ['selected'],
 
   data() {
     return {
@@ -137,15 +137,6 @@ export default {
   mounted() {
     this.reservationdata.selected = this.$props.selected
   },
-  watch: {
-    reservationstatus: function(val) {
-      if (val === 'ok') {
-        this.saved = true
-      } else if (val === 'err') {
-        this.reservationError()
-      }
-    }
-  },
   methods: {
     saveContactInfo() {
       var reservation = JSON.parse(JSON.stringify(this.reservationdata))
@@ -155,7 +146,14 @@ export default {
         this.reservationdata.starttime.hh +
         ':' +
         this.reservationdata.starttime.mm
-      this.$emit('reservation-action', reservation)
+      this.$emit('reservation-action', {
+        data: reservation,
+        okCB: this.reservationOk,
+        errCB: this.reservationError
+      })
+    },
+    reservationOk() {
+      this.saved = true
     },
     reservationError() {
       alert('something went wrong: your reservation was rejected')

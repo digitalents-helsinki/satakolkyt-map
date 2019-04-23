@@ -36,7 +36,6 @@
         <transition name="modal">
           <Modal
             v-bind:selected="selectedShoreData"
-            :reservationstatus="resStatus"
             @reservation-action="saveContactInfo"
             @close="showReservationForm = false"
           >
@@ -81,8 +80,7 @@ export default {
       showOverlay: false,
       dimBackground: true,
       // Selected Shore
-      selectedShoreData: null,
-      resStatus: null
+      selectedShoreData: null
     }
   },
 
@@ -137,17 +135,17 @@ export default {
       this.map.getSource('reservedShoreData').setData(data2)
       this.map.getSource('normalShoreData').setData(data)
     },
-    saveContactInfo(data) {
+    saveContactInfo(args) {
       axios({
         method: 'POST',
         url: 'http://' + location.hostname + ':8089/api/map/reserve',
 
-        data: data
+        data: args.data
       }).then(response => {
         if (response.data.status === 'ok') {
-          this.resStatus = 'ok'
+          args.okCB()
         } else {
-          this.resStatus = 'err'
+          args.errCB()
         }
       })
     },
