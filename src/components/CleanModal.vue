@@ -10,62 +10,58 @@
           />
           <form v-on:submit.prevent="saveCleaned">
             <div class="modal-header">
-              <h3>Ilmoita ranta siivotuksi</h3>
+              <h3>{{ $t('message.claim_clean') }}</h3>
             </div>
             <div class="modal-body">
-              <p>Siivouksen ajankohta</p>
+              <p>{{ $t('message.time_clean') }}</p>
               <input
                 :required="required ? true : false"
                 v-model="data.date"
                 type="date"
               />
-              <p>Rannan siivonnut taho</p>
+              <p>{{ $t('message.organizer_clean') }}</p>
               <input
                 :required="required ? true : false"
                 v-model="data.organizer_name"
                 type="text"
               />
-              <p>Yhteyshenkilön</p>
+              <p>{{ $t('message.name') }}</p>
               <p>nimi</p>
               <input
                 :required="required ? true : false"
                 v-model="data.leader_name"
                 type="text"
               />
-              <p>sähköposti</p>
+              <p>{{ $t('message.email') }}</p>
               <input
                 :required="required ? true : false"
                 v-model="data.leader_email"
                 type="email"
               />
-              <p>puhelinnumero</p>
+              <p>{{ $t('message.phonenumber') }}</p>
               <input
                 :required="required ? true : false"
                 v-model="data.leader_phone"
                 type="tel"
                 pattern="[0-9]{3,11}"
               />
-              <p>Montako osallistui siivoukseen</p>
+              <p>{{ $t('message.clean_count') }}</p>
               <input
                 :required="required ? true : false"
                 v-model="data.group_size"
                 type="number"
               />
-              <p>Kuinka paljon rannalta löytyi roskaa</p>
+              <p>{{ $t('message.trash_count') }}</p>
               <select
                 :required="required ? true : false"
                 v-model="data.trash_amount"
               >
-                <optgroup label="vähäinen määrä">
-                  <option value="1">ei juuri lainkaan</option>
-                  <option value="2">muovipussillinen</option>
-                </optgroup>
-                <optgroup label="iso määrä">
-                  <option value="3">jätesäkillinen</option>
-                  <option value="4">monta jätesäkillistä</option>
-                </optgroup>
+                <option value="1">{{ $t('message.trash_little') }}</option>
+                <option value="2">{{ $t('message.trash_small') }}</option>
+                <option value="3">{{ $t('message.trash_medium') }}</option>
+                <option value="4">{{ $t('message.trash_large') }}</option>
               </select>
-              <p>Jäikö rannalle pois vietäviä roskasäkkejä</p>
+              <p>{{ $t('message.trash_left') }}</p>
               <select
                 :required="required ? true : false"
                 v-model="data.trash_left"

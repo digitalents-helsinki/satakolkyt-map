@@ -108,7 +108,7 @@
             v-bind:data="this.$store.state.maplayers.freelayer"
             v-bind:data2="this.$store.state.maplayers.reservedlayer"
             v-bind:data3="this.$store.state.maplayers.cleanlayer"
-            v-bind:data4="json4"
+            v-bind:data4="this.$store.state.maplayers.hiddenlayer"
           />
         </div>
         <transition name="overlayPop">

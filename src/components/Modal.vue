@@ -11,71 +11,71 @@
           <form v-on:submit.prevent="saveContactInfo">
             <div class="modal-header">
               <slot name="header">
-                <h3>Varaa ranta siivoukseen</h3>
+                <h3>{{ $t('message.reserve_clean') }}</h3>
               </slot>
             </div>
 
             <div class="modal-body">
               <slot name="body">
-                <p>Päivämäärä aloitukselle</p>
+                <p>{{ $t('message.date_start') }}</p>
                 <input
                   :required="required ? true : false"
                   v-model="reservationdata.startdate"
                   type="date"
                 />
-                <p>Kellonaika aloitukselle</p>
+                <p>{{ $t('message.time_start') }}</p>
                 <vue-timepicker
                   :required="required ? true : false"
                   v-model="reservationdata.starttime"
                   format="HH:mm"
                 ></vue-timepicker>
-                <p>Päivämäärä lopetukselle</p>
+                <p>{{ $t('message.date_end') }}</p>
                 <input
                   :required="required ? true : false"
                   v-model="reservationdata.enddate"
                   type="date"
                 />
-                <p>Kellonaika lopetukselle</p>
+                <p>{{ $t('message.time_end') }}</p>
                 <vue-timepicker
                   :required="required ? true : false"
                   v-model="reservationdata.endtime"
                   format="HH:mm"
                 ></vue-timepicker>
-                <p>Minkäläiset talkoot</p>
+                <p>{{ $t('message.type_label') }}</p>
                 <select
                   :required="required ? true : false"
                   v-model="reservationdata.type"
                   class=""
                   name="type"
                 >
-                  <option :required="required ? true : false" value="open"
-                    >Avoimet talkoot</option
-                  >
+                  <option :required="required ? true : false" value="open">{{
+                    $t('message.type_open')
+                  }}</option>
                   <option :required="required ? true : false" value="private"
-                    >oman porukan talkoot
+                    >{{ $t('message.type_private') }}
                   </option>
                 </select>
-                <p>Järjestävän taho</p>
+                <p>{{ $t('message.organizer') }}</p>
                 <input
                   :required="required ? true : false"
                   v-model="reservationdata.organizer"
                   type="text"
                 />
-                <p>Yhteyshenkilön</p>
-                <p>Nimi</p>
+                <p>{{ $t('message.contact') }}</p>
+                <p>{{ $t('message.name') }}</p>
                 <input
                   :required="required ? true : false"
                   v-model="reservationdata.name"
                   type="text"
                 />
-                <p>puhelinnumero</p>
+                <p>{{ $t('message.phonenumber') }}</p>
                 <input
                   :required="required ? true : false"
                   v-model="reservationdata.phonenumber"
                   pattern="[0-9]{3,11}"
                   type="tel"
                 />
-                <p>sähköposti</p>
+                <p>{{ $t('message.email') }}</p>
                 <input
                   :required="required ? true : false"
                   v-model="reservationdata.email"
@@ -90,7 +90,7 @@
                   Ok
                 </button>
                 <button class="modal-default-button" @click="$emit('close')">
-                  Sulje
+                  {{ $t('message.close') }}
                 </button>
               </slot>
             </div>
