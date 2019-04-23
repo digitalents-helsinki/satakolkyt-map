@@ -8,7 +8,8 @@ export default new Vuex.Store({
     maplayers: {
       freelayer: {},
       reservedlayer: {},
-      cleanlayer: {}
+      cleanlayer: {},
+      hiddenlayer: {}
     }
   },
   mutations: {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     storecleanlayer(state, n) {
       state.maplayers.cleanlayer = n
+    },
+    storehiddenlayer(state, n) {
+      state.maplayers.hiddenlayer = n
     }
   },
   actions: {
@@ -54,6 +58,18 @@ export default new Vuex.Store({
         })
         .then(shores => {
           commit('storecleanlayer', shores.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    gethiddenlayer({ commit }) {
+      fetch('http://' + location.hostname + ':8089/api/map/shores/hidden')
+        .then(response => {
+          return response.json()
+        })
+        .then(shores => {
+          commit('storehiddenlayer', shores.data)
         })
         .catch(error => {
           console.log(error)
