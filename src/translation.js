@@ -1,4 +1,4 @@
-const messages = {
+export const messages = {
   fi: {
     message: {
       open_map: 'Avataanko Karttanäkymä?',

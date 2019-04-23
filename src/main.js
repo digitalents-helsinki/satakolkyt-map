@@ -13,7 +13,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { faLanguage } from '@fortawesome/free-solid-svg-icons'
 import VueI18n from 'vue-i18n'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import messages from './translation'
+import { messages } from './translation'
 library.add(faTimes)
 library.add(faQuestionCircle)
 library.add(faLanguage)
