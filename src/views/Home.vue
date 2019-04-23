@@ -192,6 +192,7 @@ export default {
         })
         .then(shores => {
           this.json = shores.data
+          this.$store.commit('storefreelayer', shores.data)
         })
         .catch(error => {
           console.log(error)

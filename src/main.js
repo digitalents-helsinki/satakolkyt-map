@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VTooltip from 'v-tooltip'
 import App from './App.vue'
 import router from './router'
+import store from './store'
 import './registerServiceWorker'
 import moment from 'moment'
 import 'moment/locale/fi'
@@ -22,5 +23,6 @@ Vue.use(require('vue-moment'), {
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
