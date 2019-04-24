@@ -4,10 +4,11 @@
       <div class="dimmer" v-if="showOverlay" @click="toggleOverlay" />
       <div class="dimmer" v-if="showReservationForm" @click="toggleModal" />
 
-      <map-view
-        v-bind:data="this.$store.state.maplayers.freelayer"
-        v-bind:data2="this.$store.state.maplayers.reservedlayer"
-        v-bind:data3="this.$store.state.maplayers.cleanlayer"
+      <shore-map
+        :freeshores="this.$store.state.maplayers.freelayer"
+        :reservedshores="this.$store.state.maplayers.reservedlayer"
+        :cleanedshores="this.$store.state.maplayers.cleanlayer"
+        :hiddenshores="this.$store.state.maplayers.hiddenlayer"
         v-if="showMap"
         @map-loaded="mapLoaded"
         @shore-click="populateSelectedShoreData"
@@ -60,7 +61,8 @@
 <script>
 import OverlayBox from '@/components/OverlayBox'
 import ShoreInfo from '@/components/ShoreInfo'
-import MapView from '@/components/MapView'
+//import MapView from '@/components/MapView'
+import ShoreMap from '@/components/ShoreMap'
 import Modal from '@/components/Modal'
 import CleanModal from '@/components/CleanModal'
 
@@ -83,7 +85,8 @@ export default {
   },
 
   components: {
-    MapView,
+    //MapView,
+    ShoreMap,
     ShoreInfo,
     OverlayBox,
     Modal,
@@ -151,6 +154,7 @@ export default {
       this.$store.dispatch('getfreelayer')
       this.$store.dispatch('getreservedlayer')
       this.$store.dispatch('getcleanlayer')
+      this.$store.dispatch('gethiddenlayer')
 
       this.$nextTick(() => {
         this.showMap = this.startMapOnMounted

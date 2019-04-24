@@ -108,15 +108,18 @@
         <div class="editor">
           Edit Map
           <button v-if="showunhide" @click="unHideShore">Paljasta ranta</button>
-          <admin-map-box
-            @map-loaded="mapLoaded"
-            @shore-click="populateSelectedShoreData"
-            @hidden-click="populateSelectedHideShoreData"
-            v-bind:data="this.$store.state.maplayers.freelayer"
-            v-bind:data2="this.$store.state.maplayers.reservedlayer"
-            v-bind:data3="this.$store.state.maplayers.cleanlayer"
-            v-bind:data4="this.$store.state.maplayers.hiddenlayer"
-          />
+          <div class="adminMapContainer">
+            <shore-map
+              adminmode
+              @map-loaded="mapLoaded"
+              @shore-click="populateSelectedShoreData"
+              @hidden-click="populateSelectedHideShoreData"
+              :freeshores="this.$store.state.maplayers.freelayer"
+              :reservedshores="this.$store.state.maplayers.reservedlayer"
+              :cleanedshores="this.$store.state.maplayers.cleanlayer"
+              :hiddenshores="this.$store.state.maplayers.hiddenlayer"
+            />
+          </div>
         </div>
         <transition name="overlayPop">
           <div
@@ -140,7 +143,8 @@
 <script>
 import OverlayBox from '@/components/OverlayBox'
 import AdminShoreInfo from '@/components/AdminShoreInfo'
-import AdminMapBox from '@/components/AdminMapBox'
+//import AdminMapBox from '@/components/AdminMapBox'
+import ShoreMap from '@/components/ShoreMap'
 import axios from 'axios'
 export default {
   name: 'control',
@@ -162,7 +166,8 @@ export default {
   components: {
     AdminShoreInfo,
     OverlayBox,
-    AdminMapBox
+    //AdminMapBox
+    ShoreMap
   },
   methods: {
     saveCleaned() {},
@@ -458,6 +463,11 @@ export default {
 
   .editor-wrapper {
     position: relative;
+
+    .adminMapContainer {
+      width: 500px;
+      height: 500px;
+    }
 
     .overlay-box-wrapper {
       position: absolute;
