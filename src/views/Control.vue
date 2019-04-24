@@ -76,6 +76,13 @@
             >
               Näytä kartassa
             </button>
+            <button
+              @click="deletereservation($event, reservation)"
+              v-bind:id="reservation.selected.key"
+              class="red"
+            >
+              Poista varaus
+            </button>
             <template v-if="reservation.confirm">
               <button
                 @click="removereservation($event, reservation)"
@@ -276,6 +283,12 @@ export default {
         .catch(function(error) {
           console.log(error)
         })
+    },
+    deletereservation(e, reservation) {
+      axios.delete(
+        'http://' + location.hostname + ':8089/api/map/reservation',
+        { data: { id: reservation._key, key: e.target.id } }
+      )
     },
     removereservation(e, reservation) {
       axios
