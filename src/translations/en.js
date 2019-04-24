@@ -29,6 +29,22 @@ export const en = {
     trash_medium: 'About one refuse sack',
     trash_large: 'Many refuse sacks',
     trash_left:
-      'Did you leave trash sacks on the strand which should be removed?'
+      'Did you leave trash sacks on the strand which should be removed?',
+    reservations: 'Reservations',
+    date: 'Date',
+    starts: 'Starts',
+    ends: 'Ends',
+    contact_info: 'contact info',
+    time: 'Time',
+    cleaned: 'Cleaned Shores',
+    show_map: 'Show on the map',
+    confirm_cleaned: 'Confirm cleaned Shore',
+    cancel_cleaned: 'Cancel cleaned shore',
+    edit_map: 'Edit Map',
+    unhideshore: 'Show Shore',
+    hideshore: 'Hide Shore',
+    delete_reservation: 'Delete Reservation',
+    confirm_reservation: 'Confirm Reservation',
+    cancel_reservation: 'Cancel Reservation'
   }
 }

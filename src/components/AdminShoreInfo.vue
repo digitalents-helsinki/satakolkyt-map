@@ -8,14 +8,14 @@
           class="hideShoreButton"
           v-on:click="hideShore"
         >
-          Hide this shore
+          {{ $t('message.hideshore') }}
         </button>
         <button
           v-if="action === 'unhide'"
           class="unHideShoreButton"
           v-on:click="unHideShore"
         >
-          Unhide this shore
+          {{ $t('message.unhideshore') }}
         </button>
       </slot>
     </div>

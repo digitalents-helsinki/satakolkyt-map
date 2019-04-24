@@ -29,7 +29,7 @@ const i18n = new VueI18n({
   fallbackLocale: 'en',
   messages // set locale messages
 })
-i18n.locale = window.navigator.userLanguage || window.navigator.language
+i18n.locale = 'fi'
 Vue.use(require('vue-moment'), {
   moment
 })
