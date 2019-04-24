@@ -110,7 +110,7 @@
       </div>
       <div class="editor-wrapper">
         <div class="editor">
-          Edit Map
+          Muokkaa Karttaa
           <div class="adminMapContainer">
             <shore-map
               adminmode
