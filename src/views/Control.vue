@@ -243,8 +243,41 @@ export default {
       this.mapOverlayAction = 'unhide'
       this.toggleOverlay()
     },
+    enhanceData(data) {
+      //apparently without this the data format is somehow wrong
+      return data.map(e => ({
+        ...e,
+        properties: { ...e.properties, key: e.key }
+      }))
+    },
     shoreHidden(data) {
-      //refresh map to show changes immediately
+      this.toggleOverlay()
+      //remove selected layers
+      this.map.removeLayer('freeShoreSelected')
+      this.map.removeSource('freeShoreSelected')
+      //this.map.removeLayer('reservedShoreSelected')
+      //this.map.removeSource('reservedShoreSelected')
+
+      //filter the feature from free, reserved and cleaned shore data
+      //TODO: add code for reserved and cleaned shores
+      const newfreeshore = this.$store.state.maplayers.freelayer.filter(e => {
+        return e._key !== data._key
+      })
+      this.$store.commit('storefreelayer', newfreeshore)
+      this.map.getSource('freeShore').setData({
+        type: 'FeatureCollection',
+        features: this.enhanceData(newfreeshore)
+      })
+
+      //add the feature to hidden shore data
+      let newhiddenshore = this.$store.state.maplayers.hiddenlayer
+      newhiddenshore.push(data)
+      this.$store.commit('storehiddenlayer', newhiddenshore)
+      this.map.getSource('hiddenShore').setData({
+        type: 'FeatureCollection',
+        features: this.enhanceData(newhiddenshore)
+      })
+
       console.log('hid shore ' + data._key)
     },
     shoreUnhidden(data) {
