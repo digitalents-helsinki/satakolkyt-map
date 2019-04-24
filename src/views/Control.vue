@@ -267,7 +267,31 @@ export default {
       console.log('hid shore ' + data._key)
     },
     shoreUnhidden(data) {
-      //refresh map to show changes immediately
+      this.toggleOverlay()
+      this.map.removeLayer('hiddenShoreSelected')
+      this.map.removeSource('hiddenShoreSelected')
+
+      const newhiddenshore = this.$store.state.maplayers.hiddenlayer.filter(
+        e => {
+          return e._key != data._key
+        }
+      )
+      this.$store.commit('storehiddenlayer', newhiddenshore)
+      this.map.getSource('hiddenShore').setData({
+        type: 'FeatureCollection',
+        features: this.enhanceData(newhiddenshore)
+      })
+
+      //add unhidden shore to free shores(even if they should be reserved or cleaned)
+      //TODO: fix that later if necessary
+      let newfreeshore = this.$store.state.maplayers.freelayer
+      newfreeshore.push(data)
+      this.$store.commit('storefreelayer', newfreeshore)
+      this.map.getSource('freeShore').setData({
+        type: 'FeatureCollection',
+        features: this.enhanceData(newfreeshore)
+      })
+
       console.log('unhid shore ' + data._key)
     },
     toggleOverlay() {
