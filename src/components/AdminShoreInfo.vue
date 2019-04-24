@@ -37,6 +37,7 @@ export default {
 
   methods: {
     hideShore() {
+      console.log(this.data)
       axios({
         method: 'POST',
         url:

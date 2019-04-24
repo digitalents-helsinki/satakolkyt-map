@@ -218,35 +218,9 @@ export default {
     mapLoaded(map) {
       this.map = map
     },
-    /*hideShore(json) {
-      console.log(json)
-      this.json = this.json.filter(function(item) {
-        return item._key !== json._key
-      })
-      this.json2 = this.json2.filter(function(item) {
-        return item._key !== json._key
-      })
-      const enhancedData2 = this.json2.map(d => ({
-        ...d,
-        properties: { ...d.properties, key: d._key }
-      }))
-      var data2 = {
-        type: 'FeatureCollection',
-        features: enhancedData2
-      }
-      const enhancedData = this.json.map(d => ({
-        ...d,
-        properties: { ...d.properties, key: d._key }
-      }))
-      var data = {
-        type: 'FeatureCollection',
-        features: enhancedData
-      }
-      this.map.getSource('shore2').setData(data2)
-      this.map.getSource('shore').setData(data)
-    },*/
     populateSelectedShoreData(data) {
       this.selectedShoreData = data
+      console.log(this.selectedShoreData)
       this.mapOverlayAction = 'hide'
       this.toggleOverlay()
     },
@@ -259,7 +233,7 @@ export default {
       //apparently without this the data format is somehow wrong
       return data.map(e => ({
         ...e,
-        properties: { ...e.properties, key: e.key }
+        properties: { ...e.properties, key: e._key }
       }))
     },
     shoreHidden(data) {
