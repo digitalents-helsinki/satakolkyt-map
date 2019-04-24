@@ -107,34 +107,33 @@
       <div class="editor-wrapper">
         <div class="editor">
           Edit Map
-          <button v-if="showunhide" @click="unHideShore">Paljasta ranta</button>
           <div class="adminMapContainer">
             <shore-map
               adminmode
               @map-loaded="mapLoaded"
               @shore-click="populateSelectedShoreData"
-              @hidden-click="populateSelectedHideShoreData"
+              @hidden-click="populateSelectedHiddenShoreData"
               :freeshores="this.$store.state.maplayers.freelayer"
               :reservedshores="this.$store.state.maplayers.reservedlayer"
               :cleanedshores="this.$store.state.maplayers.cleanlayer"
               :hiddenshores="this.$store.state.maplayers.hiddenlayer"
             />
+            <transition name="overlayPop">
+              <div
+                v-if="showOverlay && selectedShoreData"
+                class="overlay-box-wrapper"
+              >
+                <overlay-box>
+                  <admin-shore-info
+                    :data="selectedShoreData"
+                    :action="mapOverlayAction"
+                  >
+                  </admin-shore-info>
+                </overlay-box>
+              </div>
+            </transition>
           </div>
         </div>
-        <transition name="overlayPop">
-          <div
-            v-if="showOverlay && selectedShoreData"
-            class="overlay-box-wrapper"
-          >
-            <overlay-box>
-              <admin-shore-info
-                @delete-shore="hideShore"
-                :data="selectedShoreData"
-              >
-              </admin-shore-info>
-            </overlay-box>
-          </div>
-        </transition>
       </div>
     </div>
   </div>
@@ -160,7 +159,7 @@ export default {
       showunhide: false,
       cleaned: {},
       selectedShoreData: {},
-      selectedHideShoreData: {}
+      mapOverlayAction: null
     }
   },
   components: {
@@ -174,30 +173,7 @@ export default {
     mapLoaded(map) {
       this.map = map
     },
-    deleteHandler() {
-      axios({
-        method: 'POST',
-        url:
-          'http://' +
-          location.hostname +
-          ':8089/api/map/delete/' +
-          this.data.key,
-        data: { key: this.data.key }
-      }).then(response => {
-        this.hideShore(response.data.json)
-      })
-    },
-    unHideShore() {
-      let key = this.selectedHideShoreData.key
-      axios({
-        method: 'POST',
-        url: 'http://' + location.hostname + ':8089/api/map/unhidebeach',
-        data: { key: key }
-      }).then(response => {
-        this.showunhide = false
-      })
-    },
-    hideShore(json) {
+    /*hideShore(json) {
       console.log(json)
       this.json = this.json.filter(function(item) {
         return item._key !== json._key
@@ -223,14 +199,16 @@ export default {
       }
       this.map.getSource('shore2').setData(data2)
       this.map.getSource('shore').setData(data)
-    },
+    },*/
     populateSelectedShoreData(data) {
       this.selectedShoreData = data
+      this.mapOverlayAction = 'hide'
       this.toggleOverlay()
     },
-    populateSelectedHideShoreData(data) {
-      this.selectedHideShoreData = data
-      this.showunhide = true
+    populateSelectedHiddenShoreData(data) {
+      this.selectedShoreData = data
+      this.mapOverlayAction = 'unhide'
+      this.toggleOverlay()
     },
     toggleOverlay() {
       if (!this.selectedShoreData) {
@@ -465,13 +443,14 @@ export default {
     position: relative;
 
     .adminMapContainer {
+      position: relative;
       width: 500px;
       height: 500px;
     }
 
     .overlay-box-wrapper {
       position: absolute;
-      bottom: 100px;
+      bottom: 30px;
       left: 110px;
     }
   }

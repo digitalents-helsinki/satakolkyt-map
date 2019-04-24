@@ -3,8 +3,19 @@
     <div class="shore-info">
       <h2>{{ data['hel:id'] }}</h2>
       <slot name="header">
-        <button id="delete" v-on:click="deleteHandler">
-          Delete this beach
+        <button
+          v-if="action === 'hide'"
+          class="hideShoreButton"
+          v-on:click="hideShore"
+        >
+          Hide this shore
+        </button>
+        <button
+          v-if="action === 'unhide'"
+          class="unHideShoreButton"
+          v-on:click="unHideShore"
+        >
+          Unhide this shore
         </button>
       </slot>
     </div>
@@ -16,7 +27,7 @@ import axios from 'axios'
 export default {
   name: 'admin-shore-info',
 
-  props: ['data'],
+  props: ['data', 'action'],
 
   data() {
     return {
@@ -25,17 +36,7 @@ export default {
   },
 
   methods: {
-    clickHandler() {
-      axios({
-        method: 'POST',
-        url: 'http://' + location.hostname + ':8089/api/map/cleanbeach',
-
-        data: { key: this.data.key }
-      }).then(response => {
-        this.$emit('reserve-intention', response.data.json)
-      })
-    },
-    deleteHandler() {
+    hideShore() {
       axios({
         method: 'POST',
         url:
@@ -49,6 +50,16 @@ export default {
         console.log(response)
         this.$emit('delete-shore', response.data.json)
       })
+    },
+    unHideShore() {
+      axios({
+        method: 'POST',
+        url: 'http://' + location.hostname + ':8089/api/map/unhidebeach',
+        data: { key: this.data.key }
+      }).then(response => {
+        console.log(response)
+        this.$emit('unhide-shore', response.data.json)
+      })
     }
   },
   mounted() {}
@@ -60,10 +71,10 @@ export default {
   h2 {
     font-weight: bold;
   }
-  #show-modal {
+  .unHideShoreButton {
     border-color: green;
   }
-  #delete {
+  .hideShoreButton {
     border-color: red;
   }
 }
