@@ -144,11 +144,23 @@
     </div>
   </div>
   <div v-else>
-    <form v-on:submit.prevent="signin">
-      username
-      <input v-model="login.username" type="text" name="" value="" />
-      password
-      <input v-model="login.password" type="password" name="" value="" />
+    <form class="form" v-on:submit.prevent="signin">
+      <label for="username">username</label>
+      <input
+        id="username"
+        v-model="login.username"
+        type="text"
+        name=""
+        value=""
+      />
+      <label for="password">password</label>
+      <input
+        id="password"
+        v-model="login.password"
+        type="password"
+        name=""
+        value=""
+      />
       <button type="submit" name="">Login</button>
     </form>
   </div>
@@ -515,5 +527,28 @@ export default {
       left: 110px;
     }
   }
+}
+.form {
+  position: fixed;
+  top: 10%;
+  left: 46%;
+  width: 250px;
+  padding: 20px;
+  border: 5px dotted grey;
+}
+
+input[type='text'],
+input[type='password'] {
+  padding: 15px;
+  margin-bottom: 20px;
+  display: block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type='text']:focus,
+input[type='password']:focus {
+  background-color: #ddd;
+  outline: none;
 }
 </style>
