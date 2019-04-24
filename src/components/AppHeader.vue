@@ -30,8 +30,7 @@ export default {
   components: { Help },
   data() {
     return {
-      showHelp: false,
-      langs: ['fi', 'en']
+      showHelp: false
     }
   }
 }

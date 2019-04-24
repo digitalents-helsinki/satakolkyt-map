@@ -12,6 +12,9 @@
             <div class="modal-header">
               <slot name="header">
                 <h3>{{ $t('message.reserve_clean') }}</h3>
+                <div v-bind:key="error.param" class="" v-for="error in errors">
+                  {{ error.param }} {{ error.msg }}
+                </div>
               </slot>
             </div>
 
@@ -121,6 +124,7 @@ export default {
     return {
       saved: false,
       required: false,
+      errors: [],
       reservationdata: {
         confirm: false,
         starttime: {
@@ -155,7 +159,9 @@ export default {
     reservationOk() {
       this.saved = true
     },
-    reservationError() {
+    reservationError(data) {
+      console.log(data)
+      this.errors = data.errors
       alert('something went wrong: your reservation was rejected')
     }
   }

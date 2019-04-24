@@ -142,13 +142,17 @@ export default {
         url: 'http://' + location.hostname + ':8089/api/map/reserve',
 
         data: args.data
-      }).then(response => {
-        if (response.data.status === 'ok') {
-          args.okCB()
-        } else {
-          args.errCB()
-        }
       })
+        .then(response => {
+          if (response.data.status === 'ok') {
+            args.okCB()
+          } else {
+            args.errCB(response.data.status)
+          }
+        })
+        .catch(error => {
+          args.errCB(error.response.data)
+        })
     },
     initMap() {
       this.$store.dispatch('getfreelayer')
