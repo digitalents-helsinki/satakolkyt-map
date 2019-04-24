@@ -360,6 +360,7 @@ export default {
       this.$store.dispatch('getfreelayer')
       this.$store.dispatch('getreservedlayer')
       this.$store.dispatch('getcleanlayer')
+      this.$store.dispatch('gethiddenlayer')
 
       fetch('http://' + location.hostname + ':8089/api/map/shores/hidden')
         .then(response => {
