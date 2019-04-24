@@ -10,6 +10,7 @@
       <div class="locale-changer">
         <span style="margin-right: 5px;" @click="$i18n.locale = 'fi'">🇫🇮</span>
         <span style="margin-right: 5px;" @click="$i18n.locale = 'en'">🇺🇸</span>
+        <span style="margin-right: 5px;" @click="$i18n.locale = 'sv'">🇸🇪</span>
       </div>
     </template>
 

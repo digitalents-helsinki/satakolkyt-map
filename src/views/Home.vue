@@ -212,6 +212,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   height: 100%;
   color: #4e4a45;
 

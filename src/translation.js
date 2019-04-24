@@ -1,6 +1,8 @@
 import { fi } from './translations/fi'
 import { en } from './translations/en'
+import { sv } from './translations/sv'
 export const messages = {
   fi: fi,
-  en: en
+  en: en,
+  sv: sv
 }

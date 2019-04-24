@@ -195,6 +195,11 @@ export default {
   font-family: Helvetica, Arial, sans-serif;
   overflow: scroll;
 }
+@media only screen and (max-width: 600px) {
+  .modal-container {
+    width: 95%;
+  }
+}
 .modal-header h3 {
   font-weight: 700;
 }
