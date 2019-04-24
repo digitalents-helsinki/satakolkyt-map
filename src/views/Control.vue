@@ -210,6 +210,34 @@ export default {
     },
     shoreHidden(data) {
       //refresh map to show changes immediately
+      const newdata = this.$store.state.maplayers.freelayer.filter(e => {
+        return e._key !== data._key
+      })
+      const enhancednewdata = newdata.map(e => ({
+        ...e,
+        properties: { ...e.properties, key: e._key }
+      }))
+      console.log(enhancednewdata[10])
+      this.map.getSource('freeShore').setData({
+        type: 'FeatureCollection',
+        features: enhancednewdata
+      })
+      this.map.removeLayer('freeShoreSelected')
+      this.map.removeSource('freeShoreSelected')
+
+      //TODO: also need to do the same with reserved and cleaned shores
+
+      //Trying to add to hidden layer doesn't seem to work yet:
+      const newhiddendata = this.$store.state.maplayers.hiddenlayer.join(data)
+      const enhancednewhiddendata = newhiddendata.map(e => ({
+        ...e,
+        properties: { ...e.properties, key: e._key }
+      }))
+      this.map.getSource('hiddenShore').setData({
+        type: 'FeatureCollection',
+        features: enhancednewhiddendata
+      })
+
       console.log('hid shore ' + data._key)
     },
     shoreUnhidden(data) {

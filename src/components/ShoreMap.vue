@@ -43,7 +43,8 @@ export default {
       navControl: {
         show: true,
         position: 'bottom-right'
-      }
+      },
+      shoretypes: []
     }
   },
 
@@ -78,6 +79,7 @@ export default {
         source: name,
         ...this.generateLineStringStyle(color)
       })
+      this.shoretypes.push(name)
     },
     addSelectedShoreType(map, name, data, color) {
       map.addSource(name, {
