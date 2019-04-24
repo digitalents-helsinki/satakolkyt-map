@@ -192,9 +192,8 @@ export default {
           password: this.login.password
         })
         .then(response => {
-          console.log(response)
           this.login_token = response.data.token
-          axios.defaults.headers.common['authorization'] = `${this.login_token}`
+          axios.defaults.headers.common['authorization'] = this.login_token
           this.getReservations()
           this.getCleaned()
           this.initMap()
@@ -389,24 +388,20 @@ export default {
       this.$store.dispatch('gethiddenlayer')
     },
     getReservations() {
-      fetch('http://' + location.hostname + ':8089/api/map/reservations/')
-        .then(response => {
-          return response.json()
-        })
+      axios
+        .get('http://' + location.hostname + ':8089/api/map/reservations/')
         .then(reservation => {
-          this.reservations = reservation.data
+          this.reservations = reservation.data.data
         })
         .catch(error => {
           console.log(error)
         })
     },
     getCleaned() {
-      fetch('http://' + location.hostname + ':8089/api/map/cleaninfos/')
-        .then(response => {
-          return response.json()
-        })
+      axios
+        .get('http://' + location.hostname + ':8089/api/map/cleaninfos/')
         .then(reservation => {
-          this.cleaned = reservation.data
+          this.cleaned = reservation.data.data
         })
         .catch(error => {
           console.log(error)
