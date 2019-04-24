@@ -25,7 +25,7 @@ export default {
   name: 'help'
 }
 </script>
-<style>
+<style scoped>
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -58,6 +58,11 @@ export default {
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
   overflow: scroll;
+}
+@media only screen and (max-width: 600px) {
+  .modal-container {
+    width: 95%;
+  }
 }
 .modal-header h3 {
   font-weight: 700;
