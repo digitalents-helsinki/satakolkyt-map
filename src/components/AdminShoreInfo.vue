@@ -47,8 +47,7 @@ export default {
 
         data: { key: this.data.key }
       }).then(response => {
-        console.log(response)
-        this.$emit('delete-shore', response.data.json)
+        this.$emit('hide-shore', response.data.json)
       })
     },
     unHideShore() {
@@ -57,7 +56,6 @@ export default {
         url: 'http://' + location.hostname + ':8089/api/map/unhidebeach',
         data: { key: this.data.key }
       }).then(response => {
-        console.log(response)
         this.$emit('unhide-shore', response.data.json)
       })
     }

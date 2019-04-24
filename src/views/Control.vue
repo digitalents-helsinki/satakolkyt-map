@@ -127,6 +127,8 @@
                   <admin-shore-info
                     :data="selectedShoreData"
                     :action="mapOverlayAction"
+                    @hide-shore="shoreHidden"
+                    @unhide-shore="shoreUnhidden"
                   >
                   </admin-shore-info>
                 </overlay-box>
@@ -150,10 +152,6 @@ export default {
   data() {
     return {
       reservations: {},
-      json: {},
-      json2: {},
-      json3: {},
-      json4: {},
       selected: {},
       showOverlay: false,
       showunhide: false,
@@ -210,23 +208,19 @@ export default {
       this.mapOverlayAction = 'unhide'
       this.toggleOverlay()
     },
+    shoreHidden(data) {
+      //refresh map to show changes immediately
+      console.log('hid shore ' + data._key)
+    },
+    shoreUnhidden(data) {
+      //refresh map to show changes immediately
+      console.log('unhid shore ' + data._key)
+    },
     toggleOverlay() {
       if (!this.selectedShoreData) {
         this.showOverlay = false
       }
       this.showOverlay = !this.showOverlay
-    },
-    generateLineStringStyle() {
-      return {
-        layout: {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        paint: {
-          'line-color': '#FF00FF',
-          'line-width': 5
-        }
-      }
     },
     addreservation(e, reservation) {
       var id = e.target.id
@@ -357,17 +351,6 @@ export default {
       this.$store.dispatch('getreservedlayer')
       this.$store.dispatch('getcleanlayer')
       this.$store.dispatch('gethiddenlayer')
-
-      fetch('http://' + location.hostname + ':8089/api/map/shores/hidden')
-        .then(response => {
-          return response.json()
-        })
-        .then(shores => {
-          this.json4 = shores.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
     },
     getReservations() {
       fetch('http://' + location.hostname + ':8089/api/map/reservations/')
