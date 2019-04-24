@@ -1,5 +1,9 @@
 <template>
-  <div class="controlpanel-wrapper" @click="$emit('close')">
+  <div
+    v-if="this.login_token"
+    class="controlpanel-wrapper"
+    @click="$emit('close')"
+  >
     <div class="controlpanel-container" @click.stop>
       <div class="clean-infos">
         <h1>Siivotut rannat</h1>
@@ -139,6 +143,15 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <form v-on:submit.prevent="signin">
+      username
+      <input v-model="login.username" type="text" name="" value="" />
+      password
+      <input v-model="login.password" type="password" name="" value="" />
+      <button type="submit" name="">Login</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -153,6 +166,11 @@ export default {
     return {
       reservations: {},
       selected: {},
+      login_token: false,
+      login: {
+        username: '',
+        password: ''
+      },
       showOverlay: false,
       showunhide: false,
       cleaned: {},
@@ -167,6 +185,24 @@ export default {
     ShoreMap
   },
   methods: {
+    signin() {
+      axios
+        .post('http://' + location.hostname + ':8089/api/map/login/', {
+          username: this.login.username,
+          password: this.login.password
+        })
+        .then(response => {
+          console.log(response)
+          this.login_token = response.data.token
+          axios.defaults.headers.common['authorization'] = `${this.login_token}`
+          this.getReservations()
+          this.getCleaned()
+          this.initMap()
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+    },
     saveCleaned() {},
     mapLoaded(map) {
       this.map = map
@@ -210,34 +246,6 @@ export default {
     },
     shoreHidden(data) {
       //refresh map to show changes immediately
-      const newdata = this.$store.state.maplayers.freelayer.filter(e => {
-        return e._key !== data._key
-      })
-      const enhancednewdata = newdata.map(e => ({
-        ...e,
-        properties: { ...e.properties, key: e._key }
-      }))
-      console.log(enhancednewdata[10])
-      this.map.getSource('freeShore').setData({
-        type: 'FeatureCollection',
-        features: enhancednewdata
-      })
-      this.map.removeLayer('freeShoreSelected')
-      this.map.removeSource('freeShoreSelected')
-
-      //TODO: also need to do the same with reserved and cleaned shores
-
-      //Trying to add to hidden layer doesn't seem to work yet:
-      const newhiddendata = this.$store.state.maplayers.hiddenlayer.join(data)
-      const enhancednewhiddendata = newhiddendata.map(e => ({
-        ...e,
-        properties: { ...e.properties, key: e._key }
-      }))
-      this.map.getSource('hiddenShore').setData({
-        type: 'FeatureCollection',
-        features: enhancednewhiddendata
-      })
-
       console.log('hid shore ' + data._key)
     },
     shoreUnhidden(data) {
@@ -403,13 +411,27 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    gettoken() {
+      axios
+        .post('http://' + location.hostname + ':8089/api/map/authcheck', {})
+        .then(response => {
+          if (response.data.success) {
+            alert('success')
+          }
+        })
+        .catch(error => {
+          alert(error)
+        })
     }
   },
 
   mounted() {
+    /*
     this.getReservations()
     this.getCleaned()
     this.initMap()
+    */
   }
 }
 </script>
