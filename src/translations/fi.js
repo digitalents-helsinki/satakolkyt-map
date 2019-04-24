@@ -25,6 +25,22 @@ export const fi = {
     trash_medium: 'Jätesäkillinen',
     trash_large: 'Monta jätesäkillistä',
     trash_left:
-      'Did you leave trash sacks on the strand which should be removed?'
+      'Did you leave trash sacks on the strand which should be removed?',
+    reservations: 'Varaukset',
+    date: 'Ajankohta',
+    starts: 'Alkaa',
+    ends: 'Loppuu',
+    contact_info: 'Yhteystiedot',
+    time: 'Aika',
+    cleaned: 'Siivotut rannat',
+    show_map: 'Näytä kartassa',
+    confirm_cleaned: 'Vahvista siivotuksi',
+    cancel_cleaned: 'Poista Vahvistus',
+    edit_map: 'Editoi karttaa',
+    unhideshore: 'Näytä ranta',
+    hideshore: 'Piilota ranta',
+    delete_reservation: 'Poista varaus',
+    confirm_reservation: 'Vahvista varaus',
+    cancel_reservation: 'Poista Vahvistus'
   }
 }

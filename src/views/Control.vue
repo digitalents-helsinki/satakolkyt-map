@@ -6,24 +6,24 @@
   >
     <div class="controlpanel-container" @click.stop>
       <div class="clean-infos">
-        <h1>Siivotut rannat</h1>
+        <h1>{{ $t('message.cleaned') }}</h1>
         <li class="clean-info" v-for="clean in cleaned" :key="clean._id">
           <div class="clean-time">
-            <h3>Ajankohta</h3>
+            <h3>{{ $t('message.date') }}</h3>
             <p>
-              alkaa:
+              {{ $t('message.starts') }}:
               {{ clean.date | moment('DD MMMM[ta] YYYY') }}
             </p>
           </div>
           <div class="cleanform-contact">
-            <h3>Yhteystiedot</h3>
+            <h3>{{ $t('message.contact_info') }}</h3>
             <p>{{ clean.organizer_name }}</p>
             <p>{{ clean.leader_phone }}</p>
             <p>{{ clean.leader_email }}</p>
           </div>
           <div class="clean-cta">
             <button v-bind:id="clean.selected.key" v-on:click="showreservation">
-              Näytä kartassa
+              {{ $t('message.show_map') }}
             </button>
 
             <template v-if="clean.confirm">
@@ -32,7 +32,7 @@
                 v-bind:id="clean.selected.key"
                 class="red"
               >
-                Peru Siivottu ranta
+                {{ $t('message.cancel_cleaned') }}
               </button>
             </template>
             <template v-if="!clean.confirm">
@@ -41,34 +41,34 @@
                 v-bind:id="clean.selected.key"
                 class="green"
               >
-                Vahvista Siivottu ranta
+                {{ $t('message.confirm_cleaned') }}
               </button>
             </template>
           </div>
         </li>
       </div>
       <div class="reservations">
-        <h1>Varaukset</h1>
+        <h1>{{ $t('message.reservations') }}</h1>
         <li
           class="reservation"
           v-for="reservation in reservations"
           :key="reservation._id"
         >
           <div class="reservation-time">
-            <h3>Ajankohta</h3>
+            <h3>{{ $t('message.date') }}</h3>
             <p>
-              alkaa:
+              {{ $t('message.starts') }}:
               {{ reservation.startdate | moment('DD MMMM[ta] YYYY') }} klo
               {{ reservation.starttime }}
             </p>
             <p>
-              päättyy:
+              {{ $t('message.ends') }}:
               {{ reservation.enddate | moment('DD MMMM[ta] YYYY') }} klo
               {{ reservation.endtime }}
             </p>
           </div>
           <div class="reservation-contact">
-            <h3>Yhteystiedot</h3>
+            <h3>{{ $t('message.contact_info') }}</h3>
             <p>{{ reservation.organizer }}</p>
             <p>{{ reservation.phonenumbery }}</p>
             <p>{{ reservation.email }}</p>
@@ -78,14 +78,14 @@
               v-bind:id="reservation.selected.key"
               v-on:click="showreservation"
             >
-              Näytä kartassa
+              {{ $t('message.show_map') }}
             </button>
             <button
               @click="deletereservation($event, reservation)"
               v-bind:id="reservation.selected.key"
               class="red"
             >
-              Poista varaus
+              {{ $t('message.delete_reservation') }}
             </button>
             <template v-if="reservation.confirm">
               <button
@@ -93,7 +93,7 @@
                 v-bind:id="reservation.selected.key"
                 class="red"
               >
-                Peru varaus
+                {{ $t('message.cancel_reservation') }}
               </button>
             </template>
             <template v-else>
@@ -102,7 +102,7 @@
                 v-bind:id="reservation.selected.key"
                 class="green"
               >
-                Vahvista varaus
+                {{ $t('message.confirm_reservation') }}
               </button>
             </template>
           </div>
@@ -110,7 +110,7 @@
       </div>
       <div class="editor-wrapper">
         <div class="editor">
-          Muokkaa Karttaa
+          {{ $t('message.edit_map') }}
           <div class="adminMapContainer">
             <shore-map
               adminmode
