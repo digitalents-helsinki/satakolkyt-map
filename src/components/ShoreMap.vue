@@ -123,7 +123,13 @@ export default {
       this.addShoreType(map, 'reservedShore', this.reservedshores, '#FF0000')
       this.addShoreType(map, 'cleanedShore', this.cleanedshores, '#006625')
       if (this.adminmode) {
-        this.addShoreType(map, 'hiddenShore', this.hiddenshores, 'FFFF00')
+        this.addShoreType(map, 'hiddenShore', this.hiddenshores, '#FFFF00')
+      }
+
+      this.addShoreClickHandler(map, 'freeShore', 'shore-click', '#8595E5')
+      this.addShoreClickHandler(map, 'reservedShore', 'shore-click', '#FF7575')
+      if (this.adminmode) {
+        this.addShoreClickHandler(map, 'hiddenShore', 'hidden-click', '#FFFF77')
       }
 
       this.$emit('map-loaded', map)
@@ -156,12 +162,6 @@ export default {
         }
       })
 
-      this.addShoreClickHandler(map, 'freeShore', 'shore-click', '#8595E5')
-      this.addShoreClickHandler(map, 'reservedShore', 'shore-click', 'FF7575')
-      if (this.adminmode) {
-        this.addShoreClickHandler(map, 'hiddenShore', 'hidden-click', '#FFFF77')
-      }
-
       // disable map rotation using right click + drag
       map.dragRotate.disable()
 
@@ -192,6 +192,7 @@ export default {
 }
 #map {
   height: 100%;
+  width: 100%;
 }
 .mapboxgl-ctrl-icon.mapboxgl-ctrl-zoom-in {
   min-width: 1ex !important;

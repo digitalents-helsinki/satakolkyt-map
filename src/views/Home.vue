@@ -154,6 +154,7 @@ export default {
       this.$store.dispatch('getfreelayer')
       this.$store.dispatch('getreservedlayer')
       this.$store.dispatch('getcleanlayer')
+      this.$store.dispatch('gethiddenlayer')
 
       this.$nextTick(() => {
         this.showMap = this.startMapOnMounted
