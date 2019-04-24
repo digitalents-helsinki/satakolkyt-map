@@ -41,10 +41,8 @@ export default {
         touchZoomRotate: false
       },
       navControl: {
-        show: true,
-        position: 'bottom-right'
-      },
-      shoretypes: []
+        show: false
+      }
     }
   },
 
@@ -79,7 +77,6 @@ export default {
         source: name,
         ...this.generateLineStringStyle(color)
       })
-      this.shoretypes.push(name)
     },
     addSelectedShoreType(map, name, data, color) {
       map.addSource(name, {
@@ -119,6 +116,10 @@ export default {
     },
 
     mapLoaded(map) {
+      map.addControl(
+        new mapboxgl.NavigationControl({ showCompass: false }),
+        'bottom-right'
+      )
       this.map = map
 
       this.addShoreType(map, 'freeShore', this.freeshores, '#475DCC')
