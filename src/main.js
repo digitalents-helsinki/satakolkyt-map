@@ -1,3 +1,6 @@
+import * as Sentry from '@sentry/browser'
+import * as Integrations from '@sentry/integrations'
+
 import Vue from 'vue'
 import VTooltip from 'v-tooltip'
 import App from './App.vue'
@@ -22,6 +25,19 @@ Vue.config.productionTip = false
 
 Vue.use(VTooltip)
 Vue.use(VueI18n)
+Sentry.init({
+  dsn: 'https://04bfcb6dc6534683894daf06d484339f@sentry.io/1446248',
+  integrations: [
+    new Integrations.Vue({
+      Vue,
+      attachProps: true
+    })
+  ]
+})
+
+Sentry.configureScope(scope => {
+  scope.setTag('page_locale', navigator.language)
+})
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({
