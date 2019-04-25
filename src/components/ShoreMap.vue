@@ -38,7 +38,8 @@ export default {
         zoom: 11,
         pitchWithRotate: false,
         dragRotate: false,
-        touchZoomRotate: false
+        touchZoomRotate: false,
+        hash: true
       },
       navControl: {
         show: false
