@@ -24,6 +24,8 @@ export const fi = {
     trash_small: 'Muovipussillinen',
     trash_medium: 'Jätesäkillinen',
     trash_large: 'Monta jätesäkillistä',
+    reservation_saved: 'Varaus on tallennettu',
+    cleaned_saved: 'Siivotut ranta on ilmoitettu',
     trash_left:
       'Did you leave trash sacks on the strand which should be removed?',
     reservations: 'Varaukset',
