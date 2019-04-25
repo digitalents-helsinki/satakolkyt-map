@@ -8,9 +8,9 @@
     />
     <template>
       <div class="locale-changer">
-        <span style="margin-right: 5px;" @click="$i18n.locale = 'fi'">🇫🇮</span>
-        <span style="margin-right: 5px;" @click="$i18n.locale = 'sv'">🇸🇪</span>
-        <span style="margin-right: 5px;" @click="$i18n.locale = 'en'">🇺🇸</span>
+        <span style="margin-right: 5px;" @click="$i18n.locale = 'fi'">FI</span>
+        <span style="margin-right: 5px;" @click="$i18n.locale = 'sv'">SV</span>
+        <span style="margin-right: 5px;" @click="$i18n.locale = 'en'">EN</span>
       </div>
     </template>
 

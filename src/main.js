@@ -7,19 +7,19 @@ import vueHeadful from 'vue-headful'
 import './registerServiceWorker'
 import moment from 'moment'
 import 'moment/locale/fi'
+
+import 'moment/locale/sv'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
-import { faLanguage } from '@fortawesome/free-solid-svg-icons'
 import VueI18n from 'vue-i18n'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { messages } from './translation'
 library.add(faTimes)
 library.add(faQuestionCircle)
-library.add(faLanguage)
 Vue.config.productionTip = false
 
-moment.locale('fi')
 Vue.use(VTooltip)
 Vue.use(VueI18n)
 
@@ -29,7 +29,9 @@ const i18n = new VueI18n({
   fallbackLocale: 'en',
   messages // set locale messages
 })
-i18n.locale = 'fi'
+i18n.locale = navigator.language
+moment.locale(i18n.locale)
+
 Vue.use(require('vue-moment'), {
   moment
 })

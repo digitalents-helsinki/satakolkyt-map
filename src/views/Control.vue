@@ -12,7 +12,12 @@
             <h3>{{ $t('message.date') }}</h3>
             <p>
               {{ $t('message.starts') }}:
-              {{ clean.date | moment('DD MMMM[ta] YYYY') }}
+              <template v-if="$i18n.locale != 'fi'">
+                {{ clean.date | moment('DD MMMM YYYY') }}
+              </template>
+              <template v-else>
+                {{ clean.date | moment('DD MMMM[ta] YYYY') }} klo
+              </template>
             </p>
           </div>
           <div class="cleanform-contact">
@@ -58,12 +63,22 @@
             <h3>{{ $t('message.date') }}</h3>
             <p>
               {{ $t('message.starts') }}:
-              {{ reservation.startdate | moment('DD MMMM[ta] YYYY') }} klo
+              <template v-if="$i18n.locale != 'fi'">
+                {{ reservation.startdate | moment('DD MMMM YYYY') }}
+              </template>
+              <template v-else>
+                {{ reservation.startdate | moment('DD MMMM[ta] YYYY') }} klo
+              </template>
               {{ reservation.starttime }}
             </p>
             <p>
               {{ $t('message.ends') }}:
-              {{ reservation.enddate | moment('DD MMMM[ta] YYYY') }} klo
+              <template v-if="$i18n.locale != 'fi'">
+                {{ reservation.enddate | moment('DD MMMM YYYY') }}
+              </template>
+              <template v-else>
+                {{ reservation.enddate | moment('DD MMMM[ta] YYYY') }} klo
+              </template>
               {{ reservation.endtime }}
             </p>
           </div>
