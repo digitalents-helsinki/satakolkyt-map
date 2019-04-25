@@ -214,7 +214,6 @@ export default {
           console.log(error)
         })
     },
-    saveCleaned() {},
     mapLoaded(map) {
       this.map = map
     },
@@ -310,6 +309,7 @@ export default {
       this.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     removecleaned(e, cleaned) {
+      const self = this
       axios
         .post(
           'http://' + location.hostname + ':8089/api/map/cancelcleanedbeach/',
@@ -322,7 +322,7 @@ export default {
           console.log(response)
           if (response.data.status === 'ok') {
             cleaned.confirm = false
-            alert('canceled')
+            self.shoreCleanedCanceled(response.data.json)
           }
         })
         .catch(function(error) {
@@ -357,8 +357,7 @@ export default {
         })
     },
     addcleaned(e, clean) {
-      alert(e.target.id)
-      clean.confirm = true
+      const self = this
       var id = e.target.id
       axios
         .post('http://' + location.hostname + ':8089/api/map/clean/', {
@@ -367,10 +366,20 @@ export default {
         })
         .then(function(response) {
           console.log(response)
+          clean.confirm = true
+          self.shoreCleaned(response.data.json)
         })
         .catch(function(error) {
           console.log(error)
         })
+    },
+    shoreCleaned(data) {
+      this.removeSegmentFromLayer('freeShore', 'freelayer', data._key)
+      this.addSegmentToLayer('cleanedShore', 'cleanlayer', data)
+    },
+    shoreCleanedCanceled(data) {
+      this.removeSegmentFromLayer('cleanedShore', 'cleanlayer', data._key)
+      this.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     showreservation(e) {
       var id = e.target.id
