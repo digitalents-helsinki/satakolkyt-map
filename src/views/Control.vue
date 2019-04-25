@@ -393,30 +393,38 @@ export default {
     },
     showreservation(e) {
       const id = e.target.id
-      const data = this.$store.state.maplayers.reservedlayer.filter(e => {
+      const confirmed = this.reservations.find(e => {
+        return e.selected.key === id
+      }).confirm
+      console.log(confirmed)
+      const layer = confirmed ? 'reservedlayer' : 'freelayer'
+      const data = this.$store.state.maplayers[layer].find(e => {
         return e._key === id
       })
-      console.log(data)
       const featcoll = {
         type: 'FeatureCollection',
-        features: data
+        features: [data]
       }
-      const selShSource = this.map.getSource('reservedShoreSelected')
+      const sourcename = confirmed
+        ? 'reservedShoreSelected'
+        : 'freeShoreSelected'
+      const paintcolor = confirmed ? '#FF7575' : '#8595E5'
+      const selShSource = this.map.getSource(sourcename)
       if (!selShSource) {
-        this.map.addSource('reservedShoreSelected', {
+        this.map.addSource(sourcename, {
           type: 'geojson',
           data: featcoll
         })
         this.map.addLayer({
-          id: 'reservedShoreSelected',
+          id: sourcename,
           type: 'line',
-          source: 'reservedShoreSelected',
+          source: sourcename,
           layout: {
             'line-join': 'round',
             'line-cap': 'round'
           },
           paint: {
-            'line-color': '#FF7575',
+            'line-color': paintcolor,
             'line-width': 1
           }
         })
@@ -426,8 +434,8 @@ export default {
 
       this.map.flyTo({
         center: [
-          data[0].geometry.coordinates[0][0],
-          data[0].geometry.coordinates[0][1]
+          data.geometry.coordinates[0][0],
+          data.geometry.coordinates[0][1]
         ],
         zoom: 17
       })
