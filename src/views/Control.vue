@@ -297,18 +297,17 @@ export default {
     },
     addreservation(e, reservation) {
       var id = e.target.id
-      const self = this
       axios({
         method: 'POST',
         url: 'http://' + location.hostname + ':8089/api/map/cleanbeach/',
 
         data: { key: id, reservation: reservation._key }
       })
-        .then(function(response) {
+        .then(response => {
           console.log(response)
           if (response.data.status === 'ok') {
             reservation.confirm = true
-            self.shoreReserved(response.data.json)
+            this.shoreReserved(response.data.json)
           }
         })
         .catch(function(error) {
@@ -324,7 +323,6 @@ export default {
       this.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     removecleaned(e, cleaned) {
-      const self = this
       axios
         .post(
           'http://' + location.hostname + ':8089/api/map/cancelcleanedbeach/',
@@ -333,11 +331,11 @@ export default {
             clean: cleaned._key
           }
         )
-        .then(function(response) {
+        .then(response => {
           console.log(response)
           if (response.data.status === 'ok') {
             cleaned.confirm = false
-            self.shoreCleanedCanceled(response.data.json)
+            this.shoreCleanedCanceled(response.data.json)
           }
         })
         .catch(function(error) {
@@ -351,7 +349,6 @@ export default {
       )
     },
     removereservation(e, reservation) {
-      const self = this
       axios
         .post(
           'http://' + location.hostname + ':8089/api/map/cancelcleanbeach/',
@@ -360,11 +357,11 @@ export default {
             reservation: reservation._key
           }
         )
-        .then(function(response) {
+        .then(response => {
           console.log(response)
           if (response.data.status === 'ok') {
             reservation.confirm = false
-            self.shoreUnreserved(response.data.json)
+            this.shoreUnreserved(response.data.json)
           }
         })
         .catch(function(error) {
@@ -372,14 +369,13 @@ export default {
         })
     },
     addcleaned(e, clean) {
-      const self = this
       var id = e.target.id
       axios
         .post('http://' + location.hostname + ':8089/api/map/clean/', {
           key: id,
           clean: clean._key
         })
-        .then(function(response) {
+        .then(response => {
           console.log(response)
           clean.confirm = true
           self.shoreCleaned(response.data.json)
