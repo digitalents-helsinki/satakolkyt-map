@@ -31,17 +31,10 @@ export default {
     }
   },
 
-  methods: {
-    getNavHeight() {
-      const { height } = this.$refs.nav.getBoundingClientRect()
-
-      return height
-    }
-  },
+  methods: {},
 
   mounted() {
     // Calculate the header's height and size the <main/> element to fit the screen.
-    this.mainOffset = `${this.getNavHeight()}px`
   }
 }
 </script>
