@@ -97,7 +97,7 @@ export default {
 
         const selecteddata = {
           type: 'FeatureCollection',
-          features: e.features
+          features: [e.features[0]]
         }
 
         const selShData = map.getSource(layername + 'Selected')

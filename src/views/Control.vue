@@ -234,7 +234,6 @@ export default {
     },
     populateSelectedShoreData(data) {
       this.selectedShoreData = data
-      console.log(this.selectedShoreData)
       this.mapOverlayAction = 'hide'
       this.toggleOverlay()
     },
@@ -393,47 +392,45 @@ export default {
       this.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     showreservation(e) {
-      var id = e.target.id
-      //get shore and show on map
-      fetch(
-        'http://' + location.hostname + ':8089/api/map/shore/' + e.target.id
-      )
-        .then(response => {
-          return response.json()
+      const id = e.target.id
+      const data = this.$store.state.maplayers.reservedlayer.filter(e => {
+        return e._key === id
+      })
+      console.log(data)
+      const featcoll = {
+        type: 'FeatureCollection',
+        features: data
+      }
+      const selShSource = this.map.getSource('reservedShoreSelected')
+      if (!selShSource) {
+        this.map.addSource('reservedShoreSelected', {
+          type: 'geojson',
+          data: featcoll
         })
-        .then(shores => {
-          this.selected = shores.data
-          var data = {
-            type: 'FeatureCollection',
-            features: [this.selected]
+        this.map.addLayer({
+          id: 'reservedShoreSelected',
+          type: 'line',
+          source: 'reservedShoreSelected',
+          layout: {
+            'line-join': 'round',
+            'line-cap': 'round'
+          },
+          paint: {
+            'line-color': '#FF7575',
+            'line-width': 1
           }
-          var mapLayer = this.map.getLayer('shore4')
-
-          if (typeof mapLayer !== 'undefined') {
-            // Remove map layer & source.
-            this.map.removeLayer('shore4').removeSource('shore4')
-          }
-
-          this.map.addSource('shore4', { type: 'geojson', data: data })
-          this.map.addLayer({
-            id: 'shore4',
-            type: 'line',
-            source: 'shore4',
-            ...this.generateLineStringStyle()
-          })
-
-          console.log(this.map)
-          this.map.flyTo({
-            center: [
-              shores.data.geometry.coordinates[0][0],
-              shores.data.geometry.coordinates[0][1]
-            ],
-            zoom: 15
-          })
         })
-        .catch(error => {
-          console.log(error)
-        })
+      } else {
+        selShSource.setData(featcoll)
+      }
+
+      this.map.flyTo({
+        center: [
+          data[0].geometry.coordinates[0][0],
+          data[0].geometry.coordinates[0][1]
+        ],
+        zoom: 17
+      })
     },
     initMap() {
       this.$store.dispatch('getfreelayer')
