@@ -131,9 +131,15 @@ export default {
       }
 
       this.addShoreClickHandler(map, 'freeShore', 'shore-click', '#8595E5')
-      this.addShoreClickHandler(map, 'reservedShore', 'shore-click', '#FF7575')
       if (this.adminmode) {
         this.addShoreClickHandler(map, 'hiddenShore', 'hidden-click', '#FFFF77')
+      } else {
+        this.addShoreClickHandler(
+          map,
+          'reservedShore',
+          'shore-click',
+          '#FF7575'
+        )
       }
 
       this.$emit('map-loaded', map)
@@ -178,12 +184,15 @@ export default {
       map.on('mouseleave', 'freeShore', e => {
         canv.style.cursor = 'grab'
       })
-      map.on('mouseenter', 'reservedShore', e => {
-        canv.style.cursor = 'pointer'
-      })
-      map.on('mouseleave', 'reservedShore', e => {
-        canv.style.cursor = 'grab'
-      })
+
+      if (!this.adminmode) {
+        map.on('mouseleave', 'reservedShore', e => {
+          canv.style.cursor = 'grab'
+        })
+        map.on('mouseenter', 'reservedShore', e => {
+          canv.style.cursor = 'pointer'
+        })
+      }
     }
   }
 }
