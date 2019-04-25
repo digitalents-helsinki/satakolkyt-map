@@ -28,6 +28,8 @@ export const en = {
     trash_small: 'About one plastic bag',
     trash_medium: 'About one refuse sack',
     trash_large: 'Many refuse sacks',
+    reservation_saved: 'Reservation has been saved',
+    cleaned_saved: 'Cleaned Shore has been saved',
     trash_left:
       'Did you leave trash sacks on the strand which should be removed?',
     reservations: 'Reservations',

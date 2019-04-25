@@ -102,9 +102,9 @@
         <template v-if="saved">
           <div class="modal-header">
             <slot name="header">
-              <h1 class="success">Varaus on tallennettu</h1>
+              <h1 class="success">{{ $t('message.reservation_saved') }}</h1>
               <button class="modal-default-button" @click="$emit('close')">
-                Sulje
+                {{ $t('message.close') }}
               </button>
             </slot>
           </div>

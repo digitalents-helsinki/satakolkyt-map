@@ -82,7 +82,7 @@
             <slot name="header">
               <h1 class="success">Varaus on tallennettu</h1>
               <button class="modal-default-button" @click="$emit('close')">
-                Sulje
+                {{ $t('message.close') }}
               </button>
             </slot>
           </div>
