@@ -236,63 +236,44 @@ export default {
         properties: { ...e.properties, key: e._key }
       }))
     },
+    removeSegmentFromLayer(mapname, vuexname, segKey) {
+      const newshores = this.$store.state.maplayers[vuexname].filter(e => {
+        return e._key !== segKey
+      })
+      this.$store.commit('store' + vuexname, newshores)
+      this.map.getSource(mapname).setData({
+        type: 'FeatureCollection',
+        features: this.enhanceData(newshores)
+      })
+    },
+    addSegmentToLayer(mapname, vuexname, segData) {
+      let newshores = this.$store.state.maplayers[vuexname]
+      newshores.push(segData)
+      this.$store.commit('store' + vuexname, newshores)
+      this.map.getSource(mapname).setData({
+        type: 'FeatureCollection',
+        features: this.enhanceData(newshores)
+      })
+    },
     shoreHidden(data) {
       this.toggleOverlay()
       //remove selected layers
       this.map.removeLayer('freeShoreSelected')
       this.map.removeSource('freeShoreSelected')
-      //this.map.removeLayer('reservedShoreSelected')
-      //this.map.removeSource('reservedShoreSelected')
 
-      //filter the feature from free, reserved and cleaned shore data
-      //TODO: add code for reserved and cleaned shores
-      const newfreeshore = this.$store.state.maplayers.freelayer.filter(e => {
-        return e._key !== data._key
-      })
-      this.$store.commit('storefreelayer', newfreeshore)
-      this.map.getSource('freeShore').setData({
-        type: 'FeatureCollection',
-        features: this.enhanceData(newfreeshore)
-      })
+      //filter the feature from free shores data
+      this.removeSegmentFromLayer('freeShore', 'freelayer', data._key)
 
       //add the feature to hidden shore data
-      let newhiddenshore = this.$store.state.maplayers.hiddenlayer
-      newhiddenshore.push(data)
-      this.$store.commit('storehiddenlayer', newhiddenshore)
-      this.map.getSource('hiddenShore').setData({
-        type: 'FeatureCollection',
-        features: this.enhanceData(newhiddenshore)
-      })
-
-      console.log('hid shore ' + data._key)
+      this.addSegmentToLayer('hiddenShore', 'hiddenlayer', data)
     },
     shoreUnhidden(data) {
       this.toggleOverlay()
       this.map.removeLayer('hiddenShoreSelected')
       this.map.removeSource('hiddenShoreSelected')
 
-      const newhiddenshore = this.$store.state.maplayers.hiddenlayer.filter(
-        e => {
-          return e._key != data._key
-        }
-      )
-      this.$store.commit('storehiddenlayer', newhiddenshore)
-      this.map.getSource('hiddenShore').setData({
-        type: 'FeatureCollection',
-        features: this.enhanceData(newhiddenshore)
-      })
-
-      //add unhidden shore to free shores(even if they should be reserved or cleaned)
-      //TODO: fix that later if necessary
-      let newfreeshore = this.$store.state.maplayers.freelayer
-      newfreeshore.push(data)
-      this.$store.commit('storefreelayer', newfreeshore)
-      this.map.getSource('freeShore').setData({
-        type: 'FeatureCollection',
-        features: this.enhanceData(newfreeshore)
-      })
-
-      console.log('unhid shore ' + data._key)
+      this.removeSegmentFromLayer('hiddenShore', 'hiddenlayer', data._key)
+      this.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     toggleOverlay() {
       if (!this.selectedShoreData) {
@@ -321,42 +302,12 @@ export default {
         })
     },
     shoreReserved(data) {
-      const newfreeshore = this.$store.state.maplayers.freelayer.filter(e => {
-        return e._key !== data._key
-      })
-      this.$store.commit('storefreelayer', newfreeshore)
-      this.map.getSource('freeShore').setData({
-        type: 'FeatureCollection',
-        features: this.enhanceData(newfreeshore)
-      })
-
-      let newreservedshore = this.$store.state.maplayers.reservedlayer
-      newreservedshore.push(data)
-      this.$store.commit('storehiddenlayer', newreservedshore)
-      this.map.getSource('reservedShore').setData({
-        type: 'FeatureCollection',
-        features: this.enhanceData(newreservedshore)
-      })
+      this.removeSegmentFromLayer('freeShore', 'freelayer', data._key)
+      this.addSegmentToLayer('reservedShore', 'reservedlayer', data)
     },
     shoreUnreserved(data) {
-      const newreservedshore = this.$store.state.maplayers.reservedlayer.filter(
-        e => {
-          return e._key !== data._key
-        }
-      )
-      this.$store.commit('storereservedlayer', newreservedshore)
-      this.map.getSource('reservedShore').setData({
-        type: 'FeatureCollection',
-        features: this.enhanceData(newreservedshore)
-      })
-
-      let newfreeshore = this.$store.state.maplayers.freelayer
-      newfreeshore.push(data)
-      this.$store.commit('storehiddenlayer', newfreeshore)
-      this.map.getSource('freeShore').setData({
-        type: 'FeatureCollection',
-        features: this.enhanceData(newfreeshore)
-      })
+      this.removeSegmentFromLayer('reservedShore', 'reservedlayer', data._key)
+      this.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     removecleaned(e, cleaned) {
       axios
