@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <vue-headful :title="$t('message.app')" />
     <div class="map-container">
       <div class="dimmer" v-if="showOverlay" @click="toggleOverlay" />
       <div class="dimmer" v-if="showReservationForm" @click="toggleModal" />

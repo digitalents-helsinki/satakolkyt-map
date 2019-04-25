@@ -3,7 +3,7 @@ import VTooltip from 'v-tooltip'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
+import vueHeadful from 'vue-headful'
 import './registerServiceWorker'
 import moment from 'moment'
 import 'moment/locale/fi'
@@ -33,6 +33,7 @@ i18n.locale = 'fi'
 Vue.use(require('vue-moment'), {
   moment
 })
+Vue.component('vue-headful', vueHeadful)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 new Vue({
   router,
