@@ -302,22 +302,61 @@ export default {
     },
     addreservation(e, reservation) {
       var id = e.target.id
+      const self = this
+      axios({
+        method: 'POST',
+        url: 'http://' + location.hostname + ':8089/api/map/cleanbeach/',
 
-      axios
-        .post('http://' + location.hostname + ':8089/api/map/cleanbeach/', {
-          key: id,
-          reservation: reservation._key
-        })
+        data: { key: id, reservation: reservation._key }
+      })
         .then(function(response) {
           console.log(response)
           if (response.data.status === 'ok') {
             reservation.confirm = true
-            alert('reserved')
+            self.shoreReserved(response.data.json)
           }
         })
         .catch(function(error) {
           console.log(error)
         })
+    },
+    shoreReserved(data) {
+      const newfreeshore = this.$store.state.maplayers.freelayer.filter(e => {
+        return e._key !== data._key
+      })
+      this.$store.commit('storefreelayer', newfreeshore)
+      this.map.getSource('freeShore').setData({
+        type: 'FeatureCollection',
+        features: this.enhanceData(newfreeshore)
+      })
+
+      let newreservedshore = this.$store.state.maplayers.reservedlayer
+      newreservedshore.push(data)
+      this.$store.commit('storehiddenlayer', newreservedshore)
+      this.map.getSource('reservedShore').setData({
+        type: 'FeatureCollection',
+        features: this.enhanceData(newreservedshore)
+      })
+    },
+    shoreUnreserved(data) {
+      const newreservedshore = this.$store.state.maplayers.reservedlayer.filter(
+        e => {
+          return e._key !== data._key
+        }
+      )
+      this.$store.commit('storereservedlayer', newreservedshore)
+      this.map.getSource('reservedShore').setData({
+        type: 'FeatureCollection',
+        features: this.enhanceData(newreservedshore)
+      })
+
+      let newfreeshore = this.$store.state.maplayers.freelayer
+      newfreeshore.push(data)
+      this.$store.commit('storehiddenlayer', newfreeshore)
+      this.map.getSource('freeShore').setData({
+        type: 'FeatureCollection',
+        features: this.enhanceData(newfreeshore)
+      })
     },
     removecleaned(e, cleaned) {
       axios
@@ -346,6 +385,7 @@ export default {
       )
     },
     removereservation(e, reservation) {
+      const self = this
       axios
         .post(
           'http://' + location.hostname + ':8089/api/map/cancelcleanbeach/',
@@ -358,7 +398,7 @@ export default {
           console.log(response)
           if (response.data.status === 'ok') {
             reservation.confirm = false
-            alert('canceled')
+            self.shoreUnreserved(response.data.json)
           }
         })
         .catch(function(error) {
