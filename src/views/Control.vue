@@ -531,8 +531,8 @@ export default {
 
     .adminMapContainer {
       position: relative;
-      width: 500px;
-      height: 500px;
+      width: 100vh;
+      height: 100vh;
     }
 
     .overlay-box-wrapper {

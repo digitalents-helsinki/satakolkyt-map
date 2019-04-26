@@ -212,7 +212,7 @@ export default {
 }
 
 .map-container {
-  height: 100%;
+  height: 85%;
 }
 
 .initial {

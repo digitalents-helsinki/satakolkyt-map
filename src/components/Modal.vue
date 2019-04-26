@@ -192,7 +192,7 @@ export default {
 .modal-container {
   width: 400px;
   height: 85vh;
-  margin: 0px auto;
+  margin-left: 5%;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
@@ -217,7 +217,7 @@ export default {
   margin-bottom: 20px;
 }
 .modal-default-button {
-  width: 100%;
+  width: 20%;
   margin-bottom: 5px;
 }
 

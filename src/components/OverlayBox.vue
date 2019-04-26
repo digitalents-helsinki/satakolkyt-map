@@ -12,9 +12,8 @@ export default {
 
 <style lang="scss" scoped>
 .overlay-box {
-  background-color: white;
+  background-color: transparent;
   border-radius: 5px;
-  box-shadow: 0 6px 2px -4px rgba(black, 0.15), 0 0 0 1px rgba(black, 0.05);
   margin: 1rem 1rem;
   min-height: 5rem;
   padding: 1rem;
