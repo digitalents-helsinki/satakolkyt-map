@@ -1,5 +1,6 @@
 <template>
   <div class="app-header">
+    <vue-headful :lang="$i18n.locale" />
     <h1>{{ $t('message.app') }}</h1>
     <template v-if="isOffline">
       <h1>{{ $t('message.offline') }}</h1>
