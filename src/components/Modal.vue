@@ -73,20 +73,18 @@
                     ></vue-timepicker>
                   </div>
                 </div>
-                <p>{{ $t('message.type_label') }}</p>
-                <select
-                  :required="required ? true : false"
-                  v-model="reservationdata.type"
-                  class=""
-                  name="type"
-                >
-                  <option :required="required ? true : false" value="open">{{
-                    $t('message.type_open')
-                  }}</option>
-                  <option :required="required ? true : false" value="private"
-                    >{{ $t('message.type_private') }}
-                  </option>
-                </select>
+                <div class="flex-grid">
+                  <div class="col">
+                    <h1>{{ $t('message.type_private') }}</h1>
+                  </div>
+                  <div class="col">
+                    <input
+                      v-model="reservationdata.private"
+                      type="checkbox"
+                      checked="checked"
+                    />
+                  </div>
+                </div>
 
                 <h1>{{ $t('message.organizer') }}</h1>
 
@@ -133,10 +131,16 @@
 
             <div class="modal-footer">
               <slot name="footer">
-                <button class="modal-default-button" @click="showModal = false">
+                <button
+                  class="modal-default-button blue"
+                  @click="showModal = false"
+                >
                   Ok
                 </button>
-                <button class="modal-default-button" @click="$emit('close')">
+                <button
+                  class="modal-default-button grey"
+                  @click="$emit('close')"
+                >
                   {{ $t('message.close') }}
                 </button>
               </slot>
@@ -235,7 +239,7 @@ export default {
 
 .modal-container {
   width: 700px;
-  height: 85vh;
+  height: 60vh;
   margin-left: 5%;
   padding: 20px 30px;
   background-color: #fff;
@@ -267,6 +271,7 @@ export default {
   width: 20%;
   margin-bottom: 5px;
   float: right;
+  color: white;
 }
 
 /*
@@ -296,7 +301,7 @@ input {
   margin: 8px 0;
   box-sizing: border-box;
   border: none;
-  border-bottom: 2px solid green;
+  border: 2px solid #e5e5e5;
 }
 select {
   padding: 16px 20px;
@@ -304,7 +309,9 @@ select {
   border-radius: 4px;
   background-color: #f1f1f1;
 }
-
+h1 {
+  font-weight: bold;
+}
 select,
 input {
   width: 100%;
@@ -312,7 +319,9 @@ input {
 .success {
   color: green;
 }
-
+.grey {
+  background: #c4c4c4;
+}
 input:invalid,
 select {
   border-color: red;
@@ -323,5 +332,8 @@ select {
 }
 .col {
   flex: 1;
+}
+.blue {
+  background: #51bdff;
 }
 </style>

@@ -72,15 +72,13 @@ header {
   width: 5em !important;
 }
 button {
-  background-color: transparent;
+  background-color: yellow;
   color: #000;
   padding: 0.8rem 1rem;
-  border-radius: 40px;
   font-size: 1rem;
   min-width: 20ex;
   font-weight: bold;
   font-family: inherit;
-  border: 3px solid #475dcc;
   margin-right: 5px;
 }
 button:hover {
