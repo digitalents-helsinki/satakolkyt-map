@@ -26,7 +26,6 @@
                 type="text"
               />
               <p>{{ $t('message.name') }}</p>
-              <p>nimi</p>
               <input
                 :required="required ? true : false"
                 v-model="data.leader_name"
