@@ -80,7 +80,7 @@
         <template v-if="saved">
           <div class="modal-header">
             <slot name="header">
-              <h1 class="success">Varaus on tallennettu</h1>
+              <h1 class="success">{{ $t('message.cleaned_saved') }}</h1>
               <button class="modal-default-button" @click="$emit('close')">
                 {{ $t('message.close') }}
               </button>
