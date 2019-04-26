@@ -16,11 +16,16 @@ import VueOffline from 'vue-offline'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCalendar } from '@fortawesome/free-solid-svg-icons'
+import { faClock } from '@fortawesome/free-solid-svg-icons'
+
 import VueI18n from 'vue-i18n'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { messages } from './translation'
 library.add(faTimes)
 library.add(faQuestionCircle)
+library.add(faCalendar)
+library.add(faClock)
 Vue.config.productionTip = false
 
 Vue.use(VTooltip)

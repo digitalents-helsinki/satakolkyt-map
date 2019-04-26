@@ -20,30 +20,59 @@
 
             <div class="modal-body">
               <slot name="body">
-                <p>{{ $t('message.date_start') }}</p>
-                <input
-                  :required="required ? true : false"
-                  v-model="reservationdata.startdate"
-                  type="date"
-                />
-                <p>{{ $t('message.time_start') }}</p>
-                <vue-timepicker
-                  :required="required ? true : false"
-                  v-model="reservationdata.starttime"
-                  format="HH:mm"
-                ></vue-timepicker>
-                <p>{{ $t('message.date_end') }}</p>
-                <input
-                  :required="required ? true : false"
-                  v-model="reservationdata.enddate"
-                  type="date"
-                />
-                <p>{{ $t('message.time_end') }}</p>
-                <vue-timepicker
-                  :required="required ? true : false"
-                  v-model="reservationdata.endtime"
-                  format="HH:mm"
-                ></vue-timepicker>
+                <div class="flex-grid">
+                  <div class="col">
+                    <h3>Lorem ipsum dolor sit am</h3>
+                  </div>
+                  <div class="col">
+                    <input :required="required ? true : false" type="text" />
+                  </div>
+                </div>
+                Ajankohta
+                <div class="flex-grid">
+                  <div class="col">
+                    <font-awesome-icon icon="calendar" />
+                  </div>
+                  <div class="col">
+                    <input
+                      :required="required ? true : false"
+                      v-model="reservationdata.startdate"
+                      type="date"
+                    />
+                  </div>
+                  <div class="col">
+                    <font-awesome-icon icon="clock" />
+                  </div>
+                  <div class="col">
+                    <vue-timepicker
+                      class="timepicker"
+                      :required="required ? true : false"
+                      v-model="reservationdata.starttime"
+                      format="HH:mm"
+                    ></vue-timepicker>
+                  </div>
+                  <div class="col">
+                    <font-awesome-icon icon="calendar" />
+                  </div>
+                  <div class="col">
+                    <input
+                      :required="required ? true : false"
+                      v-model="reservationdata.enddate"
+                      type="date"
+                    />
+                  </div>
+                  <div class="col">
+                    <font-awesome-icon icon="clock" />
+                  </div>
+                  <div class="col">
+                    <vue-timepicker
+                      class="timepicker"
+                      :required="required ? true : false"
+                      v-model="reservationdata.endtime"
+                      format="HH:mm"
+                    ></vue-timepicker>
+                  </div>
+                </div>
                 <p>{{ $t('message.type_label') }}</p>
                 <select
                   :required="required ? true : false"
@@ -58,32 +87,47 @@
                     >{{ $t('message.type_private') }}
                   </option>
                 </select>
+
                 <p>{{ $t('message.organizer') }}</p>
-                <input
-                  :required="required ? true : false"
-                  v-model="reservationdata.organizer"
-                  type="text"
-                />
+
                 <p>{{ $t('message.contact') }}</p>
-                <p>{{ $t('message.name') }}</p>
-                <input
-                  :required="required ? true : false"
-                  v-model="reservationdata.name"
-                  type="text"
-                />
-                <p>{{ $t('message.phonenumber') }}</p>
-                <input
-                  :required="required ? true : false"
-                  v-model="reservationdata.phonenumber"
-                  pattern="[0-9]{3,11}"
-                  type="tel"
-                />
-                <p>{{ $t('message.email') }}</p>
-                <input
-                  :required="required ? true : false"
-                  v-model="reservationdata.email"
-                  type="email"
-                />
+                <div class="flex-grid">
+                  <div class="col">
+                    <p>{{ $t('message.name') }}</p>
+                  </div>
+                  <div class="col">
+                    <input
+                      :required="required ? true : false"
+                      v-model="reservationdata.name"
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div class="flex-grid">
+                  <div class="col">
+                    <p>{{ $t('message.email') }}</p>
+                  </div>
+                  <div class="col">
+                    <input
+                      :required="required ? true : false"
+                      v-model="reservationdata.email"
+                      type="email"
+                    />
+                  </div>
+                </div>
+                <div class="flex-grid">
+                  <div class="col">
+                    <p>{{ $t('message.phonenumber') }}</p>
+                  </div>
+                  <div class="col">
+                    <input
+                      :required="required ? true : false"
+                      v-model="reservationdata.phonenumber"
+                      pattern="[0-9]{3,11}"
+                      type="tel"
+                    />
+                  </div>
+                </div>
               </slot>
             </div>
 
@@ -190,7 +234,7 @@ export default {
 }
 
 .modal-container {
-  width: 400px;
+  width: 700px;
   height: 85vh;
   margin-left: 5%;
   padding: 20px 30px;
@@ -209,7 +253,12 @@ export default {
 .modal-header h3 {
   font-weight: 700;
 }
-
+.date-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: row;
+}
 .modal-body {
   margin: 20px 0;
 }
@@ -219,6 +268,7 @@ export default {
 .modal-default-button {
   width: 20%;
   margin-bottom: 5px;
+  float: right;
 }
 
 /*
@@ -256,6 +306,9 @@ select {
   border-radius: 4px;
   background-color: #f1f1f1;
 }
+.display-time {
+  width: 10%;
+}
 select,
 input {
   width: 100%;
@@ -268,5 +321,11 @@ input:invalid,
 select {
   border-color: red;
   box-shadow: none;
+}
+.flex-grid {
+  display: flex;
+}
+.col {
+  flex: 1;
 }
 </style>
