@@ -88,7 +88,7 @@
                   </option>
                 </select>
 
-                <p>{{ $t('message.organizer') }}</p>
+                <h1>{{ $t('message.organizer') }}</h1>
 
                 <p>{{ $t('message.contact') }}</p>
                 <div class="flex-grid">
@@ -240,10 +240,8 @@ export default {
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
-  overflow: scroll;
 }
 @media only screen and (max-width: 600px) {
   .modal-container {
@@ -306,9 +304,10 @@ select {
   border-radius: 4px;
   background-color: #f1f1f1;
 }
-.display-time {
-  width: 10%;
+.time-picker > input.display-time {
+  width: 4em;
 }
+
 select,
 input {
   width: 100%;
