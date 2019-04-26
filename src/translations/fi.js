@@ -26,8 +26,7 @@ export const fi = {
     trash_large: 'Monta jätesäkillistä',
     reservation_saved: 'Varaus on tallennettu',
     cleaned_saved: 'Siivotut ranta on ilmoitettu',
-    trash_left:
-      'Did you leave trash sacks on the strand which should be removed?',
+    trash_left: 'Jätikö jätesäkkejä rannan läheisyyteen?',
     reservations: 'Varaukset',
     date: 'Ajankohta',
     starts: 'Alkaa',

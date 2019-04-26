@@ -3,6 +3,7 @@
     <header ref="nav" v-if="this.$route.name === 'home'">
       <app-header />
     </header>
+
     <main :style="mainStyle">
       <router-view />
     </main>

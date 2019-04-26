@@ -1,6 +1,9 @@
 <template>
   <div class="app-header">
     <h1>{{ $t('message.app') }}</h1>
+    <template v-if="isOffline">
+      <h1>You are offline</h1>
+    </template>
     <font-awesome-icon
       icon="question-circle"
       class="help-icon"

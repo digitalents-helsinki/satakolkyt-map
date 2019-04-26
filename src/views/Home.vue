@@ -4,7 +4,6 @@
     <div class="map-container">
       <div class="dimmer" v-if="showOverlay" @click="toggleOverlay" />
       <div class="dimmer" v-if="showReservationForm" @click="toggleModal" />
-
       <shore-map
         :freeshores="this.$store.state.maplayers.freelayer"
         :reservedshores="this.$store.state.maplayers.reservedlayer"
@@ -15,10 +14,15 @@
         @shore-click="populateSelectedShoreData"
       />
       <section v-else class="initial">
-        <h1>{{ $t('message.open_map') }}</h1>
-        <button @click="() => (showMap = true)">
-          {{ $t('message.open') }}
-        </button>
+        <template v-if="isOnline"
+          ><h1>{{ $t('message.open_map') }}</h1>
+          <button @click="() => (showMap = true)">
+            {{ $t('message.open') }}
+          </button>
+        </template>
+        <template v-if="isOffline">
+          <h1>You are offline</h1>
+        </template>
       </section>
 
       <transition name="overlayPop">
