@@ -38,6 +38,7 @@ export const en = {
     ends: 'Ends',
     contact_info: 'contact info',
     time: 'Time',
+    offline: 'You are offline',
     cleaned: 'Cleaned Shores',
     show_map: 'Show on the map',
     confirm_cleaned: 'Confirm cleaned Shore',

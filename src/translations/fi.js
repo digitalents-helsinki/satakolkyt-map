@@ -34,6 +34,7 @@ export const fi = {
     contact_info: 'Yhteystiedot',
     time: 'Aika',
     cleaned: 'Siivotut rannat',
+    offline: 'Ei internet yhteyttä',
     show_map: 'Näytä kartassa',
     confirm_cleaned: 'Vahvista siivotuksi',
     cancel_cleaned: 'Poista Vahvistus',

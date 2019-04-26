@@ -21,7 +21,7 @@
           </button>
         </template>
         <template v-if="isOffline">
-          <h1>You are offline</h1>
+          <h1>{{ $t('message.offline') }}</h1>
         </template>
       </section>
 
