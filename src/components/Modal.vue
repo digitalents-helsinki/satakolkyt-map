@@ -304,9 +304,6 @@ select {
   border-radius: 4px;
   background-color: #f1f1f1;
 }
-.time-picker > input.display-time {
-  width: 4em;
-}
 
 select,
 input {

@@ -62,7 +62,15 @@ header {
   width: 100vw;
   z-index: 100;
 }
-
+.time-picker > input.display-time {
+  width: 4em !important;
+  background: transparent;
+  padding: 0px !important;
+  display: inline-flex;
+}
+.time-picker {
+  width: 5em !important;
+}
 button {
   background-color: transparent;
   color: #000;
