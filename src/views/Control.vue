@@ -8,8 +8,8 @@
       adminmode="true"
       :data="selectedShoreData"
       :action="mapOverlayAction"
-      hide-shore="shoreHidden"
-      unhide-shore="shoreUnhidden"
+      @hide-shore="shoreHidden"
+      @unhide-shore="shoreUnhidden"
     />
 
     <div class="controlpanel-container" @click.stop>
@@ -268,7 +268,7 @@ export default {
 
       //filter the feature from free shores data
       this.removeSegmentFromLayer('freeShore', 'freelayer', data._key)
-
+      this.mapOverlayAction = 'unhide'
       //add the feature to hidden shore data
       this.addSegmentToLayer('hiddenShore', 'hiddenlayer', data)
     },
@@ -276,7 +276,7 @@ export default {
       this.toggleOverlay()
       this.map.removeLayer('hiddenShoreSelected')
       this.map.removeSource('hiddenShoreSelected')
-
+      this.mapOverlayAction = 'hide'
       this.removeSegmentFromLayer('hiddenShore', 'hiddenlayer', data._key)
       this.addSegmentToLayer('freeShore', 'freelayer', data)
     },
