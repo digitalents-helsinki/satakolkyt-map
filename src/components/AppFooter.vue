@@ -1,11 +1,17 @@
 <template>
   <div>
     <div class="footer">
-      <shore-info
-        @show-reservationform="this.showReservationForm"
-        @show-cleanform="this.showCleanedForm"
-        :data="this.$props.data"
-      />
+      <template v-if="!this.$props.adminmode">
+        <shore-info
+          @show-reservationform="this.showReservationForm"
+          @show-cleanform="this.showCleanedForm"
+          :data="this.$props.data"
+        />
+      </template>
+      <template v-else>
+        <admin-shore-info :data="this.$props.data" :action="this.$props.action">
+        </admin-shore-info>
+      </template>
     </div>
     <div class="colors"></div>
   </div>
@@ -13,12 +19,22 @@
 
 <script>
 import ShoreInfo from './ShoreInfo'
+import AdminShoreInfo from './AdminShoreInfo'
 
 export default {
   name: 'app-footer',
-  props: ['data', 'showReservation', 'showCleaned', 'hideShore'],
+  props: [
+    'data',
+    'action',
+    'showReservation',
+    'showCleaned',
+    'unHideShore',
+    'hideShore',
+    'adminmode'
+  ],
   components: {
-    ShoreInfo
+    ShoreInfo,
+    AdminShoreInfo
   },
   mounted() {},
   methods: {

@@ -4,6 +4,14 @@
     class="controlpanel-wrapper"
     @click="$emit('close')"
   >
+    <app-footer
+      adminmode="true"
+      :data="selectedShoreData"
+      :action="mapOverlayAction"
+      hide-shore="shoreHidden"
+      unhide-shore="shoreUnhidden"
+    />
+
     <div class="controlpanel-container" @click.stop>
       <div class="clean-infos">
         <h1>{{ $t('message.cleaned') }}</h1>
@@ -137,22 +145,6 @@
               :cleanedshores="this.$store.state.maplayers.cleanlayer"
               :hiddenshores="this.$store.state.maplayers.hiddenlayer"
             />
-            <transition name="overlayPop">
-              <div
-                v-if="showOverlay && selectedShoreData"
-                class="overlay-box-wrapper"
-              >
-                <overlay-box>
-                  <admin-shore-info
-                    :data="selectedShoreData"
-                    :action="mapOverlayAction"
-                    @hide-shore="shoreHidden"
-                    @unhide-shore="shoreUnhidden"
-                  >
-                  </admin-shore-info>
-                </overlay-box>
-              </div>
-            </transition>
           </div>
         </div>
       </div>
@@ -182,15 +174,16 @@
 </template>
 
 <script>
-import OverlayBox from '@/components/OverlayBox'
-import AdminShoreInfo from '@/components/AdminShoreInfo'
 //import AdminMapBox from '@/components/AdminMapBox'
 import ShoreMap from '@/components/ShoreMap'
+import AppFooter from '@/components/AppFooter'
+
 import axios from 'axios'
 export default {
   name: 'control',
   data() {
     return {
+      adminmode: true,
       reservations: {},
       selected: {},
       login_token: false,
@@ -206,8 +199,7 @@ export default {
     }
   },
   components: {
-    AdminShoreInfo,
-    OverlayBox,
+    AppFooter,
     //AdminMapBox
     ShoreMap
   },
