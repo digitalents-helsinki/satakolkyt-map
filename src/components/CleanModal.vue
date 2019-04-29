@@ -55,16 +55,13 @@
                   <option value="4">{{ $t('message.trash_large') }}</option>
                 </select>
                 <p>{{ $t('message.trash_left') }}</p>
-                <select
-                  :required="required ? true : false"
-                  v-model="data.trash_left"
-                >
+                <select :required="required" v-model="data.trash_left">
                   <option value="yes">kyllä</option>
                   <option value="no">ei</option>
                 </select>
               </div>
               <div class="modal-footer">
-                <button @click="toNextPage">
+                <button @click.prevent="toNextPage">
                   Seuraava
                 </button>
               </div>
@@ -84,6 +81,7 @@
                     name="kurtturuusu"
                     value="yes"
                     v-model="data.kurtturuusu"
+                    :required="required"
                   />
                   <label for="kurttuno">Ei</label>
                   <input
@@ -92,6 +90,7 @@
                     name="kurtturuusu"
                     value="no"
                     v-model="data.kurtturuusu"
+                    :required="required"
                   />
                   <label for="kurttuidk">En osaa sanoa</label>
                   <input
@@ -100,6 +99,7 @@
                     name="kurtturuusu"
                     value="idk"
                     v-model="data.kurtturuusu"
+                    :required="required"
                   />
                 </div>
                 <div class="foreign-species">
@@ -111,6 +111,7 @@
                     name="jattipalsami"
                     value="yes"
                     v-model="data.jattipalsami"
+                    :required="required"
                   />
                   <label for="jattino">Ei</label>
                   <input
@@ -119,6 +120,7 @@
                     name="jattipalsami"
                     value="no"
                     v-model="data.jattipalsami"
+                    :required="required"
                   />
                   <label for="jattiidk">En osaa sanoa</label>
                   <input
@@ -127,6 +129,7 @@
                     name="jattipalsami"
                     value="idk"
                     v-model="data.jattipalsami"
+                    :required="required"
                   />
                 </div>
               </div>
@@ -134,10 +137,10 @@
               <h5>Missä kohtaa vieraslajia esiintyy ja kuinka paljon?</h5>
               <textarea rows="4" v-model="data.foreignspeciesdetail" />
               <div class="modal-footer">
-                <button @click="toPrevPage">
+                <button @click.prevent="toPrevPage">
                   Edellinen
                 </button>
-                <button @click="toNextPage">
+                <button @click.prevent="toNextPage">
                   Seuraava
                 </button>
               </div>
@@ -150,11 +153,9 @@
               <div class="modal-body">
                 <h4>Jotain muuta, mitä haluatte kertoa?</h4>
                 <textarea rows="4" v-model="data.cleanmoreinfo" />
-                <h4>Kuva</h4>
-                <p>Ehkä kuvan lataus tähän</p>
               </div>
               <div class="modal-footer">
-                <button @click="toPrevPage">
+                <button @click.prevent="toPrevPage">
                   Edellinen
                 </button>
                 <button type="submit">
@@ -188,7 +189,7 @@ export default {
     return {
       data: {},
       saved: false,
-      required: true,
+      required: false,
       pagenum: 0
     }
   },
@@ -200,9 +201,10 @@ export default {
       axios({
         method: 'POST',
         url: 'http://' + location.hostname + ':8089/api/map/cleaninfo',
-
         data: this.data
-      }).then(response => {})
+      }).then(response => {
+        this.$emit('close')
+      })
     },
     toNextPage() {
       this.pagenum++
