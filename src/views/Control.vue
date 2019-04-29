@@ -369,7 +369,7 @@ export default {
         .then(response => {
           console.log(response)
           clean.confirm = true
-          self.shoreCleaned(response.data.json)
+          this.shoreCleaned(response.data.json)
         })
         .catch(function(error) {
           console.log(error)
