@@ -19,6 +19,7 @@ export const sv = {
     email: 'E-postadress',
     contact: 'Kontakt person',
     close: 'Stäng',
+    date: 'Datum',
     claim_clean: 'Rapporttera en städad strand',
     trash_little: 'Nästan inte alls',
     trash_small: 'Cirka en plastpåse',

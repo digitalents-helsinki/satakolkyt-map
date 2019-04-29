@@ -13,16 +13,19 @@
         @map-loaded="mapLoaded"
         @shore-click="populateSelectedShoreData"
       />
-      <section v-else class="initial">
-        <template v-if="isOnline"
-          ><h1>{{ $t('message.open_map') }}</h1>
-          <button @click="() => (showMap = true)">
-            {{ $t('message.open') }}
-          </button>
-        </template>
-        <template v-if="isOffline">
-          <h1>{{ $t('message.offline') }}</h1>
-        </template>
+      <section v-else>
+        <div class="initial-background"></div>
+        <div class="initial">
+          <template v-if="isOnline" class="no-blur"
+            ><h1>{{ $t('message.open_map') }}</h1>
+            <button @click="() => (showMap = true)">
+              {{ $t('message.open') }}
+            </button>
+          </template>
+          <template class="no-blur" v-if="isOffline">
+            <h1>{{ $t('message.offline') }}</h1>
+          </template>
+        </div>
       </section>
       <app-footer
         @delete-shore="hideShore"
@@ -203,15 +206,25 @@ export default {
 .map-container {
   height: 100%;
 }
-
+.initial-background {
+  position: relative;
+  background-image: url('/bg.jpg');
+  filter: blur(5px);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
 .initial {
-  background-color: #eae6e0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
   color: #4e4a45;
 
   h1 {
@@ -222,6 +235,9 @@ export default {
 
   button {
     width: 20ex;
+  }
+  .no-blur {
+    filter: blur(0px);
   }
 }
 

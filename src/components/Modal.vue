@@ -28,7 +28,7 @@
                     <input :required="required ? true : false" type="text" />
                   </div>
                 </div>
-                Ajankohta
+                {{ $t('message.date') }}
                 <div class="reservationform">
                   <div class="item">
                     <font-awesome-icon icon="calendar" />
