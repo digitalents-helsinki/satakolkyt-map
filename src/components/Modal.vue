@@ -29,8 +29,8 @@
                   </div>
                 </div>
                 Ajankohta
-                <div class="flex-grid">
-                  <div class="col">
+                <div class="reservationform">
+                  <div class="item">
                     <font-awesome-icon icon="calendar" />
 
                     <input
@@ -39,7 +39,7 @@
                       type="date"
                     />
                   </div>
-                  <div class="col">
+                  <div class="item">
                     <font-awesome-icon icon="clock" />
 
                     <vue-timepicker
@@ -49,7 +49,7 @@
                       format="HH:mm"
                     ></vue-timepicker>
                   </div>
-                  <div class="col">
+                  <div class="item">
                     <font-awesome-icon icon="calendar" />
 
                     <input
@@ -58,7 +58,7 @@
                       type="date"
                     />
                   </div>
-                  <div class="col">
+                  <div class="item">
                     <font-awesome-icon icon="clock" />
 
                     <vue-timepicker
@@ -331,5 +331,14 @@ select {
 }
 .blue {
   background: #51bdff;
+}
+.reservationform {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+.item {
+  display: flex;
+  align-items: center;
 }
 </style>
