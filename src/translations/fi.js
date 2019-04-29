@@ -31,6 +31,12 @@ export const fi = {
     reservation_saved: 'Varaus on tallennettu',
     cleaned_saved: 'Siivotut ranta on ilmoitettu',
     trash_left: 'Jätikö jätesäkkejä rannan läheisyyteen?',
+    foreign_species: 'Vieraslajit',
+    foreign_species_info: `Vieraslajit ovat lajeja, jotka ovat levinneet luontaiselta levinneisyysalueeltaan
+                          uudelle alueelle ihmisen mukana joko tahattomasti tai tarkoituksella. Haitalliset
+                          vieraslajit leviävät nopeasti ja vievät elintilaan alkuperäisiltä lajeilta sekä muuttavat
+                          ekosysteemin rakennetta.`,
+    clean_additional_info: 'Lisätietoja',
     reservations: 'Varaukset',
     date: 'Ajankohta',
     starts: 'Alkaa',

@@ -9,70 +9,158 @@
             @click="$emit('close')"
           />
           <form v-on:submit.prevent="saveCleaned">
-            <div class="modal-header">
-              <h3>{{ $t('message.claim_clean') }}</h3>
+            <div v-show="pagenum == 0">
+              <div class="modal-header">
+                <h3>{{ $t('message.claim_clean') }}</h3>
+              </div>
+              <div class="modal-body">
+                <p>{{ $t('message.time_clean') }}</p>
+                <input :required="required" v-model="data.date" type="date" />
+                <p>{{ $t('message.organizer_clean') }}</p>
+                <input
+                  :required="required"
+                  v-model="data.organizer_name"
+                  type="text"
+                />
+                <p>{{ $t('message.name') }}</p>
+                <input
+                  :required="required"
+                  v-model="data.leader_name"
+                  type="text"
+                />
+                <p>{{ $t('message.email') }}</p>
+                <input
+                  :required="required"
+                  v-model="data.leader_email"
+                  type="email"
+                />
+                <p>{{ $t('message.phonenumber') }}</p>
+                <input
+                  :required="required"
+                  v-model="data.leader_phone"
+                  type="tel"
+                  pattern="[0-9]{3,11}"
+                />
+                <p>{{ $t('message.clean_count') }}</p>
+                <input
+                  :required="required"
+                  v-model="data.group_size"
+                  type="number"
+                />
+                <p>{{ $t('message.trash_count') }}</p>
+                <select :required="required" v-model="data.trash_amount">
+                  <option value="1">{{ $t('message.trash_little') }}</option>
+                  <option value="2">{{ $t('message.trash_small') }}</option>
+                  <option value="3">{{ $t('message.trash_medium') }}</option>
+                  <option value="4">{{ $t('message.trash_large') }}</option>
+                </select>
+                <p>{{ $t('message.trash_left') }}</p>
+                <select
+                  :required="required ? true : false"
+                  v-model="data.trash_left"
+                >
+                  <option value="yes">kyllä</option>
+                  <option value="no">ei</option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button @click="toNextPage">
+                  Seuraava
+                </button>
+              </div>
             </div>
-            <div class="modal-body">
-              <p>{{ $t('message.time_clean') }}</p>
-              <input
-                :required="required ? true : false"
-                v-model="data.date"
-                type="date"
-              />
-              <p>{{ $t('message.organizer_clean') }}</p>
-              <input
-                :required="required ? true : false"
-                v-model="data.organizer_name"
-                type="text"
-              />
-              <p>{{ $t('message.name') }}</p>
-              <input
-                :required="required ? true : false"
-                v-model="data.leader_name"
-                type="text"
-              />
-              <p>{{ $t('message.email') }}</p>
-              <input
-                :required="required ? true : false"
-                v-model="data.leader_email"
-                type="email"
-              />
-              <p>{{ $t('message.phonenumber') }}</p>
-              <input
-                :required="required ? true : false"
-                v-model="data.leader_phone"
-                type="tel"
-                pattern="[0-9]{3,11}"
-              />
-              <p>{{ $t('message.clean_count') }}</p>
-              <input
-                :required="required ? true : false"
-                v-model="data.group_size"
-                type="number"
-              />
-              <p>{{ $t('message.trash_count') }}</p>
-              <select
-                :required="required ? true : false"
-                v-model="data.trash_amount"
-              >
-                <option value="1">{{ $t('message.trash_little') }}</option>
-                <option value="2">{{ $t('message.trash_small') }}</option>
-                <option value="3">{{ $t('message.trash_medium') }}</option>
-                <option value="4">{{ $t('message.trash_large') }}</option>
-              </select>
-              <p>{{ $t('message.trash_left') }}</p>
-              <select
-                :required="required ? true : false"
-                v-model="data.trash_left"
-              >
-                <option value="yes">kyllä</option>
-                <option value="no">ei</option>
-              </select>
+            <div v-show="pagenum == 1">
+              <div class="modal-header">
+                <h3>{{ $t('message.foreign_species') }}</h3>
+                <p>{{ $t('message.foreign_species_info') }}</p>
+              </div>
+              <div class="modal-body">
+                <div class="foreign-species">
+                  <h4>Havaitsitteko rannalla kurtturuusua?</h4>
+                  <label for="kurttuyes">Kyllä</label>
+                  <input
+                    type="radio"
+                    id="kurttuyes"
+                    name="kurtturuusu"
+                    value="yes"
+                    v-model="data.kurtturuusu"
+                  />
+                  <label for="kurttuno">Ei</label>
+                  <input
+                    type="radio"
+                    id="kurttuno"
+                    name="kurtturuusu"
+                    value="no"
+                    v-model="data.kurtturuusu"
+                  />
+                  <label for="kurttuidk">En osaa sanoa</label>
+                  <input
+                    type="radio"
+                    id="kurttuidk"
+                    name="kurtturuusu"
+                    value="idk"
+                    v-model="data.kurtturuusu"
+                  />
+                </div>
+                <div class="foreign-species">
+                  <h4>Havaitsitteko rannalla jättipalsamia?</h4>
+                  <label for="jattiyes">Kyllä</label>
+                  <input
+                    type="radio"
+                    id="jattiyes"
+                    name="jattipalsami"
+                    value="yes"
+                    v-model="data.jattipalsami"
+                  />
+                  <label for="jattino">Ei</label>
+                  <input
+                    type="radio"
+                    id="jattino"
+                    name="jattipalsami"
+                    value="no"
+                    v-model="data.jattipalsami"
+                  />
+                  <label for="jattiidk">En osaa sanoa</label>
+                  <input
+                    type="radio"
+                    id="jattiidk"
+                    name="jattipalsami"
+                    value="idk"
+                    v-model="data.jattipalsami"
+                  />
+                </div>
+              </div>
+              <h4>Voitte kuvailla lajiesiintymiä tarkemmin</h4>
+              <h5>Missä kohtaa vieraslajia esiintyy ja kuinka paljon?</h5>
+              <textarea rows="4" v-model="data.foreignspeciesdetail" />
+              <div class="modal-footer">
+                <button @click="toPrevPage">
+                  Edellinen
+                </button>
+                <button @click="toNextPage">
+                  Seuraava
+                </button>
+              </div>
             </div>
-            <div class="modal-footer">
-              <button type="submit">
-                OK
-              </button>
+            <div v-show="pagenum == 2">
+              <div class="modal-header">
+                <h3>{{ $t('message.clean_additional_info') }}</h3>
+                <p>Lisätietojen täyttäminen on vapaaehtoista</p>
+              </div>
+              <div class="modal-body">
+                <h4>Jotain muuta, mitä haluatte kertoa?</h4>
+                <textarea rows="4" v-model="data.cleanmoreinfo" />
+                <h4>Kuva</h4>
+                <p>Ehkä kuvan lataus tähän</p>
+              </div>
+              <div class="modal-footer">
+                <button @click="toPrevPage">
+                  Edellinen
+                </button>
+                <button type="submit">
+                  OK
+                </button>
+              </div>
             </div>
           </form>
         </template>
@@ -100,7 +188,8 @@ export default {
     return {
       data: {},
       saved: false,
-      required: false
+      required: true,
+      pagenum: 0
     }
   },
   mounted() {
@@ -114,6 +203,12 @@ export default {
 
         data: this.data
       }).then(response => {})
+    },
+    toNextPage() {
+      this.pagenum++
+    },
+    toPrevPage() {
+      this.pagenum--
     }
   }
 }
@@ -160,6 +255,11 @@ export default {
 .modal-header h3 {
   font-weight: 700;
   margin-bottom: 1rem;
+}
+
+.modal-header p {
+  font-size: 12px;
+  color: #888;
 }
 
 .modal-body {
@@ -214,5 +314,10 @@ input {
 }
 .success {
   color: green;
+}
+textarea {
+  border: 1px solid #bbb;
+  resize: none;
+  width: 100%;
 }
 </style>

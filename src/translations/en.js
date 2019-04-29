@@ -33,6 +33,12 @@ export const en = {
     cleaned_saved: 'Cleaned Shore has been saved',
     trash_left:
       'Did you leave trash sacks on the strand which should be removed?',
+    foreign_species: 'Foreign species',
+    foreign_species_info: `Add translation, Add translation, Add translation, Add translation, Add translation,
+                          Add translation, Add translation, Add translation, Add translation, Add translation,
+                          Add translation, Add translation, Add translation, Add translation, Add translation,
+                          Add translation, Add translation, Add translation, Add translation, Add translation, `,
+    clean_additional_info: 'Additional information',
     reservations: 'Reservations',
     date: 'Date',
     starts: 'Starts',
