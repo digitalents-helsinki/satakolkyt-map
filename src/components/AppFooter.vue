@@ -9,7 +9,12 @@
         />
       </template>
       <template v-else>
-        <admin-shore-info :data="this.$props.data" :action="this.$props.action">
+        <admin-shore-info
+          :data="this.$props.data"
+          :action="this.$props.action"
+          @hide-shore="this.hideShoreMap"
+          @unhide-shore="this.unHideShoreMap"
+        >
         </admin-shore-info>
       </template>
     </div>
@@ -43,6 +48,12 @@ export default {
     },
     showCleanedForm(data) {
       this.$emit('show-cleanform', data)
+    },
+    hideShoreMap(data) {
+      this.$emit('hide-shore', data)
+    },
+    unHideShoreMap(data) {
+      this.$emit('unhide-shore', data)
     }
   }
 }
