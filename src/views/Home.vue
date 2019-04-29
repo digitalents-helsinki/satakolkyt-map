@@ -209,7 +209,7 @@ export default {
 .initial-background {
   position: relative;
   background-image: url('/bg.jpg');
-  filter: blur(5px);
+  filter: blur(4px) opacity(0.6);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
