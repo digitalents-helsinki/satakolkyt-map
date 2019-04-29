@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header ref="nav" v-if="this.$route.name === 'home'">
+    <header ref="nav">
       <app-header />
     </header>
 
