@@ -200,7 +200,7 @@ export default {
 
 <style lang="scss">
 .map-view {
-  height: 100%;
+  height: 100vh;
   cursor: pointer;
 }
 #map {

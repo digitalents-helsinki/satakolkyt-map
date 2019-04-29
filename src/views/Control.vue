@@ -13,7 +13,7 @@
     />
 
     <div class="controlpanel-container" @click.stop>
-      <div class="clean-infos">
+      <!--div class="clean-infos">
         <h1>{{ $t('message.cleaned') }}</h1>
         <li class="clean-info" v-for="clean in cleaned" :key="clean._id">
           <div class="clean-time">
@@ -130,7 +130,7 @@
             </template>
           </div>
         </li>
-      </div>
+      </div-->
       <div class="editor-wrapper">
         <div class="editor">
           {{ $t('message.edit_map') }}
@@ -519,12 +519,11 @@ export default {
   }
 
   .editor-wrapper {
-    position: relative;
+    position: absolute;
 
     .adminMapContainer {
-      position: relative;
-      width: 100vh;
       height: 100vh;
+      width: 100vw;
     }
 
     .overlay-box-wrapper {
