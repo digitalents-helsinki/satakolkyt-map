@@ -1,13 +1,34 @@
 <template>
   <div>
-    <div class="footer"></div>
+    <div class="footer">
+      <shore-info
+        @show-reservationform="this.showReservationForm"
+        @show-cleanform="this.showCleanedForm"
+        :data="this.$props.data"
+      />
+    </div>
     <div class="colors"></div>
   </div>
 </template>
 
 <script>
+import ShoreInfo from './ShoreInfo'
+
 export default {
-  name: 'app-footer'
+  name: 'app-footer',
+  props: ['data', 'showReservation', 'showCleaned', 'hideShore'],
+  components: {
+    ShoreInfo
+  },
+  mounted() {},
+  methods: {
+    showReservationForm(data) {
+      this.$emit('show-reservationform', data)
+    },
+    showCleanedForm(data) {
+      this.$emit('show-cleanform', data)
+    }
+  }
 }
 </script>
 

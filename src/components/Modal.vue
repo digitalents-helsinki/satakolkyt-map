@@ -32,8 +32,7 @@
                 <div class="flex-grid">
                   <div class="col">
                     <font-awesome-icon icon="calendar" />
-                  </div>
-                  <div class="col">
+
                     <input
                       :required="required ? true : false"
                       v-model="reservationdata.startdate"
@@ -42,8 +41,7 @@
                   </div>
                   <div class="col">
                     <font-awesome-icon icon="clock" />
-                  </div>
-                  <div class="col">
+
                     <vue-timepicker
                       class="timepicker"
                       :required="required ? true : false"
@@ -53,8 +51,7 @@
                   </div>
                   <div class="col">
                     <font-awesome-icon icon="calendar" />
-                  </div>
-                  <div class="col">
+
                     <input
                       :required="required ? true : false"
                       v-model="reservationdata.enddate"
@@ -63,8 +60,7 @@
                   </div>
                   <div class="col">
                     <font-awesome-icon icon="clock" />
-                  </div>
-                  <div class="col">
+
                     <vue-timepicker
                       class="timepicker"
                       :required="required ? true : false"

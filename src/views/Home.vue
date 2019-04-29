@@ -24,22 +24,14 @@
           <h1>{{ $t('message.offline') }}</h1>
         </template>
       </section>
+      <app-footer
+        @delete-shore="hideShore"
+        @show-reservationform="showReservationForm = true"
+        @show-cleanform="showCleaned = true"
+        :data="selectedShoreData"
+        :showReservation="showReservationForm"
+      />
 
-      <transition name="overlayPop">
-        <div
-          v-if="showOverlay && selectedShoreData"
-          class="overlay-box-wrapper"
-        >
-          <overlay-box>
-            <shore-info
-              @delete-shore="hideShore"
-              @show-reservationform="showReservationForm = true"
-              @show-cleanform="showCleaned = true"
-              :data="selectedShoreData"
-            />
-          </overlay-box>
-        </div>
-      </transition>
       <div v-if="showReservationForm">
         <transition name="modal">
           <Modal
@@ -64,13 +56,11 @@
 </template>
 
 <script>
-import OverlayBox from '@/components/OverlayBox'
-import ShoreInfo from '@/components/ShoreInfo'
 //import MapView from '@/components/MapView'
 import ShoreMap from '@/components/ShoreMap'
 import Modal from '@/components/Modal'
 import CleanModal from '@/components/CleanModal'
-
+import AppFooter from '@/components/AppFooter'
 import axios from 'axios'
 export default {
   name: 'home',
@@ -92,10 +82,9 @@ export default {
   components: {
     //MapView,
     ShoreMap,
-    ShoreInfo,
-    OverlayBox,
     Modal,
-    CleanModal
+    CleanModal,
+    AppFooter
   },
 
   methods: {
