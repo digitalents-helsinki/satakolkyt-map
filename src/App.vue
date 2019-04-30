@@ -12,6 +12,7 @@
 
 <script>
 import AppHeader from './components/AppHeader'
+import axios from 'axios'
 export default {
   components: {
     AppHeader
@@ -34,6 +35,15 @@ export default {
   methods: {},
 
   mounted() {
+    axios.defaults.withCredentials = true
+    axios.get('http://' + location.hostname + ':8089/api/map/token').then(
+      response => {
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = response.data.token
+      },
+      err => {
+        console.log(err)
+      }
+    )
     // Calculate the header's height and size the <main/> element to fit the screen.
   }
 }
