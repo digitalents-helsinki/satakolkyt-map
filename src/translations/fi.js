@@ -1,5 +1,8 @@
 export const fi = {
   message: {
+    yes: 'Kyllä',
+    no: 'Ei',
+    unsure: 'En osaa sanoa',
     open_map: 'Avataanko Karttanäkymä?',
     open: 'Avaa',
     app: 'SATAKOLKYT karttasovellus',
@@ -24,6 +27,9 @@ export const fi = {
     organizer_clean: 'Järjestäjä',
     trash_count: 'Paljonko rannalla oli roskaa?',
     claim_clean: 'Ilmoita ranta siivotuksi',
+    fill_cleaned_info: 'Täytä siivotun rannan tiedot',
+    shore_cleaner: 'Rannan siivonnut taho',
+    shore_cleaner_fill: 'Täytä alle yhteyshenkilön tiedot',
     trash_little: 'Ei juuri lainkaan',
     trash_small: 'Muovipussillinen',
     trash_medium: 'Jätesäkillinen',
@@ -31,12 +37,23 @@ export const fi = {
     reservation_saved: 'Varaus on tallennettu',
     cleaned_saved: 'Siivotut ranta on ilmoitettu',
     trash_left: 'Jätikö jätesäkkejä rannan läheisyyteen?',
+    trash_bags_info: `Jos 'Kyllä', anna mahdollisimman tarkat tiedot mistä löytyvät (esim. katuosoite)`,
     foreign_species: 'Vieraslajit',
     foreign_species_info: `Vieraslajit ovat lajeja, jotka ovat levinneet luontaiselta levinneisyysalueeltaan
                           uudelle alueelle ihmisen mukana joko tahattomasti tai tarkoituksella. Haitalliset
                           vieraslajit leviävät nopeasti ja vievät elintilaan alkuperäisiltä lajeilta sekä muuttavat
                           ekosysteemin rakennetta.`,
-    clean_additional_info: 'Lisätietoja',
+    see_kurtturuusu: 'Havaitsitteko rannalla kurtturuusua?',
+    see_jattipalsami: 'Havaitsitteko rannalla jättipalsamia?',
+    foreign_species_detail1: 'Voitte kuvailla lajiesiintymiä tarkemmin',
+    foreign_species_detail2:
+      'Missä kohtaa vieraslajia esiintyy ja kuinka paljon?',
+    next: 'Seuraava',
+    previous: 'Edellinen',
+    photo: 'Kuva',
+    clean_additional_info: 'Lisätietojen täyttäminen on vapaaehtoista',
+    clean_something_else: 'Jotain muuta, mitä haluatte kertoa?',
+    send: 'Lähetä',
     reservations: 'Varaukset',
     date: 'Ajankohta',
     starts: 'Alkaa',

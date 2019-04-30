@@ -12,7 +12,7 @@
             <div class="modal-page" v-show="pagenum == 0">
               <div class="modal-header">
                 <h3>{{ $t('message.claim_clean') }}</h3>
-                <p>Täytä siivotun rannan tiedot</p>
+                <p>{{ $t('message.fill_cleaned_info') }}</p>
               </div>
               <div class="modal-body">
                 <div class="cleaned-info-item cleaned-time">
@@ -23,8 +23,8 @@
 
                 <div class="cleaner">
                   <div class="cleaner-title">
-                    <h4>Rannan siivonnut taho</h4>
-                    <p>Täytä alle yhteyshenkilön tiedot</p>
+                    <h4>{{ $t('message.shore_cleaner') }}</h4>
+                    <p>{{ $t('message.shore_cleaner_fill') }}</p>
                   </div>
 
                   <div class="cleaned-info-item">
@@ -86,7 +86,7 @@
                   <h5>{{ $t('message.trash_left') }}</h5>
                   <div class="trash-bags-left-radios">
                     <div class="trash-bags-left-answer">
-                      <label for="trashbagsyes">Kyllä</label>
+                      <label for="trashbagsyes">{{ $t('message.yes') }}</label>
                       <input
                         id="trashbagsyes"
                         type="radio"
@@ -97,7 +97,7 @@
                       />
                     </div>
                     <div class="trash-bags-left-answer">
-                      <label for="trashbagsno">Ei</label>
+                      <label for="trashbagsno">{{ $t('message.no') }}</label>
                       <input
                         id="trashbagsno"
                         type="radio"
@@ -111,15 +111,14 @@
                 </div>
                 <div class="trash-bags-where">
                   <p>
-                    Jos 'Kyllä', anna mahdollisimman tarkat tiedot mistä
-                    löytyvät (esim. katuosoite)
+                    {{ $t('message.trash_bags_info') }}
                   </p>
-                  <input v-model="data.trash_bags_info" />
+                  <textarea v-model="data.trash_bags_info" rows="2" />
                 </div>
               </div>
               <div class="modal-footer cleaned-footer-page1">
                 <button @click.prevent="toNextPage">
-                  Seuraava
+                  {{ $t('message.next') }}
                 </button>
               </div>
             </div>
@@ -131,9 +130,9 @@
               <div class="modal-body">
                 <div class="foreign-species">
                   <div class="foreign-species-input">
-                    <h4>Havaitsitteko rannalla kurtturuusua?</h4>
+                    <h4>{{ $t('message.see_kurtturuusu') }}</h4>
                     <div class="label-radio">
-                      <label for="kurttuyes">Kyllä</label>
+                      <label for="kurttuyes">{{ $t('message.yes') }}</label>
                       <input
                         type="radio"
                         id="kurttuyes"
@@ -144,7 +143,7 @@
                       />
                     </div>
                     <div class="label-radio">
-                      <label for="kurttuno">Ei</label>
+                      <label for="kurttuno">{{ $t('message.no') }}</label>
                       <input
                         type="radio"
                         id="kurttuno"
@@ -155,7 +154,7 @@
                       />
                     </div>
                     <div class="label-radio">
-                      <label for="kurttuidk">En osaa sanoa</label>
+                      <label for="kurttuidk">{{ $t('message.unsure') }}</label>
                       <input
                         type="radio"
                         id="kurttuidk"
@@ -166,17 +165,17 @@
                       />
                     </div>
                   </div>
-                  <div>
+                  <div class="foreign-species-photo">
                     <img alt="Kurtturuusu" src="../img/kurtturuusu.jpg" />
-                    <p>Kuva: Johanna Kolehmainen</p>
+                    <p>{{ $t('message.photo') }}: Johanna Kolehmainen</p>
                   </div>
                 </div>
 
                 <div class="foreign-species">
                   <div class="foreign-species-input">
-                    <h4>Havaitsitteko rannalla jättipalsamia?</h4>
+                    <h4>{{ $t('message.see_jattipalsami') }}</h4>
                     <div class="label-radio">
-                      <label for="jattiyes">Kyllä</label>
+                      <label for="jattiyes">{{ $t('message.yes') }}</label>
                       <input
                         type="radio"
                         id="jattiyes"
@@ -187,7 +186,7 @@
                       />
                     </div>
                     <div class="label-radio">
-                      <label for="jattino">Ei</label>
+                      <label for="jattino">{{ $t('message.no') }}</label>
                       <input
                         type="radio"
                         id="jattino"
@@ -198,7 +197,7 @@
                       />
                     </div>
                     <div class="label-radio">
-                      <label for="jattiidk">En osaa sanoa</label>
+                      <label for="jattiidk">{{ $t('message.unsure') }}</label>
                       <input
                         type="radio"
                         id="jattiidk"
@@ -209,41 +208,43 @@
                       />
                     </div>
                   </div>
-                  <div>
+                  <div class="foreign-species-photo">
                     <img alt="Jättipalsami" src="../img/jattipalsami.jpg" />
-                    <p>Kuva: Terhi Ryttäri</p>
+                    <p>{{ $t('message.photo') }}: Terhi Ryttäri</p>
                   </div>
                 </div>
                 <div class="foreign-species-detail">
-                  <h4>Voitte kuvailla lajiesiintymiä tarkemmin</h4>
-                  <p>Missä kohtaa vieraslajia esiintyy ja kuinka paljon?</p>
+                  <h4>{{ $t('message.foreign_species_detail1') }}</h4>
+                  <p>{{ $t('message.foreign_species_detail2') }}</p>
                   <textarea rows="4" v-model="data.foreignspeciesdetail" />
                 </div>
               </div>
               <div class="modal-footer">
                 <button @click.prevent="toPrevPage">
-                  Edellinen
+                  {{ $t('message.previous') }}
                 </button>
                 <button @click.prevent="toNextPage">
-                  Seuraava
+                  {{ $t('message.next') }}
                 </button>
               </div>
             </div>
             <div class="modal-page" v-show="pagenum == 2">
               <div class="modal-header">
                 <h3>{{ $t('message.clean_additional_info') }}</h3>
-                <p>Lisätietojen täyttäminen on vapaaehtoista</p>
+                <p>{{ $t('message.clean_additional_info_sub') }}</p>
               </div>
               <div class="modal-body">
-                <h4>Jotain muuta, mitä haluatte kertoa?</h4>
-                <textarea rows="4" v-model="data.cleanmoreinfo" />
+                <div class="something-else">
+                  <h4>{{ $t('message.clean_something_else') }}</h4>
+                  <textarea rows="8" v-model="data.cleanmoreinfo" />
+                </div>
               </div>
               <div class="modal-footer">
                 <button @click.prevent="toPrevPage">
-                  Edellinen
+                  {{ $t('message.previous') }}
                 </button>
                 <button type="submit">
-                  OK
+                  {{ $t('message.send') }}
                 </button>
               </div>
             </div>
@@ -361,7 +362,7 @@ form {
 .modal-header p,
 .modal-body p {
   font-size: 12px;
-  color: #888;
+  color: #555;
 }
 
 .modal-body {
@@ -415,7 +416,7 @@ form {
 
 .trash-bags-left {
   flex-direction: column;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .trash-bags-left h5 {
@@ -429,6 +430,10 @@ form {
 .trash-bags-left-answer {
   display: flex;
   margin: 0 50px;
+}
+
+.trash-bags-where p {
+  margin-bottom: 0.5rem;
 }
 
 .modal-footer {
@@ -450,6 +455,8 @@ form {
 .foreign-species-input {
   display: flex;
   flex-direction: column;
+  margin-right: 5px;
+  width: 75%;
 }
 
 .foreign-species-input h4 {
@@ -465,13 +472,19 @@ form {
   width: 100%;
 }
 
+.foreign-species-photo {
+}
+
 .foreign-species-detail h4 {
   margin: 0.5rem 0;
 }
 
 .foreign-species-detail p {
   margin-bottom: 0.5rem;
-  color: #555;
+}
+
+.something-else h4 {
+  margin: 3rem 0 1rem 0;
 }
 
 .modal-default-button {
