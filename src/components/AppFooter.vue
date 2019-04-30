@@ -18,6 +18,20 @@
         </admin-shore-info>
       </template>
     </div>
+    <div class="counter">
+      <div class="stepcount green">
+        620 597
+      </div>
+      <div class="stepinfo">
+        askelta kävelty
+      </div>
+      <div class="kilometercount red">
+        89
+      </div>
+      <div class="kiloinfo">
+        km siivottu
+      </div>
+    </div>
     <div class="colors"></div>
   </div>
 </template>
@@ -83,6 +97,22 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #f0e41a;
+  background-image: url('/info.png');
+}
+.counter {
+  z-index: 999;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  right: 30%;
+  align-items: center;
+  display: flex;
+  font-size: 3em;
+}
+.green {
+  color: green;
+}
+.red {
+  color: red;
 }
 </style>
