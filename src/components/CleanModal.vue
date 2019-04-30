@@ -9,7 +9,7 @@
             @click="$emit('close')"
           />
           <form v-on:submit.prevent="saveCleaned">
-            <div v-show="pagenum == 0">
+            <div class="modal-page" v-show="pagenum == 0">
               <div class="modal-header">
                 <h3>{{ $t('message.claim_clean') }}</h3>
                 <p>Täytä siivotun rannan tiedot</p>
@@ -109,6 +109,13 @@
                     </div>
                   </div>
                 </div>
+                <div class="trash-bags-where">
+                  <p>
+                    Jos 'Kyllä', anna mahdollisimman tarkat tiedot mistä
+                    löytyvät (esim. katuosoite)
+                  </p>
+                  <input v-model="data.trash_bags_info" />
+                </div>
               </div>
               <div class="modal-footer cleaned-footer-page1">
                 <button @click.prevent="toNextPage">
@@ -116,76 +123,103 @@
                 </button>
               </div>
             </div>
-            <div v-show="pagenum == 1">
+            <div class="modal-page" v-show="pagenum == 1">
               <div class="modal-header">
                 <h3>{{ $t('message.foreign_species') }}</h3>
                 <p>{{ $t('message.foreign_species_info') }}</p>
               </div>
               <div class="modal-body">
                 <div class="foreign-species">
-                  <h4>Havaitsitteko rannalla kurtturuusua?</h4>
-                  <label for="kurttuyes">Kyllä</label>
-                  <input
-                    type="radio"
-                    id="kurttuyes"
-                    name="kurtturuusu"
-                    value="yes"
-                    v-model="data.kurtturuusu"
-                    :required="required"
-                  />
-                  <label for="kurttuno">Ei</label>
-                  <input
-                    type="radio"
-                    id="kurttuno"
-                    name="kurtturuusu"
-                    value="no"
-                    v-model="data.kurtturuusu"
-                    :required="required"
-                  />
-                  <label for="kurttuidk">En osaa sanoa</label>
-                  <input
-                    type="radio"
-                    id="kurttuidk"
-                    name="kurtturuusu"
-                    value="idk"
-                    v-model="data.kurtturuusu"
-                    :required="required"
-                  />
+                  <div class="foreign-species-input">
+                    <h4>Havaitsitteko rannalla kurtturuusua?</h4>
+                    <div class="label-radio">
+                      <label for="kurttuyes">Kyllä</label>
+                      <input
+                        type="radio"
+                        id="kurttuyes"
+                        name="kurtturuusu"
+                        value="yes"
+                        v-model="data.kurtturuusu"
+                        :required="required"
+                      />
+                    </div>
+                    <div class="label-radio">
+                      <label for="kurttuno">Ei</label>
+                      <input
+                        type="radio"
+                        id="kurttuno"
+                        name="kurtturuusu"
+                        value="no"
+                        v-model="data.kurtturuusu"
+                        :required="required"
+                      />
+                    </div>
+                    <div class="label-radio">
+                      <label for="kurttuidk">En osaa sanoa</label>
+                      <input
+                        type="radio"
+                        id="kurttuidk"
+                        name="kurtturuusu"
+                        value="idk"
+                        v-model="data.kurtturuusu"
+                        :required="required"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <img alt="Kurtturuusu" src="../img/kurtturuusu.jpg" />
+                    <p>Kuva: Johanna Kolehmainen</p>
+                  </div>
                 </div>
+
                 <div class="foreign-species">
-                  <h4>Havaitsitteko rannalla jättipalsamia?</h4>
-                  <label for="jattiyes">Kyllä</label>
-                  <input
-                    type="radio"
-                    id="jattiyes"
-                    name="jattipalsami"
-                    value="yes"
-                    v-model="data.jattipalsami"
-                    :required="required"
-                  />
-                  <label for="jattino">Ei</label>
-                  <input
-                    type="radio"
-                    id="jattino"
-                    name="jattipalsami"
-                    value="no"
-                    v-model="data.jattipalsami"
-                    :required="required"
-                  />
-                  <label for="jattiidk">En osaa sanoa</label>
-                  <input
-                    type="radio"
-                    id="jattiidk"
-                    name="jattipalsami"
-                    value="idk"
-                    v-model="data.jattipalsami"
-                    :required="required"
-                  />
+                  <div class="foreign-species-input">
+                    <h4>Havaitsitteko rannalla jättipalsamia?</h4>
+                    <div class="label-radio">
+                      <label for="jattiyes">Kyllä</label>
+                      <input
+                        type="radio"
+                        id="jattiyes"
+                        name="jattipalsami"
+                        value="yes"
+                        v-model="data.jattipalsami"
+                        :required="required"
+                      />
+                    </div>
+                    <div class="label-radio">
+                      <label for="jattino">Ei</label>
+                      <input
+                        type="radio"
+                        id="jattino"
+                        name="jattipalsami"
+                        value="no"
+                        v-model="data.jattipalsami"
+                        :required="required"
+                      />
+                    </div>
+                    <div class="label-radio">
+                      <label for="jattiidk">En osaa sanoa</label>
+                      <input
+                        type="radio"
+                        id="jattiidk"
+                        name="jattipalsami"
+                        value="idk"
+                        v-model="data.jattipalsami"
+                        :required="required"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <img alt="Jättipalsami" src="../img/jattipalsami.jpg" />
+                    <p>Kuva: Terhi Ryttäri</p>
+                  </div>
+                </div>
+                <div class="foreign-species-detail">
+                  <h4>Voitte kuvailla lajiesiintymiä tarkemmin</h4>
+                  <p>Missä kohtaa vieraslajia esiintyy ja kuinka paljon?</p>
+                  <textarea rows="4" v-model="data.foreignspeciesdetail" />
                 </div>
               </div>
-              <h4>Voitte kuvailla lajiesiintymiä tarkemmin</h4>
-              <h5>Missä kohtaa vieraslajia esiintyy ja kuinka paljon?</h5>
-              <textarea rows="4" v-model="data.foreignspeciesdetail" />
               <div class="modal-footer">
                 <button @click.prevent="toPrevPage">
                   Edellinen
@@ -195,7 +229,7 @@
                 </button>
               </div>
             </div>
-            <div v-show="pagenum == 2">
+            <div class="modal-page" v-show="pagenum == 2">
               <div class="modal-header">
                 <h3>{{ $t('message.clean_additional_info') }}</h3>
                 <p>Lisätietojen täyttäminen on vapaaehtoista</p>
@@ -305,6 +339,15 @@ export default {
   }
 }
 
+form {
+  height: 100%;
+}
+
+.modal-page {
+  position: relative;
+  height: 100%;
+}
+
 .modal-header {
   margin-bottom: 2rem;
 }
@@ -388,14 +431,49 @@ export default {
   margin: 0 50px;
 }
 
-.modal-footer div {
-  margin-bottom: 20px;
-}
-
-.cleaned-footer-page1 {
+.modal-footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
   display: flex;
   justify-content: right;
 }
+
+.cleaned-footer-page1 {
+}
+
+.foreign-species {
+  display: flex;
+  margin: 2rem 0;
+}
+
+.foreign-species-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.foreign-species-input h4 {
+  margin-bottom: 0.5rem;
+}
+
+.label-radio {
+  display: flex;
+  margin: 0.7rem 0;
+}
+
+.label-radio label {
+  width: 100%;
+}
+
+.foreign-species-detail h4 {
+  margin: 0.5rem 0;
+}
+
+.foreign-species-detail p {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
 .modal-default-button {
   width: 100%;
   margin-bottom: 5px;
