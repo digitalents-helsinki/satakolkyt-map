@@ -256,8 +256,6 @@ export default {
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
-
-  font-family: Helvetica, Arial, sans-serif;
 }
 .morespace {
   height: 80vh;
