@@ -83,6 +83,6 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #f0e41a;
+  background-image: url('/info.png');
 }
 </style>
