@@ -23,7 +23,7 @@ export const en = {
     organizer: 'Organizer',
     name: 'Name',
     phonenumber: 'Phonenumber',
-    trash_count: 'How much trash is left',
+    trash_count: 'How much trash was there',
     email: 'Email',
     contact: 'Contact person',
     close: 'Close',

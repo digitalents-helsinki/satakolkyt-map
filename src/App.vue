@@ -35,7 +35,7 @@ export default {
   methods: {},
 
   mounted() {
-    axios.defaults.withCredentials = true
+    axios.defaults.withCredentials = false
     axios.get('http://' + location.hostname + ':8089/api/map/token').then(
       response => {
         axios.defaults.headers.common['X-CSRF-TOKEN'] = response.data.token

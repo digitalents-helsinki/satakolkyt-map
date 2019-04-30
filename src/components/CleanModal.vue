@@ -283,6 +283,7 @@ export default {
   },
   methods: {
     saveCleaned() {
+      console.log(this.data)
       axios({
         method: 'POST',
         url: 'http://' + location.hostname + ':8089/api/map/cleaninfo',
