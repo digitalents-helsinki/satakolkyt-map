@@ -12,55 +12,105 @@
             <div v-show="pagenum == 0">
               <div class="modal-header">
                 <h3>{{ $t('message.claim_clean') }}</h3>
+                <p>Täytä siivotun rannan tiedot</p>
               </div>
               <div class="modal-body">
-                <p>{{ $t('message.time_clean') }}</p>
-                <input :required="required" v-model="data.date" type="date" />
-                <p>{{ $t('message.organizer_clean') }}</p>
-                <input
-                  :required="required"
-                  v-model="data.organizer_name"
-                  type="text"
-                />
-                <p>{{ $t('message.name') }}</p>
-                <input
-                  :required="required"
-                  v-model="data.leader_name"
-                  type="text"
-                />
-                <p>{{ $t('message.email') }}</p>
-                <input
-                  :required="required"
-                  v-model="data.leader_email"
-                  type="email"
-                />
-                <p>{{ $t('message.phonenumber') }}</p>
-                <input
-                  :required="required"
-                  v-model="data.leader_phone"
-                  type="tel"
-                  pattern="[0-9]{3,11}"
-                />
-                <p>{{ $t('message.clean_count') }}</p>
-                <input
-                  :required="required"
-                  v-model="data.group_size"
-                  type="number"
-                />
-                <p>{{ $t('message.trash_count') }}</p>
-                <select :required="required" v-model="data.trash_amount">
-                  <option value="1">{{ $t('message.trash_little') }}</option>
-                  <option value="2">{{ $t('message.trash_small') }}</option>
-                  <option value="3">{{ $t('message.trash_medium') }}</option>
-                  <option value="4">{{ $t('message.trash_large') }}</option>
-                </select>
-                <p>{{ $t('message.trash_left') }}</p>
-                <select :required="required" v-model="data.trash_left">
-                  <option value="yes">kyllä</option>
-                  <option value="no">ei</option>
-                </select>
+                <div class="cleaned-info-item cleaned-time">
+                  <h5>{{ $t('message.time_clean') }}</h5>
+                  <font-awesome-icon icon="calendar" />
+                  <input :required="required" v-model="data.date" type="date" />
+                </div>
+
+                <div class="cleaner">
+                  <div class="cleaner-title">
+                    <h4>Rannan siivonnut taho</h4>
+                    <p>Täytä alle yhteyshenkilön tiedot</p>
+                  </div>
+
+                  <div class="cleaned-info-item">
+                    <h5>{{ $t('message.organizer_clean') }}</h5>
+                    <input
+                      :required="required"
+                      v-model="data.organizer_name"
+                      type="text"
+                    />
+                  </div>
+
+                  <div class="cleaned-info-item">
+                    <h5>{{ $t('message.name') }}</h5>
+                    <input
+                      :required="required"
+                      v-model="data.leader_name"
+                      type="text"
+                    />
+                  </div>
+                  <div class="cleaned-info-item">
+                    <h5>{{ $t('message.email') }}</h5>
+                    <input
+                      :required="required"
+                      v-model="data.leader_email"
+                      type="email"
+                    />
+                  </div>
+                  <div class="cleaned-info-item">
+                    <h5>{{ $t('message.phonenumber') }}</h5>
+                    <input
+                      :required="required"
+                      v-model="data.leader_phone"
+                      type="tel"
+                      pattern="[0-9]{3,11}"
+                    />
+                  </div>
+                </div>
+
+                <div class="cleaned-info-item cleaner-count">
+                  <h5>{{ $t('message.clean_count') }}</h5>
+                  <input
+                    :required="required"
+                    v-model="data.group_size"
+                    type="number"
+                  />
+                </div>
+
+                <div class="cleaned-info-item trash-amount">
+                  <h5>{{ $t('message.trash_count') }}</h5>
+                  <select :required="required" v-model="data.trash_amount">
+                    <option value="1">{{ $t('message.trash_little') }}</option>
+                    <option value="2">{{ $t('message.trash_small') }}</option>
+                    <option value="3">{{ $t('message.trash_medium') }}</option>
+                    <option value="4">{{ $t('message.trash_large') }}</option>
+                  </select>
+                </div>
+
+                <div class="cleaned-info-item trash-bags-left">
+                  <h5>{{ $t('message.trash_left') }}</h5>
+                  <div class="trash-bags-left-radios">
+                    <div class="trash-bags-left-answer">
+                      <label for="trashbagsyes">Kyllä</label>
+                      <input
+                        id="trashbagsyes"
+                        type="radio"
+                        name="trashbags"
+                        value="yes"
+                        :required="required"
+                        v-model="data.trash_left"
+                      />
+                    </div>
+                    <div class="trash-bags-left-answer">
+                      <label for="trashbagsno">Ei</label>
+                      <input
+                        id="trashbagsno"
+                        type="radio"
+                        name="trashbags"
+                        value="no"
+                        :required="required"
+                        v-model="data.trash_left"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer cleaned-footer-page1">
                 <button @click.prevent="toNextPage">
                   Seuraava
                 </button>
@@ -238,9 +288,9 @@ export default {
 }
 
 .modal-container {
-  width: 400px;
-  height: 85vh;
-  margin: 0px auto;
+  width: 550px;
+  height: 80vh;
+  margin-left: 50px;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
@@ -254,12 +304,19 @@ export default {
     width: 95%;
   }
 }
-.modal-header h3 {
-  font-weight: 700;
-  margin-bottom: 1rem;
+
+.modal-header {
+  margin-bottom: 2rem;
 }
 
-.modal-header p {
+.modal-header h3 {
+  font-weight: 800;
+  font-size: 24px;
+  margin-bottom: 0.5rem;
+}
+
+.modal-header p,
+.modal-body p {
   font-size: 12px;
   color: #888;
 }
@@ -267,8 +324,77 @@ export default {
 .modal-body {
   margin: 20px 0;
 }
+
+.cleaner {
+  margin: 2rem 0;
+}
+
+.cleaner-title {
+  margin: 2rem 0 1rem 0;
+}
+
+.modal-body h4 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.cleaned-info-item {
+  display: flex;
+  align-items: center;
+  margin: 0 0 10px 0;
+}
+
+.cleaner .cleaned-info-item h5 {
+  width: 50%;
+}
+
+.cleaned-time h5 {
+  width: 35%;
+}
+
+.cleaned-info-item h5 {
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 20px;
+}
+
+.cleaner-count input {
+  max-width: 70px;
+}
+
+.trash-amount {
+  margin: 2rem 0;
+}
+
+.trash-amount select {
+  max-width: 200px;
+}
+
+.trash-bags-left {
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.trash-bags-left h5 {
+  margin-bottom: 0.7rem;
+}
+
+.trash-bags-left-radios {
+  display: flex;
+}
+
+.trash-bags-left-answer {
+  display: flex;
+  margin: 0 50px;
+}
+
 .modal-footer div {
   margin-bottom: 20px;
+}
+
+.cleaned-footer-page1 {
+  display: flex;
+  justify-content: right;
 }
 .modal-default-button {
   width: 100%;
@@ -298,21 +424,21 @@ export default {
   transform: scale(1.1);
 }
 input {
-  padding: 12px 20px;
-  margin: 8px 0;
+  padding: 5px;
+  margin: 0 0 0 10px;
   box-sizing: border-box;
-  border: none;
-  border-bottom: 2px solid green;
+  border: 1px solid #bbb;
+  width: 100%;
+}
+input[type='date'] {
+  max-width: 140px;
 }
 select {
-  padding: 16px 20px;
+  padding: 5px;
+  width: 100%;
   border: none;
   border-radius: 4px;
   background-color: #f1f1f1;
-}
-select,
-input {
-  width: 100%;
 }
 .success {
   color: green;
@@ -321,5 +447,9 @@ textarea {
   border: 1px solid #bbb;
   resize: none;
   width: 100%;
+}
+button {
+  background-color: #00a0ff;
+  color: white;
 }
 </style>
