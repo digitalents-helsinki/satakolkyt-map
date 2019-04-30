@@ -7,7 +7,7 @@
           {{ $t('message.reserve') }}
         </button>
         <button id="show-modal2" @click="$emit('show-cleanform')">
-          {{ $t('message.claim') }}
+          {{ $t('message.claim_clean') }}
         </button>
       </slot>
     </div>

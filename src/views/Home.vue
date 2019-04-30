@@ -37,12 +37,12 @@
 
       <div v-if="showReservationForm">
         <transition name="modal">
-          <Modal
+          <ReserveModal
             v-bind:selected="selectedShoreData"
             @reservation-action="saveContactInfo"
             @close="showReservationForm = false"
           >
-          </Modal>
+          </ReserveModal>
         </transition>
       </div>
       <div v-if="showCleaned">
@@ -61,7 +61,7 @@
 <script>
 //import MapView from '@/components/MapView'
 import ShoreMap from '@/components/ShoreMap'
-import Modal from '@/components/Modal'
+import ReserveModal from '@/components/ReserveModal'
 import CleanModal from '@/components/CleanModal'
 import AppFooter from '@/components/AppFooter'
 import axios from 'axios'
@@ -85,7 +85,7 @@ export default {
   components: {
     //MapView,
     ShoreMap,
-    Modal,
+    ReserveModal,
     CleanModal,
     AppFooter
   },

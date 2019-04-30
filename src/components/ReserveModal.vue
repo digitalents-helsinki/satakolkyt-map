@@ -24,54 +24,48 @@
 
             <div class="modal-body">
               <slot name="body">
-                <div class="flex-grid">
-                  <div class="col">
-                    <h3>Lorem ipsum dolor sit am</h3>
-                  </div>
-                  <div class="col">
-                    <input :required="required ? true : false" type="text" />
-                  </div>
+                <div class="input-field">
+                  <h5>Järjestävä taho</h5>
+                  <input :required="required ? true : false" type="text" />
                 </div>
                 {{ $t('message.date') }}
-                <div class="reservationform">
-                  <div class="item">
-                    <font-awesome-icon icon="calendar" />
+                <div class="item">
+                  <font-awesome-icon icon="calendar" />
 
-                    <input
-                      :required="required ? true : false"
-                      v-model="reservationdata.startdate"
-                      type="date"
-                    />
-                  </div>
-                  <div class="item">
-                    <font-awesome-icon icon="clock" />
+                  <input
+                    :required="required ? true : false"
+                    v-model="reservationdata.startdate"
+                    type="date"
+                  />
+                </div>
+                <div class="item">
+                  <font-awesome-icon icon="clock" />
 
-                    <vue-timepicker
-                      class="timepicker"
-                      :required="required ? true : false"
-                      v-model="reservationdata.starttime"
-                      format="HH:mm"
-                    ></vue-timepicker>
-                  </div>
-                  <div class="item">
-                    <font-awesome-icon icon="calendar" />
+                  <vue-timepicker
+                    class="timepicker"
+                    :required="required ? true : false"
+                    v-model="reservationdata.starttime"
+                    format="HH:mm"
+                  ></vue-timepicker>
+                </div>
+                <div class="item">
+                  <font-awesome-icon icon="calendar" />
 
-                    <input
-                      :required="required ? true : false"
-                      v-model="reservationdata.enddate"
-                      type="date"
-                    />
-                  </div>
-                  <div class="item">
-                    <font-awesome-icon icon="clock" />
+                  <input
+                    :required="required ? true : false"
+                    v-model="reservationdata.enddate"
+                    type="date"
+                  />
+                </div>
+                <div class="item">
+                  <font-awesome-icon icon="clock" />
 
-                    <vue-timepicker
-                      class="timepicker"
-                      :required="required ? true : false"
-                      v-model="reservationdata.endtime"
-                      format="HH:mm"
-                    ></vue-timepicker>
-                  </div>
+                  <vue-timepicker
+                    class="timepicker"
+                    :required="required ? true : false"
+                    v-model="reservationdata.endtime"
+                    format="HH:mm"
+                  ></vue-timepicker>
                 </div>
                 <div class="flex-grid">
                   <div class="col">
@@ -85,7 +79,7 @@
                     />
                   </div>
                 </div>
-                <template v-if="reservationdata.free">
+                <div v-show="reservationdata.free">
                   Lorem ipsum dolor sit amet,
                   <input type="text" name="" value="" />
                   <div class="flex-grid">
@@ -96,7 +90,7 @@
                       <input type="text" name="" value="" />
                     </div>
                   </div>
-                </template>
+                </div>
 
                 <h1>{{ $t('message.organizer') }}</h1>
 
@@ -144,16 +138,16 @@
             <div class="modal-footer">
               <slot name="footer">
                 <button
+                  class="modal-default-button grey"
+                  @click.prevent="$emit('close')"
+                >
+                  {{ $t('message.close') }}
+                </button>
+                <button
                   class="modal-default-button blue"
                   @click="showModal = false"
                 >
                   Ok
-                </button>
-                <button
-                  class="modal-default-button grey"
-                  @click="$emit('close')"
-                >
-                  {{ $t('message.close') }}
                 </button>
               </slot>
             </div>
@@ -177,7 +171,7 @@
 import VueTimepicker from 'vue2-timepicker'
 export default {
   components: { VueTimepicker },
-  name: 'modal',
+  name: 'reserve-modal',
   props: ['selected'],
 
   data() {
@@ -250,21 +244,44 @@ export default {
 }
 
 .modal-container {
-  width: 700px;
-  height: 60vh;
+  width: 550px;
+  height: 80vh;
   margin-left: 5%;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
-}
-.morespace {
-  height: 80vh;
 }
 @media only screen and (max-width: 600px) {
   .modal-container {
     width: 95%;
   }
 }
+
+form {
+  position: relative;
+  height: 100%;
+}
+
+.modal-header {
+  margin-bottom: 2rem;
+}
+
+.modal-header h3 {
+  font-weight: 800;
+  font-size: 24px;
+  margin-bottom: 0.5rem;
+}
+
+.modal-header p,
+.modal-body p {
+  font-size: 12px;
+  color: #555;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
 .modal-header h3 {
   font-weight: 700;
 }
@@ -277,13 +294,16 @@ export default {
 .modal-body {
   margin: 20px 0;
 }
-.modal-footer div {
-  margin-bottom: 20px;
+
+.modal-footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: right;
 }
+
 .modal-default-button {
-  width: 20%;
-  margin-bottom: 5px;
-  float: right;
   color: white;
 }
 
@@ -310,11 +330,14 @@ export default {
   transform: scale(1.1);
 }
 input {
-  padding: 12px 20px;
-  margin: 8px 0;
+  padding: 5px;
   box-sizing: border-box;
-  border: none;
-  border: 2px solid #e5e5e5;
+  border: 1px solid #555;
+}
+input[type='date'] {
+  max-width: 140px;
+}
+.timepicker {
 }
 select {
   padding: 16px 20px;
@@ -340,8 +363,14 @@ select {
   border-color: red;
   box-shadow: none;
 }
-.flex-grid {
+.input-field {
   display: flex;
+  align-items: center;
+}
+.input-field h5 {
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 20px;
 }
 .col {
   flex: 1;
