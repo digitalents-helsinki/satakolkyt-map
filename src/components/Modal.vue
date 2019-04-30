@@ -1,7 +1,11 @@
 <template>
   <div class="modal-mask">
     <div class="modal-wrapper" @click="$emit('close')">
-      <div class="modal-container" @click.stop>
+      <div
+        class="modal-container"
+        v-bind:class="{ morespace: reservationdata.free }"
+        @click.stop
+      >
         <template v-if="!saved">
           <font-awesome-icon
             icon="times"
@@ -234,7 +238,6 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
@@ -253,8 +256,11 @@ export default {
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
-  transition: all 0.3s ease;
+
   font-family: Helvetica, Arial, sans-serif;
+}
+.morespace {
+  height: 80vh;
 }
 @media only screen and (max-width: 600px) {
   .modal-container {
