@@ -1,7 +1,11 @@
 <template>
   <div class="modal-mask">
     <div class="modal-wrapper" @click="$emit('close')">
-      <div class="modal-container" @click.stop>
+      <div
+        class="modal-container"
+        v-bind:class="{ morespace: reservationdata.free }"
+        @click.stop
+      >
         <template v-if="!saved">
           <font-awesome-icon
             icon="times"
@@ -71,16 +75,28 @@
                 </div>
                 <div class="flex-grid">
                   <div class="col">
-                    <h1>{{ $t('message.type_private') }}</h1>
+                    <h1>{{ $t('message.type_open') }}</h1>
                   </div>
                   <div class="col">
                     <input
-                      v-model="reservationdata.private"
+                      v-model="reservationdata.free"
                       type="checkbox"
                       checked="checked"
                     />
                   </div>
                 </div>
+                <template v-if="reservationdata.free">
+                  Lorem ipsum dolor sit amet,
+                  <input type="text" name="" value="" />
+                  <div class="flex-grid">
+                    <div class="col">
+                      Lorem ipsum dolor sit amet,
+                    </div>
+                    <div class="col">
+                      <input type="text" name="" value="" />
+                    </div>
+                  </div>
+                </template>
 
                 <h1>{{ $t('message.organizer') }}</h1>
 
@@ -168,6 +184,7 @@ export default {
     return {
       saved: false,
       required: false,
+      free: false,
       errors: [],
       reservationdata: {
         confirm: false,
@@ -221,7 +238,6 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
@@ -240,8 +256,11 @@ export default {
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
-  transition: all 0.3s ease;
+
   font-family: Helvetica, Arial, sans-serif;
+}
+.morespace {
+  height: 80vh;
 }
 @media only screen and (max-width: 600px) {
   .modal-container {
