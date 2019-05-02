@@ -61,7 +61,9 @@
           <Help @close="showHelp = false"> </Help>
         </transition>
       </div>
-      <span>AVAA KARTTA UUTEEN IKKUNAAN ►</span>
+      <span
+        >AVAA KARTTA UUTEEN IKKUNAAN <font-awesome-icon icon="arrow-right" />
+      </span>
     </template>
   </div>
 </template>

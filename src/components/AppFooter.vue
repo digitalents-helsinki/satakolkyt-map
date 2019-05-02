@@ -111,8 +111,17 @@ export default {
 }
 .green {
   color: green;
+  margin-right: 5px;
 }
 .red {
   color: red;
+  margin-left: 5px;
+}
+@media only screen and (max-width: 1366px) {
+  .counter {
+    font-size: 2em;
+
+    right: 20%;
+  }
 }
 </style>

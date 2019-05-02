@@ -18,6 +18,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { faCalendar } from '@fortawesome/free-solid-svg-icons'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 import VueI18n from 'vue-i18n'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -26,6 +27,7 @@ library.add(faTimes)
 library.add(faQuestionCircle)
 library.add(faCalendar)
 library.add(faClock)
+library.add(faArrowRight)
 Vue.config.productionTip = false
 
 Vue.use(VTooltip)
