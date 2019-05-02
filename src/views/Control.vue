@@ -110,7 +110,7 @@
             >
               {{ $t('message.delete_reservation') }}
             </button>
-            <template v-if="reservation.confirm">
+            <template v-if="reservation.confirmed">
               <button
                 @click="removereservation($event, reservation)"
                 v-bind:id="reservation.selected.key"
@@ -121,7 +121,7 @@
             </template>
             <template v-else>
               <button
-                v-on:click="addreservation($event, reservation)"
+                v-on:click="confirmreservation($event, reservation)"
                 v-bind:id="reservation.selected.key"
                 class="green"
               >
@@ -286,18 +286,19 @@ export default {
       }
       this.showOverlay = !this.showOverlay
     },
-    addreservation(e, reservation) {
+    confirmreservation(e, reservation) {
       var id = e.target.id
       axios({
         method: 'POST',
-        url: 'http://' + location.hostname + ':8089/api/map/cleanbeach/',
+        url:
+          'http://' + location.hostname + ':8089/api/map/confirmreservation/',
 
         data: { key: id, reservation: reservation._key }
       })
         .then(response => {
           console.log(response)
           if (response.data.status === 'ok') {
-            reservation.confirm = true
+            reservation.confirmed = true
             this.shoreReserved(response.data.json)
           }
         })
@@ -342,7 +343,7 @@ export default {
     removereservation(e, reservation) {
       axios
         .post(
-          'http://' + location.hostname + ':8089/api/map/cancelcleanbeach/',
+          'http://' + location.hostname + ':8089/api/map/cancelreservation/',
           {
             key: e.target.id,
             reservation: reservation._key
@@ -351,7 +352,7 @@ export default {
         .then(response => {
           console.log(response)
           if (response.data.status === 'ok') {
-            reservation.confirm = false
+            reservation.confirmed = false
             this.shoreUnreserved(response.data.json)
           }
         })
@@ -387,7 +388,7 @@ export default {
       const id = e.target.id
       const confirmed = this.reservations.find(e => {
         return e.selected.key === id
-      }).confirm
+      }).confirmed
       console.log(confirmed)
       const layer = confirmed ? 'reservedlayer' : 'freelayer'
       const data = this.$store.state.maplayers[layer].find(e => {

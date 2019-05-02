@@ -30,7 +30,11 @@
               <slot name="body">
                 <div class="input-field">
                   <h5>Järjestävä taho</h5>
-                  <input :required="required ? true : false" type="text" />
+                  <input
+                    :required="required ? true : false"
+                    type="text"
+                    v-model="reservationdata.organizer"
+                  />
                 </div>
 
                 <div class="datetime">
@@ -83,23 +87,29 @@
                   <div class="open-cleanup-check">
                     <h5>{{ $t('message.type_open') }}</h5>
                     <input
-                      v-model="reservationdata.free"
+                      v-model="reservationdata.openevent"
                       type="checkbox"
-                      checked="checked"
                     />
                   </div>
                   <p>
                     Rastittaessasi kohdan, kaikki voivat osallistua talkoisiin.
                   </p>
-
-                  <div class="open-cleanup-info" v-show="reservationdata.free">
+                  <div
+                    class="open-cleanup-info"
+                    v-show="reservationdata.openevent"
+                  >
                     <div class="open-cleanup-text">
                       <h5>Kerro jotain talkoista</h5>
-                      <textarea rows="3" />
+                      <textarea rows="3" v-model="reservationdata.openinfo" />
                     </div>
                     <div class="input-field">
                       <h5>Linkki tapahtumaan</h5>
-                      <input type="text" name="" value="" />
+                      <input
+                        type="text"
+                        name=""
+                        value=""
+                        v-model="reservationdata.openlink"
+                      />
                     </div>
                   </div>
                 </div>
@@ -182,10 +192,9 @@ export default {
     return {
       saved: false,
       required: false,
-      free: false,
       errors: [],
       reservationdata: {
-        confirm: false,
+        confirmed: false,
         starttime: {
           hh: '',
           mm: ''
@@ -193,7 +202,10 @@ export default {
         endtime: {
           hh: '',
           mm: ''
-        }
+        },
+        openevent: false,
+        openinfo: '',
+        openlink: ''
       }
     }
   },
