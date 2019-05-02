@@ -1,0 +1,11 @@
+version: '3.5'
+services:
+  front-server:
+    container_name: front-server
+    hostname: front-server
+    image: nginx:1.15.5-alpine
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./dist:/usr/src/app
