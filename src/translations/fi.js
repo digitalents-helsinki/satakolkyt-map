@@ -9,14 +9,21 @@ export const fi = {
     reserve: 'Varaa ranta',
     claim: 'Ilmoita ranta siivotuksi',
     reserve_clean: 'Varaa ranta siivoukseen',
+    reserve_sub:
+      'Talkoiden tiedot, kuten järjestävä taho ja ajankohta näkyvät kaikille.',
     date_start: 'Päivämäärä aloitukselle',
     date_end: 'Päivämäärä lopetukselle',
     type_label: 'Minkäläiset talkoot',
     time_end: 'Kellonaika lopetukselle',
     time_start: 'Kellonaika aloitukselle',
     type_open: 'Avoimet talkoot',
-    type_private: 'Oman porukan talkoot',
-    organizer: 'Järjestävän taho',
+    openevent_explanation:
+      'Rastittaessasi kohdan, kaikki voivat osallistua talkoisiin.',
+    openevent_text: 'Kerro jotain talkoista',
+    openevent_link: 'Linkki tapahtumaan',
+    organizer: 'Järjestävä taho',
+    contact_explanation:
+      'Täytä alle yhteyshenkilön tiedot. Yhteyshenkilön tiedot eivät näy muille käyttäjille!',
     name: 'Nimi',
     phonenumber: 'Puhelinnumero',
     email: 'Sähköposti',

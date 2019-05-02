@@ -17,8 +17,7 @@
               <slot name="header">
                 <h3>{{ $t('message.reserve_clean') }}</h3>
                 <p>
-                  Talkoiden tiedot, kuten järjestävä taho ja ajankohta näkyvät
-                  kaikille.
+                  {{ $t('message.reserve_sub') }}
                 </p>
                 <div v-bind:key="error.param" class="" v-for="error in errors">
                   {{ error.param }} {{ error.msg }}
@@ -29,7 +28,7 @@
             <div class="modal-body">
               <slot name="body">
                 <div class="input-field">
-                  <h5>Järjestävä taho</h5>
+                  <h5>{{ $t('message.organizer') }}</h5>
                   <input
                     :required="required ? true : false"
                     type="text"
@@ -92,18 +91,18 @@
                     />
                   </div>
                   <p>
-                    Rastittaessasi kohdan, kaikki voivat osallistua talkoisiin.
+                    {{ $t('message.openevent_explanation') }}
                   </p>
                   <div
                     class="open-cleanup-info"
                     v-show="reservationdata.openevent"
                   >
                     <div class="open-cleanup-text">
-                      <h5>Kerro jotain talkoista</h5>
+                      <h5>{{ $t('message.openevent_text') }}</h5>
                       <textarea rows="3" v-model="reservationdata.openinfo" />
                     </div>
                     <div class="input-field">
-                      <h5>Linkki tapahtumaan</h5>
+                      <h5>{{ $t('message.openevent_link') }}</h5>
                       <input
                         type="text"
                         name=""
@@ -115,10 +114,9 @@
                 </div>
 
                 <div class="contact-person">
-                  <h4>Yhteyshenkilö</h4>
+                  <h4>{{ $t('message.contact') }}</h4>
                   <p>
-                    Täytä alle yhteyshenkilön tiedot. Yhteyshenkilön tiedot
-                    eivät näy muille käyttäjille!
+                    {{ $t('message.contact_explanation') }}
                   </p>
                   <div class="input-field">
                     <h5>{{ $t('message.name') }}</h5>

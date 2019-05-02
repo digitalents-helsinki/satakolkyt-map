@@ -8,6 +8,8 @@ export const en = {
     app: 'SATAKOLKYT map application',
     reserve: 'Reserve a shore',
     reserve_clean: 'Reserve a shore to clean up ',
+    reserve_sub:
+      'Information about the event, such as the organizer and date are public.',
     date_start: 'Starting date',
     time_clean: 'Cleaning date',
     organizer_clean: 'Organizer of the cleaning',
@@ -17,8 +19,13 @@ export const en = {
     time_start: 'Time for the start',
     type_label: 'Which kind of clean-up event',
     type_open: 'Open to everyone',
-    type_private: 'Private clean-up event',
+    openevent_explanation:
+      'When checked, the event becomes open for everyone to participate.',
+    openevent_text: 'Tell us something about the cleanup event',
+    openevent_link: 'Link to the event',
     organizer: 'Organizer',
+    contact_explanation:
+      'Fill in the information of the contact person. Contact information is kept private.',
     name: 'Name',
     phonenumber: 'Phonenumber',
     trash_count: 'How much trash was there',
