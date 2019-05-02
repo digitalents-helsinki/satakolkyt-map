@@ -1,28 +1,68 @@
 <template>
   <div class="app-header">
-    <vue-headful :lang="$i18n.locale" />
-    <img src="logo.svg" style="width:20rem;" />
-    <template v-if="isOffline">
-      <h1>{{ $t('message.offline') }}</h1>
-    </template>
-    <font-awesome-icon
-      icon="question-circle"
-      class="help-icon"
-      @click="showHelp = true"
-    />
-    <template>
-      <div class="locale-changer">
-        <span style="margin-right: 5px;" @click="$i18n.locale = 'fi'">FI</span>
-        <span style="margin-right: 5px;" @click="$i18n.locale = 'sv'">SV</span>
-        <span style="margin-right: 5px;" @click="$i18n.locale = 'en'">EN</span>
+    <template v-if="!iframed">
+      <vue-headful :lang="$i18n.locale" />
+      <img src="logo.svg" style="width:20rem;" />
+      <template v-if="isOffline">
+        <h1>{{ $t('message.offline') }}</h1>
+      </template>
+      <font-awesome-icon
+        icon="question-circle"
+        class="help-icon"
+        @click="showHelp = true"
+      />
+      <template>
+        <div class="locale-changer">
+          <span style="margin-right: 5px;" @click="$i18n.locale = 'fi'"
+            >FI</span
+          >
+          <span style="margin-right: 5px;" @click="$i18n.locale = 'sv'"
+            >SV</span
+          >
+          <span style="margin-right: 5px;" @click="$i18n.locale = 'en'"
+            >EN</span
+          >
+        </div>
+      </template>
+
+      <div v-if="showHelp">
+        <transition name="modal">
+          <Help @close="showHelp = false"> </Help>
+        </transition>
       </div>
     </template>
+    <template v-else>
+      <vue-headful :lang="$i18n.locale" />
+      KUTSU RYHMÄSI JA VALITSE RANTAVIIVALTA PALA SIIVOTTAVAKSI!
+      <template v-if="isOffline">
+        <h1>{{ $t('message.offline') }}</h1>
+      </template>
+      <font-awesome-icon
+        icon="question-circle"
+        class="help-icon"
+        @click="showHelp = true"
+      />
+      <template>
+        <div class="locale-changer">
+          <span style="margin-right: 5px;" @click="$i18n.locale = 'fi'"
+            >FI</span
+          >
+          <span style="margin-right: 5px;" @click="$i18n.locale = 'sv'"
+            >SV</span
+          >
+          <span style="margin-right: 5px;" @click="$i18n.locale = 'en'"
+            >EN</span
+          >
+        </div>
+      </template>
 
-    <div v-if="showHelp">
-      <transition name="modal">
-        <Help @close="showHelp = false"> </Help>
-      </transition>
-    </div>
+      <div v-if="showHelp">
+        <transition name="modal">
+          <Help @close="showHelp = false"> </Help>
+        </transition>
+      </div>
+      <span>AVAA KARTTA UUTEEN IKKUNAAN ►</span>
+    </template>
   </div>
 </template>
 
@@ -34,8 +74,12 @@ export default {
   components: { Help },
   data() {
     return {
-      showHelp: false
+      showHelp: false,
+      iframed: false
     }
+  },
+  mounted() {
+    this.iframed = window.self !== window.top
   }
 }
 </script>
