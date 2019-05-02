@@ -12,139 +12,155 @@
       @unhide-shore="shoreUnhidden"
     />
 
-    <div class="controlpanel-container" @click.stop>
-      <!--div class="clean-infos">
-        <h1>{{ $t('message.cleaned') }}</h1>
-        <li class="clean-info" v-for="clean in cleaned" :key="clean._id">
-          <div class="clean-time">
-            <h3>{{ $t('message.date') }}</h3>
-            <p>
-              {{ $t('message.starts') }}:
-              <template v-if="$i18n.locale != 'fi'">
-                {{ clean.date | moment('DD MMMM YYYY') }}
-              </template>
-              <template v-else>
-                {{ clean.date | moment('DD MMMM[ta] YYYY') }} klo
-              </template>
-            </p>
-          </div>
-          <div class="cleanform-contact">
-            <h3>{{ $t('message.contact_info') }}</h3>
-            <p>{{ clean.organizer_name }}</p>
-            <p>{{ clean.leader_phone }}</p>
-            <p>{{ clean.leader_email }}</p>
-          </div>
-          <div class="clean-cta">
-            <button v-bind:id="clean.selected.key" v-on:click="showreservation">
-              {{ $t('message.show_map') }}
-            </button>
+    <!-- <div class="controlpanel-container" @click.stop>
+     -->
 
-            <template v-if="clean.confirm">
-              <button
-                v-on:click="removecleaned($event, clean)"
-                v-bind:id="clean.selected.key"
-                class="red"
-              >
-                {{ $t('message.cancel_cleaned') }}
-              </button>
-            </template>
-            <template v-if="!clean.confirm">
-              <button
-                v-on:click="addcleaned($event, clean)"
-                v-bind:id="clean.selected.key"
-                class="green"
-              >
-                {{ $t('message.confirm_cleaned') }}
-              </button>
-            </template>
-          </div>
-        </li>
+    <div class="editor-wrapper">
+      <div class="editor">
+        {{ $t('message.edit_map') }}
+        <div class="adminMapContainer">
+          <shore-map
+            adminmode
+            @map-loaded="mapLoaded"
+            @shore-click="populateSelectedShoreData"
+            @hidden-click="populateSelectedHiddenShoreData"
+            :freeshores="this.$store.state.maplayers.freelayer"
+            :reservedshores="this.$store.state.maplayers.reservedlayer"
+            :cleanedshores="this.$store.state.maplayers.cleanlayer"
+            :hiddenshores="this.$store.state.maplayers.hiddenlayer"
+          />
+        </div>
       </div>
-      <div class="reservations">
-        <h1>{{ $t('message.reservations') }}</h1>
-        <li
-          class="reservation"
-          v-for="reservation in reservations"
-          :key="reservation._id"
-        >
-          <div class="reservation-time">
-            <h3>{{ $t('message.date') }}</h3>
-            <p>
-              {{ $t('message.starts') }}:
-              <template v-if="$i18n.locale != 'fi'">
-                {{ reservation.startdate | moment('DD MMMM YYYY') }}
-              </template>
-              <template v-else>
-                {{ reservation.startdate | moment('DD MMMM[ta] YYYY') }} klo
-              </template>
-              {{ reservation.starttime }}
-            </p>
-            <p>
-              {{ $t('message.ends') }}:
-              <template v-if="$i18n.locale != 'fi'">
-                {{ reservation.enddate | moment('DD MMMM YYYY') }}
-              </template>
-              <template v-else>
-                {{ reservation.enddate | moment('DD MMMM[ta] YYYY') }} klo
-              </template>
-              {{ reservation.endtime }}
-            </p>
+      <div class="list-wrapper">
+        <div class="list-tabs">
+          <div class="tab" @click="toggleReservationList">
+            <h1>{{ $t('message.reservations') }}</h1>
           </div>
-          <div class="reservation-contact">
-            <h3>{{ $t('message.contact_info') }}</h3>
-            <p>{{ reservation.organizer }}</p>
-            <p>{{ reservation.phonenumbery }}</p>
-            <p>{{ reservation.email }}</p>
+          <div class="tab" @click="toggleCleanedShoresList">
+            <h1>{{ $t('message.cleaned') }}</h1>
           </div>
-          <div class="reservation-cta">
-            <button
-              v-bind:id="reservation.selected.key"
-              v-on:click="showreservation"
+        </div>
+        <div class="tab-content">
+          <div class="reservations" v-show="showReservations">
+            <li
+              class="reservation"
+              v-for="reservation in reservations"
+              :key="reservation._id"
             >
-              {{ $t('message.show_map') }}
-            </button>
-            <button
-              @click="deletereservation($event, reservation)"
-              v-bind:id="reservation.selected.key"
-              class="red"
-            >
-              {{ $t('message.delete_reservation') }}
-            </button>
-            <template v-if="reservation.confirm">
-              <button
-                @click="removereservation($event, reservation)"
-                v-bind:id="reservation.selected.key"
-                class="red"
-              >
-                {{ $t('message.cancel_reservation') }}
-              </button>
-            </template>
-            <template v-else>
-              <button
-                v-on:click="addreservation($event, reservation)"
-                v-bind:id="reservation.selected.key"
-                class="green"
-              >
-                {{ $t('message.confirm_reservation') }}
-              </button>
-            </template>
+              <div class="reservation-time">
+                <h3>{{ $t('message.date') }}</h3>
+                <p>
+                  {{ $t('message.starts') }}:
+                  <template v-if="$i18n.locale != 'fi'">
+                    {{ reservation.startdate | moment('DD MMMM YYYY') }}
+                  </template>
+                  <template v-else>
+                    {{ reservation.startdate | moment('DD MMMM[ta] YYYY') }} klo
+                  </template>
+                  {{ reservation.starttime }}
+                </p>
+                <p>
+                  {{ $t('message.ends') }}:
+                  <template v-if="$i18n.locale != 'fi'">
+                    {{ reservation.enddate | moment('DD MMMM YYYY') }}
+                  </template>
+                  <template v-else>
+                    {{ reservation.enddate | moment('DD MMMM[ta] YYYY') }} klo
+                  </template>
+                  {{ reservation.endtime }}
+                </p>
+              </div>
+              <div class="reservation-contact">
+                <h3>{{ $t('message.contact_info') }}</h3>
+                <p>{{ reservation.organizer }}</p>
+                <p>{{ reservation.phonenumbery }}</p>
+                <p>{{ reservation.email }}</p>
+              </div>
+              <div class="reservation-cta">
+                <button
+                  class="small-button show-button"
+                  v-bind:id="reservation.selected.key"
+                  v-on:click="showreservation"
+                >
+                  {{ $t('message.show_map') }}
+                </button>
+                <button
+                  class="small-button del-button"
+                  @click="deletereservation($event, reservation)"
+                  v-bind:id="reservation.selected.key"
+                >
+                  {{ $t('message.delete_reservation') }}
+                </button>
+                <template v-if="reservation.confirmed">
+                  <button
+                    class="small-button cancel-button"
+                    @click="removereservation($event, reservation)"
+                    v-bind:id="reservation.selected.key"
+                  >
+                    {{ $t('message.cancel_reservation') }}
+                  </button>
+                </template>
+                <template v-else>
+                  <button
+                    class="small-button confirm-button"
+                    v-on:click="confirmreservation($event, reservation)"
+                    v-bind:id="reservation.selected.key"
+                  >
+                    {{ $t('message.confirm_reservation') }}
+                  </button>
+                </template>
+              </div>
+            </li>
           </div>
-        </li>
-      </div-->
-      <div class="editor-wrapper">
-        <div class="editor">
-          {{ $t('message.edit_map') }}
-          <div class="adminMapContainer">
-            <shore-map
-              adminmode
-              @map-loaded="mapLoaded"
-              @shore-click="populateSelectedShoreData"
-              @hidden-click="populateSelectedHiddenShoreData"
-              :freeshores="this.$store.state.maplayers.freelayer"
-              :reservedshores="this.$store.state.maplayers.reservedlayer"
-              :cleanedshores="this.$store.state.maplayers.cleanlayer"
-              :hiddenshores="this.$store.state.maplayers.hiddenlayer"
-            />
+          <div class="clean-infos" v-show="showCleanedShores">
+            <li class="clean-info" v-for="clean in cleaned" :key="clean._id">
+              <div class="clean-time">
+                <h3>{{ $t('message.date') }}</h3>
+                <p>
+                  {{ $t('message.starts') }}:
+                  <template v-if="$i18n.locale != 'fi'">
+                    {{ clean.date | moment('DD MMMM YYYY') }}
+                  </template>
+                  <template v-else>
+                    {{ clean.date | moment('DD MMMM[ta] YYYY') }} klo
+                  </template>
+                </p>
+              </div>
+              <div class="cleanform-contact">
+                <h3>{{ $t('message.contact_info') }}</h3>
+                <p>{{ clean.organizer_name }}</p>
+                <p>{{ clean.leader_phone }}</p>
+                <p>{{ clean.leader_email }}</p>
+              </div>
+              <div class="clean-cta">
+                <button
+                  class="small-button show-button"
+                  v-bind:id="clean.selected.key"
+                  v-on:click="showreservation"
+                >
+                  {{ $t('message.show_map') }}
+                </button>
+
+                <template v-if="clean.confirm">
+                  <button
+                    class="small-button confirm-button"
+                    v-on:click="removecleaned($event, clean)"
+                    v-bind:id="clean.selected.key"
+                  >
+                    {{ $t('message.cancel_cleaned') }}
+                  </button>
+                </template>
+                <template v-if="!clean.confirm">
+                  <button
+                    class="small-button cancel-button"
+                    v-on:click="addcleaned($event, clean)"
+                    v-bind:id="clean.selected.key"
+                  >
+                    {{ $t('message.confirm_cleaned') }}
+                  </button>
+                </template>
+              </div>
+            </li>
           </div>
         </div>
       </div>
@@ -195,7 +211,9 @@ export default {
       showunhide: false,
       cleaned: {},
       selectedShoreData: {},
-      mapOverlayAction: null
+      mapOverlayAction: null,
+      showReservations: false,
+      showCleanedShores: false
     }
   },
   components: {
@@ -233,6 +251,14 @@ export default {
       this.selectedShoreData = data
       this.mapOverlayAction = 'unhide'
       this.toggleOverlay()
+    },
+    toggleReservationList() {
+      this.showCleanedShores = false
+      this.showReservations = !this.showReservations
+    },
+    toggleCleanedShoresList() {
+      this.showReservations = false
+      this.showCleanedShores = !this.showCleanedShores
     },
     enhanceData(data) {
       //apparently without this the data format is somehow wrong
@@ -286,18 +312,19 @@ export default {
       }
       this.showOverlay = !this.showOverlay
     },
-    addreservation(e, reservation) {
+    confirmreservation(e, reservation) {
       var id = e.target.id
       axios({
         method: 'POST',
-        url: 'http://' + location.hostname + ':8089/api/map/cleanbeach/',
+        url:
+          'http://' + location.hostname + ':8089/api/map/confirmreservation/',
 
         data: { key: id, reservation: reservation._key }
       })
         .then(response => {
           console.log(response)
           if (response.data.status === 'ok') {
-            reservation.confirm = true
+            reservation.confirmed = true
             this.shoreReserved(response.data.json)
           }
         })
@@ -342,7 +369,7 @@ export default {
     removereservation(e, reservation) {
       axios
         .post(
-          'http://' + location.hostname + ':8089/api/map/cancelcleanbeach/',
+          'http://' + location.hostname + ':8089/api/map/cancelreservation/',
           {
             key: e.target.id,
             reservation: reservation._key
@@ -351,7 +378,7 @@ export default {
         .then(response => {
           console.log(response)
           if (response.data.status === 'ok') {
-            reservation.confirm = false
+            reservation.confirmed = false
             this.shoreUnreserved(response.data.json)
           }
         })
@@ -387,7 +414,7 @@ export default {
       const id = e.target.id
       const confirmed = this.reservations.find(e => {
         return e.selected.key === id
-      }).confirm
+      }).confirmed
       console.log(confirmed)
       const layer = confirmed ? 'reservedlayer' : 'freelayer'
       const data = this.$store.state.maplayers[layer].find(e => {
@@ -483,32 +510,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.controlpanel-container {
+.controlpanel-wrapper {
   width: 100%;
   height: 100%;
   background-color: white;
   display: flex;
   justify-content: space-between;
-
-  button.green {
-    border-color: green;
-  }
-  button.red {
-    border-color: red;
-  }
-  .reservations {
-    .reservation {
-      padding: 5px;
-
-      .reservation-time {
-        padding: 5px;
-      }
-
-      .reservation-contact {
-        padding: 5px;
-      }
-    }
-  }
 
   h3 {
     font-weight: bold;
@@ -519,11 +526,82 @@ export default {
   }
 
   .editor-wrapper {
-    position: absolute;
+    position: relative;
 
-    .adminMapContainer {
-      height: 100vh;
-      width: 100vw;
+    .editor {
+      position: relative;
+
+      .adminMapContainer {
+        height: 100vh;
+        width: 100vw;
+      }
+    }
+
+    .list-wrapper {
+      position: absolute;
+      top: 100px;
+      left: 30px;
+
+      .list-tabs {
+        display: flex;
+
+        .tab {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 150px;
+          height: 50px;
+          background-color: white;
+          border: 1px solid #bbb;
+          border-bottom: none;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #eee;
+          }
+        }
+      }
+
+      .tab-content {
+        width: 400px;
+        max-height: 70vh;
+        background-color: white;
+        overflow-y: auto;
+      }
+
+      .reservations {
+        width: 350px;
+        margin: 0 auto;
+
+        .reservation {
+          padding: 10px 10px 20px 10px;
+          border-bottom: 1px solid #bbb;
+
+          .reservation-time {
+            padding: 5px;
+          }
+
+          .reservation-contact {
+            padding: 5px;
+          }
+
+          .reservation-cta {
+            display: flex;
+          }
+        }
+      }
+
+      .clean-infos {
+        width: 300px;
+        margin: 0 auto;
+
+        .clean-info {
+          padding: 10px 10px 20px 10px;
+          border-bottom: 1px solid #bbb;
+        }
+      }
     }
 
     .overlay-box-wrapper {
@@ -533,6 +611,14 @@ export default {
     }
   }
 }
+
+.small-button {
+  min-width: 50px;
+  max-width: 120px;
+  font-size: 12px;
+  padding: 10px;
+}
+
 .form {
   position: fixed;
   top: 10%;
