@@ -16,6 +16,10 @@
             <div class="modal-header">
               <slot name="header">
                 <h3>{{ $t('message.reserve_clean') }}</h3>
+                <p>
+                  Talkoiden tiedot, kuten järjestävä taho ja ajankohta näkyvät
+                  kaikille.
+                </p>
                 <div v-bind:key="error.param" class="" v-for="error in errors">
                   {{ error.param }} {{ error.msg }}
                 </div>
@@ -28,102 +32,102 @@
                   <h5>Järjestävä taho</h5>
                   <input :required="required ? true : false" type="text" />
                 </div>
-                {{ $t('message.date') }}
-                <div class="item">
-                  <font-awesome-icon icon="calendar" />
 
-                  <input
-                    :required="required ? true : false"
-                    v-model="reservationdata.startdate"
-                    type="date"
-                  />
-                </div>
-                <div class="item">
-                  <font-awesome-icon icon="clock" />
+                <div class="datetime">
+                  <h5>{{ $t('message.date') }}</h5>
 
-                  <vue-timepicker
-                    class="timepicker"
-                    :required="required ? true : false"
-                    v-model="reservationdata.starttime"
-                    format="HH:mm"
-                  ></vue-timepicker>
-                </div>
-                <div class="item">
-                  <font-awesome-icon icon="calendar" />
+                  <div class="datetime-inputs">
+                    <div class="datetime-item">
+                      <font-awesome-icon icon="calendar" />
 
-                  <input
-                    :required="required ? true : false"
-                    v-model="reservationdata.enddate"
-                    type="date"
-                  />
-                </div>
-                <div class="item">
-                  <font-awesome-icon icon="clock" />
+                      <input
+                        :required="required ? true : false"
+                        v-model="reservationdata.startdate"
+                        type="date"
+                      />
+                    </div>
+                    <div class="datetime-item">
+                      <font-awesome-icon icon="clock" />
 
-                  <vue-timepicker
-                    class="timepicker"
-                    :required="required ? true : false"
-                    v-model="reservationdata.endtime"
-                    format="HH:mm"
-                  ></vue-timepicker>
-                </div>
-                <div class="flex-grid">
-                  <div class="col">
-                    <h1>{{ $t('message.type_open') }}</h1>
+                      <vue-timepicker
+                        class="timepicker"
+                        :required="required ? true : false"
+                        v-model="reservationdata.starttime"
+                        format="HH:mm"
+                      />
+                    </div>
+                    <span>-</span>
+                    <div class="datetime-item">
+                      <font-awesome-icon icon="calendar" />
+
+                      <input
+                        :required="required ? true : false"
+                        v-model="reservationdata.enddate"
+                        type="date"
+                      />
+                    </div>
+                    <div class="datetime-item">
+                      <font-awesome-icon icon="clock" />
+
+                      <vue-timepicker
+                        class="timepicker"
+                        :required="required ? true : false"
+                        v-model="reservationdata.endtime"
+                        format="HH:mm"
+                      />
+                    </div>
                   </div>
-                  <div class="col">
+                </div>
+
+                <div class="open-cleanup">
+                  <div class="open-cleanup-check">
+                    <h5>{{ $t('message.type_open') }}</h5>
                     <input
                       v-model="reservationdata.free"
                       type="checkbox"
                       checked="checked"
                     />
                   </div>
-                </div>
-                <div v-show="reservationdata.free">
-                  Lorem ipsum dolor sit amet,
-                  <input type="text" name="" value="" />
-                  <div class="flex-grid">
-                    <div class="col">
-                      Lorem ipsum dolor sit amet,
+                  <p>
+                    Rastittaessasi kohdan, kaikki voivat osallistua talkoisiin.
+                  </p>
+
+                  <div class="open-cleanup-info" v-show="reservationdata.free">
+                    <div class="open-cleanup-text">
+                      <h5>Kerro jotain talkoista</h5>
+                      <textarea rows="3" />
                     </div>
-                    <div class="col">
+                    <div class="input-field">
+                      <h5>Linkki tapahtumaan</h5>
                       <input type="text" name="" value="" />
                     </div>
                   </div>
                 </div>
 
-                <h1>{{ $t('message.organizer') }}</h1>
-
-                <p>{{ $t('message.contact') }}</p>
-                <div class="flex-grid">
-                  <div class="col">
-                    <p>{{ $t('message.name') }}</p>
-                  </div>
-                  <div class="col">
+                <div class="contact-person">
+                  <h4>Yhteyshenkilö</h4>
+                  <p>
+                    Täytä alle yhteyshenkilön tiedot. Yhteyshenkilön tiedot
+                    eivät näy muille käyttäjille!
+                  </p>
+                  <div class="input-field">
+                    <h5>{{ $t('message.name') }}</h5>
                     <input
                       :required="required ? true : false"
                       v-model="reservationdata.name"
                       type="text"
                     />
                   </div>
-                </div>
-                <div class="flex-grid">
-                  <div class="col">
-                    <p>{{ $t('message.email') }}</p>
-                  </div>
-                  <div class="col">
+                  <div class="input-field">
+                    <h5>{{ $t('message.email') }}</h5>
                     <input
                       :required="required ? true : false"
                       v-model="reservationdata.email"
                       type="email"
                     />
                   </div>
-                </div>
-                <div class="flex-grid">
-                  <div class="col">
-                    <p>{{ $t('message.phonenumber') }}</p>
-                  </div>
-                  <div class="col">
+                  <div class="input-field">
+                    <h5>{{ $t('message.phonenumber') }}</h5>
                     <input
                       :required="required ? true : false"
                       v-model="reservationdata.phonenumber"
@@ -285,14 +289,62 @@ form {
 .modal-header h3 {
   font-weight: 700;
 }
-.date-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  flex-direction: row;
-}
 .modal-body {
   margin: 20px 0;
+}
+
+.datetime {
+  margin: 2rem 0;
+}
+
+.datetime h5 {
+  margin-bottom: 0.5rem;
+}
+
+.datetime-inputs {
+  display: flex;
+  align-items: center;
+}
+
+.datetime-inputs span {
+  margin: 0 3px;
+}
+
+.open-cleanup {
+  margin: 2rem 0;
+}
+
+.open-cleanup-check {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.open-cleanup-check input {
+  width: 10%;
+}
+
+.open-cleanup-info {
+  margin: 1rem 0;
+}
+
+.open-cleanup-text {
+  margin-bottom: 0.7rem;
+}
+
+.open-cleanup-text h5 {
+  margin-bottom: 0.5rem;
+}
+
+.contact-person {
+  margin-top: 3rem;
+}
+
+.contact-person h4 {
+  margin-bottom: 0.5rem;
+}
+
+.contact-person p {
+  margin-bottom: 1.5rem;
 }
 
 .modal-footer {
@@ -335,9 +387,7 @@ input {
   border: 1px solid #555;
 }
 input[type='date'] {
-  max-width: 140px;
-}
-.timepicker {
+  max-width: 135px;
 }
 select {
   padding: 16px 20px;
@@ -348,9 +398,18 @@ select {
 h1 {
   font-weight: bold;
 }
+h4 {
+  font-weight: 600;
+  font-size: 18px;
+}
+h5 {
+  font-weight: 600;
+  font-size: 16px;
+}
 select,
 input {
   width: 100%;
+  border: 1px solid #bbb;
 }
 .success {
   color: green;
@@ -363,14 +422,22 @@ select {
   border-color: red;
   box-shadow: none;
 }
+.timepicker {
+  max-width: max-content;
+}
 .input-field {
   display: flex;
   align-items: center;
+  margin: 1rem 0;
 }
 .input-field h5 {
-  font-weight: 600;
-  font-size: 16px;
   margin-right: 20px;
+  width: 60%;
+}
+textarea {
+  border: 1px solid #bbb;
+  resize: none;
+  width: 100%;
 }
 .col {
   flex: 1;
@@ -383,8 +450,11 @@ select {
   flex-flow: row;
   justify-content: space-between;
 }
-.item {
+.datetime-item {
   display: flex;
   align-items: center;
+}
+.datetime-item > * {
+  margin: 0 3px;
 }
 </style>
