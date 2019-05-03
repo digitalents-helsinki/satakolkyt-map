@@ -415,7 +415,6 @@ export default {
       const confirmed = this.reservations.find(e => {
         return e.selected.key === id
       }).confirmed
-      console.log(confirmed)
       const layer = confirmed ? 'reservedlayer' : 'freelayer'
       const data = this.$store.state.maplayers[layer].find(e => {
         return e._key === id

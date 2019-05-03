@@ -2,7 +2,6 @@
   <div class="home">
     <vue-headful :title="$t('message.app')" />
     <div class="map-container">
-      <div class="dimmer" v-if="showOverlay" @click="toggleOverlay" />
       <div class="dimmer" v-if="showReservationForm" @click="toggleModal" />
       <shore-map
         :freeshores="this.$store.state.maplayers.freelayer"
@@ -12,6 +11,7 @@
         v-if="showMap"
         @map-loaded="mapLoaded"
         @shore-click="populateSelectedShoreData"
+        @unselect="unselectShore"
       />
       <section v-else>
         <div class="initial-background"></div>
@@ -75,7 +75,6 @@ export default {
       showCleaned: false,
       showReservationForm: false,
       // Overlay box
-      showOverlay: false,
       dimBackground: true,
       // Selected Shore
       selectedShoreData: null
@@ -161,21 +160,15 @@ export default {
         this.showMap = this.startMapOnMounted
       })
     },
-
-    toggleOverlay() {
-      if (!this.selectedShoreData) {
-        this.showOverlay = false
-      }
-
-      this.showOverlay = !this.showOverlay
-    },
     toggleModal() {
       this.showModal = !this.showModal
     },
 
     populateSelectedShoreData(data) {
       this.selectedShoreData = data
-      this.toggleOverlay()
+    },
+    unselectShore() {
+      this.selectedShoreData = null
     }
   },
 

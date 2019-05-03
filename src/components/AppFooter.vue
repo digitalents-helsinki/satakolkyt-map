@@ -3,6 +3,7 @@
     <div class="footer">
       <template v-if="!this.$props.adminmode">
         <shore-info
+          v-show="this.$props.data"
           @show-reservationform="this.showReservationForm"
           @show-cleanform="this.showCleanedForm"
           :data="this.$props.data"
@@ -47,6 +48,7 @@ export default {
     'action',
     'showReservation',
     'showCleaned',
+    'showShoreData',
     'unHideShore',
     'hideShore',
     'adminmode'

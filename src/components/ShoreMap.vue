@@ -6,6 +6,11 @@
       :nav-control="navControl"
       @map-load="mapLoaded"
     />
+    <div
+      class="clickdetector"
+      v-show="selectedLayer"
+      @click="detectorClick"
+    ></div>
   </div>
 </template>
 
@@ -43,7 +48,8 @@ export default {
       },
       navControl: {
         show: false
-      }
+      },
+      selectedLayer: null
     }
   },
 
@@ -113,9 +119,42 @@ export default {
         }
 
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
+        this.selectedLayer = layername + 'Selected'
       })
     },
-
+    detectorClick() {
+      this.map.removeLayer(this.selectedLayer)
+      this.map.removeSource(this.selectedLayer)
+      this.selectedLayer = null
+      this.$emit('unselect')
+    },
+    onZoom(map) {
+      if (map.getZoom() > 15) {
+        map.setPaintProperty('freeShore', 'line-width', 15)
+        map.setPaintProperty('freeShoreSelected', 'line-width', 20)
+        map.setPaintProperty('reservedShore', 'line-width', 15)
+        map.setPaintProperty('reservedShoreSelected', 'line-width', 20)
+        map.setPaintProperty('cleanedShore', 'line-width', 15)
+        map.setPaintProperty('hiddenShore', 'line-width', 15)
+        map.setPaintProperty('hiddenShoreSelected', 'line-width', 20)
+      } else if (map.getZoom() > 13) {
+        map.setPaintProperty('freeShore', 'line-width', 5)
+        map.setPaintProperty('freeShoreSelected', 'line-width', 7)
+        map.setPaintProperty('reservedShore', 'line-width', 5)
+        map.setPaintProperty('reservedShoreSelected', 'line-width', 7)
+        map.setPaintProperty('cleanedShore', 'line-width', 5)
+        map.setPaintProperty('hiddenShore', 'line-width', 5)
+        map.setPaintProperty('hiddenShoreSelected', 'line-width', 7)
+      } else {
+        map.setPaintProperty('freeShore', 'line-width', 1)
+        map.setPaintProperty('freeShoreSelected', 'line-width', 2)
+        map.setPaintProperty('reservedShore', 'line-width', 1)
+        map.setPaintProperty('reservedShoreSelected', 'line-width', 2)
+        map.setPaintProperty('cleanedShore', 'line-width', 1)
+        map.setPaintProperty('hiddenShore', 'line-width', 1)
+        map.setPaintProperty('hiddenShoreSelected', 'line-width', 2)
+      }
+    },
     mapLoaded(map) {
       map.addControl(
         new mapboxgl.NavigationControl({ showCompass: false }),
@@ -144,33 +183,10 @@ export default {
 
       this.$emit('map-loaded', map)
 
-      map.on('zoom', function() {
-        if (map.getZoom() > 15) {
-          map.setPaintProperty('freeShore', 'line-width', 15)
-          map.setPaintProperty('freeShoreSelected', 'line-width', 20)
-          map.setPaintProperty('reservedShore', 'line-width', 15)
-          map.setPaintProperty('reservedShoreSelected', 'line-width', 20)
-          map.setPaintProperty('cleanedShore', 'line-width', 15)
-          map.setPaintProperty('hiddenShore', 'line-width', 15)
-          map.setPaintProperty('hiddenShoreSelected', 'line-width', 20)
-        } else if (map.getZoom() > 13) {
-          map.setPaintProperty('freeShore', 'line-width', 5)
-          map.setPaintProperty('freeShoreSelected', 'line-width', 7)
-          map.setPaintProperty('reservedShore', 'line-width', 5)
-          map.setPaintProperty('reservedShoreSelected', 'line-width', 7)
-          map.setPaintProperty('cleanedShore', 'line-width', 5)
-          map.setPaintProperty('hiddenShore', 'line-width', 5)
-          map.setPaintProperty('hiddenShoreSelected', 'line-width', 7)
-        } else {
-          map.setPaintProperty('freeShore', 'line-width', 1)
-          map.setPaintProperty('freeShoreSelected', 'line-width', 2)
-          map.setPaintProperty('reservedShore', 'line-width', 1)
-          map.setPaintProperty('reservedShoreSelected', 'line-width', 2)
-          map.setPaintProperty('cleanedShore', 'line-width', 1)
-          map.setPaintProperty('hiddenShore', 'line-width', 1)
-          map.setPaintProperty('hiddenShoreSelected', 'line-width', 2)
-        }
+      map.on('zoom', () => {
+        this.onZoom(map)
       })
+      this.onZoom(map)
 
       // disable map rotation using right click + drag
       map.dragRotate.disable()
@@ -200,8 +216,16 @@ export default {
 
 <style lang="scss">
 .map-view {
+  position: relative;
   height: 100vh;
   cursor: pointer;
+
+  .clickdetector {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
 }
 #map {
   height: 100%;
