@@ -42,5 +42,16 @@ export default {
   #delete {
     border-color: red;
   }
+  @media only screen and (max-width: 1366px) {
+    button {
+      background-color: yellow;
+      color: #000;
+      padding: 0.5rem 0.5rem;
+      font-size: 1rem;
+      min-width: 4ex;
+      font-weight: bold;
+      font-family: inherit;
+    }
+  }
 }
 </style>

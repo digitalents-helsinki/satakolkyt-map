@@ -1,24 +1,26 @@
 <template>
   <div>
     <div class="footer">
-      <template v-if="!this.$props.adminmode">
-        <shore-info
-          @show-reservationform="this.showReservationForm"
-          @show-cleanform="this.showCleanedForm"
-          :data="this.$props.data"
-        />
-      </template>
-      <template v-else>
-        <admin-shore-info
-          :data="this.$props.data"
-          :action="this.$props.action"
-          @hide-shore="this.hideShoreMap"
-          @unhide-shore="this.unHideShoreMap"
-        >
-        </admin-shore-info>
-      </template>
+      <div class="buttons">
+        <template v-if="!this.$props.adminmode">
+          <shore-info
+            @show-reservationform="this.showReservationForm"
+            @show-cleanform="this.showCleanedForm"
+            :data="this.$props.data"
+          />
+        </template>
+        <template v-else>
+          <admin-shore-info
+            :data="this.$props.data"
+            :action="this.$props.action"
+            @hide-shore="this.hideShoreMap"
+            @unhide-shore="this.unHideShoreMap"
+          >
+          </admin-shore-info>
+        </template>
+      </div>
     </div>
-    <div class="counter">
+    <div class="counter" :class="{ hide: this.$props.data }">
       <div class="stepcount green">
         620 597
       </div>
@@ -119,9 +121,18 @@ export default {
 }
 @media only screen and (max-width: 1366px) {
   .counter {
-    font-size: 2em;
+    font-size: 1em;
+    left: 20%;
+  }
+  .colors {
+    display: none;
+  }
 
-    right: 20%;
+  .footer {
+    height: 12vh;
+  }
+  .hide {
+    display: none;
   }
 }
 </style>
