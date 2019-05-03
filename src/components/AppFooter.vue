@@ -121,8 +121,8 @@ export default {
 }
 @media only screen and (max-width: 1366px) {
   .counter {
-    font-size: 1em;
-    left: 20%;
+    font-size: 2em;
+    left: 5%;
   }
   .colors {
     display: none;

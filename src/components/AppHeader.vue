@@ -100,5 +100,10 @@ export default {
     font-weight: bold;
     letter-spacing: 0.25px;
   }
+  @media only screen and (max-width: 600px) {
+    .help-icon {
+      display: none;
+    }
+  }
 }
 </style>
