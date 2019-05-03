@@ -36,9 +36,9 @@ export default {
   data() {
     return {
       accessToken:
-        'pk.eyJ1IjoiZGlnaXRhbGVudHMiLCJhIjoiY2pzZWppdm01MDV1NzQ0bzJmczQ5cDR2ZCJ9.p8qNiWhX3bWj9FB8IjdmLA',
+        'pk.eyJ1Ijoic2F0YWtvbGt5dCIsImEiOiJjanY4MHB2MXQwYWN6M3lwa2xlZDdzMmY0In0.2H2gSyrO7PpTUcYN4qPbJg',
       mapOptions: {
-        style: 'mapbox://styles/obb123/cjtty0dz501c21fpdg8vg1hx6',
+        style: 'mapbox://styles/satakolkyt/cjv80rnwr02lu1fo4y7gxcldj',
         center: [24.9476669, 60.1535843],
         zoom: 11,
         pitchWithRotate: false,
