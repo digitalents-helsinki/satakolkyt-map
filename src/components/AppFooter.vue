@@ -36,17 +36,30 @@
       </div>
     </div>
     <div class="colors">
-      <div class="images">
-        <img src="../Icons/green.svg" alt="" />
-        green
-        <img src="../Icons/lblue.svg" alt="" />
-        light blue
-        <img src="../Icons/red.svg" alt="" />
-        red
-        <img src="../Icons/blue.svg" alt="" />
-        blue
-        <img src="../Icons/white.svg" alt="" />
-        white
+      <div class="container">
+        <div class="title">
+          Rantaviiva:
+        </div>
+        <div class="images">
+          <div class="selected">
+            <img src="../Icons/lblue.svg" alt="" />
+            valittu
+          </div>
+          <div class="cleaned">
+            <img src="../Icons/green.svg" alt="" />
+            siivottu
+          </div>
+
+          <div class="reserved">
+            <img src="../Icons/red.svg" alt="" />
+            varattu
+          </div>
+
+          <div class="free">
+            <img src="../Icons/white.svg" alt="" />
+            vapaa
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -114,8 +127,14 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: #f0e41a;
+  .container {
+    margin-left: 30px;
+  }
   .images img {
     width: 50%;
+  }
+  .images div {
+    margin-bottom: 20px;
   }
 }
 
