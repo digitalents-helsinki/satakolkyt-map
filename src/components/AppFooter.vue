@@ -35,7 +35,15 @@
         km siivottu
       </div>
     </div>
-    <div class="colors"></div>
+    <div class="colors">
+      <div class="images">
+        <img src="../Icons/green.svg" alt="" />
+        <img src="../Icons/lblue.svg" alt="" />
+        <img src="../Icons/red.svg" alt="" />
+        <img src="../Icons/blue.svg" alt="" />
+        <img src="../Icons/white.svg" alt="" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -99,10 +107,10 @@ export default {
   width: 15%;
   height: 20vh;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background-image: url('/info.png');
+  flex-direction: column;
+  background-color: #f0e41a;
 }
+
 .counter {
   z-index: 999;
   text-align: center;
@@ -123,8 +131,17 @@ export default {
 }
 @media only screen and (max-width: 1366px) {
   .counter {
-    font-size: 2em;
+    font-size: 3.1em;
+
     left: 5%;
+
+    text-transform: uppercase;
+
+    font-weight: bold;
+
+    color: black;
+
+    width: 100%;
   }
   .colors {
     display: none;
