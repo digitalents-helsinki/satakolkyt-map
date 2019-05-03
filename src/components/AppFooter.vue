@@ -38,10 +38,15 @@
     <div class="colors">
       <div class="images">
         <img src="../Icons/green.svg" alt="" />
+        green
         <img src="../Icons/lblue.svg" alt="" />
+        light blue
         <img src="../Icons/red.svg" alt="" />
+        red
         <img src="../Icons/blue.svg" alt="" />
+        blue
         <img src="../Icons/white.svg" alt="" />
+        white
       </div>
     </div>
   </div>
@@ -109,6 +114,9 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: #f0e41a;
+  .images img {
+    width: 50%;
+  }
 }
 
 .counter {
@@ -131,9 +139,9 @@ export default {
 }
 @media only screen and (max-width: 1366px) {
   .counter {
-    font-size: 3.1em;
+    font-size: 2em;
 
-    left: 5%;
+    left: 0%;
 
     text-transform: uppercase;
 
@@ -148,7 +156,7 @@ export default {
   }
 
   .footer {
-    height: 12vh;
+    height: 13vh;
   }
   .hide {
     display: none;
