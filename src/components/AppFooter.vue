@@ -125,8 +125,14 @@ export default {
   width: 15%;
   height: 20vh;
   display: flex;
+  text-transform: uppercase;
+  font-weight: 700;
   flex-direction: column;
   background-color: #f0e41a;
+  .title {
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
   .container {
     margin-left: 30px;
   }
@@ -156,22 +162,19 @@ export default {
   color: red;
   margin-left: 5px;
 }
+@media only screen and (max-width: 600px) {
+  .colors {
+    display: none;
+  }
+}
 @media only screen and (max-width: 1366px) {
   .counter {
     font-size: 2em;
-
     left: 0%;
-
     text-transform: uppercase;
-
     font-weight: bold;
-
     color: black;
-
     width: 100%;
-  }
-  .colors {
-    display: none;
   }
 
   .footer {
