@@ -136,7 +136,7 @@
                 <button
                   class="small-button show-button"
                   v-bind:id="clean.selected.key"
-                  v-on:click="showreservation"
+                  v-on:click="showcleaned"
                 >
                   {{ $t('message.show_map') }}
                 </button>
@@ -427,6 +427,54 @@ export default {
         ? 'reservedShoreSelected'
         : 'freeShoreSelected'
       const paintcolor = confirmed ? '#FF7575' : '#8595E5'
+      const selShSource = this.map.getSource(sourcename)
+      if (!selShSource) {
+        this.map.addSource(sourcename, {
+          type: 'geojson',
+          data: featcoll
+        })
+        this.map.addLayer({
+          id: sourcename,
+          type: 'line',
+          source: sourcename,
+          layout: {
+            'line-join': 'round',
+            'line-cap': 'round'
+          },
+          paint: {
+            'line-color': paintcolor,
+            'line-width': 1
+          }
+        })
+      } else {
+        selShSource.setData(featcoll)
+      }
+
+      this.map.flyTo({
+        center: [
+          data.geometry.coordinates[0][0],
+          data.geometry.coordinates[0][1]
+        ],
+        zoom: 17
+      })
+    },
+    showcleaned(e) {
+      const id = e.target.id
+      const confirmed = this.cleaned.find(e => {
+        return e.selected.key === id
+      }).confirm
+      const layer = confirmed ? 'cleanlayer' : 'freelayer'
+      const data = this.$store.state.maplayers[layer].find(e => {
+        return e._key === id
+      })
+      const featcoll = {
+        type: 'FeatureCollection',
+        features: [data]
+      }
+      const sourcename = confirmed
+        ? 'cleanedShoreSelected'
+        : 'freeShoreSelected'
+      const paintcolor = confirmed ? '#00AA33' : '#8595E5'
       const selShSource = this.map.getSource(sourcename)
       if (!selShSource) {
         this.map.addSource(sourcename, {
