@@ -125,10 +125,13 @@ export default {
     },
     detectorClick() {
       this.$emit('unselect')
-      if (this.selectedLayer) {
+      if (this.selectedLayer && this.map.isSourceLoaded(this.selectedLayer)) {
         this.map.removeLayer(this.selectedLayer)
         this.map.removeSource(this.selectedLayer)
       }
+      this.selectedLayer = null
+    },
+    removeDetector() {
       this.selectedLayer = null
     },
     onZoom(map) {
@@ -187,7 +190,7 @@ export default {
         )
       }
 
-      this.$emit('map-loaded', map)
+      this.$emit('map-loaded', map, this.removeDetector)
 
       map.on('zoom', () => {
         this.onZoom(map)
@@ -213,6 +216,13 @@ export default {
         })
         map.on('mouseenter', 'reservedShore', e => {
           canv.style.cursor = 'pointer'
+        })
+      } else {
+        map.on('mouseenter', 'hiddenShore', e => {
+          canv.style.cursor = 'pointer'
+        })
+        map.on('mouseleave', 'hiddenShore', e => {
+          canv.style.cursor = 'grab'
         })
       }
     }

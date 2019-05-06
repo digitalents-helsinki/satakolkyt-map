@@ -209,7 +209,6 @@ export default {
         username: '',
         password: ''
       },
-      showOverlay: false,
       showunhide: false,
       cleaned: {},
       selectedShoreData: {},
@@ -242,18 +241,17 @@ export default {
           console.log(error)
         })
     },
-    mapLoaded(map) {
+    mapLoaded(map, removeDetectorCB) {
       this.map = map
+      this.removeDetectorCB = removeDetectorCB
     },
     populateSelectedShoreData(data) {
       this.selectedShoreData = data
       this.mapOverlayAction = 'hide'
-      this.toggleOverlay()
     },
     populateSelectedHiddenShoreData(data) {
       this.selectedShoreData = data
       this.mapOverlayAction = 'unhide'
-      this.toggleOverlay()
     },
     toggleReservationList() {
       this.showCleanedShores = false
@@ -290,7 +288,6 @@ export default {
       })
     },
     shoreHidden(data) {
-      this.toggleOverlay()
       //remove selected layers
       this.map.removeLayer('freeShoreSelected')
       this.map.removeSource('freeShoreSelected')
@@ -300,20 +297,15 @@ export default {
       this.mapOverlayAction = 'unhide'
       //add the feature to hidden shore data
       this.addSegmentToLayer('hiddenShore', 'hiddenlayer', data)
+      this.removeDetectorCB()
     },
     shoreUnhidden(data) {
-      this.toggleOverlay()
       this.map.removeLayer('hiddenShoreSelected')
       this.map.removeSource('hiddenShoreSelected')
       this.mapOverlayAction = 'hide'
       this.removeSegmentFromLayer('hiddenShore', 'hiddenlayer', data._key)
       this.addSegmentToLayer('freeShore', 'freelayer', data)
-    },
-    toggleOverlay() {
-      if (!this.selectedShoreData) {
-        this.showOverlay = false
-      }
-      this.showOverlay = !this.showOverlay
+      this.removeDetectorCB()
     },
     confirmreservation(e, reservation) {
       var id = e.target.id
@@ -516,8 +508,13 @@ export default {
       })
     },
     unShow() {
-      this.map.removeLayer(this.showOnMap + 'ShoreSelected')
-      this.map.removeSource(this.showOnMap + 'ShoreSelected')
+      if (
+        this.showOnMap &&
+        this.map.isSourceLoaded(this.showOnMap + 'ShoreSelected')
+      ) {
+        this.map.removeLayer(this.showOnMap + 'ShoreSelected')
+        this.map.removeSource(this.showOnMap + 'ShoreSelected')
+      }
       this.showOnMap = null
     },
     initMap() {
