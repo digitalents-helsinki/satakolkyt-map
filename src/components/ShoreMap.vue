@@ -8,8 +8,8 @@
     />
     <div
       class="clickdetector"
-      v-show="selectedLayer"
-      @click="detectorClick"
+      v-show="selectedLayer || showOnMap"
+      @click.prevent="detectorClick"
     ></div>
   </div>
 </template>
@@ -28,7 +28,8 @@ export default {
     freeshores: [Object, Array],
     reservedshores: [Object, Array],
     cleanedshores: [Object, Array],
-    hiddenshores: [Object, Array]
+    hiddenshores: [Object, Array],
+    showOnMap: false
   },
   components: {
     MapBox
@@ -123,10 +124,12 @@ export default {
       })
     },
     detectorClick() {
-      this.map.removeLayer(this.selectedLayer)
-      this.map.removeSource(this.selectedLayer)
-      this.selectedLayer = null
       this.$emit('unselect')
+      if (this.selectedLayer) {
+        this.map.removeLayer(this.selectedLayer)
+        this.map.removeSource(this.selectedLayer)
+      }
+      this.selectedLayer = null
     },
     onZoom(map) {
       if (map.getZoom() > 15) {

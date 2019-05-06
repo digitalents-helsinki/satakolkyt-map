@@ -24,6 +24,8 @@
             @map-loaded="mapLoaded"
             @shore-click="populateSelectedShoreData"
             @hidden-click="populateSelectedHiddenShoreData"
+            @unselect="unShow"
+            :showOnMap="showOnMap"
             :freeshores="this.$store.state.maplayers.freelayer"
             :reservedshores="this.$store.state.maplayers.reservedlayer"
             :cleanedshores="this.$store.state.maplayers.cleanlayer"
@@ -213,7 +215,8 @@ export default {
       selectedShoreData: {},
       mapOverlayAction: null,
       showReservations: false,
-      showCleanedShores: false
+      showCleanedShores: false,
+      showOnMap: false
     }
   },
   components: {
@@ -411,6 +414,9 @@ export default {
       this.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     showreservation(e) {
+      if (this.showOnMap) {
+        this.unShow()
+      }
       const id = e.target.id
       const confirmed = this.reservations.find(e => {
         return e.selected.key === id
@@ -449,7 +455,7 @@ export default {
       } else {
         selShSource.setData(featcoll)
       }
-
+      this.showOnMap = 'reserved'
       this.map.flyTo({
         center: [
           data.geometry.coordinates[0][0],
@@ -459,6 +465,9 @@ export default {
       })
     },
     showcleaned(e) {
+      if (this.showOnMap) {
+        this.unShow()
+      }
       const id = e.target.id
       const confirmed = this.cleaned.find(e => {
         return e.selected.key === id
@@ -497,7 +506,7 @@ export default {
       } else {
         selShSource.setData(featcoll)
       }
-
+      this.showOnMap = 'cleaned'
       this.map.flyTo({
         center: [
           data.geometry.coordinates[0][0],
@@ -505,6 +514,11 @@ export default {
         ],
         zoom: 17
       })
+    },
+    unShow() {
+      this.map.removeLayer(this.showOnMap + 'ShoreSelected')
+      this.map.removeSource(this.showOnMap + 'ShoreSelected')
+      this.showOnMap = null
     },
     initMap() {
       this.$store.dispatch('getfreelayer')
