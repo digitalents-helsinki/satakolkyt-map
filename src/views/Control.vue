@@ -508,6 +508,7 @@ export default {
       })
     },
     unShow() {
+      this.mapOverlayAction = null
       if (
         this.showOnMap &&
         this.map.isSourceLoaded(this.showOnMap + 'ShoreSelected')
