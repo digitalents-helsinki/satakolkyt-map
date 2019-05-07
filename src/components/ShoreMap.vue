@@ -204,7 +204,7 @@ export default {
           map,
           'reservedShore',
           'reservedlayer',
-          'shore-click',
+          'reserved-click',
           '#FF7575'
         )
       }

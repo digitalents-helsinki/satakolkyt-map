@@ -11,6 +11,7 @@
         v-if="showMap"
         @map-loaded="mapLoaded"
         @shore-click="populateSelectedShoreData"
+        @reserved-click="selectReserved"
         @unselect="unselectShore"
       />
       <section v-else>
@@ -34,7 +35,22 @@
         :data="selectedShoreData"
         :showReservation="showReservationForm"
       />
-
+      <div v-if="showReservedInfo" class="reserved-info">
+        <h1>Varattu ranta</h1>
+        <p><b>Organizer:</b> {{ reservedInfo.organizer }}</p>
+        <p><b>Avoin?:</b> {{ reservedInfo.openevent ? 'Kyllä' : 'Ei' }}</p>
+        <template v-if="reservedInfo.openevent">
+          <p><b>Event info:</b> {{ reservedInfo.openinfo }}</p>
+          <p><b>Event link:</b> {{ reservedInfo.openlink }}</p>
+        </template>
+        <p>
+          <b>Alkaa:</b>
+          {{ reservedInfo.startdate + ' ' + reservedInfo.starttime }}
+        </p>
+        <p>
+          <b>Loppuu:</b> {{ reservedInfo.enddate + ' ' + reservedInfo.endtime }}
+        </p>
+      </div>
       <div v-if="showReservationForm">
         <transition name="modal">
           <ReserveModal
@@ -74,6 +90,8 @@ export default {
       startMapOnMounted: false,
       showCleaned: false,
       showReservationForm: false,
+      reservedInfo: null,
+      showReservedInfo: false,
       // Overlay box
       dimBackground: true,
       // Selected Shore
@@ -163,12 +181,31 @@ export default {
     toggleModal() {
       this.showModal = !this.showModal
     },
-
+    selectReserved(data) {
+      this.selectedShoreData = data
+      axios
+        .get(
+          'http://' +
+            location.hostname +
+            ':8089/api/map/reservedinfo/' +
+            data.key
+        )
+        .then(
+          res => {
+            this.reservedInfo = res.data.data
+            this.showReservedInfo = true
+          },
+          err => {
+            console.log(err)
+          }
+        )
+    },
     populateSelectedShoreData(data) {
       this.selectedShoreData = data
     },
     unselectShore() {
       this.selectedShoreData = null
+      this.showReservedInfo = false
     }
   },
 
@@ -197,7 +234,29 @@ export default {
 }
 
 .map-container {
+  position: relative;
   height: 100%;
+
+  .reserved-info {
+    position: absolute;
+    bottom: 150px;
+    left: 50px;
+    width: 300px;
+    height: 200px;
+    background-color: white;
+    padding: 10px;
+
+    h1 {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 5px 0;
+    }
+  }
 }
 .initial-background {
   position: relative;
