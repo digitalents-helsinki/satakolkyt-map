@@ -3,11 +3,6 @@
     <div class="modal-wrapper" @click="$emit('close')">
       <div class="modal-container" @click.stop>
         <template v-if="!saved">
-          <font-awesome-icon
-            icon="times"
-            class="cross-icon"
-            @click="$emit('close')"
-          />
           <form v-on:submit.prevent="saveCleaned">
             <div class="modal-page" v-show="pagenum == 0">
               <div class="modal-header">
@@ -374,6 +369,9 @@ form {
 
 .modal-body {
   margin: 20px 0;
+  padding-right: 20px;
+  margin-right: 5px;
+  flex: 1;
   overflow-y: scroll;
 }
 
