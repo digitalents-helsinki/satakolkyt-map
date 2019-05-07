@@ -3,11 +3,6 @@
     <div class="modal-wrapper" @click="$emit('close')">
       <div class="modal-container" @click.stop>
         <template v-if="!saved">
-          <font-awesome-icon
-            icon="times"
-            class="cross-icon"
-            @click="$emit('close')"
-          />
           <form v-on:submit.prevent="saveCleaned">
             <div class="modal-page" v-show="pagenum == 0">
               <div class="modal-header">
@@ -15,52 +10,19 @@
                 <p>{{ $t('message.fill_cleaned_info') }}</p>
               </div>
               <div class="modal-body">
+                <div class="cleaned-info-item cleaner-organizer">
+                  <h5>{{ $t('message.organizer_clean') }}</h5>
+                  <input
+                    :required="required"
+                    v-model="data.organizer_name"
+                    type="text"
+                  />
+                </div>
+
                 <div class="cleaned-info-item cleaned-time">
                   <h5>{{ $t('message.time_clean') }}</h5>
                   <font-awesome-icon icon="calendar" />
                   <input :required="required" v-model="data.date" type="date" />
-                </div>
-
-                <div class="cleaner">
-                  <div class="cleaner-title">
-                    <h4>{{ $t('message.shore_cleaner') }}</h4>
-                    <p>{{ $t('message.shore_cleaner_fill') }}</p>
-                  </div>
-
-                  <div class="cleaned-info-item">
-                    <h5>{{ $t('message.organizer_clean') }}</h5>
-                    <input
-                      :required="required"
-                      v-model="data.organizer_name"
-                      type="text"
-                    />
-                  </div>
-
-                  <div class="cleaned-info-item">
-                    <h5>{{ $t('message.name') }}</h5>
-                    <input
-                      :required="required"
-                      v-model="data.leader_name"
-                      type="text"
-                    />
-                  </div>
-                  <div class="cleaned-info-item">
-                    <h5>{{ $t('message.email') }}</h5>
-                    <input
-                      :required="required"
-                      v-model="data.leader_email"
-                      type="email"
-                    />
-                  </div>
-                  <div class="cleaned-info-item">
-                    <h5>{{ $t('message.phonenumber') }}</h5>
-                    <input
-                      :required="required"
-                      v-model="data.leader_phone"
-                      type="tel"
-                      pattern="[0-9]{3,11}"
-                    />
-                  </div>
                 </div>
 
                 <div class="cleaned-info-item cleaner-count">
@@ -114,6 +76,44 @@
                     {{ $t('message.trash_bags_info') }}
                   </p>
                   <textarea v-model="data.trash_bags_info" rows="2" />
+                </div>
+
+                <div class="something-else">
+                  <h4>{{ $t('message.clean_something_else') }}</h4>
+                  <textarea rows="4" v-model="data.cleanmoreinfo" />
+                </div>
+
+                <div class="cleaner">
+                  <div class="cleaner-title">
+                    <h4>{{ $t('message.shore_cleaner') }}</h4>
+                    <p>{{ $t('message.shore_cleaner_fill') }}</p>
+                  </div>
+
+                  <div class="cleaned-info-item">
+                    <h5>{{ $t('message.name') }}</h5>
+                    <input
+                      :required="required"
+                      v-model="data.leader_name"
+                      type="text"
+                    />
+                  </div>
+                  <div class="cleaned-info-item">
+                    <h5>{{ $t('message.email') }}</h5>
+                    <input
+                      :required="required"
+                      v-model="data.leader_email"
+                      type="email"
+                    />
+                  </div>
+                  <div class="cleaned-info-item">
+                    <h5>{{ $t('message.phonenumber') }}</h5>
+                    <input
+                      :required="required"
+                      v-model="data.leader_phone"
+                      type="tel"
+                      pattern="[0-9]{3,11}"
+                    />
+                  </div>
                 </div>
               </div>
               <div class="modal-footer cleaned-footer-page1">
@@ -327,12 +327,12 @@ export default {
   width: 550px;
   height: 80vh;
   margin-left: 50px;
-  padding: 20px 30px;
+  padding-left: 20px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  overflow: scroll;
+  overflow: hidden;
 }
 @media only screen and (max-width: 600px) {
   .modal-container {
@@ -345,18 +345,20 @@ form {
 }
 
 .modal-page {
-  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
   height: 100%;
 }
 
 .modal-header {
-  margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
 .modal-header h3 {
   font-weight: 800;
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: 0.5rem;
+  text-transform: uppercase;
 }
 
 .modal-header p,
@@ -367,19 +369,28 @@ form {
 
 .modal-body {
   margin: 20px 0;
+  padding-right: 20px;
+  margin-right: 5px;
+  flex: 1;
+  overflow-y: scroll;
 }
 
 .cleaner {
   margin: 2rem 0;
 }
 
+.cleaner-organizer h5 {
+  flex-basis: 40%;
+}
+
 .cleaner-title {
   margin: 2rem 0 1rem 0;
+  text-transform: uppercase;
 }
 
 .modal-body h4 {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .cleaned-info-item {
@@ -393,43 +404,54 @@ form {
 }
 
 .cleaned-time h5 {
-  width: 35%;
+  flex-basis: 30%;
 }
 
 .cleaned-info-item h5 {
   font-weight: 600;
   font-size: 16px;
-  margin-right: 20px;
+}
+
+.cleaner-count h5 {
+  flex: 1;
 }
 
 .cleaner-count input {
-  max-width: 70px;
+  flex-basis: 15%;
 }
 
 .trash-amount {
   margin: 2rem 0;
 }
 
+.trash-amount h5 {
+  flex-basis: 70%;
+}
+
 .trash-amount select {
-  max-width: 200px;
+  flex-basis: 70%;
 }
 
 .trash-bags-left {
-  flex-direction: column;
   margin-bottom: 1rem;
+  flex-flow: row wrap;
 }
 
 .trash-bags-left h5 {
   margin-bottom: 0.7rem;
+  flex-basis: 100%;
 }
 
 .trash-bags-left-radios {
   display: flex;
 }
 
+.trash-bags-left-radios div input {
+  width: 15px;
+}
+
 .trash-bags-left-answer {
-  display: flex;
-  margin: 0 50px;
+  margin-left: 2rem;
 }
 
 .trash-bags-where p {
@@ -437,11 +459,9 @@ form {
 }
 
 .modal-footer {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
 }
 
 .cleaned-footer-page1 {
