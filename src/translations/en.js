@@ -45,7 +45,7 @@ export const en = {
     trash_left: 'Did you leave trash bags on the shore that should be removed?',
     trash_bags_info: `If 'Yes', please provide accurate information about where they can be found (e.g. street address)`,
     foreign_species: 'Invasive species',
-    foreign_species_info: `Invasive species are species that have, intentionally or unintentionally, been spread by people 
+    foreign_species_info: `Invasive species are species that have, intentionally or unintentionally, been spread by people
                           from their native areas to a new area. Detrimental invasive species spread quickly and take away
                           living space from the native species as well as change the structure of the ecosystem.`,
     see_kurtturuusu: 'Did you see any Rosa rugosa on the shore?',
@@ -76,6 +76,7 @@ export const en = {
     hideshore: 'Hide Shore',
     delete_reservation: 'Delete Reservation',
     confirm_reservation: 'Confirm Reservation',
-    cancel_reservation: 'Cancel Reservation'
+    cancel_reservation: 'Cancel Reservation',
+    submit_permission_text: 'I accept the use of my data'
   }
 }
