@@ -234,9 +234,9 @@
                 <p>{{ $t('message.clean_additional_info_sub') }}</p>
               </div>
               <div class="modal-body">
-                <div class="something-else">
-                  <h4>{{ $t('message.clean_something_else') }}</h4>
-                  <textarea rows="8" v-model="data.cleanmoreinfo" />
+                <div class="permission-container">
+                  <h4>{{ $t('message.submit_permission_text') }}</h4>
+                  <input type="checkbox" />
                 </div>
               </div>
               <div class="modal-footer">
@@ -372,7 +372,7 @@ form {
   padding-right: 20px;
   margin-right: 5px;
   flex: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .cleaner {
@@ -510,6 +510,17 @@ form {
 .modal-default-button {
   width: 100%;
   margin-bottom: 5px;
+}
+
+.permission-container {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.permission-container input {
+  width: 15px;
 }
 
 /*

@@ -78,6 +78,7 @@ export const fi = {
     hideshore: 'Piilota ranta',
     delete_reservation: 'Poista varaus',
     confirm_reservation: 'Vahvista varaus',
-    cancel_reservation: 'Poista Vahvistus'
+    cancel_reservation: 'Poista Vahvistus',
+    submit_permission_text: 'Hyväksyn tietojeni käytön vapaasti.'
   }
 }
