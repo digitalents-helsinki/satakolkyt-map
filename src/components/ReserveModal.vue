@@ -258,7 +258,7 @@ export default {
 }
 
 .modal-container {
-  width: 550px;
+  width: 600px;
   height: 80vh;
   margin-left: 5%;
   padding: 20px 30px;
