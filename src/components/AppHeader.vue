@@ -33,7 +33,8 @@
     </template>
     <template v-else>
       <vue-headful :lang="$i18n.locale" />
-      KUTSU RYHMÄSI JA VALITSE RANTAVIIVALTA PALA SIIVOTTAVAKSI!
+
+      {{ $t('message.iframe') }}
       <template v-if="isOffline">
         <h1>{{ $t('message.offline') }}</h1>
       </template>
