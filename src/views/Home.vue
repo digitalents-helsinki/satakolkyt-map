@@ -12,6 +12,7 @@
         @map-loaded="mapLoaded"
         @shore-click="populateSelectedShoreData"
         @reserved-click="selectReserved"
+        @cleaned-click="selectCleaned"
         @unselect="unselectShore"
       />
       <section v-else>
@@ -35,7 +36,7 @@
         :data="selectedShoreData"
         :showReservation="showReservationForm"
       />
-      <div v-if="showReservedInfo" class="reserved-info">
+      <div v-if="showReservedInfo" class="infobox reserved-info">
         <h1>Varattu ranta</h1>
         <p><b>Organizer:</b> {{ reservedInfo.organizer }}</p>
         <p><b>Avoin?:</b> {{ reservedInfo.openevent ? 'Kyllä' : 'Ei' }}</p>
@@ -50,6 +51,11 @@
         <p>
           <b>Loppuu:</b> {{ reservedInfo.enddate + ' ' + reservedInfo.endtime }}
         </p>
+      </div>
+      <div v-if="showCleanedInfo" class="infobox cleaned-info">
+        <h1>Siivottu ranta</h1>
+        <p><b>Organizer:</b> {{ cleanedInfo.organizer_name }}</p>
+        <p><b>Siivottu:</b> {{ cleanedInfo.date }}</p>
       </div>
       <div v-if="showReservationForm">
         <transition name="modal">
@@ -92,6 +98,8 @@ export default {
       showReservationForm: false,
       reservedInfo: null,
       showReservedInfo: false,
+      cleanedInfo: null,
+      showCleanedInfo: false,
       // Overlay box
       dimBackground: true,
       // Selected Shore
@@ -200,12 +208,32 @@ export default {
           }
         )
     },
+    selectCleaned(data) {
+      this.selectedShoreData = data
+      axios
+        .get(
+          'http://' +
+            location.hostname +
+            ':8089/api/map/cleanedinfo/' +
+            data.key
+        )
+        .then(
+          res => {
+            this.cleanedInfo = res.data.data
+            this.showCleanedInfo = true
+          },
+          err => {
+            console.log(err)
+          }
+        )
+    },
     populateSelectedShoreData(data) {
       this.selectedShoreData = data
     },
     unselectShore() {
       this.selectedShoreData = null
       this.showReservedInfo = false
+      this.showCleanedInfo = false
     }
   },
 
@@ -237,7 +265,7 @@ export default {
   position: relative;
   height: 100%;
 
-  .reserved-info {
+  .infobox {
     position: absolute;
     bottom: 150px;
     left: 50px;

@@ -207,6 +207,13 @@ export default {
           'reserved-click',
           '#FF7575'
         )
+        this.addShoreClickHandler(
+          map,
+          'cleanedShore',
+          'cleanlayer',
+          'cleaned-click',
+          '#00AA33'
+        )
       }
 
       this.$emit('map-loaded', map, this.removeDetector)
@@ -235,6 +242,12 @@ export default {
         })
         map.on('mouseenter', 'reservedShore', e => {
           canv.style.cursor = 'pointer'
+        })
+        map.on('mouseenter', 'cleanedShore', e => {
+          canv.style.cursor = 'pointer'
+        })
+        map.on('mouseleave', 'cleanedShore', e => {
+          canv.style.cursor = 'grab'
         })
       } else {
         map.on('mouseenter', 'hiddenShore', e => {
