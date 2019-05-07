@@ -3,8 +3,8 @@
     <div class="modal-wrapper" @click="$emit('close')">
       <div class="modal-container" @click.stop>
         <template v-if="!saved">
-          <form v-on:submit.prevent="saveCleaned">
-            <div class="modal-page" v-show="pagenum == 0">
+          <div class="modal-page" v-show="pagenum == 0">
+            <form>
               <div class="modal-header">
                 <h3>{{ $t('message.claim_clean') }}</h3>
                 <p>{{ $t('message.fill_cleaned_info') }}</p>
@@ -75,7 +75,11 @@
                   <p>
                     {{ $t('message.trash_bags_info') }}
                   </p>
-                  <textarea v-model="data.trash_bags_info" rows="2" />
+                  <textarea
+                    v-model="data.trash_bags_info"
+                    rows="2"
+                    :required="data.trash_left === 'yes' && required"
+                  />
                 </div>
 
                 <div class="something-else">
@@ -121,8 +125,10 @@
                   {{ $t('message.next') }}
                 </button>
               </div>
-            </div>
-            <div class="modal-page" v-show="pagenum == 1">
+            </form>
+          </div>
+          <div class="modal-page" v-show="pagenum == 1">
+            <form>
               <div class="modal-header">
                 <h3>{{ $t('message.foreign_species') }}</h3>
                 <p>{{ $t('message.foreign_species_info') }}</p>
@@ -216,7 +222,15 @@
                 <div class="foreign-species-detail">
                   <h4>{{ $t('message.foreign_species_detail1') }}</h4>
                   <p>{{ $t('message.foreign_species_detail2') }}</p>
-                  <textarea rows="4" v-model="data.foreignspeciesdetail" />
+                  <textarea
+                    rows="4"
+                    v-model="data.foreignspeciesdetail"
+                    :required="
+                      (data.kurtturuusu === 'yes' ||
+                        data.jattipalsami === 'yes') &&
+                        required
+                    "
+                  />
                 </div>
               </div>
               <div class="modal-footer">
@@ -227,8 +241,10 @@
                   {{ $t('message.next') }}
                 </button>
               </div>
-            </div>
-            <div class="modal-page" v-show="pagenum == 2">
+            </form>
+          </div>
+          <div class="modal-page" v-show="pagenum == 2">
+            <form>
               <div class="modal-header">
                 <h3>{{ $t('message.clean_additional_info') }}</h3>
                 <p>{{ $t('message.clean_additional_info_sub') }}</p>
@@ -236,19 +252,23 @@
               <div class="modal-body">
                 <div class="permission-container">
                   <h4>{{ $t('message.submit_permission_text') }}</h4>
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    v-model="privacy_permission"
+                    required
+                  />
                 </div>
               </div>
               <div class="modal-footer">
                 <button @click.prevent="toPrevPage">
                   {{ $t('message.previous') }}
                 </button>
-                <button type="submit">
+                <button @click="saveCleaned">
                   {{ $t('message.send') }}
                 </button>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </template>
         <template v-if="saved">
           <div class="modal-header">
@@ -273,8 +293,9 @@ export default {
   data() {
     return {
       data: {},
+      privacy_permission: false,
       saved: false,
-      required: false,
+      required: true,
       pagenum: 0
     }
   },
@@ -282,18 +303,21 @@ export default {
     this.data.selected = this.$props.selected
   },
   methods: {
-    saveCleaned() {
-      console.log(this.data)
-      axios({
-        method: 'POST',
-        url: 'http://' + location.hostname + ':8089/api/map/cleaninfo',
-        data: this.data
-      }).then(response => {
-        this.$emit('close')
-      })
+    saveCleaned(e) {
+      if (e.target.form.reportValidity()) {
+        axios({
+          method: 'POST',
+          url: 'http://' + location.hostname + ':8089/api/map/cleaninfo',
+          data: this.data
+        }).then(response => {
+          this.$emit('close')
+        })
+      }
     },
-    toNextPage() {
-      this.pagenum++
+    toNextPage(e) {
+      if (e.target.form.reportValidity()) {
+        this.pagenum++
+      }
     },
     toPrevPage() {
       this.pagenum--
@@ -332,7 +356,7 @@ export default {
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  overflow: hidden;
+  overflow-y: auto;
 }
 @media only screen and (max-width: 600px) {
   .modal-container {
@@ -340,14 +364,11 @@ export default {
   }
 }
 
-form {
-  height: 100%;
-}
-
 .modal-page {
   display: flex;
   flex-flow: column nowrap;
   height: 100%;
+  margin: 20px 0;
 }
 
 .modal-header {
