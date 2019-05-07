@@ -37,27 +37,25 @@
     </div>
     <div class="colors">
       <div class="container">
-        <div class="title">
-          Rantaviiva:
-        </div>
+        <div class="title">{{ $t('message.shores') }}:</div>
         <div class="images">
           <div class="selected">
             <img src="../Icons/lblue.svg" alt="" />
-            valittu
+            {{ $t('message.shoresselected') }}
           </div>
           <div class="cleaned">
             <img src="../Icons/green.svg" alt="" />
-            siivottu
+            {{ $t('message.shorescleaned') }}
           </div>
 
           <div class="reserved">
             <img src="../Icons/red.svg" alt="" />
-            varattu
+            {{ $t('message.shoresreserved') }}
           </div>
 
           <div class="free">
             <img src="../Icons/white.svg" alt="" />
-            vapaa
+            {{ $t('message.shoresfree') }}
           </div>
         </div>
       </div>
