@@ -251,6 +251,11 @@
               </div>
               <div class="modal-body">
                 <div class="permission-container">
+                  <span
+                    class="privacy-policy-button"
+                    @click="$emit('show-privacy-info')"
+                    ><h4>Privacy policy</h4></span
+                  >
                   <h4>{{ $t('message.submit_permission_text') }}</h4>
                   <input
                     type="checkbox"
@@ -295,7 +300,7 @@ export default {
       data: {},
       privacy_permission: false,
       saved: false,
-      required: true,
+      required: false,
       pagenum: 0
     }
   },
@@ -485,9 +490,6 @@ export default {
   margin-bottom: 1rem;
 }
 
-.cleaned-footer-page1 {
-}
-
 .foreign-species {
   display: flex;
   margin: 2rem 0;
@@ -513,9 +515,6 @@ export default {
   width: 100%;
 }
 
-.foreign-species-photo {
-}
-
 .foreign-species-detail h4 {
   margin: 0.5rem 0;
 }
@@ -538,6 +537,16 @@ export default {
   flex-flow: row nowrap;
   width: 100%;
   justify-content: space-between;
+}
+
+.privacy-policy-button {
+  color: darkblue;
+  cursor: pointer;
+}
+
+.privacy-policy-button:hover {
+  text-decoration: underline;
+  color: #00d;
 }
 
 .permission-container input {

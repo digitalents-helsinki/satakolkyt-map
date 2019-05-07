@@ -79,7 +79,8 @@ export const fi = {
     delete_reservation: 'Poista varaus',
     confirm_reservation: 'Vahvista varaus',
     cancel_reservation: 'Poista Vahvistus',
-    submit_permission_text: 'Hyväksyn tietojeni käytön vapaasti.',
+    submit_permission_text1:
+      'Hyväksyn rekisteriselosteen mukaisen tietojeni käytön.',
     shores: 'Rantaviiva',
     shorescleaned: 'Siivottu',
     shoresreserved: 'Varattu',

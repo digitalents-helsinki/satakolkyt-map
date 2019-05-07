@@ -63,6 +63,7 @@
             v-bind:selected="selectedShoreData"
             @reservation-action="saveContactInfo"
             @close="showReservationForm = false"
+            @show-privacy-info="showPrivacyInfo = true"
           >
           </ReserveModal>
         </transition>
@@ -72,9 +73,24 @@
           <CleanModal
             v-bind:selected="selectedShoreData"
             @close="showCleaned = false"
+            @show-privacy-info="showPrivacyInfo = true"
           >
           </CleanModal>
         </transition>
+      </div>
+    </div>
+    <div
+      v-show="showPrivacyInfo"
+      class="privacy-info-wrapper"
+      @click="showPrivacyInfo = false"
+    >
+      <div class="privacy-info">
+        <h1>Rekisteri- ja tietosuojaseloste</h1>
+        <p v-for="n in 20" :key="n">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, et!
+          Alias impedit exercitationem a minus commodi quos eum illum? Fugiat
+          sit cumque amet unde natus dolorum tempore sint dolore beatae!
+        </p>
       </div>
     </div>
   </div>
@@ -103,7 +119,8 @@ export default {
       // Overlay box
       dimBackground: true,
       // Selected Shore
-      selectedShoreData: null
+      selectedShoreData: null,
+      showPrivacyInfo: false
     }
   },
 
@@ -250,6 +267,38 @@ export default {
 <style lang="scss" scoped>
 .home {
   height: 100%;
+  position: relative;
+
+  .privacy-info-wrapper {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+
+    .privacy-info {
+      max-width: 600px;
+      width: 90vw;
+      max-height: 800px;
+      height: 90vh;
+      background-color: white;
+      margin: 5vh auto;
+      overflow-y: auto;
+      padding: 10px 30px;
+
+      h1 {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin: 20px 0 40px 0;
+      }
+
+      p {
+        margin: 20px 0;
+      }
+    }
+  }
 }
 
 .dimmer {
