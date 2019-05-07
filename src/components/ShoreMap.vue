@@ -98,13 +98,19 @@ export default {
         ...this.generateLineStringStyle(color)
       })
     },
-    addShoreClickHandler(map, layername, eventname, selectedColor) {
+    addShoreClickHandler(map, layername, storename, eventname, selectedColor) {
       map.on('click', layername, e => {
         this.$emit(eventname, e.features[0].properties)
 
+        //don't get the geometry from the event but our store instead
+        //because the event data is bad
+        const feat = this.$store.state.maplayers[storename].find(f => {
+          return f._key === e.features[0].properties.key
+        })
+
         const selecteddata = {
           type: 'FeatureCollection',
-          features: [e.features[0]]
+          features: [feat]
         }
 
         const selShData = map.getSource(layername + 'Selected')
@@ -178,13 +184,26 @@ export default {
         this.addShoreType(map, 'hiddenShore', this.hiddenshores, '#FFFF00')
       }
 
-      this.addShoreClickHandler(map, 'freeShore', 'shore-click', '#8595E5')
+      this.addShoreClickHandler(
+        map,
+        'freeShore',
+        'freelayer',
+        'shore-click',
+        '#8595E5'
+      )
       if (this.adminmode) {
-        this.addShoreClickHandler(map, 'hiddenShore', 'hidden-click', '#FFFF77')
+        this.addShoreClickHandler(
+          map,
+          'hiddenShore',
+          'hiddenlayer',
+          'hidden-click',
+          '#FFFF77'
+        )
       } else {
         this.addShoreClickHandler(
           map,
           'reservedShore',
+          'reservedlayer',
           'shore-click',
           '#FF7575'
         )
