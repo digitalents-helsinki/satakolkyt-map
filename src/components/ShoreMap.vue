@@ -40,7 +40,7 @@ export default {
         'pk.eyJ1Ijoic2F0YWtvbGt5dCIsImEiOiJjanY4MHB2MXQwYWN6M3lwa2xlZDdzMmY0In0.2H2gSyrO7PpTUcYN4qPbJg',
       mapOptions: {
         style: 'mapbox://styles/satakolkyt/cjv80rnwr02lu1fo4y7gxcldj',
-        center: [24.9476669, 60.1535843],
+        center: [25.05, 60.2],
         zoom: 11,
         pitchWithRotate: false,
         dragRotate: false,
@@ -141,33 +141,79 @@ export default {
       this.selectedLayer = null
     },
     onZoom(map) {
-      if (map.getZoom() > 15) {
-        map.setPaintProperty('freeShore', 'line-width', 15)
-        map.setPaintProperty('freeShoreSelected', 'line-width', 20)
-        map.setPaintProperty('reservedShore', 'line-width', 15)
-        map.setPaintProperty('reservedShoreSelected', 'line-width', 20)
-        map.setPaintProperty('cleanedShore', 'line-width', 15)
-        map.setPaintProperty('cleanedShoreSelected', 'line-width', 20)
-        map.setPaintProperty('hiddenShore', 'line-width', 15)
-        map.setPaintProperty('hiddenShoreSelected', 'line-width', 20)
-      } else if (map.getZoom() > 13) {
-        map.setPaintProperty('freeShore', 'line-width', 5)
-        map.setPaintProperty('freeShoreSelected', 'line-width', 7)
-        map.setPaintProperty('reservedShore', 'line-width', 5)
-        map.setPaintProperty('reservedShoreSelected', 'line-width', 7)
-        map.setPaintProperty('cleanedShore', 'line-width', 5)
-        map.setPaintProperty('cleanedShoreSelected', 'line-width', 7)
-        map.setPaintProperty('hiddenShore', 'line-width', 5)
-        map.setPaintProperty('hiddenShoreSelected', 'line-width', 7)
+      const MAX_ZOOM = 20
+      const MIN_ZOOM = 11
+      const MAX_NORMAL_WIDTH = 22
+      const MAX_SELECTED_WIDTH = 27
+      const MIN_NORMAL_WIDTH = 2
+      const MIN_SELECTED_WIDTH = 3
+
+      const zoom = map.getZoom()
+      if (zoom >= MAX_ZOOM) {
+        map.setPaintProperty('freeShore', 'line-width', MAX_NORMAL_WIDTH)
+        map.setPaintProperty(
+          'freeShoreSelected',
+          'line-width',
+          MAX_SELECTED_WIDTH
+        )
+        map.setPaintProperty('reservedShore', 'line-width', MAX_NORMAL_WIDTH)
+        map.setPaintProperty(
+          'reservedShoreSelected',
+          'line-width',
+          MAX_SELECTED_WIDTH
+        )
+        map.setPaintProperty('cleanedShore', 'line-width', MAX_NORMAL_WIDTH)
+        map.setPaintProperty(
+          'cleanedShoreSelected',
+          'line-width',
+          MAX_SELECTED_WIDTH
+        )
+        map.setPaintProperty('hiddenShore', 'line-width', MAX_NORMAL_WIDTH)
+        map.setPaintProperty(
+          'hiddenShoreSelected',
+          'line-width',
+          MAX_SELECTED_WIDTH
+        )
+      } else if (zoom < MIN_ZOOM) {
+        map.setPaintProperty('freeShore', 'line-width', MIN_NORMAL_WIDTH)
+        map.setPaintProperty(
+          'freeShoreSelected',
+          'line-width',
+          MIN_SELECTED_WIDTH
+        )
+        map.setPaintProperty('reservedShore', 'line-width', MIN_NORMAL_WIDTH)
+        map.setPaintProperty(
+          'reservedShoreSelected',
+          'line-width',
+          MIN_SELECTED_WIDTH
+        )
+        map.setPaintProperty('cleanedShore', 'line-width', MIN_NORMAL_WIDTH)
+        map.setPaintProperty(
+          'cleanedShoreSelected',
+          'line-width',
+          MIN_SELECTED_WIDTH
+        )
+        map.setPaintProperty('hiddenShore', 'line-width', MIN_NORMAL_WIDTH)
+        map.setPaintProperty(
+          'hiddenShoreSelected',
+          'line-width',
+          MIN_SELECTED_WIDTH
+        )
       } else {
-        map.setPaintProperty('freeShore', 'line-width', 1)
-        map.setPaintProperty('freeShoreSelected', 'line-width', 2)
-        map.setPaintProperty('reservedShore', 'line-width', 1)
-        map.setPaintProperty('reservedShoreSelected', 'line-width', 2)
-        map.setPaintProperty('cleanedShore', 'line-width', 1)
-        map.setPaintProperty('cleanedShoreSelected', 'line-width', 2)
-        map.setPaintProperty('hiddenShore', 'line-width', 1)
-        map.setPaintProperty('hiddenShoreSelected', 'line-width', 2)
+        const zoomfactor = (zoom - MIN_ZOOM) / (MAX_ZOOM - MIN_ZOOM)
+        const normalzoom =
+          MIN_NORMAL_WIDTH + zoomfactor * (MAX_NORMAL_WIDTH - MIN_NORMAL_WIDTH)
+        const selectzoom =
+          MIN_SELECTED_WIDTH +
+          zoomfactor * (MAX_SELECTED_WIDTH - MIN_SELECTED_WIDTH)
+        map.setPaintProperty('freeShore', 'line-width', normalzoom)
+        map.setPaintProperty('freeShoreSelected', 'line-width', selectzoom)
+        map.setPaintProperty('reservedShore', 'line-width', normalzoom)
+        map.setPaintProperty('reservedShoreSelected', 'line-width', selectzoom)
+        map.setPaintProperty('cleanedShore', 'line-width', normalzoom)
+        map.setPaintProperty('cleanedShoreSelected', 'line-width', selectzoom)
+        map.setPaintProperty('hiddenShore', 'line-width', normalzoom)
+        map.setPaintProperty('hiddenShoreSelected', 'line-width', selectzoom)
       }
     },
     mapLoaded(map) {
