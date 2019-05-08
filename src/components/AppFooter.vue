@@ -39,23 +39,21 @@
       <div class="container">
         <div class="title">{{ $t('message.shores') }}:</div>
         <div class="images">
+          <div class="free">
+            <img src="../Icons/blue.svg" alt="" />
+            {{ $t('message.shoresfree') }}
+          </div>
           <div class="selected">
             <img src="../Icons/lblue.svg" alt="" />
             {{ $t('message.shoresselected') }}
           </div>
-          <div class="cleaned">
-            <img src="../Icons/green.svg" alt="" />
-            {{ $t('message.shorescleaned') }}
-          </div>
-
           <div class="reserved">
             <img src="../Icons/red.svg" alt="" />
             {{ $t('message.shoresreserved') }}
           </div>
-
-          <div class="free">
-            <img src="../Icons/white.svg" alt="" />
-            {{ $t('message.shoresfree') }}
+          <div class="cleaned">
+            <img src="../Icons/green.svg" alt="" />
+            {{ $t('message.shorescleaned') }}
           </div>
         </div>
       </div>

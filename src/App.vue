@@ -79,7 +79,7 @@ header {
   width: 5em !important;
 }
 button {
-  background-color: yellow;
+  background-color: #f0e41a;
   color: #000;
   padding: 0.8rem 1rem;
   font-size: 1rem;

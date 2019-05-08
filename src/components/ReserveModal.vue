@@ -168,10 +168,12 @@
         <template v-if="saved">
           <div class="modal-header">
             <slot name="header">
-              <h1 class="success">{{ $t('message.reservation_saved') }}</h1>
-              <button class="modal-default-button" @click="$emit('close')">
-                {{ $t('message.close') }}
-              </button>
+              <div class="reservation-saved">
+                <h1 class="success">{{ $t('message.reservation_saved') }}</h1>
+                <button class="modal-default-button" @click="$emit('close')">
+                  {{ $t('message.close') }}
+                </button>
+              </div>
             </slot>
           </div>
         </template>
@@ -365,8 +367,17 @@ form {
   justify-content: right;
 }
 
+.reservation-saved {
+  margin-top: 50%;
+}
+
+.reservation-saved button {
+  display: block;
+  margin: 0 auto;
+}
+
 .modal-default-button {
-  color: white;
+  color: black;
 }
 
 /*
@@ -423,6 +434,9 @@ input {
 }
 .success {
   color: green;
+  font-size: 24px;
+  text-align: center;
+  margin: 20px 0;
 }
 .grey {
   background: #c4c4c4;

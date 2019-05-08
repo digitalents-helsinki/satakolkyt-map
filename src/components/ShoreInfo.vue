@@ -44,7 +44,7 @@ export default {
   }
   @media only screen and (max-width: 1366px) {
     button {
-      background-color: yellow;
+      background-color: #f0e41a;
       color: #000;
       padding: 0.5rem 0.5rem;
       font-size: 1rem;

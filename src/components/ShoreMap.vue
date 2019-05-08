@@ -247,11 +247,11 @@ export default {
       )
       this.map = map
 
-      this.addShoreType(map, 'freeShore', this.freeshores, '#475DCC')
-      this.addShoreType(map, 'reservedShore', this.reservedshores, '#FF0000')
-      this.addShoreType(map, 'cleanedShore', this.cleanedshores, '#006625')
+      this.addShoreType(map, 'freeShore', this.freeshores, '#2e318e')
+      this.addShoreType(map, 'reservedShore', this.reservedshores, '#f82828')
+      this.addShoreType(map, 'cleanedShore', this.cleanedshores, '#006B32')
       if (this.adminmode) {
-        this.addShoreType(map, 'hiddenShore', this.hiddenshores, '#FFFF00')
+        this.addShoreType(map, 'hiddenShore', this.hiddenshores, '#f0e41a')
       }
 
       this.addShoreClickHandler(
@@ -259,7 +259,7 @@ export default {
         'freeShore',
         'freelayer',
         'shore-click',
-        '#8595E5'
+        '#00a0ff'
       )
       if (this.adminmode) {
         this.addShoreClickHandler(
@@ -275,14 +275,14 @@ export default {
           'reservedShore',
           'reservedlayer',
           'reserved-click',
-          '#FF7575'
+          '#ffb1b7'
         )
         this.addShoreClickHandler(
           map,
           'cleanedShore',
           'cleanlayer',
           'cleaned-click',
-          '#00AA33'
+          '#9bde86'
         )
       }
 
