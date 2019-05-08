@@ -20,6 +20,7 @@
         {{ $t('message.edit_map') }}
         <div class="adminMapContainer">
           <shore-map
+            ref="adminmap"
             adminmode
             @map-loaded="mapLoaded"
             @shore-click="populateSelectedShoreData"
@@ -46,6 +47,10 @@
           <div class="reservations" v-show="showReservations">
             <li
               class="reservation"
+              :class="{
+                resconfirmed: reservation.confirmed,
+                resunconfirmed: !reservation.confirmed
+              }"
               v-for="reservation in reservations"
               :key="reservation._id"
             >
@@ -88,7 +93,7 @@
                 </button>
                 <button
                   class="small-button del-button"
-                  @click="deletereservation($event, reservation)"
+                  @click="deleteReservation($event, reservation)"
                   v-bind:id="reservation.selected.key"
                 >
                   {{ $t('message.delete_reservation') }}
@@ -96,7 +101,7 @@
                 <template v-if="reservation.confirmed">
                   <button
                     class="small-button cancel-button"
-                    @click="removereservation($event, reservation)"
+                    @click="cancelReservation($event, reservation)"
                     v-bind:id="reservation.selected.key"
                   >
                     {{ $t('message.cancel_reservation') }}
@@ -105,7 +110,7 @@
                 <template v-else>
                   <button
                     class="small-button confirm-button"
-                    v-on:click="confirmreservation($event, reservation)"
+                    v-on:click="confirmReservation($event, reservation)"
                     v-bind:id="reservation.selected.key"
                   >
                     {{ $t('message.confirm_reservation') }}
@@ -241,9 +246,8 @@ export default {
           console.log(error)
         })
     },
-    mapLoaded(map, removeDetectorCB) {
+    mapLoaded(map) {
       this.map = map
-      this.removeDetectorCB = removeDetectorCB
     },
     populateSelectedShoreData(data) {
       this.selectedShoreData = data
@@ -261,53 +265,35 @@ export default {
       this.showReservations = false
       this.showCleanedShores = !this.showCleanedShores
     },
-    enhanceData(data) {
-      //apparently without this the data format is somehow wrong
-      return data.map(e => ({
-        ...e,
-        properties: { ...e.properties, key: e._key }
-      }))
-    },
-    removeSegmentFromLayer(mapname, vuexname, segKey) {
-      const newshores = this.$store.state.maplayers[vuexname].filter(e => {
-        return e._key !== segKey
-      })
-      this.$store.commit('store' + vuexname, newshores)
-      this.map.getSource(mapname).setData({
-        type: 'FeatureCollection',
-        features: this.enhanceData(newshores)
-      })
-    },
-    addSegmentToLayer(mapname, vuexname, segData) {
-      let newshores = this.$store.state.maplayers[vuexname]
-      newshores.push(segData)
-      this.$store.commit('store' + vuexname, newshores)
-      this.map.getSource(mapname).setData({
-        type: 'FeatureCollection',
-        features: this.enhanceData(newshores)
-      })
-    },
     shoreHidden(data) {
       //remove selected layers
       this.map.removeLayer('freeShoreSelected')
       this.map.removeSource('freeShoreSelected')
 
       //filter the feature from free shores data
-      this.removeSegmentFromLayer('freeShore', 'freelayer', data._key)
+      this.$refs.adminmap.removeSegmentFromLayer(
+        'freeShore',
+        'freelayer',
+        data._key
+      )
       this.mapOverlayAction = 'unhide'
       //add the feature to hidden shore data
-      this.addSegmentToLayer('hiddenShore', 'hiddenlayer', data)
-      this.removeDetectorCB()
+      this.$refs.adminmap.addSegmentToLayer('hiddenShore', 'hiddenlayer', data)
+      this.$refs.adminmap.removeDetector()
     },
     shoreUnhidden(data) {
       this.map.removeLayer('hiddenShoreSelected')
       this.map.removeSource('hiddenShoreSelected')
       this.mapOverlayAction = 'hide'
-      this.removeSegmentFromLayer('hiddenShore', 'hiddenlayer', data._key)
-      this.addSegmentToLayer('freeShore', 'freelayer', data)
-      this.removeDetectorCB()
+      this.$refs.adminmap.removeSegmentFromLayer(
+        'hiddenShore',
+        'hiddenlayer',
+        data._key
+      )
+      this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
+      this.$refs.adminmap.removeDetector()
     },
-    confirmreservation(e, reservation) {
+    confirmReservation(e, reservation) {
       var id = e.target.id
       axios({
         method: 'POST',
@@ -320,20 +306,24 @@ export default {
           console.log(response)
           if (response.data.status === 'ok') {
             reservation.confirmed = true
-            this.shoreReserved(response.data.json)
+            //this.shoreReserved(response.data.json)
           }
         })
         .catch(function(error) {
           console.log(error)
         })
     },
-    shoreReserved(data) {
-      this.removeSegmentFromLayer('freeShore', 'freelayer', data._key)
-      this.addSegmentToLayer('reservedShore', 'reservedlayer', data)
-    },
+    /*shoreReserved(data) {
+      this.$refs.adminmap.removeSegmentFromLayer('freeShore', 'freelayer', data._key)
+      this.$refs.adminmap.addSegmentToLayer('reservedShore', 'reservedlayer', data)
+    },*/
     shoreUnreserved(data) {
-      this.removeSegmentFromLayer('reservedShore', 'reservedlayer', data._key)
-      this.addSegmentToLayer('freeShore', 'freelayer', data)
+      this.$refs.adminmap.removeSegmentFromLayer(
+        'reservedShore',
+        'reservedlayer',
+        data._key
+      )
+      this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     removecleaned(e, cleaned) {
       axios
@@ -355,13 +345,24 @@ export default {
           console.log(error)
         })
     },
-    deletereservation(e, reservation) {
-      axios.delete(
-        'http://' + location.hostname + ':8089/api/map/reservation',
-        { data: { id: reservation._key, key: e.target.id } }
-      )
+    deleteReservation(e, reservation) {
+      axios
+        .delete('http://' + location.hostname + ':8089/api/map/reservation', {
+          data: { id: reservation._key, key: e.target.id }
+        })
+        .then(res => {
+          if (res.data.status === 'ok') {
+            this.shoreUnreserved(res.data.json)
+            this.reservations = this.reservations.filter(v => {
+              return v !== reservation
+            })
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
-    removereservation(e, reservation) {
+    cancelReservation(e, reservation) {
       axios
         .post(
           'http://' + location.hostname + ':8089/api/map/cancelreservation/',
@@ -374,7 +375,7 @@ export default {
           console.log(response)
           if (response.data.status === 'ok') {
             reservation.confirmed = false
-            this.shoreUnreserved(response.data.json)
+            //this.shoreUnreserved(response.data.json)
           }
         })
         .catch(function(error) {
@@ -398,12 +399,20 @@ export default {
         })
     },
     shoreCleaned(data) {
-      this.removeSegmentFromLayer('freeShore', 'freelayer', data._key)
-      this.addSegmentToLayer('cleanedShore', 'cleanlayer', data)
+      this.$refs.adminmap.removeSegmentFromLayer(
+        'freeShore',
+        'freelayer',
+        data._key
+      )
+      this.$refs.adminmap.addSegmentToLayer('cleanedShore', 'cleanlayer', data)
     },
     shoreCleanedCanceled(data) {
-      this.removeSegmentFromLayer('cleanedShore', 'cleanlayer', data._key)
-      this.addSegmentToLayer('freeShore', 'freelayer', data)
+      this.$refs.adminmap.removeSegmentFromLayer(
+        'cleanedShore',
+        'cleanlayer',
+        data._key
+      )
+      this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     showreservation(e) {
       if (this.showOnMap) {
@@ -413,34 +422,29 @@ export default {
       const confirmed = this.reservations.find(e => {
         return e.selected.key === id
       }).confirmed
-      const layer = confirmed ? 'reservedlayer' : 'freelayer'
-      const data = this.$store.state.maplayers[layer].find(e => {
+      const data = this.$store.state.maplayers['reservedlayer'].find(e => {
         return e._key === id
       })
       const featcoll = {
         type: 'FeatureCollection',
         features: [data]
       }
-      const sourcename = confirmed
-        ? 'reservedShoreSelected'
-        : 'freeShoreSelected'
-      const paintcolor = confirmed ? '#FF7575' : '#8595E5'
-      const selShSource = this.map.getSource(sourcename)
+      const selShSource = this.map.getSource('reservedShoreSelected')
       if (!selShSource) {
-        this.map.addSource(sourcename, {
+        this.map.addSource('reservedShoreSelected', {
           type: 'geojson',
           data: featcoll
         })
         this.map.addLayer({
-          id: sourcename,
+          id: 'reservedShoreSelected',
           type: 'line',
-          source: sourcename,
+          source: 'reservedShoreSelected',
           layout: {
             'line-join': 'round',
             'line-cap': 'round'
           },
           paint: {
-            'line-color': paintcolor,
+            'line-color': '#FF7575',
             'line-width': 1
           }
         })
@@ -636,7 +640,8 @@ export default {
 
         .reservation {
           padding: 10px 10px 20px 10px;
-          border-bottom: 1px solid #bbb;
+          margin: 10px 0;
+          border-bottom: 2px solid #bbb;
 
           .reservation-time {
             padding: 5px;
@@ -649,6 +654,13 @@ export default {
           .reservation-cta {
             display: flex;
           }
+        }
+
+        .resconfirmed {
+          background-color: #bbeebb;
+        }
+        .resunconfirmed {
+          background-color: #eebbbb;
         }
       }
 

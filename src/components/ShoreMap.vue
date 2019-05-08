@@ -67,15 +67,17 @@ export default {
         }
       }
     },
-    addShoreType(map, name, data, color) {
-      const enhancedData = data.map(d => ({
-        ...d,
-        properties: { ...d.properties, key: d._key }
+    enhanceData(data) {
+      //apparently without this the data format is somehow wrong
+      return data.map(e => ({
+        ...e,
+        properties: { ...e.properties, key: e._key }
       }))
-
+    },
+    addShoreType(map, name, data, color) {
       const shoreData = {
         type: 'FeatureCollection',
-        features: enhancedData
+        features: this.enhanceData(data)
       }
 
       map.addSource(name, { type: 'geojson', data: shoreData })
@@ -131,6 +133,9 @@ export default {
     },
     detectorClick() {
       this.$emit('unselect')
+      this.unSelect()
+    },
+    unSelect() {
       if (this.selectedLayer && this.map.isSourceLoaded(this.selectedLayer)) {
         this.map.removeLayer(this.selectedLayer)
         this.map.removeSource(this.selectedLayer)
@@ -216,6 +221,25 @@ export default {
         map.setPaintProperty('hiddenShoreSelected', 'line-width', selectzoom)
       }
     },
+    removeSegmentFromLayer(mapname, vuexname, segKey) {
+      const newshores = this.$store.state.maplayers[vuexname].filter(e => {
+        return e._key !== segKey
+      })
+      this.$store.commit('store' + vuexname, newshores)
+      this.map.getSource(mapname).setData({
+        type: 'FeatureCollection',
+        features: this.enhanceData(newshores)
+      })
+    },
+    addSegmentToLayer(mapname, vuexname, segData) {
+      let newshores = this.$store.state.maplayers[vuexname]
+      newshores.push(segData)
+      this.$store.commit('store' + vuexname, newshores)
+      this.map.getSource(mapname).setData({
+        type: 'FeatureCollection',
+        features: this.enhanceData(newshores)
+      })
+    },
     mapLoaded(map) {
       map.addControl(
         new mapboxgl.NavigationControl({ showCompass: false }),
@@ -262,7 +286,7 @@ export default {
         )
       }
 
-      this.$emit('map-loaded', map, this.removeDetector)
+      this.$emit('map-loaded', map)
 
       map.on('zoom', () => {
         this.onZoom(map)

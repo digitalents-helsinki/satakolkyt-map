@@ -12,7 +12,7 @@
             class="cross-icon"
             @click="$emit('close')"
           />
-          <form v-on:submit.prevent="saveContactInfo">
+          <form v-on:submit.prevent="saveReservation">
             <div class="modal-header">
               <slot name="header">
                 <h3>{{ $t('message.reserve_clean') }}</h3>
@@ -211,7 +211,7 @@ export default {
     this.reservationdata.selected = this.$props.selected
   },
   methods: {
-    saveContactInfo() {
+    saveReservation() {
       var reservation = JSON.parse(JSON.stringify(this.reservationdata))
       reservation.endtime =
         this.reservationdata.endtime.hh + ':' + this.reservationdata.endtime.mm

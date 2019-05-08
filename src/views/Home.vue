@@ -4,6 +4,7 @@
     <div class="map-container">
       <div class="dimmer" v-if="showReservationForm" @click="toggleModal" />
       <shore-map
+        ref="usermap"
         :freeshores="this.$store.state.maplayers.freelayer"
         :reservedshores="this.$store.state.maplayers.reservedlayer"
         :cleanedshores="this.$store.state.maplayers.cleanlayer"
@@ -30,7 +31,6 @@
         </div>
       </section>
       <app-footer
-        @delete-shore="hideShore"
         @show-reservationform="showReservationForm = true"
         @show-cleanform="showCleaned = true"
         :data="selectedShoreData"
@@ -38,6 +38,11 @@
       />
       <div v-if="showReservedInfo" class="infobox reserved-info">
         <h1>Varattu ranta</h1>
+        <h2>
+          {{
+            reservedInfo.confirmed ? '( Varmistettu )' : '( Ei varmistettu )'
+          }}
+        </h2>
         <p><b>Organizer:</b> {{ reservedInfo.organizer }}</p>
         <p><b>Avoin?:</b> {{ reservedInfo.openevent ? 'Kyllä' : 'Ei' }}</p>
         <template v-if="reservedInfo.openevent">
@@ -61,7 +66,7 @@
         <transition name="modal">
           <ReserveModal
             v-bind:selected="selectedShoreData"
-            @reservation-action="saveContactInfo"
+            @reservation-action="saveReservation"
             @close="showReservationForm = false"
             @show-privacy-info="showPrivacyInfo = true"
           >
@@ -148,34 +153,7 @@ export default {
     mapLoaded(map) {
       this.map = map
     },
-    hideShore(json) {
-      this.json = this.json.filter(function(item) {
-        return item._key !== json._key
-      })
-      this.json2 = this.json2.filter(function(item) {
-        return item._key !== json._key
-      })
-      const enhancedData2 = this.json2.map(d => ({
-        ...d,
-        properties: { ...d.properties, key: d._key }
-      }))
-      var data2 = {
-        type: 'FeatureCollection',
-        features: enhancedData2
-      }
-
-      const enhancedData = this.json.map(d => ({
-        ...d,
-        properties: { ...d.properties, key: d._key }
-      }))
-      var data = {
-        type: 'FeatureCollection',
-        features: enhancedData
-      }
-      this.map.getSource('reservedShore').setData(data2)
-      this.map.getSource('freeShore').setData(data)
-    },
-    saveContactInfo(args) {
+    saveReservation(args) {
       axios({
         method: 'POST',
         url: 'http://' + location.hostname + ':8089/api/map/reserve',
@@ -185,6 +163,8 @@ export default {
         .then(response => {
           if (response.data.status === 'ok') {
             args.okCB()
+            this.shoreReserved(response.data.json)
+            this.$refs.usermap.unSelect()
           } else {
             args.errCB(response.data.status)
           }
@@ -192,6 +172,18 @@ export default {
         .catch(error => {
           args.errCB(error.response.data)
         })
+    },
+    shoreReserved(data) {
+      this.$refs.usermap.removeSegmentFromLayer(
+        'freeShore',
+        'freelayer',
+        data._key
+      )
+      this.$refs.usermap.addSegmentToLayer(
+        'reservedShore',
+        'reservedlayer',
+        data
+      )
     },
     initMap() {
       this.$store.dispatch('getfreelayer')
@@ -327,7 +319,14 @@ export default {
       text-align: center;
       font-size: 20px;
       font-weight: bold;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
+    }
+
+    h2 {
+      font-size: 16px;
+      color: #aaa;
+      text-align: center;
+      margin-bottom: 20px;
     }
 
     p {
