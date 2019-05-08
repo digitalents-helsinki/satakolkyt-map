@@ -104,7 +104,10 @@
                   </p>
                   <div
                     class="open-cleanup-info"
-                    v-show="reservationdata.openevent"
+                    :class="{
+                      opencleanupexpand: reservationdata.openevent,
+                      opencleanupshrink: !reservationdata.openevent
+                    }"
                   >
                     <div class="open-cleanup-text">
                       <h5>{{ $t('message.openevent_text') }}</h5>
@@ -152,6 +155,19 @@
                       type="tel"
                     />
                   </div>
+                </div>
+                <div class="permission-container">
+                  <span
+                    class="privacy-policy-button"
+                    @click="$emit('show-privacy-info')"
+                    ><h4>Privacy policy</h4></span
+                  >
+                  <h4>{{ $t('message.submit_permission_text') }}</h4>
+                  <input
+                    type="checkbox"
+                    v-model="privacy_permission"
+                    required
+                  />
                 </div>
               </slot>
             </div>
@@ -319,6 +335,7 @@ export default {
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
+  overflow-y: auto;
 }
 @media only screen and (max-width: 600px) {
   .modal-container {
@@ -353,9 +370,6 @@ form {
 
 .modal-header h3 {
   font-weight: 700;
-}
-.modal-body {
-  margin: 20px 0;
 }
 
 .datetime {
@@ -396,6 +410,16 @@ form {
 
 .open-cleanup-info {
   margin: 1rem 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.opencleanupexpand {
+  max-height: 150px;
+}
+
+.opencleanupshrink {
+  max-height: 0;
 }
 
 .open-cleanup-text {
@@ -418,12 +442,33 @@ form {
   margin-bottom: 1.5rem;
 }
 
+.permission-container {
+  margin: 40px 0;
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.privacy-policy-button {
+  color: darkblue;
+  cursor: pointer;
+}
+
+.privacy-policy-button:hover {
+  text-decoration: underline;
+  color: #00d;
+}
+
+.permission-container input {
+  width: 15px;
+}
+
 .modal-footer {
   width: 100%;
-  position: absolute;
-  bottom: 0;
+  margin: 10px 0 30px 0;
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
 }
 
 .reservation-saved {
