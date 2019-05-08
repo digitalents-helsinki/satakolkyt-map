@@ -84,6 +84,8 @@ export const en = {
     shoresreserved: 'Reserved',
     shoresfree: 'Free',
     shoresselected: 'Selected',
-    iframe: 'GET TOGETHER AND PICK A SHORE TO CLEAN!'
+    iframe: 'GET TOGETHER AND PICK A SHORE TO CLEAN!',
+    err_shoreunavailable: 'Error: Shore unavailable!',
+    err_validationerror: 'Error: Invalid input!'
   }
 }

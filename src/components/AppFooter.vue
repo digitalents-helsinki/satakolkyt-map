@@ -8,6 +8,7 @@
             @show-reservationform="this.showReservationForm"
             @show-cleanform="this.showCleanedForm"
             :data="this.$props.data"
+            :seltype="seltype"
           />
         </template>
         <template v-else>
@@ -69,6 +70,7 @@ export default {
   name: 'app-footer',
   props: [
     'data',
+    'seltype',
     'action',
     'showReservation',
     'showCleaned',

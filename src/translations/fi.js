@@ -86,6 +86,8 @@ export const fi = {
     shoresreserved: 'Varattu',
     shoresfree: 'Vapaa',
     shoresselected: 'Valittu',
-    iframe: 'KUTSU RYHMÄSI JA VALITSE RANTAVIIVALTA PALA SIIVOTTAVAKSI!'
+    iframe: 'KUTSU RYHMÄSI JA VALITSE RANTAVIIVALTA PALA SIIVOTTAVAKSI!',
+    err_shoreunavailable: 'Virhe: Ranta ei ole saatavilla!',
+    err_validationerror: 'Virhe: Epäkelvolliset tiedot!'
   }
 }

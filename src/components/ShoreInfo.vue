@@ -1,9 +1,13 @@
 <template>
   <div>
     <div class="shore-info">
-      <h2>{{ data['hel:id'] }}</h2>
+      <h2>{{ data.key }}</h2>
       <slot name="header">
-        <button id="show-modal" @click="$emit('show-reservationform')">
+        <button
+          v-if="seltype === 'free'"
+          id="show-modal"
+          @click="$emit('show-reservationform')"
+        >
           {{ $t('message.reserve') }}
         </button>
         <button id="show-modal2" @click="$emit('show-cleanform')">
@@ -19,7 +23,7 @@ import axios from 'axios'
 export default {
   name: 'shore-info',
 
-  props: ['data'],
+  props: ['data', 'seltype'],
 
   data() {
     return {

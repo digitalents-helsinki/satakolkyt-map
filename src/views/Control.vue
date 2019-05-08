@@ -23,7 +23,7 @@
             ref="adminmap"
             adminmode
             @map-loaded="mapLoaded"
-            @shore-click="populateSelectedShoreData"
+            @free-click="populateSelectedShoreData"
             @hidden-click="populateSelectedHiddenShoreData"
             @unselect="unShow"
             :showOnMap="showOnMap"

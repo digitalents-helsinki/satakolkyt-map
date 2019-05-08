@@ -258,7 +258,7 @@ export default {
         map,
         'freeShore',
         'freelayer',
-        'shore-click',
+        'free-click',
         '#00a0ff'
       )
       if (this.adminmode) {

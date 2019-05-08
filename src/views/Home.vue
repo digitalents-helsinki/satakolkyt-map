@@ -11,7 +11,7 @@
         :hiddenshores="this.$store.state.maplayers.hiddenlayer"
         v-if="showMap"
         @map-loaded="mapLoaded"
-        @shore-click="populateSelectedShoreData"
+        @free-click="selectFree"
         @reserved-click="selectReserved"
         @cleaned-click="selectCleaned"
         @unselect="unselectShore"
@@ -34,6 +34,7 @@
         @show-reservationform="showReservationForm = true"
         @show-cleanform="showCleaned = true"
         :data="selectedShoreData"
+        :seltype="selectedShoreType"
         :showReservation="showReservationForm"
       />
       <div v-if="showReservedInfo" class="infobox reserved-info">
@@ -98,6 +99,16 @@
         </p>
       </div>
     </div>
+    <div
+      class="error-info-wrapper"
+      v-if="showErrorInfo"
+      @click="showErrorInfo = false"
+    >
+      <div class="error-info">
+        <p>{{ errMsg }}</p>
+        <button @click="showErrorInfo = false">OK</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -125,7 +136,10 @@ export default {
       dimBackground: true,
       // Selected Shore
       selectedShoreData: null,
-      showPrivacyInfo: false
+      selectedShoreType: '',
+      showPrivacyInfo: false,
+      errMsg: '',
+      showErrorInfo: false
     }
   },
 
@@ -165,12 +179,12 @@ export default {
             args.okCB()
             this.shoreReserved(response.data.json)
             this.$refs.usermap.unSelect()
-          } else {
-            args.errCB(response.data.status)
           }
         })
-        .catch(error => {
-          args.errCB(error.response.data)
+        .catch(err => {
+          //args.errCB(err.response.data)
+          this.errMsg = this.$t('message.' + err.response.data.error)
+          this.showErrorInfo = true
         })
     },
     shoreReserved(data) {
@@ -200,6 +214,7 @@ export default {
     },
     selectReserved(data) {
       this.selectedShoreData = data
+      this.selectedShoreType = 'reserved'
       axios
         .get(
           'http://' +
@@ -219,6 +234,7 @@ export default {
     },
     selectCleaned(data) {
       this.selectedShoreData = data
+      this.selectedShoreType = 'cleaned'
       axios
         .get(
           'http://' +
@@ -236,8 +252,9 @@ export default {
           }
         )
     },
-    populateSelectedShoreData(data) {
+    selectFree(data) {
       this.selectedShoreData = data
+      this.selectedShoreType = 'free'
     },
     unselectShore() {
       this.selectedShoreData = null
@@ -288,6 +305,42 @@ export default {
 
       p {
         margin: 20px 0;
+      }
+    }
+  }
+
+  .error-info-wrapper {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+
+    .error-info {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background-color: #881111;
+      margin: 40vh auto;
+
+      p {
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        padding-top: 50px;
+      }
+
+      button {
+        position: absolute;
+        bottom: 30px;
+        left: 50px;
+        background-color: grey;
+        color: black;
+        width: 100px;
+        height: 50px;
+        display: block;
       }
     }
   }
