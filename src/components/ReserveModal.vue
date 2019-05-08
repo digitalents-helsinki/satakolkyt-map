@@ -30,7 +30,7 @@
                 <div class="input-field">
                   <h5>{{ $t('message.organizer') }}</h5>
                   <input
-                    :required="required ? true : false"
+                    :required="required"
                     type="text"
                     v-model="reservationdata.organizer"
                   />
@@ -44,9 +44,10 @@
                       <font-awesome-icon icon="calendar" />
 
                       <input
-                        :required="required ? true : false"
+                        :required="required"
                         v-model="reservationdata.startdate"
                         type="date"
+                        @change="checkDateValidity"
                       />
                     </div>
                     <div class="datetime-item">
@@ -54,9 +55,12 @@
 
                       <vue-timepicker
                         class="timepicker"
-                        :required="required ? true : false"
+                        :required="required"
+                        :format="timeformat"
                         v-model="reservationdata.starttime"
-                        format="HH:mm"
+                        :minute-interval="30"
+                        hide-clear-button
+                        @change="checkDateValidity"
                       />
                     </div>
                     <span>-</span>
@@ -64,9 +68,10 @@
                       <font-awesome-icon icon="calendar" />
 
                       <input
-                        :required="required ? true : false"
+                        :required="required"
                         v-model="reservationdata.enddate"
                         type="date"
+                        @change="checkDateValidity"
                       />
                     </div>
                     <div class="datetime-item">
@@ -74,12 +79,16 @@
 
                       <vue-timepicker
                         class="timepicker"
-                        :required="required ? true : false"
+                        :required="required"
+                        :format="timeformat"
                         v-model="reservationdata.endtime"
-                        format="HH:mm"
+                        :minute-interval="30"
+                        hide-clear-button
+                        @change="checkDateValidity"
                       />
                     </div>
                   </div>
+                  <div class="date-error">{{ dateerrormsg }}</div>
                 </div>
 
                 <div class="open-cleanup">
@@ -121,7 +130,7 @@
                   <div class="input-field">
                     <h5>{{ $t('message.name') }}</h5>
                     <input
-                      :required="required ? true : false"
+                      :required="required"
                       v-model="reservationdata.name"
                       type="text"
                     />
@@ -129,7 +138,7 @@
                   <div class="input-field">
                     <h5>{{ $t('message.email') }}</h5>
                     <input
-                      :required="required ? true : false"
+                      :required="required"
                       v-model="reservationdata.email"
                       type="email"
                     />
@@ -137,7 +146,7 @@
                   <div class="input-field">
                     <h5>{{ $t('message.phonenumber') }}</h5>
                     <input
-                      :required="required ? true : false"
+                      :required="required"
                       v-model="reservationdata.phonenumber"
                       pattern="[0-9]{3,11}"
                       type="tel"
@@ -191,16 +200,18 @@ export default {
   data() {
     return {
       saved: false,
-      required: false,
+      required: true,
       errors: [],
+      timeformat: 'HH:mm',
+      dateerrormsg: '',
       reservationdata: {
         confirmed: false,
         starttime: {
-          hh: '',
+          HH: '',
           mm: ''
         },
         endtime: {
-          hh: '',
+          HH: '',
           mm: ''
         },
         openevent: false,
@@ -214,11 +225,14 @@ export default {
   },
   methods: {
     saveReservation() {
+      if (!this.checkDateValidity()) {
+        return
+      }
       var reservation = JSON.parse(JSON.stringify(this.reservationdata))
       reservation.endtime =
-        this.reservationdata.endtime.hh + ':' + this.reservationdata.endtime.mm
+        this.reservationdata.endtime.HH + ':' + this.reservationdata.endtime.mm
       reservation.starttime =
-        this.reservationdata.starttime.hh +
+        this.reservationdata.starttime.HH +
         ':' +
         this.reservationdata.starttime.mm
       this.$emit('reservation-action', {
@@ -234,6 +248,45 @@ export default {
       console.log(data)
       this.errors = data.errors
       alert('something went wrong: your reservation was rejected')
+    },
+    checkDateValidity() {
+      const sd = this.reservationdata.startdate.split('-')
+      const start = new Date(
+        parseInt(sd[0]),
+        parseInt(sd[1]) - 1,
+        parseInt(sd[2]),
+        parseInt(this.reservationdata.starttime.HH),
+        parseInt(this.reservationdata.starttime.mm),
+        0,
+        0
+      )
+
+      const now = new Date()
+      console.log('now: ', now, 'start: ', start)
+      if (start < now) {
+        this.dateerrormsg = 'Aloitusajan täytyy olla tulevaisuudessa!'
+        return false
+      } else {
+        this.dateerrormsg = ''
+      }
+
+      const ed = this.reservationdata.enddate.split('-')
+      const end = new Date(
+        parseInt(ed[0]),
+        parseInt(ed[1]) - 1,
+        parseInt(ed[2]),
+        parseInt(this.reservationdata.endtime.HH),
+        parseInt(this.reservationdata.endtime.mm),
+        0,
+        0
+      )
+      if (start < end) {
+        this.dateerrormsg = ''
+        return true
+      } else {
+        this.dateerrormsg = 'Aloitusajan täytyy olla ennen päättymisaikaa!'
+        return false
+      }
     }
   }
 }
@@ -320,6 +373,12 @@ form {
 
 .datetime-inputs span {
   margin: 0 3px;
+}
+
+.date-error {
+  margin-top: 5px;
+  font-size: 14px;
+  color: red;
 }
 
 .open-cleanup {
