@@ -93,16 +93,19 @@
                 </button>
                 <button
                   class="small-button del-button"
-                  @click="toggleConfirmation()"
+                  @click="toggleReservationConfirmation()"
                 >
                   {{ $t('message.delete_reservation') }}
                 </button>
-                <div class="confirmation-wrapper" v-if="showConfirmation">
+                <div
+                  class="confirmation-wrapper"
+                  v-if="showReservationConfirmation"
+                >
                   <div class="confirmation-container">
                     {{
                       $t('message.reservation_deletion_confirmation_message')
                     }}
-                    <button @click="toggleConfirmation()">
+                    <button @click="toggleReservationConfirmation()">
                       {{
                         $t('message.reservation_deletion_confirmation_negative')
                       }}
@@ -168,11 +171,24 @@
                 </button>
                 <button
                   class="small-button del-button"
-                  @click="deleteCleaned($event, clean)"
-                  v-bind:id="clean.selected.key"
+                  @click="toggleCleanConfirmation()"
                 >
                   {{ $t('message.delete_cleaned') }}
                 </button>
+                <div class="confirmation-wrapper" v-if="showCleanConfirmation">
+                  <div class="confirmation-container">
+                    {{ $t('message.clean_deletion_confirmation_message') }}
+                    <button @click="toggleCleanConfirmation()">
+                      {{ $t('message.clean_deletion_confirmation_negative') }}
+                    </button>
+                    <button
+                      v-on:click="deleteClean($event, clean)"
+                      v-bind:id="clean.selected.key"
+                    >
+                      {{ $t('message.clean_deletion_confirmation_positive') }}
+                    </button>
+                  </div>
+                </div>
                 <template v-if="clean.confirm">
                   <button
                     class="small-button confirm-button"
@@ -246,7 +262,8 @@ export default {
       showReservations: false,
       showCleanedShores: false,
       showOnMap: false,
-      showConfirmation: false
+      showReservationConfirmation: false,
+      showCleanConfirmation: false
     }
   },
   components: {
@@ -290,8 +307,11 @@ export default {
       this.showReservations = false
       this.showCleanedShores = !this.showCleanedShores
     },
-    toggleConfirmation() {
-      this.showConfirmation = !this.showConfirmation
+    toggleReservationConfirmation() {
+      this.showReservationConfirmation = !this.showReservationConfirmation
+    },
+    toggleCleanConfirmation() {
+      this.showCleanConfirmation = !this.showCleanConfirmation
     },
     shoreHidden(data) {
       //remove selected layers
@@ -382,6 +402,7 @@ export default {
         })
     },
     deleteReservation(e, reservation) {
+      this.toggleReservationConfirmation()
       axios
         .delete('http://' + location.hostname + ':8089/api/map/reservation', {
           data: { id: reservation._key, key: e.target.id }
@@ -435,6 +456,7 @@ export default {
         })
     },
     deleteCleaned(e, clean) {
+      this.toggleCleanConfirmation()
       axios
         .delete('http://' + location.hostname + ':8089/api/map/cleanedshore', {
           data: { id: clean._key, key: e.target.id }
