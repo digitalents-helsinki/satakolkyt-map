@@ -31,6 +31,8 @@
                     :required="required"
                     v-model="data.group_size"
                     type="number"
+                    min="1"
+                    max="999"
                   />
                 </div>
 
@@ -297,10 +299,24 @@ export default {
 
   data() {
     return {
-      data: {},
+      data: {
+        organizer_name: '',
+        date: '',
+        group_size: 1,
+        trash_amount: 0,
+        trash_left: '',
+        trash_bags_info: '',
+        cleanmoreinfo: '',
+        leader_name: '',
+        leader_email: '',
+        leader_phone: '',
+        kurtturuusu: '',
+        jattipalsami: '',
+        foreignspeciesdetail: ''
+      },
       privacy_permission: false,
       saved: false,
-      required: false,
+      required: true,
       pagenum: 0
     }
   },
@@ -314,9 +330,17 @@ export default {
           method: 'POST',
           url: 'http://' + location.hostname + ':8089/api/map/cleaninfo',
           data: this.data
-        }).then(response => {
-          this.$emit('close')
         })
+          .then(res => {
+            if (res.data.status === 'ok') {
+              console.log('cleaned')
+              this.saved = true
+            }
+          })
+          .catch(err => {
+            console.log('cleanerror')
+            this.$emit('error-msg', err.response.data.error)
+          })
       }
     },
     toNextPage(e) {

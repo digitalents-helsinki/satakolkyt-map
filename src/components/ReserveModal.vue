@@ -222,17 +222,23 @@ export default {
       dateerrormsg: '',
       reservationdata: {
         confirmed: false,
+        organizer: '',
+        startdate: '',
         starttime: {
           HH: '',
           mm: ''
         },
+        enddate: '',
         endtime: {
           HH: '',
           mm: ''
         },
         openevent: false,
         openinfo: '',
-        openlink: ''
+        openlink: '',
+        name: '',
+        email: '',
+        phonenumber: ''
       }
     }
   },

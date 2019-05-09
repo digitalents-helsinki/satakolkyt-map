@@ -80,6 +80,7 @@
             v-bind:selected="selectedShoreData"
             @close="showCleaned = false"
             @show-privacy-info="showPrivacyInfo = true"
+            @error-msg="setError"
           >
           </CleanModal>
         </transition>
@@ -182,10 +183,12 @@ export default {
           }
         })
         .catch(err => {
-          //args.errCB(err.response.data)
-          this.errMsg = this.$t('message.' + err.response.data.error)
-          this.showErrorInfo = true
+          this.setError(err.response.data.error)
         })
+    },
+    setError(msg) {
+      this.errMsg = this.$t('message.' + msg)
+      this.showErrorInfo = true
     },
     shoreReserved(data) {
       this.$refs.usermap.removeSegmentFromLayer(
