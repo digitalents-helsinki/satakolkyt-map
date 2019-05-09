@@ -80,6 +80,7 @@
             v-bind:selected="selectedShoreData"
             @close="showCleaned = false"
             @show-privacy-info="showPrivacyInfo = true"
+            @cleaned-ok="shoreCleaned"
             @error-msg="setError"
           >
           </CleanModal>
@@ -201,6 +202,15 @@ export default {
         'reservedlayer',
         data
       )
+    },
+    shoreCleaned(data) {
+      this.$refs.usermap.unSelect()
+      this.$refs.usermap.removeSegmentFromLayer(
+        'freeShore',
+        'freelayer',
+        data._key
+      )
+      this.$refs.usermap.addSegmentToLayer('cleanedShore', 'cleanlayer', data)
     },
     initMap() {
       this.$store.dispatch('getfreelayer')

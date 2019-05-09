@@ -166,7 +166,7 @@
                 <template v-if="!clean.confirm">
                   <button
                     class="small-button cancel-button"
-                    v-on:click="addcleaned($event, clean)"
+                    v-on:click="confirmCleaned($event, clean)"
                     v-bind:id="clean.selected.key"
                   >
                     {{ $t('message.confirm_cleaned') }}
@@ -395,7 +395,7 @@ export default {
           console.log(error)
         })
     },
-    addcleaned(e, clean) {
+    confirmCleaned(e, clean) {
       var id = e.target.id
       axios
         .post('http://' + location.hostname + ':8089/api/map/clean/', {
@@ -405,7 +405,7 @@ export default {
         .then(response => {
           console.log(response)
           clean.confirm = true
-          this.shoreCleaned(response.data.json)
+          //this.shoreCleaned(response.data.json)
         })
         .catch(function(error) {
           console.log(error)

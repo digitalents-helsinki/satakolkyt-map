@@ -333,12 +333,11 @@ export default {
         })
           .then(res => {
             if (res.data.status === 'ok') {
-              console.log('cleaned')
+              this.$emit('cleaned-ok', res.data.json)
               this.saved = true
             }
           })
           .catch(err => {
-            console.log('cleanerror')
             this.$emit('error-msg', err.response.data.error)
           })
       }
