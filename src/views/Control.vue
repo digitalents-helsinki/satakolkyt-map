@@ -93,11 +93,30 @@
                 </button>
                 <button
                   class="small-button del-button"
-                  @click="deleteReservation($event, reservation)"
-                  v-bind:id="reservation.selected.key"
+                  @click="toggleConfirmation()"
                 >
                   {{ $t('message.delete_reservation') }}
                 </button>
+                <div class="confirmation-wrapper" v-if="showConfirmation">
+                  <div class="confirmation-container">
+                    {{
+                      $t('message.reservation_deletion_confirmation_message')
+                    }}
+                    <button @click="toggleConfirmation()">
+                      {{
+                        $t('message.reservation_deletion_confirmation_negative')
+                      }}
+                    </button>
+                    <button
+                      v-on:click="deleteReservation($event, reservation)"
+                      v-bind:id="reservation.selected.key"
+                    >
+                      {{
+                        $t('message.reservation_deletion_confirmation_positive')
+                      }}
+                    </button>
+                  </div>
+                </div>
                 <template v-if="reservation.confirmed">
                   <button
                     class="small-button cancel-button"
@@ -226,7 +245,9 @@ export default {
       mapOverlayAction: null,
       showReservations: false,
       showCleanedShores: false,
-      showOnMap: false
+      showOnMap: false,
+      showReservationConfirmation: false,
+      showCleanConfirmation: false
     }
   },
   components: {
@@ -269,6 +290,9 @@ export default {
     toggleCleanedShoresList() {
       this.showReservations = false
       this.showCleanedShores = !this.showCleanedShores
+    },
+    toggleConfirmation() {
+      this.showConfirmation = !this.showConfirmation
     },
     shoreHidden(data) {
       //remove selected layers
@@ -359,6 +383,7 @@ export default {
         })
     },
     deleteReservation(e, reservation) {
+      this.toggleConfirmation()
       axios
         .delete('http://' + location.hostname + ':8089/api/map/reservation', {
           data: { id: reservation._key, key: e.target.id }
@@ -481,6 +506,7 @@ export default {
       } else {
         selShSource.setData(featcoll)
       }
+      ;<p>test</p>
       this.showOnMap = 'reserved'
       this.map.flyTo({
         center: [
@@ -742,5 +768,30 @@ input[type='text']:focus,
 input[type='password']:focus {
   background-color: #ddd;
   outline: none;
+}
+
+.confirmation-wrapper {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998;
+
+  .confirmation-container {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1rem;
+    width: 400px;
+    text-align: center;
+
+    button {
+      margin-top: 1rem;
+    }
+  }
 }
 </style>

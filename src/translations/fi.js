@@ -104,6 +104,10 @@ export const fi = {
     login: 'Kirjaudu',
     iframe: 'KUTSU RYHMÄSI JA VALITSE RANTAVIIVALTA PALA SIIVOTTAVAKSI!',
     err_shoreunavailable: 'Virhe: Ranta ei ole saatavilla!',
-    err_validationerror: 'Virhe: Epäkelvolliset tiedot!'
+    err_validationerror: 'Virhe: Epäkelvolliset tiedot!',
+    reservation_deletion_confirmation_message:
+      'Haluatko varmasti poistaa varauksen?',
+    reservation_deletion_confirmation_positive: 'Poista varaus',
+    reservation_deletion_confirmation_negative: 'Peru'
   }
 }
