@@ -147,11 +147,17 @@
                 >
                   {{ $t('message.show_map') }}
                 </button>
-
+                <button
+                  class="small-button del-button"
+                  @click="deleteCleaned($event, clean)"
+                  v-bind:id="clean.selected.key"
+                >
+                  {{ $t('message.delete_cleaned') }}
+                </button>
                 <template v-if="clean.confirm">
                   <button
                     class="small-button confirm-button"
-                    v-on:click="removecleaned($event, clean)"
+                    v-on:click="cancelCleaned($event, clean)"
                     v-bind:id="clean.selected.key"
                   >
                     {{ $t('message.cancel_cleaned') }}
@@ -225,7 +231,6 @@ export default {
   },
   components: {
     AppFooter,
-    //AdminMapBox
     ShoreMap
   },
   methods: {
@@ -325,7 +330,15 @@ export default {
       )
       this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
     },
-    removecleaned(e, cleaned) {
+    shoreUncleaned(data) {
+      this.$refs.adminmap.removeSegmentFromLayer(
+        'cleanedShore',
+        'cleanlayer',
+        data._key
+      )
+      this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
+    },
+    cancelCleaned(e, cleaned) {
       axios
         .post(
           'http://' + location.hostname + ':8089/api/map/cancelcleanedbeach/',
@@ -396,6 +409,23 @@ export default {
         })
         .catch(function(error) {
           console.log(error)
+        })
+    },
+    deleteCleaned(e, clean) {
+      axios
+        .delete('http://' + location.hostname + ':8089/api/map/cleanedshore', {
+          data: { id: clean._key, key: e.target.id }
+        })
+        .then(res => {
+          if (res.data.status === 'ok') {
+            this.shoreUncleaned(res.data.json)
+            this.cleaned = this.cleaned.filter(v => {
+              return v !== clean
+            })
+          }
+        })
+        .catch(err => {
+          console.log(err)
         })
     },
     shoreCleaned(data) {

@@ -73,6 +73,7 @@ export const fi = {
     show_map: 'Näytä kartassa',
     confirm_cleaned: 'Vahvista siivotuksi',
     cancel_cleaned: 'Poista Vahvistus',
+    delete_cleaned: 'Hylkää siivous',
     edit_map: 'Editoi karttaa',
     unhideshore: 'Näytä ranta',
     hideshore: 'Piilota ranta',
