@@ -38,30 +38,46 @@
         :showReservation="showReservationForm"
       />
       <div v-if="showReservedInfo" class="infobox reserved-info">
-        <h1>Varattu ranta</h1>
+        <h1>{{ $t('message.reserved_shore') }}</h1>
         <h2>
           {{
-            reservedInfo.confirmed ? '( Varmistettu )' : '( Ei varmistettu )'
+            reservedInfo.confirmed
+              ? '(' + $t('message.confirmed') + ')'
+              : '(' + $t('message.unconfirmed') + ')'
           }}
         </h2>
-        <p><b>Organizer:</b> {{ reservedInfo.organizer }}</p>
-        <p><b>Avoin?:</b> {{ reservedInfo.openevent ? 'Kyllä' : 'Ei' }}</p>
+        <p>
+          <b>{{ $t('message.organizer') }}:</b> {{ reservedInfo.organizer }}
+        </p>
+        <p>
+          <b>{{ $t('message.type_open') }}?:</b>
+          {{ reservedInfo.openevent ? $t('message.yes') : $t('message.no') }}
+        </p>
         <template v-if="reservedInfo.openevent">
-          <p><b>Event info:</b> {{ reservedInfo.openinfo }}</p>
-          <p><b>Event link:</b> {{ reservedInfo.openlink }}</p>
+          <p>
+            <b>{{ $t('message.event_info') }}:</b> {{ reservedInfo.openinfo }}
+          </p>
+          <p>
+            <b>{{ $t('message.event_link') }}:</b> {{ reservedInfo.openlink }}
+          </p>
         </template>
         <p>
-          <b>Alkaa:</b>
+          <b>{{ $t('message.begins') }}:</b>
           {{ reservedInfo.startdate + ' ' + reservedInfo.starttime }}
         </p>
         <p>
-          <b>Loppuu:</b> {{ reservedInfo.enddate + ' ' + reservedInfo.endtime }}
+          <b>{{ $t('message.ends') }}:</b>
+          {{ reservedInfo.enddate + ' ' + reservedInfo.endtime }}
         </p>
       </div>
       <div v-if="showCleanedInfo" class="infobox cleaned-info">
-        <h1>Siivottu ranta</h1>
-        <p><b>Organizer:</b> {{ cleanedInfo.organizer_name }}</p>
-        <p><b>Siivottu:</b> {{ cleanedInfo.date }}</p>
+        <h1>{{ $t('message.cleaned_shore') }}</h1>
+        <p>
+          <b>{{ $t('message.organizer') }}:</b> {{ cleanedInfo.organizer_name }}
+        </p>
+        <p>
+          <b>{{ $t('message.shorescleaned') }}:</b> {{ cleanedInfo.date }}
+        </p>
       </div>
       <div v-if="showReservationForm">
         <transition name="modal">
@@ -93,7 +109,7 @@
       @click="showPrivacyInfo = false"
     >
       <div class="privacy-info">
-        <h1>Rekisteri- ja tietosuojaseloste</h1>
+        <h1>{{ $t('message.privacy_policy') }}</h1>
         <p v-for="n in 20" :key="n">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, et!
           Alias impedit exercitationem a minus commodi quos eum illum? Fugiat

@@ -27,13 +27,13 @@
         620 597
       </div>
       <div class="stepinfo">
-        askelta kävelty
+        {{ $t('message.steps_walked') }}
       </div>
       <div class="kilometercount red">
         89
       </div>
       <div class="kiloinfo">
-        km siivottu
+        {{ $t('message.km_cleaned') }}
       </div>
     </div>
     <div class="colors">

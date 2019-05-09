@@ -181,7 +181,7 @@
   </div>
   <div v-else>
     <form class="form" v-on:submit.prevent="signin">
-      <label for="username">username</label>
+      <label for="username">{{ $t('message.username') }}</label>
       <input
         id="username"
         v-model="login.username"
@@ -189,7 +189,7 @@
         name=""
         value=""
       />
-      <label for="password">password</label>
+      <label for="password">{{ $t('message.password') }}</label>
       <input
         id="password"
         v-model="login.password"
@@ -197,7 +197,7 @@
         name=""
         value=""
       />
-      <button type="submit" name="">Login</button>
+      <button type="submit" name="">{{ $t('message.login') }}</button>
     </form>
   </div>
 </template>
