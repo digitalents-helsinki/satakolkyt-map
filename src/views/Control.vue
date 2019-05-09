@@ -246,8 +246,7 @@ export default {
       showReservations: false,
       showCleanedShores: false,
       showOnMap: false,
-      showReservationConfirmation: false,
-      showCleanConfirmation: false
+      showConfirmation: false
     }
   },
   components: {
@@ -383,7 +382,6 @@ export default {
         })
     },
     deleteReservation(e, reservation) {
-      this.toggleConfirmation()
       axios
         .delete('http://' + location.hostname + ':8089/api/map/reservation', {
           data: { id: reservation._key, key: e.target.id }
