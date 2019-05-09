@@ -182,7 +182,7 @@
                       {{ $t('message.clean_deletion_confirmation_negative') }}
                     </button>
                     <button
-                      v-on:click="deleteClean($event, clean)"
+                      v-on:click="deleteCleaned($event, clean)"
                       v-bind:id="clean.selected.key"
                     >
                       {{ $t('message.clean_deletion_confirmation_positive') }}
