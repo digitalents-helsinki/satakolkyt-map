@@ -280,7 +280,7 @@ export default {
       const now = new Date()
       console.log('now: ', now, 'start: ', start)
       if (start < now) {
-        this.dateerrormsg = this.$t('message.offline')
+        this.dateerrormsg = this.$t('message.start_in_future')
         return false
       } else {
         this.dateerrormsg = ''
