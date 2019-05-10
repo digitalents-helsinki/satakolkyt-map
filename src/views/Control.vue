@@ -145,7 +145,7 @@
               <div class="clean-time">
                 <h3>{{ $t('message.date') }}</h3>
                 <p>
-                  {{ $t('message.starts') }}:
+                  {{ $t('message.notified') }}:
                   <template v-if="$i18n.locale != 'fi'">
                     {{ clean.date | moment('DD MMMM YYYY') }}
                   </template>
@@ -272,7 +272,7 @@ export default {
   methods: {
     signin() {
       axios
-        .post('http://' + location.hostname + ':8089/api/map/login/', {
+        .post(process.env.VUE_APP_URL + '/api/map/login/', {
           username: this.login.username,
           password: this.login.password
         })
@@ -341,8 +341,7 @@ export default {
       var id = e.target.id
       axios({
         method: 'POST',
-        url:
-          'http://' + location.hostname + ':8089/api/map/confirmreservation/',
+        url: process.env.VUE_APP_URL + '/api/map/confirmreservation/',
 
         data: { key: id, reservation: reservation._key }
       })
@@ -374,13 +373,10 @@ export default {
     },
     cancelCleaned(e, cleaned) {
       axios
-        .post(
-          'http://' + location.hostname + ':8089/api/map/cancelcleanedbeach/',
-          {
-            key: e.target.id,
-            clean: cleaned._key
-          }
-        )
+        .post(process.env.VUE_APP_URL + '/api/map/cancelcleanedbeach/', {
+          key: e.target.id,
+          clean: cleaned._key
+        })
         .then(response => {
           console.log(response)
           if (response.data.status === 'ok') {
@@ -395,7 +391,7 @@ export default {
     deleteReservation(e, reservation) {
       this.toggleReservationConfirmation()
       axios
-        .delete('http://' + location.hostname + ':8089/api/map/reservation', {
+        .delete(process.env.VUE_APP_URL + '/api/map/reservation', {
           data: { id: reservation._key, key: e.target.id }
         })
         .then(res => {
@@ -412,13 +408,10 @@ export default {
     },
     cancelReservation(e, reservation) {
       axios
-        .post(
-          'http://' + location.hostname + ':8089/api/map/cancelreservation/',
-          {
-            key: e.target.id,
-            reservation: reservation._key
-          }
-        )
+        .post(process.env.VUE_APP_URL + '/api/map/cancelreservation/', {
+          key: e.target.id,
+          reservation: reservation._key
+        })
         .then(response => {
           console.log(response)
           if (response.data.status === 'ok') {
@@ -433,7 +426,7 @@ export default {
     confirmCleaned(e, clean) {
       var id = e.target.id
       axios
-        .post('http://' + location.hostname + ':8089/api/map/clean/', {
+        .post(process.env.VUE_APP_URL + '/api/map/clean/', {
           key: id,
           clean: clean._key
         })
@@ -449,7 +442,7 @@ export default {
     deleteCleaned(e, clean) {
       this.toggleCleanConfirmation()
       axios
-        .delete('http://' + location.hostname + ':8089/api/map/cleanedshore', {
+        .delete(process.env.VUE_APP_URL + '/api/map/cleanedshore', {
           data: { id: clean._key, key: e.target.id }
         })
         .then(res => {
@@ -518,7 +511,7 @@ export default {
     },
     getReservations() {
       axios
-        .get('http://' + location.hostname + ':8089/api/map/reservations/')
+        .get(process.env.VUE_APP_URL + '/api/map/reservations/')
         .then(reservation => {
           this.reservations = reservation.data.data
         })
@@ -528,7 +521,7 @@ export default {
     },
     getCleaned() {
       axios
-        .get('http://' + location.hostname + ':8089/api/map/cleaninfos/')
+        .get(process.env.VUE_APP_URL + '/api/map/cleaninfos/')
         .then(reservation => {
           this.cleaned = reservation.data.data
         })
@@ -538,7 +531,7 @@ export default {
     },
     gettoken() {
       axios
-        .post('http://' + location.hostname + ':8089/api/map/authcheck', {})
+        .post(process.env.VUE_APP_URL + '/api/map/authcheck', {})
         .then(response => {
           if (response.data.success) {
             alert('success')

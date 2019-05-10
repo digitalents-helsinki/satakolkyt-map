@@ -28,7 +28,7 @@ export default new Vuex.Store({
   },
   actions: {
     getfreelayer({ commit }) {
-      fetch('http://' + location.hostname + ':8089/api/map/shores')
+      fetch(process.env.VUE_APP_URL + '/api/map/shores')
         .then(response => {
           return response.json()
         })
@@ -40,7 +40,7 @@ export default new Vuex.Store({
         })
     },
     getreservedlayer({ commit }) {
-      fetch('http://' + location.hostname + ':8089/api/map/shores/reserved')
+      fetch(process.env.VUE_APP_URL + '/api/map/shores/reserved')
         .then(response => {
           return response.json()
         })
@@ -52,7 +52,7 @@ export default new Vuex.Store({
         })
     },
     getcleanlayer({ commit }) {
-      fetch('http://' + location.hostname + ':8089/api/map/shores/cleaned')
+      fetch(process.env.VUE_APP_URL + '/api/map/shores/cleaned')
         .then(response => {
           return response.json()
         })
@@ -64,7 +64,7 @@ export default new Vuex.Store({
         })
     },
     gethiddenlayer({ commit }) {
-      fetch('http://' + location.hostname + ':8089/api/map/shores/hidden')
+      fetch(process.env.VUE_APP_URL + '/api/map/shores/hidden')
         .then(response => {
           return response.json()
         })

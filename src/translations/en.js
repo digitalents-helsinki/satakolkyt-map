@@ -102,6 +102,14 @@ export const en = {
     login: 'Login',
     iframe: 'GET TOGETHER AND PICK A SHORE TO CLEAN!',
     err_shoreunavailable: 'Error: Shore unavailable!',
-    err_validationerror: 'Error: Invalid input!'
+    err_validationerror: 'Error: Invalid input!',
+    reservation_deletion_confirmation_message:
+      'Do you really want to delete the reservation?',
+    reservation_deletion_confirmation_positive: 'Yes delete',
+    reservation_deletion_confirmation_negative: 'Cancel',
+    clean_deletion_confirmation_message:
+      'Do you really want to discard the cleaning report?',
+    clean_deletion_confirmation_positive: 'Yes discard',
+    clean_deletion_confirmation_negative: 'Cancel'
   }
 }

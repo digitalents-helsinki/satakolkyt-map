@@ -328,7 +328,7 @@ export default {
       if (e.target.form.reportValidity()) {
         axios({
           method: 'POST',
-          url: 'http://' + location.hostname + ':8089/api/map/cleaninfo',
+          url: process.env.VUE_APP_URL + '/api/map/cleaninfo',
           data: this.data
         })
           .then(res => {
