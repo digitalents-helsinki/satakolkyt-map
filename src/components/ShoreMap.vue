@@ -241,10 +241,6 @@ export default {
       })
     },
     mapLoaded(map) {
-      map.addControl(
-        new mapboxgl.NavigationControl({ showCompass: false }),
-        'bottom-right'
-      )
       this.map = map
 
       this.addShoreType(map, 'freeShore', this.freeshores, '#2e318e')

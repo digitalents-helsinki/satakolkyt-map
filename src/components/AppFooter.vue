@@ -176,8 +176,23 @@ export default {
   color: red;
   margin-left: 5px;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
+  .footer {
+    width: 100%;
+    height: 20%;
+  }
   .colors {
+    display: none;
+  }
+  .counter {
+    display: none;
+  }
+  .stepcount,
+  .kilometercount {
+    display: none;
+  }
+  .stepinfo,
+  .kiloinfo {
     display: none;
   }
 }

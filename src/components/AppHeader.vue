@@ -13,13 +13,19 @@
       />
       <template>
         <div class="locale-changer">
-          <span style="margin-right: 5px;" @click="$i18n.locale = 'fi'"
+          <span
+            style="margin-right: 5px;cursor:pointer;"
+            @click="$i18n.locale = 'fi'"
             >FI</span
           >
-          <span style="margin-right: 5px;" @click="$i18n.locale = 'sv'"
+          <span
+            style="margin-right: 5px;cursor:pointer;"
+            @click="$i18n.locale = 'sv'"
             >SV</span
           >
-          <span style="margin-right: 5px;" @click="$i18n.locale = 'en'"
+          <span
+            style="margin-right: 5px;cursor:pointer;"
+            @click="$i18n.locale = 'en'"
             >EN</span
           >
         </div>

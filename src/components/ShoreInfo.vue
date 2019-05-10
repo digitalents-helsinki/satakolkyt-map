@@ -57,5 +57,10 @@ export default {
       font-family: inherit;
     }
   }
+  @media only screen and (max-width: 768px) {
+    button {
+      margin-bottom: 5px;
+    }
+  }
 }
 </style>
