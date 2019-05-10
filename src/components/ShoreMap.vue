@@ -8,7 +8,7 @@
     />
     <div
       class="clickdetector"
-      v-show="selectedLayer || showOnMap"
+      v-show="selected.id"
       @click.prevent="detectorClick"
     ></div>
   </div>
@@ -50,19 +50,33 @@ export default {
       navControl: {
         show: false
       },
-      selectedLayer: null
+      selected: {
+        layer: null,
+        id: null
+      },
+      hoveredIds: {}
     }
   },
 
   methods: {
-    generateLineStringStyle(color) {
+    generateLineStringStyle(basecolor, hovercolor) {
       return {
         layout: {
           'line-join': 'round',
           'line-cap': 'round'
         },
         paint: {
-          'line-color': color,
+          //'line-color': color,
+          'line-color': [
+            'case',
+            [
+              'any',
+              ['boolean', ['feature-state', 'hover'], false],
+              ['boolean', ['feature-state', 'selected'], false]
+            ],
+            hovercolor,
+            basecolor
+          ],
           'line-width': 1
         }
       }
@@ -71,10 +85,11 @@ export default {
       //apparently without this the data format is somehow wrong
       return data.map(e => ({
         ...e,
+        id: e._key,
         properties: { ...e.properties, key: e._key }
       }))
     },
-    addShoreType(map, name, data, color) {
+    addShoreType(map, name, data, basecolor, hovercolor) {
       const shoreData = {
         type: 'FeatureCollection',
         features: this.enhanceData(data)
@@ -85,140 +100,61 @@ export default {
         id: name,
         type: 'line',
         source: name,
-        ...this.generateLineStringStyle(color)
+        ...this.generateLineStringStyle(basecolor, hovercolor)
       })
     },
-    addSelectedShoreType(map, name, data, color) {
-      map.addSource(name, {
-        type: 'geojson',
-        data: data
-      })
-      map.addLayer({
-        id: name,
-        type: 'line',
-        source: name,
-        ...this.generateLineStringStyle(color)
-      })
-    },
-    addShoreClickHandler(map, layername, storename, eventname, selectedColor) {
+    addShoreClickHandler(map, layername, eventname) {
       map.on('click', layername, e => {
+        this.selectShore(e.features[0].id, layername)
         this.$emit(eventname, e.features[0].properties)
 
-        //don't get the geometry from the event but our store instead
-        //because the event data is bad
-        const feat = this.$store.state.maplayers[storename].find(f => {
-          return f._key === e.features[0].properties.key
-        })
-
-        const selecteddata = {
-          type: 'FeatureCollection',
-          features: [feat]
-        }
-
-        const selShData = map.getSource(layername + 'Selected')
-        if (!selShData) {
-          this.addSelectedShoreType(
-            map,
-            layername + 'Selected',
-            selecteddata,
-            selectedColor
-          )
-        } else {
-          selShData.setData(selecteddata)
-        }
-
         map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
-        this.selectedLayer = layername + 'Selected'
       })
+    },
+    selectShore(id, layername) {
+      this.selected.layer = layername
+      this.selected.id = id
+      this.map.setFeatureState(
+        { source: layername, id: id },
+        { selected: true }
+      )
     },
     detectorClick() {
       this.$emit('unselect')
       this.unSelect()
     },
     unSelect() {
-      if (this.selectedLayer && this.map.isSourceLoaded(this.selectedLayer)) {
-        this.map.removeLayer(this.selectedLayer)
-        this.map.removeSource(this.selectedLayer)
-      }
-      this.selectedLayer = null
-    },
-    removeDetector() {
-      this.selectedLayer = null
+      this.map.setFeatureState(
+        { source: this.selected.layer, id: this.selected.id },
+        { selected: false }
+      )
+      this.selected.layer = null
+      this.selected.id = null
     },
     onZoom(map) {
       const MAX_ZOOM = 20
       const MIN_ZOOM = 11
-      const MAX_NORMAL_WIDTH = 22
-      const MAX_SELECTED_WIDTH = 27
-      const MIN_NORMAL_WIDTH = 2
-      const MIN_SELECTED_WIDTH = 3
+      const MAX_WIDTH = 22
+      const MIN_WIDTH = 2
 
       const zoom = map.getZoom()
       if (zoom >= MAX_ZOOM) {
-        map.setPaintProperty('freeShore', 'line-width', MAX_NORMAL_WIDTH)
-        map.setPaintProperty(
-          'freeShoreSelected',
-          'line-width',
-          MAX_SELECTED_WIDTH
-        )
-        map.setPaintProperty('reservedShore', 'line-width', MAX_NORMAL_WIDTH)
-        map.setPaintProperty(
-          'reservedShoreSelected',
-          'line-width',
-          MAX_SELECTED_WIDTH
-        )
-        map.setPaintProperty('cleanedShore', 'line-width', MAX_NORMAL_WIDTH)
-        map.setPaintProperty(
-          'cleanedShoreSelected',
-          'line-width',
-          MAX_SELECTED_WIDTH
-        )
-        map.setPaintProperty('hiddenShore', 'line-width', MAX_NORMAL_WIDTH)
-        map.setPaintProperty(
-          'hiddenShoreSelected',
-          'line-width',
-          MAX_SELECTED_WIDTH
-        )
+        map.setPaintProperty('freeShore', 'line-width', MAX_WIDTH)
+        map.setPaintProperty('reservedShore', 'line-width', MAX_WIDTH)
+        map.setPaintProperty('cleanedShore', 'line-width', MAX_WIDTH)
+        map.setPaintProperty('hiddenShore', 'line-width', MAX_WIDTH)
       } else if (zoom < MIN_ZOOM) {
-        map.setPaintProperty('freeShore', 'line-width', MIN_NORMAL_WIDTH)
-        map.setPaintProperty(
-          'freeShoreSelected',
-          'line-width',
-          MIN_SELECTED_WIDTH
-        )
-        map.setPaintProperty('reservedShore', 'line-width', MIN_NORMAL_WIDTH)
-        map.setPaintProperty(
-          'reservedShoreSelected',
-          'line-width',
-          MIN_SELECTED_WIDTH
-        )
-        map.setPaintProperty('cleanedShore', 'line-width', MIN_NORMAL_WIDTH)
-        map.setPaintProperty(
-          'cleanedShoreSelected',
-          'line-width',
-          MIN_SELECTED_WIDTH
-        )
-        map.setPaintProperty('hiddenShore', 'line-width', MIN_NORMAL_WIDTH)
-        map.setPaintProperty(
-          'hiddenShoreSelected',
-          'line-width',
-          MIN_SELECTED_WIDTH
-        )
+        map.setPaintProperty('freeShore', 'line-width', MIN_WIDTH)
+        map.setPaintProperty('reservedShore', 'line-width', MIN_WIDTH)
+        map.setPaintProperty('cleanedShore', 'line-width', MIN_WIDTH)
+        map.setPaintProperty('hiddenShore', 'line-width', MIN_WIDTH)
       } else {
         const zoomfactor = (zoom - MIN_ZOOM) / (MAX_ZOOM - MIN_ZOOM)
-        const normalzoom =
-          MIN_NORMAL_WIDTH + zoomfactor * (MAX_NORMAL_WIDTH - MIN_NORMAL_WIDTH)
-        const selectzoom =
-          MIN_SELECTED_WIDTH +
-          zoomfactor * (MAX_SELECTED_WIDTH - MIN_SELECTED_WIDTH)
-        map.setPaintProperty('freeShore', 'line-width', normalzoom)
-        map.setPaintProperty('freeShoreSelected', 'line-width', selectzoom)
-        map.setPaintProperty('reservedShore', 'line-width', normalzoom)
-        map.setPaintProperty('reservedShoreSelected', 'line-width', selectzoom)
-        map.setPaintProperty('cleanedShore', 'line-width', normalzoom)
-        map.setPaintProperty('cleanedShoreSelected', 'line-width', selectzoom)
-        map.setPaintProperty('hiddenShore', 'line-width', normalzoom)
-        map.setPaintProperty('hiddenShoreSelected', 'line-width', selectzoom)
+        const width = MIN_WIDTH + zoomfactor * (MAX_WIDTH - MIN_WIDTH)
+        map.setPaintProperty('freeShore', 'line-width', width)
+        map.setPaintProperty('reservedShore', 'line-width', width)
+        map.setPaintProperty('cleanedShore', 'line-width', width)
+        map.setPaintProperty('hiddenShore', 'line-width', width)
       }
     },
     removeSegmentFromLayer(mapname, vuexname, segKey) {
@@ -240,6 +176,32 @@ export default {
         features: this.enhanceData(newshores)
       })
     },
+    addHoverHandler(canvas, layername) {
+      this.map.on('mousemove', layername, e => {
+        canvas.style.cursor = 'pointer'
+        if (this.hoveredIds[layername]) {
+          this.map.setFeatureState(
+            { source: layername, id: this.hoveredIds[layername] },
+            { hover: false }
+          )
+        }
+        this.hoveredIds[layername] = e.features[0].id
+        this.map.setFeatureState(
+          { source: layername, id: this.hoveredIds[layername] },
+          { hover: true }
+        )
+      })
+      this.map.on('mouseleave', layername, e => {
+        canvas.style.cursor = 'grab'
+        if (this.hoveredIds[layername]) {
+          this.map.setFeatureState(
+            { source: layername, id: this.hoveredIds[layername] },
+            { hover: false }
+          )
+        }
+        this.hoveredIds[layername] = null
+      })
+    },
     mapLoaded(map) {
       map.addControl(
         new mapboxgl.NavigationControl({ showCompass: false }),
@@ -247,43 +209,37 @@ export default {
       )
       this.map = map
 
-      this.addShoreType(map, 'freeShore', this.freeshores, '#2e318e')
-      this.addShoreType(map, 'reservedShore', this.reservedshores, '#f82828')
-      this.addShoreType(map, 'cleanedShore', this.cleanedshores, '#006B32')
-      if (this.adminmode) {
-        this.addShoreType(map, 'hiddenShore', this.hiddenshores, '#f0e41a')
-      }
-
-      this.addShoreClickHandler(
+      this.addShoreType(map, 'freeShore', this.freeshores, '#2e318e', '#00a0ff')
+      this.addShoreType(
         map,
-        'freeShore',
-        'freelayer',
-        'free-click',
-        '#00a0ff'
+        'reservedShore',
+        this.reservedshores,
+        '#f82828',
+        '#ffb1b7'
+      )
+      this.addShoreType(
+        map,
+        'cleanedShore',
+        this.cleanedshores,
+        '#006B32',
+        '#599053'
       )
       if (this.adminmode) {
-        this.addShoreClickHandler(
+        this.addShoreType(
           map,
           'hiddenShore',
-          'hiddenlayer',
-          'hidden-click',
+          this.hiddenshores,
+          '#f0e41a',
           '#FFFF77'
         )
+      }
+
+      this.addShoreClickHandler(map, 'freeShore', 'free-click')
+      if (this.adminmode) {
+        this.addShoreClickHandler(map, 'hiddenShore', 'hidden-click')
       } else {
-        this.addShoreClickHandler(
-          map,
-          'reservedShore',
-          'reservedlayer',
-          'reserved-click',
-          '#ffb1b7'
-        )
-        this.addShoreClickHandler(
-          map,
-          'cleanedShore',
-          'cleanlayer',
-          'cleaned-click',
-          '#9bde86'
-        )
+        this.addShoreClickHandler(map, 'reservedShore', 'reserved-click')
+        this.addShoreClickHandler(map, 'cleanedShore', 'cleaned-click')
       }
 
       this.$emit('map-loaded', map)
@@ -299,33 +255,13 @@ export default {
       // disable map rotation using touch rotation gesture
       map.touchZoomRotate.disableRotation()
       const canv = map.getCanvas()
-      map.on('mouseenter', 'freeShore', e => {
-        canv.style.cursor = 'pointer'
-      })
-      map.on('mouseleave', 'freeShore', e => {
-        canv.style.cursor = 'grab'
-      })
+      this.addHoverHandler(canv, 'freeShore')
 
       if (!this.adminmode) {
-        map.on('mouseleave', 'reservedShore', e => {
-          canv.style.cursor = 'grab'
-        })
-        map.on('mouseenter', 'reservedShore', e => {
-          canv.style.cursor = 'pointer'
-        })
-        map.on('mouseenter', 'cleanedShore', e => {
-          canv.style.cursor = 'pointer'
-        })
-        map.on('mouseleave', 'cleanedShore', e => {
-          canv.style.cursor = 'grab'
-        })
+        this.addHoverHandler(canv, 'reservedShore')
+        this.addHoverHandler(canv, 'cleanedShore')
       } else {
-        map.on('mouseenter', 'hiddenShore', e => {
-          canv.style.cursor = 'pointer'
-        })
-        map.on('mouseleave', 'hiddenShore', e => {
-          canv.style.cursor = 'grab'
-        })
+        this.addHoverHandler(canv, 'hiddenShore')
       }
     }
   }
