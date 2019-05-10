@@ -346,7 +346,6 @@ export default {
         data: { key: id, reservation: reservation._key }
       })
         .then(response => {
-          console.log(response)
           if (response.data.status === 'ok') {
             reservation.confirmed = true
           }
@@ -378,7 +377,6 @@ export default {
           clean: cleaned._key
         })
         .then(response => {
-          console.log(response)
           if (response.data.status === 'ok') {
             cleaned.confirm = false
             this.shoreCleanedCanceled(response.data.json)
@@ -413,10 +411,8 @@ export default {
           reservation: reservation._key
         })
         .then(response => {
-          console.log(response)
           if (response.data.status === 'ok') {
             reservation.confirmed = false
-            //this.shoreUnreserved(response.data.json)
           }
         })
         .catch(function(error) {
@@ -431,9 +427,7 @@ export default {
           clean: clean._key
         })
         .then(response => {
-          console.log(response)
           clean.confirm = true
-          //this.shoreCleaned(response.data.json)
         })
         .catch(function(error) {
           console.log(error)
