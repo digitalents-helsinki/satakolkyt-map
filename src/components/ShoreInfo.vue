@@ -2,22 +2,20 @@
   <div>
     <div class="shore-info">
       <!--h2>{{ data.key }}</h2-->
-      <slot name="header">
-        <button
-          v-if="seltype === 'free'"
-          id="show-modal"
-          @click="$emit('show-reservationform')"
-        >
-          {{ $t('message.reserve') }}
-        </button>
-        <button
-          v-if="seltype === 'free' || seltype === 'reserved'"
-          id="show-modal2"
-          @click="$emit('show-cleanform')"
-        >
-          {{ $t('message.claim_clean') }}
-        </button>
-      </slot>
+      <button
+        v-if="seltype === 'free'"
+        id="show-modal"
+        @click="$emit('show-reservationform')"
+      >
+        {{ $t('message.reserve') }}
+      </button>
+      <button
+        v-if="seltype === 'free' || seltype === 'reserved'"
+        id="show-modal2"
+        @click="$emit('show-cleanform')"
+      >
+        {{ $t('message.claim_clean') }}
+      </button>
     </div>
   </div>
 </template>
@@ -62,8 +60,15 @@ export default {
     }
   }
   @media only screen and (max-width: 768px) {
+    & {
+      display: flex;
+      justify-content: center;
+    }
+
     button {
-      margin-bottom: 5px;
+      width: 45vw;
+      max-width: 200px;
+      height: 100px;
     }
   }
 }

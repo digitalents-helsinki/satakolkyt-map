@@ -178,8 +178,15 @@ export default {
 }
 @media only screen and (max-width: 768px) {
   .footer {
+    bottom: 30px;
     width: 100%;
     height: 20%;
+    background-color: transparent;
+
+    .buttons {
+      width: 100%;
+      margin: 0;
+    }
   }
   .colors {
     display: none;
