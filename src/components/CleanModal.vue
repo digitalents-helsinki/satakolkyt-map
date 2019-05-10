@@ -2,6 +2,11 @@
   <div class="modal-mask">
     <div class="modal-wrapper" @click="$emit('close')">
       <div class="modal-container" @click.stop>
+        <font-awesome-icon
+          icon="times"
+          class="cross-icon"
+          @click="$emit('close')"
+        />
         <template v-if="!saved">
           <div class="modal-page" v-show="pagenum == 0">
             <form>
@@ -367,7 +372,10 @@ export default {
 }
 
 .cross-icon {
+  position: relative;
   float: right;
+  z-index: 9999;
+  cursor: pointer;
 }
 
 .modal-wrapper {
@@ -379,7 +387,7 @@ export default {
   width: 550px;
   height: 80vh;
   margin-left: 50px;
-  padding-left: 20px;
+  padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
@@ -393,10 +401,7 @@ export default {
 }
 
 .modal-page {
-  display: flex;
-  flex-flow: column nowrap;
   height: 100%;
-  margin: 20px 0;
 }
 
 .modal-header {
