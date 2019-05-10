@@ -54,7 +54,7 @@ export default {
     unHideShore() {
       axios({
         method: 'POST',
-        url: 'http://' + location.hostname + ':8089/api/map/unhidebeach',
+        url: process.env.VUE_APP_URL + '/api/map/unhidebeach',
         data: { key: this.data.key }
       }).then(response => {
         this.$emit('unhide-shore', response.data.json)

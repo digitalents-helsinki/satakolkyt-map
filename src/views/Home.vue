@@ -172,7 +172,7 @@ export default {
     saveReservation(args) {
       axios({
         method: 'POST',
-        url: 'http://' + location.hostname + ':8089/api/map/reserve',
+        url: process.env.VUE_APP_URL + '/api/map/reserve',
 
         data: args.data
       })
