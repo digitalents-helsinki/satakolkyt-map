@@ -146,7 +146,7 @@
               <div class="clean-time">
                 <h3>{{ $t('message.date') }}</h3>
                 <p>
-                  {{ $t('message.starts') }}:
+                  {{ $t('message.notified') }}:
                   <template v-if="$i18n.locale != 'fi'">
                     {{ clean.date | moment('DD MMMM YYYY') }}
                   </template>

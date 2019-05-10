@@ -66,6 +66,7 @@ export const fi = {
     date: 'Ajankohta',
     starts: 'Alkaa',
     ends: 'Loppuu',
+    notified: 'Ilmoitettu',
     contact_info: 'Yhteystiedot',
     time: 'Aika',
     cleaned: 'Siivotut rannat',
