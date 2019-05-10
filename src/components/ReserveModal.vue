@@ -6,29 +6,24 @@
         v-bind:class="{ morespace: reservationdata.free }"
         @click.stop
       >
+        <font-awesome-icon
+          icon="times"
+          class="cross-icon"
+          @click="$emit('close')"
+        />
         <template v-if="!saved">
-          <font-awesome-icon
-            icon="times"
-            class="cross-icon"
-            @click="$emit('close')"
-          />
-          <form v-on:submit.prevent="saveReservation">
-            <div class="modal-header">
-              <slot name="header">
+          <div class="modal-page" v-show="pagenum === 0">
+            <form v-on:submit.prevent="saveReservation">
+              <div class="modal-header">
                 <h3>{{ $t('message.reserve_clean') }}</h3>
                 <p>
                   {{ $t('message.reserve_sub') }}
                 </p>
-                <div v-bind:key="error.param" class="" v-for="error in errors">
-                  {{ error.param }} {{ error.msg }}
-                </div>
-              </slot>
-            </div>
+              </div>
 
-            <div class="modal-body">
-              <slot name="body">
+              <div class="modal-body">
                 <div class="input-field">
-                  <h5>{{ $t('message.organizer') }}</h5>
+                  <h4>{{ $t('message.organizer') }}</h4>
                   <input
                     :required="required"
                     type="text"
@@ -37,55 +32,60 @@
                 </div>
 
                 <div class="datetime">
-                  <h5>{{ $t('message.date') }}</h5>
+                  <h4>{{ $t('message.date') }}</h4>
 
                   <div class="datetime-inputs">
-                    <div class="datetime-item">
-                      <font-awesome-icon icon="calendar" />
+                    <div class="datetime-input">
+                      <h5>{{ $t('message.begins') }}</h5>
+                      <div class="datetime-item">
+                        <font-awesome-icon icon="calendar" />
 
-                      <input
-                        :required="required"
-                        v-model="reservationdata.startdate"
-                        type="date"
-                        @change="checkDateValidity"
-                      />
+                        <input
+                          :required="required"
+                          v-model="reservationdata.startdate"
+                          type="date"
+                          @change="checkDateValidity"
+                        />
+                      </div>
+                      <div class="datetime-item">
+                        <font-awesome-icon icon="clock" />
+
+                        <vue-timepicker
+                          class="timepicker"
+                          :required="required"
+                          :format="timeformat"
+                          v-model="reservationdata.starttime"
+                          :minute-interval="30"
+                          hide-clear-button
+                          @change="checkDateValidity"
+                        />
+                      </div>
                     </div>
-                    <div class="datetime-item">
-                      <font-awesome-icon icon="clock" />
+                    <div class="datetime-input">
+                      <h5>{{ $t('message.ends') }}</h5>
+                      <div class="datetime-item">
+                        <font-awesome-icon icon="calendar" />
 
-                      <vue-timepicker
-                        class="timepicker"
-                        :required="required"
-                        :format="timeformat"
-                        v-model="reservationdata.starttime"
-                        :minute-interval="30"
-                        hide-clear-button
-                        @change="checkDateValidity"
-                      />
-                    </div>
-                    <span>-</span>
-                    <div class="datetime-item">
-                      <font-awesome-icon icon="calendar" />
+                        <input
+                          :required="required"
+                          v-model="reservationdata.enddate"
+                          type="date"
+                          @change="checkDateValidity"
+                        />
+                      </div>
+                      <div class="datetime-item">
+                        <font-awesome-icon icon="clock" />
 
-                      <input
-                        :required="required"
-                        v-model="reservationdata.enddate"
-                        type="date"
-                        @change="checkDateValidity"
-                      />
-                    </div>
-                    <div class="datetime-item">
-                      <font-awesome-icon icon="clock" />
-
-                      <vue-timepicker
-                        class="timepicker"
-                        :required="required"
-                        :format="timeformat"
-                        v-model="reservationdata.endtime"
-                        :minute-interval="30"
-                        hide-clear-button
-                        @change="checkDateValidity"
-                      />
+                        <vue-timepicker
+                          class="timepicker"
+                          :required="required"
+                          :format="timeformat"
+                          v-model="reservationdata.endtime"
+                          :minute-interval="30"
+                          hide-clear-button
+                          @change="checkDateValidity"
+                        />
+                      </div>
                     </div>
                   </div>
                   <div class="date-error">{{ dateerrormsg }}</div>
@@ -124,7 +124,24 @@
                     </div>
                   </div>
                 </div>
+              </div>
 
+              <div class="modal-footer">
+                <button
+                  class="modal-default-button blue"
+                  @click.prevent="toNextPage"
+                >
+                  {{ $t('message.next') }}
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-page" v-show="pagenum === 1">
+            <form>
+              <div class="modal-header">
+                <h3>{{ $t('message.contact_info') }}</h3>
+              </div>
+              <div class="modal-body">
                 <div class="contact-person">
                   <h4>{{ $t('message.contact') }}</h4>
                   <p>
@@ -169,26 +186,23 @@
                     required
                   />
                 </div>
-              </slot>
-            </div>
-
-            <div class="modal-footer">
-              <slot name="footer">
+              </div>
+              <div class="modal-footer">
                 <button
-                  class="modal-default-button grey"
-                  @click.prevent="$emit('close')"
+                  class="modal-default-button blue"
+                  @click.prevent="toPrevPage"
                 >
-                  {{ $t('message.close') }}
+                  {{ $t('message.previous') }}
                 </button>
                 <button
                   class="modal-default-button blue"
-                  @click="showModal = false"
+                  @click.prevent="saveReservation"
                 >
-                  Ok
+                  {{ $t('message.send') }}
                 </button>
-              </slot>
-            </div>
-          </form>
+              </div>
+            </form>
+          </div>
         </template>
         <template v-if="saved">
           <div class="modal-header">
@@ -215,6 +229,7 @@ export default {
 
   data() {
     return {
+      pagenum: 0,
       saved: false,
       required: true,
       errors: [],
@@ -239,28 +254,41 @@ export default {
         name: '',
         email: '',
         phonenumber: ''
-      }
+      },
+      privacy_permission: false
     }
   },
   mounted() {
     this.reservationdata.selected = this.$props.selected
   },
   methods: {
-    saveReservation() {
-      if (!this.checkDateValidity()) {
-        return
+    toNextPage(e) {
+      if (e.target.form.reportValidity()) {
+        this.pagenum++
       }
-      var reservation = JSON.parse(JSON.stringify(this.reservationdata))
-      reservation.endtime =
-        this.reservationdata.endtime.HH + ':' + this.reservationdata.endtime.mm
-      reservation.starttime =
-        this.reservationdata.starttime.HH +
-        ':' +
-        this.reservationdata.starttime.mm
-      this.$emit('reservation-action', {
-        data: reservation,
-        okCB: this.reservationOk
-      })
+    },
+    toPrevPage() {
+      this.pagenum--
+    },
+    saveReservation(e) {
+      if (e.target.form.reportValidity()) {
+        if (!this.checkDateValidity()) {
+          return
+        }
+        var reservation = JSON.parse(JSON.stringify(this.reservationdata))
+        reservation.endtime =
+          this.reservationdata.endtime.HH +
+          ':' +
+          this.reservationdata.endtime.mm
+        reservation.starttime =
+          this.reservationdata.starttime.HH +
+          ':' +
+          this.reservationdata.starttime.mm
+        this.$emit('reservation-action', {
+          data: reservation,
+          okCB: this.reservationOk
+        })
+      }
     },
     reservationOk() {
       this.saved = true
@@ -278,7 +306,6 @@ export default {
       )
 
       const now = new Date()
-      console.log('now: ', now, 'start: ', start)
       if (start < now) {
         this.dateerrormsg = this.$t('message.start_in_future')
         return false
@@ -325,7 +352,10 @@ export default {
 }
 
 .cross-icon {
+  position: relative;
   float: right;
+  z-index: 9999;
+  cursor: pointer;
 }
 
 .modal-container {
@@ -335,7 +365,7 @@ export default {
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
-  overflow-y: auto;
+  overflow: hidden auto;
 }
 @media only screen and (max-width: 600px) {
   .modal-container {
@@ -368,6 +398,10 @@ form {
   margin: 20px 0;
 }
 
+.modal-body h4 {
+  min-width: 100px;
+}
+
 .modal-header h3 {
   font-weight: 700;
 }
@@ -376,17 +410,26 @@ form {
   margin: 2rem 0;
 }
 
-.datetime h5 {
-  margin-bottom: 0.5rem;
-}
-
 .datetime-inputs {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
-.datetime-inputs span {
-  margin: 0 3px;
+.datetime-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0.3rem 0;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.datetime-item {
+  margin: 0 1rem;
+}
+
+.datetime-input h5 {
+  min-width: 100px;
 }
 
 .date-error {

@@ -64,7 +64,7 @@ export const en = {
     date: 'Date',
     starts: 'Starts',
     ends: 'Ends',
-    contact_info: 'contact info',
+    contact_info: 'Contact information',
     time: 'Time',
     offline: 'You are offline',
     cleaned: 'Cleaned Shores',

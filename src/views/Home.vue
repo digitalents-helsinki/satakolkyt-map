@@ -196,7 +196,6 @@ export default {
           if (response.data.status === 'ok') {
             args.okCB()
             this.shoreReserved(response.data.json)
-            this.$refs.usermap.unSelect()
           }
         })
         .catch(err => {
@@ -208,6 +207,7 @@ export default {
       this.showErrorInfo = true
     },
     shoreReserved(data) {
+      this.$refs.usermap.unSelect()
       this.$refs.usermap.removeSegmentFromLayer(
         'freeShore',
         'freelayer',

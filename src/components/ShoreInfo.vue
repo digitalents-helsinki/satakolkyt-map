@@ -10,7 +10,11 @@
         >
           {{ $t('message.reserve') }}
         </button>
-        <button id="show-modal2" @click="$emit('show-cleanform')">
+        <button
+          v-if="seltype === 'free' || seltype === 'reserved'"
+          id="show-modal2"
+          @click="$emit('show-cleanform')"
+        >
           {{ $t('message.claim_clean') }}
         </button>
       </slot>

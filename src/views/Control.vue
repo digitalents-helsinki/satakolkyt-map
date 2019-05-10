@@ -25,7 +25,6 @@
             @map-loaded="mapLoaded"
             @free-click="populateSelectedShoreData"
             @hidden-click="populateSelectedHiddenShoreData"
-            @unselect="unShow"
             :showOnMap="showOnMap"
             :freeshores="this.$store.state.maplayers.freelayer"
             :reservedshores="this.$store.state.maplayers.reservedlayer"
@@ -314,9 +313,7 @@ export default {
       this.showCleanConfirmation = !this.showCleanConfirmation
     },
     shoreHidden(data) {
-      //remove selected layers
-      this.map.removeLayer('freeShoreSelected')
-      this.map.removeSource('freeShoreSelected')
+      this.$refs.adminmap.unSelect()
 
       //filter the feature from free shores data
       this.$refs.adminmap.removeSegmentFromLayer(
@@ -327,19 +324,18 @@ export default {
       this.mapOverlayAction = 'unhide'
       //add the feature to hidden shore data
       this.$refs.adminmap.addSegmentToLayer('hiddenShore', 'hiddenlayer', data)
-      this.$refs.adminmap.removeDetector()
     },
     shoreUnhidden(data) {
-      this.map.removeLayer('hiddenShoreSelected')
-      this.map.removeSource('hiddenShoreSelected')
+      this.$refs.adminmap.unSelect()
+
       this.mapOverlayAction = 'hide'
+
       this.$refs.adminmap.removeSegmentFromLayer(
         'hiddenShore',
         'hiddenlayer',
         data._key
       )
       this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
-      this.$refs.adminmap.removeDetector()
     },
     confirmReservation(e, reservation) {
       var id = e.target.id
@@ -350,20 +346,14 @@ export default {
         data: { key: id, reservation: reservation._key }
       })
         .then(response => {
-          console.log(response)
           if (response.data.status === 'ok') {
             reservation.confirmed = true
-            //this.shoreReserved(response.data.json)
           }
         })
         .catch(function(error) {
           console.log(error)
         })
     },
-    /*shoreReserved(data) {
-      this.$refs.adminmap.removeSegmentFromLayer('freeShore', 'freelayer', data._key)
-      this.$refs.adminmap.addSegmentToLayer('reservedShore', 'reservedlayer', data)
-    },*/
     shoreUnreserved(data) {
       this.$refs.adminmap.removeSegmentFromLayer(
         'reservedShore',
@@ -387,7 +377,6 @@ export default {
           clean: cleaned._key
         })
         .then(response => {
-          console.log(response)
           if (response.data.status === 'ok') {
             cleaned.confirm = false
             this.shoreCleanedCanceled(response.data.json)
@@ -422,10 +411,8 @@ export default {
           reservation: reservation._key
         })
         .then(response => {
-          console.log(response)
           if (response.data.status === 'ok') {
             reservation.confirmed = false
-            //this.shoreUnreserved(response.data.json)
           }
         })
         .catch(function(error) {
@@ -440,9 +427,7 @@ export default {
           clean: clean._key
         })
         .then(response => {
-          console.log(response)
           clean.confirm = true
-          //this.shoreCleaned(response.data.json)
         })
         .catch(function(error) {
           console.log(error)
@@ -482,45 +467,13 @@ export default {
       )
       this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
     },
-    showreservation(e) {
-      if (this.showOnMap) {
-        this.unShow()
-      }
-      const id = e.target.id
-      const confirmed = this.reservations.find(e => {
-        return e.selected.key === id
-      }).confirmed
+    showreservation(ev) {
+      this.$refs.adminmap.unSelect()
+      this.$refs.adminmap.selectShore(ev.target.id, 'reservedShore')
+
       const data = this.$store.state.maplayers['reservedlayer'].find(e => {
-        return e._key === id
+        return e._key === ev.target.id
       })
-      const featcoll = {
-        type: 'FeatureCollection',
-        features: [data]
-      }
-      const selShSource = this.map.getSource('reservedShoreSelected')
-      if (!selShSource) {
-        this.map.addSource('reservedShoreSelected', {
-          type: 'geojson',
-          data: featcoll
-        })
-        this.map.addLayer({
-          id: 'reservedShoreSelected',
-          type: 'line',
-          source: 'reservedShoreSelected',
-          layout: {
-            'line-join': 'round',
-            'line-cap': 'round'
-          },
-          paint: {
-            'line-color': '#FF7575',
-            'line-width': 1
-          }
-        })
-      } else {
-        selShSource.setData(featcoll)
-      }
-      ;<p>test</p>
-      this.showOnMap = 'reserved'
       this.map.flyTo({
         center: [
           data.geometry.coordinates[0][0],
@@ -529,49 +482,13 @@ export default {
         zoom: 17
       })
     },
-    showcleaned(e) {
-      if (this.showOnMap) {
-        this.unShow()
-      }
-      const id = e.target.id
-      const confirmed = this.cleaned.find(e => {
-        return e.selected.key === id
-      }).confirm
-      const layer = confirmed ? 'cleanlayer' : 'freelayer'
-      const data = this.$store.state.maplayers[layer].find(e => {
-        return e._key === id
+    showcleaned(ev) {
+      this.$refs.adminmap.unSelect()
+      this.$refs.adminmap.selectShore(ev.target.id, 'cleanedShore')
+
+      const data = this.$store.state.maplayers['cleanlayer'].find(e => {
+        return e._key === ev.target.id
       })
-      const featcoll = {
-        type: 'FeatureCollection',
-        features: [data]
-      }
-      const sourcename = confirmed
-        ? 'cleanedShoreSelected'
-        : 'freeShoreSelected'
-      const paintcolor = confirmed ? '#00AA33' : '#8595E5'
-      const selShSource = this.map.getSource(sourcename)
-      if (!selShSource) {
-        this.map.addSource(sourcename, {
-          type: 'geojson',
-          data: featcoll
-        })
-        this.map.addLayer({
-          id: sourcename,
-          type: 'line',
-          source: sourcename,
-          layout: {
-            'line-join': 'round',
-            'line-cap': 'round'
-          },
-          paint: {
-            'line-color': paintcolor,
-            'line-width': 1
-          }
-        })
-      } else {
-        selShSource.setData(featcoll)
-      }
-      this.showOnMap = 'cleaned'
       this.map.flyTo({
         center: [
           data.geometry.coordinates[0][0],
@@ -579,17 +496,6 @@ export default {
         ],
         zoom: 17
       })
-    },
-    unShow() {
-      this.mapOverlayAction = null
-      if (
-        this.showOnMap &&
-        this.map.isSourceLoaded(this.showOnMap + 'ShoreSelected')
-      ) {
-        this.map.removeLayer(this.showOnMap + 'ShoreSelected')
-        this.map.removeSource(this.showOnMap + 'ShoreSelected')
-      }
-      this.showOnMap = null
     },
     initMap() {
       this.$store.dispatch('getfreelayer')
