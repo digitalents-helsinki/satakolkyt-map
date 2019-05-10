@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="shore-info">
-      <h2>{{ data.key }}</h2>
+      <!--h2>{{ data.key }}</h2-->
       <slot name="header">
         <button
           v-if="seltype === 'free'"

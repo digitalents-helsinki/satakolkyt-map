@@ -93,11 +93,33 @@
                 </button>
                 <button
                   class="small-button del-button"
-                  @click="deleteReservation($event, reservation)"
-                  v-bind:id="reservation.selected.key"
+                  @click="toggleReservationConfirmation()"
                 >
                   {{ $t('message.delete_reservation') }}
                 </button>
+                <div
+                  class="confirmation-wrapper"
+                  v-if="showReservationConfirmation"
+                >
+                  <div class="confirmation-container">
+                    {{
+                      $t('message.reservation_deletion_confirmation_message')
+                    }}
+                    <button @click="toggleReservationConfirmation()">
+                      {{
+                        $t('message.reservation_deletion_confirmation_negative')
+                      }}
+                    </button>
+                    <button
+                      v-on:click="deleteReservation($event, reservation)"
+                      v-bind:id="reservation.selected.key"
+                    >
+                      {{
+                        $t('message.reservation_deletion_confirmation_positive')
+                      }}
+                    </button>
+                  </div>
+                </div>
                 <template v-if="reservation.confirmed">
                   <button
                     class="small-button cancel-button"
@@ -124,7 +146,7 @@
               <div class="clean-time">
                 <h3>{{ $t('message.date') }}</h3>
                 <p>
-                  {{ $t('message.starts') }}:
+                  {{ $t('message.notified') }}:
                   <template v-if="$i18n.locale != 'fi'">
                     {{ clean.date | moment('DD MMMM YYYY') }}
                   </template>
@@ -149,11 +171,24 @@
                 </button>
                 <button
                   class="small-button del-button"
-                  @click="deleteCleaned($event, clean)"
-                  v-bind:id="clean.selected.key"
+                  @click="toggleCleanConfirmation()"
                 >
                   {{ $t('message.delete_cleaned') }}
                 </button>
+                <div class="confirmation-wrapper" v-if="showCleanConfirmation">
+                  <div class="confirmation-container">
+                    {{ $t('message.clean_deletion_confirmation_message') }}
+                    <button @click="toggleCleanConfirmation()">
+                      {{ $t('message.clean_deletion_confirmation_negative') }}
+                    </button>
+                    <button
+                      v-on:click="deleteCleaned($event, clean)"
+                      v-bind:id="clean.selected.key"
+                    >
+                      {{ $t('message.clean_deletion_confirmation_positive') }}
+                    </button>
+                  </div>
+                </div>
                 <template v-if="clean.confirm">
                   <button
                     class="small-button confirm-button"
@@ -181,7 +216,7 @@
   </div>
   <div v-else>
     <form class="form" v-on:submit.prevent="signin">
-      <label for="username">username</label>
+      <label for="username">{{ $t('message.username') }}</label>
       <input
         id="username"
         v-model="login.username"
@@ -189,7 +224,7 @@
         name=""
         value=""
       />
-      <label for="password">password</label>
+      <label for="password">{{ $t('message.password') }}</label>
       <input
         id="password"
         v-model="login.password"
@@ -197,7 +232,7 @@
         name=""
         value=""
       />
-      <button type="submit" name="">Login</button>
+      <button type="submit" name="">{{ $t('message.login') }}</button>
     </form>
   </div>
 </template>
@@ -226,7 +261,9 @@ export default {
       mapOverlayAction: null,
       showReservations: false,
       showCleanedShores: false,
-      showOnMap: false
+      showOnMap: false,
+      showReservationConfirmation: false,
+      showCleanConfirmation: false
     }
   },
   components: {
@@ -269,6 +306,12 @@ export default {
     toggleCleanedShoresList() {
       this.showReservations = false
       this.showCleanedShores = !this.showCleanedShores
+    },
+    toggleReservationConfirmation() {
+      this.showReservationConfirmation = !this.showReservationConfirmation
+    },
+    toggleCleanConfirmation() {
+      this.showCleanConfirmation = !this.showCleanConfirmation
     },
     shoreHidden(data) {
       //remove selected layers
@@ -355,6 +398,7 @@ export default {
         })
     },
     deleteReservation(e, reservation) {
+      this.toggleReservationConfirmation()
       axios
         .delete(process.env.VUE_APP_URL + '/api/map/reservation', {
           data: { id: reservation._key, key: e.target.id }
@@ -405,6 +449,7 @@ export default {
         })
     },
     deleteCleaned(e, clean) {
+      this.toggleCleanConfirmation()
       axios
         .delete(process.env.VUE_APP_URL + '/api/map/cleanedshore', {
           data: { id: clean._key, key: e.target.id }
@@ -474,6 +519,7 @@ export default {
       } else {
         selShSource.setData(featcoll)
       }
+      ;<p>test</p>
       this.showOnMap = 'reserved'
       this.map.flyTo({
         center: [
@@ -735,5 +781,30 @@ input[type='text']:focus,
 input[type='password']:focus {
   background-color: #ddd;
   outline: none;
+}
+
+.confirmation-wrapper {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998;
+
+  .confirmation-container {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1rem;
+    width: 400px;
+    text-align: center;
+
+    button {
+      margin-top: 1rem;
+    }
+  }
 }
 </style>

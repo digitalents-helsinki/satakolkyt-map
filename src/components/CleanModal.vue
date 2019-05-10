@@ -256,7 +256,7 @@
                   <span
                     class="privacy-policy-button"
                     @click="$emit('show-privacy-info')"
-                    ><h4>Privacy policy</h4></span
+                    ><h4>{{ $t('message.privacy_policy') }}</h4></span
                   >
                   <h4>{{ $t('message.submit_permission_text') }}</h4>
                   <input

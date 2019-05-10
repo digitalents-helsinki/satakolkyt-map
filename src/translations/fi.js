@@ -66,6 +66,7 @@ export const fi = {
     date: 'Ajankohta',
     starts: 'Alkaa',
     ends: 'Loppuu',
+    notified: 'Ilmoitettu',
     contact_info: 'Yhteystiedot',
     time: 'Aika',
     cleaned: 'Siivotut rannat',
@@ -80,15 +81,37 @@ export const fi = {
     delete_reservation: 'Poista varaus',
     confirm_reservation: 'Vahvista varaus',
     cancel_reservation: 'Poista Vahvistus',
-    submit_permission_text1:
+    submit_permission_text:
       'Hyväksyn rekisteriselosteen mukaisen tietojeni käytön.',
     shores: 'Rantaviiva',
     shorescleaned: 'Siivottu',
     shoresreserved: 'Varattu',
     shoresfree: 'Vapaa',
     shoresselected: 'Valittu',
+    reserved_shore: 'Varattu ranta',
+    cleaned_shore: 'Siivottu ranta',
+    confirmed: 'Varmistettu',
+    unconfirmed: 'Ei varmistettu',
+    event_info: 'Tapahtumatietoja',
+    event_link: 'Tapahtumalinkki',
+    begins: 'Alkaa',
+    privacy_policy: 'Rekisteri- ja tietosuojaseloste',
+    steps_walked: 'askelta kävelty',
+    km_cleaned: 'km siivottu',
+    start_in_future: 'Aloitusajan täytyy olla tulevaisuudessa!',
+    start_before_end: 'Aloitusajan täytyy olla ennen päättymisaikaa!',
+    username: 'Käyttäjätunnus',
+    password: 'Salasana',
+    login: 'Kirjaudu',
     iframe: 'KUTSU RYHMÄSI JA VALITSE RANTAVIIVALTA PALA SIIVOTTAVAKSI!',
     err_shoreunavailable: 'Virhe: Ranta ei ole saatavilla!',
-    err_validationerror: 'Virhe: Epäkelvolliset tiedot!'
+    err_validationerror: 'Virhe: Epäkelvolliset tiedot!',
+    reservation_deletion_confirmation_message:
+      'Haluatko varmasti poistaa varauksen?',
+    reservation_deletion_confirmation_positive: 'Poista varaus',
+    reservation_deletion_confirmation_negative: 'Peru',
+    clean_deletion_confirmation_message: 'Haluatko varmasti hylätä siivouksen?',
+    clean_deletion_confirmation_positive: 'Hylkää siivous',
+    clean_deletion_confirmation_negative: 'Peru'
   }
 }

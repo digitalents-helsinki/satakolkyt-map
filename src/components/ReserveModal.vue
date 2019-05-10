@@ -160,7 +160,7 @@
                   <span
                     class="privacy-policy-button"
                     @click="$emit('show-privacy-info')"
-                    ><h4>Privacy policy</h4></span
+                    ><h4>{{ $t('message.privacy_policy') }}</h4></span
                   >
                   <h4>{{ $t('message.submit_permission_text') }}</h4>
                   <input
@@ -259,17 +259,11 @@ export default {
         this.reservationdata.starttime.mm
       this.$emit('reservation-action', {
         data: reservation,
-        okCB: this.reservationOk,
-        errCB: this.reservationError
+        okCB: this.reservationOk
       })
     },
     reservationOk() {
       this.saved = true
-    },
-    reservationError(data) {
-      console.log(data)
-      this.errors = data.errors
-      alert('something went wrong: your reservation was rejected')
     },
     checkDateValidity() {
       const sd = this.reservationdata.startdate.split('-')
@@ -286,7 +280,7 @@ export default {
       const now = new Date()
       console.log('now: ', now, 'start: ', start)
       if (start < now) {
-        this.dateerrormsg = 'Aloitusajan täytyy olla tulevaisuudessa!'
+        this.dateerrormsg = this.$t('message.start_in_future')
         return false
       } else {
         this.dateerrormsg = ''
@@ -306,7 +300,7 @@ export default {
         this.dateerrormsg = ''
         return true
       } else {
-        this.dateerrormsg = 'Aloitusajan täytyy olla ennen päättymisaikaa!'
+        this.dateerrormsg = this.$t('message.start_before_end')
         return false
       }
     }

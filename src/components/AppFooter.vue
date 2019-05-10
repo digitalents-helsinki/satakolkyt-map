@@ -21,19 +21,19 @@
           </admin-shore-info>
         </template>
       </div>
-    </div>
-    <div class="counter" :class="{ hide: this.$props.data }">
-      <div class="stepcount green">
-        620 597
-      </div>
-      <div class="stepinfo">
-        askelta kävelty
-      </div>
-      <div class="kilometercount red">
-        89
-      </div>
-      <div class="kiloinfo">
-        km siivottu
+      <div class="counter" :class="{ hide: this.$props.data }">
+        <div class="stepcount green">
+          620 597
+        </div>
+        <div class="stepinfo">
+          {{ $t('message.steps_walked') }}
+        </div>
+        <div class="kilometercount red">
+          89
+        </div>
+        <div class="kiloinfo">
+          {{ $t('message.km_cleaned') }}
+        </div>
       </div>
     </div>
     <div class="colors">
@@ -103,24 +103,50 @@ export default {
 
 <style lang="scss" scoped>
 .footer {
-  position: fixed;
+  position: absolute;
   left: 0;
   bottom: 0;
   z-index: 99;
-  width: 100vw;
+  width: 85vw;
   height: 8vh;
   padding: 0%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background-color: white;
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20px;
+  }
+
+  .counter {
+    position: absolute;
+    z-index: 9995;
+    bottom: 5px;
+    right: 20px;
+    align-items: center;
+    display: flex;
+    font-size: 3em;
+    font-weight: bold;
+
+    .stepinfo,
+    .kiloinfo {
+      text-transform: uppercase;
+      max-width: 150px;
+      font-size: 32px;
+      margin-left: 0.5em;
+    }
+  }
 }
 .colors {
   position: fixed;
   right: 0;
   z-index: 999;
   bottom: 0;
-  width: 15%;
+  width: 15vw;
   height: 20vh;
   display: flex;
   text-transform: uppercase;
@@ -142,16 +168,6 @@ export default {
   }
 }
 
-.counter {
-  z-index: 999;
-  text-align: center;
-  position: fixed;
-  bottom: 0;
-  right: 30%;
-  align-items: center;
-  display: flex;
-  font-size: 3em;
-}
 .green {
   color: green;
   margin-right: 5px;
@@ -162,23 +178,6 @@ export default {
 }
 @media only screen and (max-width: 600px) {
   .colors {
-    display: none;
-  }
-}
-@media only screen and (max-width: 1366px) {
-  .counter {
-    font-size: 2em;
-    left: 0%;
-    text-transform: uppercase;
-    font-weight: bold;
-    color: black;
-    width: 100%;
-  }
-
-  .footer {
-    height: 13vh;
-  }
-  .hide {
     display: none;
   }
 }
