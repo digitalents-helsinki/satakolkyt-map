@@ -45,7 +45,8 @@ export default {
         pitchWithRotate: false,
         dragRotate: false,
         touchZoomRotate: false,
-        hash: true
+        hash: true,
+        attributionControl: false
       },
       navControl: {
         show: false
@@ -203,6 +204,10 @@ export default {
       })
     },
     mapLoaded(map) {
+      map.addControl(
+        new mapboxgl.AttributionControl({ compact: false }),
+        'bottom-right'
+      )
       this.map = map
 
       this.addShoreType(map, 'freeShore', this.freeshores, '#2e318e', '#00a0ff')
@@ -283,14 +288,19 @@ export default {
 #map {
   height: 100%;
   width: 100%;
-}
-.mapboxgl-ctrl-icon.mapboxgl-ctrl-zoom-in {
-  min-width: 1ex !important;
-  border-radius: 0px;
-}
-.mapboxgl-ctrl > button {
-  min-width: 1ex !important;
-  border-radius: 0px;
+
+  .mapboxgl-ctrl-bottom-right {
+    bottom: 80px;
+    right: 210px;
+
+    @media only screen and (max-width: 768px) {
+      bottom: 64px;
+    }
+
+    .mapbox-improve-map {
+      display: none;
+    }
+  }
 }
 
 .mapboxgl-canvas-container.mapboxgl-interactive,

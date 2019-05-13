@@ -130,6 +130,7 @@ export default {
   width: 100vw;
   flex-direction: row;
   pointer-events: none;
+  z-index: 9997;
 
   .footer-container {
     display: flex;
