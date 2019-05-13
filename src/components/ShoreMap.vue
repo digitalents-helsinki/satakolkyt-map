@@ -257,8 +257,12 @@ export default {
         }
       })
       document.body.addEventListener(
-        'gestureend',
+        'touchend',
         function(e) {
+          if (e.originalEvent.touches.length > 1) {
+            return
+          }
+
           if (e.scale < 1.0) {
             alert('zoom')
           } else if (e.scale > 1.0) {
