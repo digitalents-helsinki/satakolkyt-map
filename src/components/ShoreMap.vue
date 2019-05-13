@@ -243,46 +243,8 @@ export default {
       map.on('zoom', () => {
         this.onZoom(map)
       })
-      map.on('touchstart', event => {
-        if (
-          event.originalEvent &&
-          'touches' in event.originalEvent &&
-          event.originalEvent.touches.length >= 2
-        ) {
-          alert('zoom')
-        } else {
-          this.map.dragPan.disable()
-          this.map.dragPan.enable()
-          console.log('not legit, disable causes cancellation of drag')
-        }
-      })
-      document.body.addEventListener(
-        'touchstart',
-        function(e) {
-          if (e.originalEvent.touches.length > 1) {
-            return
-          }
-
-          if (e.scale < 1.0) {
-            alert('zoom')
-          } else if (e.scale > 1.0) {
-            alert('zoom')
-          }
-        },
-        false
-      )
-      map.on('click', event => {
-        if (
-          event.originalEvent &&
-          'touches' in event.originalEvent &&
-          event.originalEvent.touches.length >= 2
-        ) {
-          alert('zoom')
-        } else {
-          this.map.dragPan.disable()
-          this.map.dragPan.enable()
-          console.log('not legit, disable causes cancellation of drag')
-        }
+      map.on('click', e => {
+        alert('s')
       })
       this.onZoom(map)
 
