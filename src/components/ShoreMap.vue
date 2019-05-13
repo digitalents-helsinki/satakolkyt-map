@@ -243,7 +243,7 @@ export default {
       map.on('zoom', () => {
         this.onZoom(map)
       })
-      map.on('click', e => {
+      map.on('touchstart', e => {
         alert('s')
       })
       this.onZoom(map)
