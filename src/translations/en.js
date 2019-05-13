@@ -6,6 +6,7 @@ export const en = {
     open_map: 'Open the map view?',
     open: 'Open',
     app: 'SATAKOLKYT map application',
+    legend: 'Legend',
     reserve: 'Reserve a shore',
     reserve_clean: 'Reserve a shore to clean up ',
     reserve_sub:

@@ -6,6 +6,7 @@ export const fi = {
     open_map: 'Avataanko Karttanäkymä?',
     open: 'Avaa',
     app: 'SATAKOLKYT karttasovellus',
+    legend: 'Karttaselite',
     reserve: 'Varaa ranta',
     claim: 'Ilmoita ranta siivotuksi',
     reserve_clean: 'Varaa ranta siivoukseen',

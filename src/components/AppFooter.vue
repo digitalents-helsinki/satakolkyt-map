@@ -38,9 +38,21 @@
         </div>
       </div>
     </div>
-    <div class="colors">
+    <div
+      class="colors"
+      :class="{ legenddown: legendmobilehidden }"
+      @click="legendmobilehidden = !legendmobilehidden"
+    >
       <div class="container">
-        <div class="title">{{ $t('message.shores') }}:</div>
+        <div class="title">
+          <div class="hideable">
+            <h6>{{ $t('message.legend') }}</h6>
+            <div class="arrow">
+              {{ legendmobilehidden ? '&#9650;' : '&#9660;' }}
+            </div>
+          </div>
+          <h6>{{ $t('message.shores') }}:</h6>
+        </div>
         <div class="images">
           <div class="free">
             <img src="../Icons/blue.svg" alt="" />
@@ -84,6 +96,11 @@ export default {
   components: {
     ShoreInfo,
     AdminShoreInfo
+  },
+  data() {
+    return {
+      legendmobilehidden: true
+    }
   },
   mounted() {},
   methods: {
@@ -165,19 +182,33 @@ export default {
 
   .colors {
     position: relative;
-    z-index: 99999;
+    z-index: 99;
     width: 15vw;
     min-width: 210px;
-    height: 20vh;
-    min-height: 190px;
+    height: 220px;
     display: flex;
     text-transform: uppercase;
     font-weight: 700;
     flex-direction: column;
     background-color: #f0e41a;
+
     .title {
+      position: relative;
       margin-bottom: 10px;
       margin-top: 20px;
+
+      .hideable {
+        display: none;
+        margin-bottom: 10px;
+
+        .arrow {
+          position: absolute;
+          right: 0;
+          top: -4px;
+          color: black;
+          font-size: 18px;
+        }
+      }
     }
     .container {
       margin: 0 15px;
@@ -273,8 +304,10 @@ export default {
       bottom: 64px;
       width: 45%;
       max-width: 200px;
-      height: 120px;
+      height: 145px;
       min-height: 0;
+      pointer-events: all;
+      cursor: pointer;
 
       .container {
         margin-left: 10px;
@@ -283,6 +316,10 @@ export default {
       .title {
         font-size: 14px;
         margin: 10px 0;
+
+        .hideable {
+          display: block;
+        }
       }
 
       .images {
@@ -296,6 +333,9 @@ export default {
           max-width: 50px;
         }
       }
+    }
+    .legenddown {
+      bottom: -50px;
     }
   }
 }
