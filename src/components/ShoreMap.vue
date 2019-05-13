@@ -256,7 +256,7 @@ export default {
           console.log('not legit, disable causes cancellation of drag')
         }
       })
-      body.addEventListener(
+      document.body.addEventListener(
         'gestureend',
         function(e) {
           if (e.scale < 1.0) {
