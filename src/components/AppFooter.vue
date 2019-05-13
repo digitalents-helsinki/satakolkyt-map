@@ -1,38 +1,40 @@
 <template>
-  <div>
-    <div class="footer">
-      <div class="buttons">
-        <template v-if="!this.$props.adminmode">
-          <shore-info
-            v-show="this.$props.data"
-            @show-reservationform="this.showReservationForm"
-            @show-cleanform="this.showCleanedForm"
-            :data="this.$props.data"
-            :seltype="seltype"
-          />
-        </template>
-        <template v-else>
-          <admin-shore-info
-            :data="this.$props.data"
-            :action="this.$props.action"
-            @hide-shore="this.hideShoreMap"
-            @unhide-shore="this.unHideShoreMap"
-          >
-          </admin-shore-info>
-        </template>
-      </div>
-      <div class="counter" :class="{ hide: this.$props.data }">
-        <div class="stepcount green">
-          620 597
+  <div class="footer-wrapper">
+    <div class="footer-container">
+      <div class="footer">
+        <div class="buttons">
+          <template v-if="!this.$props.adminmode">
+            <shore-info
+              v-show="this.$props.data"
+              @show-reservationform="this.showReservationForm"
+              @show-cleanform="this.showCleanedForm"
+              :data="this.$props.data"
+              :seltype="seltype"
+            />
+          </template>
+          <template v-else>
+            <admin-shore-info
+              :data="this.$props.data"
+              :action="this.$props.action"
+              @hide-shore="this.hideShoreMap"
+              @unhide-shore="this.unHideShoreMap"
+            >
+            </admin-shore-info>
+          </template>
         </div>
-        <div class="stepinfo">
-          {{ $t('message.steps_walked') }}
-        </div>
-        <div class="kilometercount red">
-          89
-        </div>
-        <div class="kiloinfo">
-          {{ $t('message.km_cleaned') }}
+        <div class="counter" :class="{ hide: this.$props.data }">
+          <div class="stepcount green">
+            620 597
+          </div>
+          <div class="stepinfo">
+            {{ $t('message.steps_walked') }}
+          </div>
+          <div class="kilometercount red">
+            189
+          </div>
+          <div class="kiloinfo">
+            {{ $t('message.km_cleaned') }}
+          </div>
         </div>
       </div>
     </div>
@@ -102,69 +104,90 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.footer {
+.footer-wrapper {
   position: absolute;
   left: 0;
   bottom: 0;
-  z-index: 99;
-  width: 85vw;
-  height: 8vh;
-  padding: 0%;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  background-color: white;
+  width: 100vw;
+  flex-direction: row;
+  pointer-events: none;
 
-  .buttons {
+  .footer-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin-left: 20px;
-  }
+    justify-content: flex-end;
+    width: 100%;
 
-  .counter {
-    position: absolute;
-    z-index: 9995;
-    bottom: 5px;
-    right: 20px;
-    align-items: center;
-    display: flex;
-    font-size: 3em;
-    font-weight: bold;
+    .footer {
+      position: relative;
+      z-index: 9999;
+      height: 80px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      background-color: white;
+      pointer-events: all;
 
-    .stepinfo,
-    .kiloinfo {
-      text-transform: uppercase;
-      max-width: 150px;
-      font-size: 32px;
-      margin-left: 0.5em;
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 20px;
+        height: 100%;
+      }
+
+      .counter {
+        position: relative;
+        z-index: 9995;
+        align-items: center;
+        display: flex;
+        font-size: 3em;
+        font-weight: bold;
+        padding: 0 10px;
+
+        .stepinfo,
+        .kiloinfo {
+          text-transform: uppercase;
+          max-width: 150px;
+          font-size: 32px;
+          margin-left: 0.5em;
+        }
+
+        .stepcount,
+        .kilometercount {
+          white-space: nowrap;
+        }
+      }
     }
   }
-}
-.colors {
-  position: fixed;
-  right: 0;
-  z-index: 999;
-  bottom: 0;
-  width: 15vw;
-  height: 20vh;
-  display: flex;
-  text-transform: uppercase;
-  font-weight: 700;
-  flex-direction: column;
-  background-color: #f0e41a;
-  .title {
-    margin-bottom: 10px;
-    margin-top: 20px;
-  }
-  .container {
-    margin-left: 30px;
-  }
-  .images img {
-    width: 50%;
-  }
-  .images div {
-    margin-bottom: 20px;
+
+  .colors {
+    position: relative;
+    z-index: 99999;
+    width: 15vw;
+    min-width: 210px;
+    height: 20vh;
+    min-height: 190px;
+    display: flex;
+    text-transform: uppercase;
+    font-weight: 700;
+    flex-direction: column;
+    background-color: #f0e41a;
+    .title {
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+    .container {
+      margin: 0 15px;
+    }
+    .images img {
+      width: 50%;
+    }
+    .images div {
+      margin-bottom: 20px;
+    }
   }
 }
 
@@ -176,31 +199,104 @@ export default {
   color: red;
   margin-left: 5px;
 }
-@media only screen and (max-width: 768px) {
-  .footer {
-    bottom: 30px;
-    width: 100%;
-    height: 20%;
-    background-color: transparent;
 
-    .buttons {
-      width: 100%;
-      margin: 0;
+@media only screen and (max-width: 1366px) {
+  .footer-wrapper {
+    .footer-container {
+      .footer {
+        justify-content: center;
+
+        .buttons {
+          position: absolute;
+          align-content: center;
+          background-color: white;
+          z-index: 9999;
+          margin: 0;
+        }
+
+        .counter {
+          .stepcount,
+          .kilometercount {
+            font-size: 36px;
+          }
+          .stepinfo,
+          .kiloinfo {
+            font-size: 24px;
+            max-width: 120px;
+          }
+        }
+
+        .hide {
+          display: none;
+        }
+      }
     }
   }
-  .colors {
-    display: none;
-  }
-  .counter {
-    display: none;
-  }
-  .stepcount,
-  .kilometercount {
-    display: none;
-  }
-  .stepinfo,
-  .kiloinfo {
-    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .footer-wrapper {
+    justify-content: flex-end;
+
+    .footer-container {
+      .footer {
+        bottom: 0;
+        width: 100%;
+        height: 64px;
+
+        .counter {
+          position: relative;
+          padding: 0 5px;
+          right: 0;
+          bottom: 0;
+
+          .stepcount,
+          .kilometercount {
+            font-size: 30px;
+            margin: 0;
+          }
+          .stepinfo,
+          .kiloinfo {
+            font-size: 16px;
+            max-width: 90px;
+            margin: 0 5px;
+          }
+
+          .stepinfo {
+            margin-right: 15px;
+          }
+        }
+      }
+    }
+    .colors {
+      position: absolute;
+      bottom: 64px;
+      width: 45%;
+      max-width: 200px;
+      height: 120px;
+      min-height: 0;
+
+      .container {
+        margin-left: 10px;
+      }
+
+      .title {
+        font-size: 14px;
+        margin: 10px 0;
+      }
+
+      .images {
+        font-size: 12px;
+
+        div {
+          margin: 7px;
+        }
+
+        img {
+          max-width: 50px;
+        }
+      }
+    }
   }
 }
 </style>
