@@ -11,7 +11,7 @@
           class="cross-icon"
           @click="$emit('close')"
         />
-        <template v-if="!saved">
+        <template v-if="!saved && !loading">
           <div class="modal-page" v-show="pagenum === 0">
             <form v-on:submit.prevent="saveReservation">
               <div class="modal-header">
@@ -204,7 +204,12 @@
             </form>
           </div>
         </template>
-        <template v-if="saved">
+        <template v-if="!saved && loading">
+          <div class="spinner-container">
+            <spinner />
+          </div>
+        </template>
+        <template v-if="saved && !loading">
           <div class="modal-header">
             <slot name="header">
               <div class="reservation-saved">
@@ -222,8 +227,9 @@
 </template>
 <script>
 import VueTimepicker from 'vue2-timepicker'
+import Spinner from '@/components/Spinner'
 export default {
-  components: { VueTimepicker },
+  components: { VueTimepicker, Spinner },
   name: 'reserve-modal',
   props: ['selected'],
 
@@ -231,6 +237,7 @@ export default {
     return {
       pagenum: 0,
       saved: false,
+      loading: false,
       required: true,
       errors: [],
       timeformat: 'HH:mm',
@@ -271,6 +278,7 @@ export default {
       this.pagenum--
     },
     saveReservation(e) {
+      this.loading = true
       if (e.target.form.reportValidity()) {
         if (!this.checkDateValidity()) {
           return
@@ -291,6 +299,7 @@ export default {
       }
     },
     reservationOk() {
+      this.loading = false
       this.saved = true
     },
     checkDateValidity() {
@@ -627,5 +636,12 @@ textarea {
 }
 .datetime-item > * {
   margin: 0 3px;
+}
+.spinner-container {
+  width: 100%;
+  height: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
