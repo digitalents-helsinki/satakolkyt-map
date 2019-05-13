@@ -91,6 +91,8 @@ export const fi = {
     shoresselected: 'Valittu',
     reserved_shore: 'Varattu ranta',
     cleaned_shore: 'Siivottu ranta',
+    free_shore: 'Vapaa ranta',
+    come_clean: 'Tule siivoamaan!',
     confirmed: 'Varmistettu',
     unconfirmed: 'Ei varmistettu',
     event_info: 'Tapahtumatietoja',

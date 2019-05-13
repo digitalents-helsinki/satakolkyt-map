@@ -88,6 +88,8 @@ export const en = {
     shoresselected: 'Selected',
     reserved_shore: 'Reserved shore',
     cleaned_shore: 'Cleaned shore',
+    free_shore: 'Available shore',
+    come_clean: 'Come and clean it up!',
     confirmed: 'Confirmed',
     unconfirmed: 'Unconfirmed',
     event_info: 'Event info',

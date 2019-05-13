@@ -14,7 +14,6 @@
         @free-click="selectFree"
         @reserved-click="selectReserved"
         @cleaned-click="selectCleaned"
-        @unselect="unselectShore"
       />
       <section v-else>
         <div class="initial-background"></div>
@@ -38,10 +37,25 @@
         :showReservation="showReservationForm"
       />
       <div v-if="showReservedInfo">
-        <InfoBox type="reservation" v-bind:data="reservedInfo" />
+        <InfoBox
+          type="reservation"
+          v-bind:data="reservedInfo"
+          @infobox-unselect="unselectShore"
+        />
       </div>
       <div v-if="showCleanedInfo">
-        <InfoBox type="clean" v-bind:data="cleanedInfo" />
+        <InfoBox
+          type="clean"
+          v-bind:data="cleanedInfo"
+          @infobox-unselect="unselectShore"
+        />
+      </div>
+      <div v-if="showFreeInfo">
+        <InfoBox
+          type="free"
+          :data="selectedShoreData"
+          @infobox-unselect="unselectShore"
+        />
       </div>
       <div v-if="showReservationForm">
         <transition name="modal">
@@ -115,6 +129,7 @@ export default {
       showReservedInfo: false,
       cleanedInfo: null,
       showCleanedInfo: false,
+      showFreeInfo: false,
       // Overlay box
       dimBackground: true,
       // Selected Shore
@@ -208,6 +223,7 @@ export default {
       this.showModal = !this.showModal
     },
     selectReserved(data) {
+      this.unselectShore()
       this.selectedShoreData = data
       this.selectedShoreType = 'reserved'
       axios
@@ -228,6 +244,7 @@ export default {
         )
     },
     selectCleaned(data) {
+      this.unselectShore()
       this.selectedShoreData = data
       this.selectedShoreType = 'cleaned'
       axios
@@ -248,13 +265,17 @@ export default {
         )
     },
     selectFree(data) {
+      this.unselectShore()
       this.selectedShoreData = data
       this.selectedShoreType = 'free'
+      this.showFreeInfo = true
     },
     unselectShore() {
+      this.$refs.usermap.unSelect()
       this.selectedShoreData = null
       this.showReservedInfo = false
       this.showCleanedInfo = false
+      this.showFreeInfo = false
     }
   },
 

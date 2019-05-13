@@ -1,5 +1,12 @@
 <template>
   <div class="infobox">
+    <div class="closer">
+      <font-awesome-icon
+        icon="times"
+        class="cross-icon"
+        @click="$emit('infobox-unselect')"
+      />
+    </div>
     <template v-if="this.$props.type === 'reservation'">
       <h1>{{ $t('message.reserved_shore') }}</h1>
       <h2>
@@ -42,6 +49,11 @@
         <b>{{ $t('message.shorescleaned') }}:</b> {{ cleanedInfo.date }}
       </p>
     </template>
+    <template v-if="type === 'free'">
+      <h1>{{ $t('message.free_shore') }}</h1>
+      <p>{{ $t('message.come_clean') }}</p>
+    </template>
+    <div class="idnum">ID: {{ type === 'free' ? data.key : data._key }}</div>
   </div>
 </template>
 <script>
@@ -66,6 +78,12 @@ export default {
   background-color: white;
   padding: 10px;
 
+  .closer {
+    position: absolute;
+    font-size: 30px;
+    right: 20px;
+  }
+
   h1 {
     text-align: center;
     font-size: 20px;
@@ -82,6 +100,13 @@ export default {
 
   p {
     margin: 5px 0;
+  }
+
+  .idnum {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #bbb;
   }
 }
 </style>

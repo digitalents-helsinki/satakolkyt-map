@@ -6,11 +6,6 @@
       :nav-control="navControl"
       @map-load="mapLoaded"
     />
-    <div
-      class="clickdetector"
-      v-show="selected.id"
-      @click.prevent="detectorClick"
-    ></div>
   </div>
 </template>
 
@@ -113,16 +108,13 @@ export default {
       })
     },
     selectShore(id, layername) {
+      this.unSelect()
       this.selected.layer = layername
       this.selected.id = id
       this.map.setFeatureState(
         { source: layername, id: id },
         { selected: true }
       )
-    },
-    detectorClick() {
-      this.$emit('unselect')
-      this.unSelect()
     },
     unSelect() {
       this.map.setFeatureState(
