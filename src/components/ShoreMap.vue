@@ -256,6 +256,17 @@ export default {
           console.log('not legit, disable causes cancellation of drag')
         }
       })
+      body.addEventListener(
+        'gestureend',
+        function(e) {
+          if (e.scale < 1.0) {
+            alert('zoom')
+          } else if (e.scale > 1.0) {
+            alert('zoom')
+          }
+        },
+        false
+      )
       map.on('click', event => {
         if (
           event.originalEvent &&
