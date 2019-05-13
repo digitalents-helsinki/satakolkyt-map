@@ -243,7 +243,7 @@ export default {
       map.on('zoom', () => {
         this.onZoom(map)
       })
-      map.on('dragstart', event => {
+      map.on('touchstart', event => {
         if (
           event.originalEvent &&
           'touches' in event.originalEvent &&
@@ -257,7 +257,7 @@ export default {
         }
       })
       document.body.addEventListener(
-        'touchend',
+        'touchstart',
         function(e) {
           if (e.originalEvent.touches.length > 1) {
             return
