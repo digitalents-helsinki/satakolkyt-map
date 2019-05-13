@@ -58,11 +58,11 @@ export default {
   data() {
     return {
       showHelp: false,
-      iframed: true
+      iframed: false
     }
   },
   mounted() {
-    //this.iframed = window.self !== window.top
+    this.iframed = window.self !== window.top
   }
 }
 </script>
