@@ -1,9 +1,6 @@
 <template>
-  <div class="wrapper">
-    <template
-      v-if="this.$props.type === 'reservation'"
-      class="infobox reserved-info"
-    >
+  <div class="infobox">
+    <template v-if="this.$props.type === 'reservation'">
       <h1>{{ $t('message.reserved_shore') }}</h1>
       <h2>
         {{
@@ -36,7 +33,7 @@
         {{ reservedInfo.enddate + ' ' + reservedInfo.endtime }}
       </p>
     </template>
-    <template v-if="this.$props.type === 'clean'" class="infobox cleaned-info">
+    <template v-if="this.$props.type === 'clean'">
       <h1>{{ $t('message.cleaned_shore') }}</h1>
       <p>
         <b>{{ $t('message.organizer') }}:</b> {{ cleanedInfo.organizer_name }}
@@ -62,13 +59,12 @@ export default {
 <style lang="scss">
 .infobox {
   position: absolute;
-  bottom: 150px;
-  left: 50px;
   width: 300px;
   height: 200px;
+  bottom: 150px;
+  left: 50px;
   background-color: white;
   padding: 10px;
-  z-index: 9999;
 
   h1 {
     text-align: center;

@@ -37,7 +37,7 @@
         :seltype="selectedShoreType"
         :showReservation="showReservationForm"
       />
-      <div v-if="showReservedInfo" class="infobox reserved-info">
+      <div v-if="showReservedInfo">
         <InfoBox type="reservation" v-bind:data="reservedInfo" />
       </div>
       <div v-if="showCleanedInfo">
