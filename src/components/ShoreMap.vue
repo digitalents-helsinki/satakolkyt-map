@@ -256,6 +256,19 @@ export default {
           console.log('not legit, disable causes cancellation of drag')
         }
       })
+      map.on('click', event => {
+        if (
+          event.originalEvent &&
+          'touches' in event.originalEvent &&
+          event.originalEvent.touches.length >= 2
+        ) {
+          alert('zoom')
+        } else {
+          this.map.dragPan.disable()
+          this.map.dragPan.enable()
+          console.log('not legit, disable causes cancellation of drag')
+        }
+      })
       this.onZoom(map)
 
       // disable map rotation using right click + drag
