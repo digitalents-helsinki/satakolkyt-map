@@ -249,7 +249,7 @@ export default {
           'touches' in event.originalEvent &&
           event.originalEvent.touches.length >= 2
         ) {
-          console.log('legit, num touches >= 2')
+          alert('zoom')
         } else {
           this.map.dragPan.disable()
           this.map.dragPan.enable()
