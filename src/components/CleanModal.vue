@@ -7,7 +7,7 @@
           class="cross-icon"
           @click="$emit('close')"
         />
-        <template v-if="!saved">
+        <template v-if="!saved && !loading">
           <div class="modal-page" v-show="pagenum == 0">
             <form>
               <div class="modal-header">
@@ -282,7 +282,12 @@
             </form>
           </div>
         </template>
-        <template v-if="saved">
+        <template v-if="!saved && loading">
+          <div class="spinner-container">
+            <spinner />
+          </div>
+        </template>
+        <template v-if="saved && !loading">
           <div class="modal-header">
             <slot name="header">
               <h1 class="success">{{ $t('message.cleaned_saved') }}</h1>
@@ -297,8 +302,10 @@
   </div>
 </template>
 <script>
+import Spinner from '@/components/Spinner'
 import axios from 'axios'
 export default {
+  components: { Spinner },
   name: 'clean-modal',
   props: ['selected'],
 
@@ -321,6 +328,7 @@ export default {
       },
       privacy_permission: false,
       saved: false,
+      loading: false,
       required: true,
       pagenum: 0
     }
@@ -331,6 +339,7 @@ export default {
   methods: {
     saveCleaned(e) {
       if (e.target.form.reportValidity()) {
+        this.loading = true
         axios({
           method: 'POST',
           url: process.env.VUE_APP_URL + '/api/map/cleaninfo',
@@ -339,6 +348,7 @@ export default {
           .then(res => {
             if (res.data.status === 'ok') {
               this.$emit('cleaned-ok', res.data.json)
+              this.loading = false
               this.saved = true
             }
           })
@@ -631,5 +641,12 @@ textarea {
 button {
   background-color: #00a0ff;
   color: white;
+}
+.spinner-container {
+  width: 100%;
+  height: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
