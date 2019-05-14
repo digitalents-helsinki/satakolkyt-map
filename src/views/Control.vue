@@ -12,9 +12,6 @@
       @unhide-shore="shoreUnhidden"
     />
 
-    <!-- <div class="controlpanel-container" @click.stop>
-     -->
-
     <div class="editor-wrapper">
       <div class="editor">
         {{ $t('message.edit_map') }}
@@ -221,7 +218,7 @@
       </div>
     </div>
   </div>
-  <div v-else>
+  <div v-else class="loginview">
     <form class="form" v-on:submit.prevent="signin">
       <label for="username">{{ $t('message.username') }}</label>
       <input
@@ -641,12 +638,6 @@ export default {
         }
       }
     }
-
-    .overlay-box-wrapper {
-      position: absolute;
-      bottom: 30px;
-      left: 110px;
-    }
   }
 }
 
@@ -664,28 +655,31 @@ export default {
   padding: 10px;
 }
 
-.form {
-  position: fixed;
-  top: 10%;
-  left: 46%;
-  width: 250px;
-  padding: 20px;
-  border: 5px dotted grey;
-}
+.loginview {
+  position: absolute;
+  top: 30vh;
+  width: 100%;
 
-input[type='text'],
-input[type='password'] {
-  padding: 15px;
-  margin-bottom: 20px;
-  display: block;
-  border: none;
-  background: #f1f1f1;
-}
+  .form {
+    width: 250px;
+    padding: 20px;
+    margin: 0 auto;
+    border: 5px dotted grey;
 
-input[type='text']:focus,
-input[type='password']:focus {
-  background-color: #ddd;
-  outline: none;
+    input {
+      padding: 15px;
+      margin-bottom: 20px;
+      display: block;
+      border: none;
+      background: #f1f1f1;
+      width: 100%;
+    }
+
+    input:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+  }
 }
 
 .confirmation-wrapper {
