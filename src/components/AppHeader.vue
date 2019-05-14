@@ -69,7 +69,7 @@ export default {
     }
   },
   mounted() {
-    this.iframed = window.self !== window.top
+    //this.iframed = window.self !== window.top
   }
 }
 </script>

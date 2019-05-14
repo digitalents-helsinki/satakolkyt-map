@@ -128,7 +128,7 @@ export default {
       const MAX_ZOOM = 20
       const MIN_ZOOM = 11
       const MAX_WIDTH = 22
-      const MIN_WIDTH = 2
+      const MIN_WIDTH = 4
 
       const zoom = map.getZoom()
       if (zoom >= MAX_ZOOM) {
@@ -202,13 +202,13 @@ export default {
       )
       this.map = map
 
-      this.addShoreType(map, 'freeShore', this.freeshores, '#2e318e', '#00a0ff')
+      this.addShoreType(map, 'freeShore', this.freeshores, '#f82828', '#ffb1b7')
       this.addShoreType(
         map,
         'reservedShore',
         this.reservedshores,
-        '#f82828',
-        '#ffb1b7'
+        '#fda218',
+        '#f0e41a'
       )
       this.addShoreType(
         map,
@@ -222,8 +222,8 @@ export default {
           map,
           'hiddenShore',
           this.hiddenshores,
-          '#f0e41a',
-          '#FFFF77'
+          '#2e318e',
+          '#00a0ff'
         )
       }
 

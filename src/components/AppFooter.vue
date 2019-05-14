@@ -44,26 +44,23 @@
       @click="legendmobilehidden = !legendmobilehidden"
     >
       <div class="container">
-        <div class="title">
+        <div class="header">
           <div class="hideable">
             <h6>{{ $t('message.legend') }}</h6>
             <div class="arrow">
               {{ legendmobilehidden ? '&#9650;' : '&#9660;' }}
             </div>
           </div>
-          <h6>{{ $t('message.shores') }}:</h6>
+          <h6 class="title">{{ $t('message.shores') }}:</h6>
         </div>
         <div class="images">
           <div class="free">
-            <img src="../Icons/blue.svg" alt="" />
+            <img src="../Icons/red.svg" alt="" />
             {{ $t('message.shoresfree') }}
           </div>
-          <div class="selected">
-            <img src="../Icons/lblue.svg" alt="" />
-            {{ $t('message.shoresselected') }}
-          </div>
+          <div class="come-clean">({{ $t('message.come_clean') }})</div>
           <div class="reserved">
-            <img src="../Icons/red.svg" alt="" />
+            <img src="../Icons/orange.svg" alt="" />
             {{ $t('message.shoresreserved') }}
           </div>
           <div class="cleaned">
@@ -193,7 +190,7 @@ export default {
     flex-direction: column;
     background-color: #f0e41a;
 
-    .title {
+    .header {
       position: relative;
       margin-bottom: 10px;
       margin-top: 20px;
@@ -214,11 +211,24 @@ export default {
     .container {
       margin: 0 15px;
     }
+
     .images img {
       width: 50%;
     }
-    .images div {
-      margin-bottom: 20px;
+    .images {
+      .free {
+        margin: 20px 0 10px 0;
+      }
+
+      .reserved,
+      .cleaned {
+        margin: 25px 0;
+      }
+
+      .come-clean {
+        margin: 0;
+        font-size: 14px;
+      }
     }
   }
 }
@@ -305,7 +315,7 @@ export default {
       bottom: 64px;
       width: 45%;
       max-width: 200px;
-      height: 145px;
+      height: 170px;
       min-height: 0;
       pointer-events: all;
       cursor: pointer;
@@ -314,9 +324,14 @@ export default {
         margin-left: 10px;
       }
 
-      .title {
+      .header {
         font-size: 14px;
         margin: 10px 0;
+
+        .title {
+          padding-top: 7px;
+          border-top: 1px solid black;
+        }
 
         .hideable {
           display: block;
@@ -324,19 +339,29 @@ export default {
       }
 
       .images {
-        font-size: 12px;
-
-        div {
-          margin: 7px;
+        .img {
+          max-width: 50px;
         }
 
-        img {
-          max-width: 50px;
+        .free {
+          margin: 0 0 5px 0;
+          font-size: 14px;
+        }
+
+        .reserved,
+        .cleaned {
+          margin: 15px 0;
+          font-size: 14px;
+        }
+
+        .come-clean {
+          margin: 0;
+          font-size: 11px;
         }
       }
     }
     .legenddown {
-      bottom: -50px;
+      bottom: -75px;
     }
   }
 }
