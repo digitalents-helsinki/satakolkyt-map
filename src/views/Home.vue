@@ -188,7 +188,7 @@ export default {
       this.showErrorInfo = true
     },
     shoreReserved(data) {
-      this.$refs.usermap.unSelect()
+      this.unselectShore()
       this.$refs.usermap.removeSegmentFromLayer(
         'freeShore',
         'freelayer',
@@ -201,7 +201,7 @@ export default {
       )
     },
     shoreCleaned(data) {
-      this.$refs.usermap.unSelect()
+      this.unselectShore()
       this.$refs.usermap.removeSegmentFromLayer(
         'freeShore',
         'freelayer',

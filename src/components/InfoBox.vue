@@ -16,38 +16,49 @@
             : '(' + $t('message.unconfirmed') + ')'
         }}
       </h2>
-      <p>
-        <b>{{ $t('message.organizer') }}:</b> {{ reservedInfo.organizer }}
-      </p>
-      <p>
-        <b>{{ $t('message.type_open') }}?:</b>
-        {{ reservedInfo.openevent ? $t('message.yes') : $t('message.no') }}
-      </p>
-      <template v-if="reservedInfo.openevent">
+      <template v-if="reservedInfo.confirmed">
         <p>
-          <b>{{ $t('message.event_info') }}:</b> {{ reservedInfo.openinfo }}
+          <b>{{ $t('message.organizer') }}:</b> {{ reservedInfo.organizer }}
         </p>
         <p>
-          <b>{{ $t('message.event_link') }}:</b> {{ reservedInfo.openlink }}
+          <b>{{ $t('message.type_open') }}?:</b>
+          {{ reservedInfo.openevent ? $t('message.yes') : $t('message.no') }}
+        </p>
+        <template v-if="reservedInfo.openevent">
+          <p>
+            <b>{{ $t('message.event_info') }}:</b> {{ reservedInfo.openinfo }}
+          </p>
+          <p>
+            <b>{{ $t('message.event_link') }}:</b> {{ reservedInfo.openlink }}
+          </p>
+        </template>
+        <p>
+          <b>{{ $t('message.begins') }}:</b>
+          {{ reservedInfo.startdate + ' ' + reservedInfo.starttime }}
+        </p>
+        <p>
+          <b>{{ $t('message.ends') }}:</b>
+          {{ reservedInfo.enddate + ' ' + reservedInfo.endtime }}
         </p>
       </template>
-      <p>
-        <b>{{ $t('message.begins') }}:</b>
-        {{ reservedInfo.startdate + ' ' + reservedInfo.starttime }}
-      </p>
-      <p>
-        <b>{{ $t('message.ends') }}:</b>
-        {{ reservedInfo.enddate + ' ' + reservedInfo.endtime }}
-      </p>
     </template>
     <template v-if="this.$props.type === 'clean'">
       <h1>{{ $t('message.cleaned_shore') }}</h1>
-      <p>
-        <b>{{ $t('message.organizer') }}:</b> {{ cleanedInfo.organizer_name }}
-      </p>
-      <p>
-        <b>{{ $t('message.shorescleaned') }}:</b> {{ cleanedInfo.date }}
-      </p>
+      <h2>
+        {{
+          cleanedInfo.confirmed
+            ? '(' + $t('message.confirmed') + ')'
+            : '(' + $t('message.unconfirmed') + ')'
+        }}
+      </h2>
+      <template v-if="cleanedInfo.confirmed">
+        <p>
+          <b>{{ $t('message.organizer') }}:</b> {{ cleanedInfo.organizer_name }}
+        </p>
+        <p>
+          <b>{{ $t('message.shorescleaned') }}:</b> {{ cleanedInfo.date }}
+        </p>
+      </template>
     </template>
     <template v-if="type === 'free'">
       <h1>{{ $t('message.free_shore') }}</h1>

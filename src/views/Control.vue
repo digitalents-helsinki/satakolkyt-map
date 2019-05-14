@@ -188,7 +188,7 @@
                     </button>
                   </div>
                 </div>
-                <template v-if="clean.confirm">
+                <template v-if="clean.confirmed">
                   <button
                     class="small-button confirm-button"
                     v-on:click="cancelCleaned($event, clean)"
@@ -197,7 +197,7 @@
                     {{ $t('message.cancel_cleaned') }}
                   </button>
                 </template>
-                <template v-if="!clean.confirm">
+                <template v-if="!clean.confirmed">
                   <button
                     class="small-button cancel-button"
                     v-on:click="confirmCleaned($event, clean)"
@@ -378,8 +378,7 @@ export default {
         })
         .then(response => {
           if (response.data.status === 'ok') {
-            cleaned.confirm = false
-            this.shoreCleanedCanceled(response.data.json)
+            cleaned.confirmed = false
           }
         })
         .catch(function(error) {
@@ -427,7 +426,9 @@ export default {
           clean: clean._key
         })
         .then(response => {
-          clean.confirm = true
+          if (response.data.status === 'ok') {
+            clean.confirmed = true
+          }
         })
         .catch(function(error) {
           console.log(error)
@@ -450,22 +451,6 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    },
-    shoreCleaned(data) {
-      this.$refs.adminmap.removeSegmentFromLayer(
-        'freeShore',
-        'freelayer',
-        data._key
-      )
-      this.$refs.adminmap.addSegmentToLayer('cleanedShore', 'cleanlayer', data)
-    },
-    shoreCleanedCanceled(data) {
-      this.$refs.adminmap.removeSegmentFromLayer(
-        'cleanedShore',
-        'cleanlayer',
-        data._key
-      )
-      this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     showreservation(ev) {
       this.$refs.adminmap.unSelect()

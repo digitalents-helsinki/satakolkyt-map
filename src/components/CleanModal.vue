@@ -312,6 +312,7 @@ export default {
   data() {
     return {
       data: {
+        confirmed: false,
         organizer_name: '',
         date: '',
         group_size: 1,

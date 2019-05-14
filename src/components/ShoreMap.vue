@@ -62,7 +62,6 @@ export default {
           'line-cap': 'round'
         },
         paint: {
-          //'line-color': color,
           'line-color': [
             'case',
             [
