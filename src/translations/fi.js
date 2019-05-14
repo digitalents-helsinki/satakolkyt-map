@@ -106,7 +106,8 @@ export const fi = {
     username: 'Käyttäjätunnus',
     password: 'Salasana',
     login: 'Kirjaudu',
-    iframe: 'KUTSU RYHMÄSI JA VALITSE RANTAVIIVALTA PALA SIIVOTTAVAKSI!',
+    iframe: 'KUTSU\xa0RYHMÄSI JA\xa0VALITSE PALA RANTAVIIVAA SIIVOTTAVAKSI!',
+    to_new_window: 'Avaa\xa0kartta uuteen\xa0ikkunaan',
     err_shoreunavailable: 'Virhe: Ranta ei ole saatavilla!',
     err_validationerror: 'Virhe: Epäkelvolliset tiedot!',
     reservation_deletion_confirmation_message:
