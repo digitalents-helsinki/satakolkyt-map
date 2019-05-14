@@ -47,8 +47,8 @@
             <li
               class="reservation"
               :class="{
-                resconfirmed: reservation.confirmed,
-                resunconfirmed: !reservation.confirmed
+                confirmed: reservation.confirmed,
+                unconfirmed: !reservation.confirmed
               }"
               v-for="reservation in reservations"
               :key="reservation._id"
@@ -141,7 +141,15 @@
             </li>
           </div>
           <div class="clean-infos" v-show="showCleanedShores">
-            <li class="clean-info" v-for="clean in cleaned" :key="clean._id">
+            <li
+              class="clean-info"
+              :class="{
+                confirmed: clean.confirmed,
+                unconfirmed: !clean.confirmed
+              }"
+              v-for="clean in cleaned"
+              :key="clean._id"
+            >
               <div class="clean-time">
                 <h3>{{ $t('message.date') }}</h3>
                 <p>
@@ -615,22 +623,21 @@ export default {
             display: flex;
           }
         }
-
-        .resconfirmed {
-          background-color: #bbeebb;
-        }
-        .resunconfirmed {
-          background-color: #eebbbb;
-        }
       }
 
       .clean-infos {
-        width: 300px;
+        width: 350px;
         margin: 0 auto;
 
         .clean-info {
+          margin: 10px 0;
           padding: 10px 10px 20px 10px;
-          border-bottom: 1px solid #bbb;
+          border-bottom: 2px solid #bbb;
+
+          .clean-cta {
+            margin-top: 10px;
+            display: flex;
+          }
         }
       }
     }
@@ -641,6 +648,13 @@ export default {
       left: 110px;
     }
   }
+}
+
+.confirmed {
+  background-color: #bbeebb;
+}
+.unconfirmed {
+  background-color: #eebbbb;
 }
 
 .small-button {
