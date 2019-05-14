@@ -1,9 +1,9 @@
 <template>
   <div class="app-header">
     <vue-headful :lang="$i18n.locale" />
-    <template v-if="!iframed">
-      <img src="logo.svg" style="width:20rem;" />
-    </template>
+    <div class="logo-container" v-if="!iframed">
+      <img src="logo.svg" />
+    </div>
     <template v-else>
       <div class="iframed-text">
         <h1 v-if="!isOffline">{{ $t('message.iframe') }}</h1>
@@ -84,6 +84,17 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   font-size: 24px;
+
+  .logo-container {
+    display: flex;
+    min-width: 150px;
+    max-width: 350px;
+    flex: 1;
+
+    .img {
+      width: 100%;
+    }
+  }
 
   .iframed-text {
     display: flex;
