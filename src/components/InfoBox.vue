@@ -64,7 +64,9 @@
       <h1>{{ $t('message.free_shore') }}</h1>
       <p>{{ $t('message.come_clean') }}</p>
     </template>
-    <div class="idnum">ID: {{ type === 'free' ? data.key : data._key }}</div>
+    <div class="idnum">
+      ID: {{ type === 'free' ? data.key : data.selected.key }}
+    </div>
   </div>
 </template>
 <script>
