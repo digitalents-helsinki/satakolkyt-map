@@ -223,7 +223,7 @@ export default {
       this.showModal = !this.showModal
     },
     selectReserved(data) {
-      this.unselectShore()
+      this.resetSelection()
       this.selectedShoreData = data
       this.selectedShoreType = 'reserved'
       axios
@@ -244,7 +244,7 @@ export default {
         )
     },
     selectCleaned(data) {
-      this.unselectShore()
+      this.resetSelection()
       this.selectedShoreData = data
       this.selectedShoreType = 'cleaned'
       axios
@@ -265,17 +265,20 @@ export default {
         )
     },
     selectFree(data) {
-      this.unselectShore()
+      this.resetSelection()
       this.selectedShoreData = data
       this.selectedShoreType = 'free'
       this.showFreeInfo = true
     },
-    unselectShore() {
-      this.$refs.usermap.unSelect()
+    resetSelection() {
       this.selectedShoreData = null
       this.showReservedInfo = false
       this.showCleanedInfo = false
       this.showFreeInfo = false
+    },
+    unselectShore() {
+      this.$refs.usermap.unSelect()
+      this.resetSelection()
     }
   },
 

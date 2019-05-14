@@ -116,6 +116,7 @@ export default {
       )
     },
     unSelect() {
+      console.log('hello')
       this.map.setFeatureState(
         { source: this.selected.layer, id: this.selected.id },
         { selected: false }
