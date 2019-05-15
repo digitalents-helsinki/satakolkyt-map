@@ -227,12 +227,7 @@ export default {
       this.selectedShoreData = data
       this.selectedShoreType = 'reserved'
       axios
-        .get(
-          'http://' +
-            location.hostname +
-            ':8089/api/map/reservedinfo/' +
-            data.key
-        )
+        .get(process.env.VUE_APP_URL + '/api/map/reservedinfo/' + data.key)
         .then(
           res => {
             this.reservedInfo = res.data.data
@@ -248,12 +243,7 @@ export default {
       this.selectedShoreData = data
       this.selectedShoreType = 'cleaned'
       axios
-        .get(
-          'http://' +
-            location.hostname +
-            ':8089/api/map/cleanedinfo/' +
-            data.key
-        )
+        .get(process.env.VUE_APP_URL + '/api/map/cleanedinfo/' + data.key)
         .then(
           res => {
             this.cleanedInfo = res.data.data
