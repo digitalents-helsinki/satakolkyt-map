@@ -181,8 +181,8 @@ export default {
   .colors {
     position: relative;
     z-index: 99;
-    width: 15vw;
-    min-width: 210px;
+    min-width: 220px;
+    width: 220px;
     height: 220px;
     display: flex;
     text-transform: uppercase;

@@ -283,7 +283,7 @@ export default {
 
   .mapboxgl-ctrl-bottom-right {
     bottom: 80px;
-    right: 210px;
+    right: 220px;
 
     @media only screen and (max-width: 768px) {
       bottom: 64px;
