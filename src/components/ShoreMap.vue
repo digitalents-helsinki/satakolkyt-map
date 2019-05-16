@@ -238,9 +238,7 @@ export default {
       map.on('zoom', () => {
         this.onZoom(map)
       })
-      map.on('touchstart', e => {
-        alert('s')
-      })
+
       this.onZoom(map)
 
       // disable map rotation using right click + drag
