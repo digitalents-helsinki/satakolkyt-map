@@ -188,7 +188,7 @@ export default {
       this.showErrorInfo = true
     },
     shoreReserved(data) {
-      this.$refs.usermap.unSelect()
+      this.unselectShore()
       this.$refs.usermap.removeSegmentFromLayer(
         'freeShore',
         'freelayer',
@@ -201,7 +201,7 @@ export default {
       )
     },
     shoreCleaned(data) {
-      this.$refs.usermap.unSelect()
+      this.unselectShore()
       this.$refs.usermap.removeSegmentFromLayer(
         'freeShore',
         'freelayer',
@@ -223,16 +223,11 @@ export default {
       this.showModal = !this.showModal
     },
     selectReserved(data) {
-      this.unselectShore()
+      this.resetSelection()
       this.selectedShoreData = data
       this.selectedShoreType = 'reserved'
       axios
-        .get(
-          'http://' +
-            location.hostname +
-            ':8089/api/map/reservedinfo/' +
-            data.key
-        )
+        .get(process.env.VUE_APP_URL + '/api/map/reservedinfo/' + data.key)
         .then(
           res => {
             this.reservedInfo = res.data.data
@@ -244,16 +239,11 @@ export default {
         )
     },
     selectCleaned(data) {
-      this.unselectShore()
+      this.resetSelection()
       this.selectedShoreData = data
       this.selectedShoreType = 'cleaned'
       axios
-        .get(
-          'http://' +
-            location.hostname +
-            ':8089/api/map/cleanedinfo/' +
-            data.key
-        )
+        .get(process.env.VUE_APP_URL + '/api/map/cleanedinfo/' + data.key)
         .then(
           res => {
             this.cleanedInfo = res.data.data
@@ -265,17 +255,20 @@ export default {
         )
     },
     selectFree(data) {
-      this.unselectShore()
+      this.resetSelection()
       this.selectedShoreData = data
       this.selectedShoreType = 'free'
       this.showFreeInfo = true
     },
-    unselectShore() {
-      this.$refs.usermap.unSelect()
+    resetSelection() {
       this.selectedShoreData = null
       this.showReservedInfo = false
       this.showCleanedInfo = false
       this.showFreeInfo = false
+    },
+    unselectShore() {
+      this.$refs.usermap.unSelect()
+      this.resetSelection()
     }
   },
 

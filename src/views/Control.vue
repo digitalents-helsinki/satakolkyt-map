@@ -12,9 +12,6 @@
       @unhide-shore="shoreUnhidden"
     />
 
-    <!-- <div class="controlpanel-container" @click.stop>
-     -->
-
     <div class="editor-wrapper">
       <div class="editor">
         {{ $t('message.edit_map') }}
@@ -47,8 +44,8 @@
             <li
               class="reservation"
               :class="{
-                resconfirmed: reservation.confirmed,
-                resunconfirmed: !reservation.confirmed
+                confirmed: reservation.confirmed,
+                unconfirmed: !reservation.confirmed
               }"
               v-for="reservation in reservations"
               :key="reservation._id"
@@ -141,7 +138,15 @@
             </li>
           </div>
           <div class="clean-infos" v-show="showCleanedShores">
-            <li class="clean-info" v-for="clean in cleaned" :key="clean._id">
+            <li
+              class="clean-info"
+              :class="{
+                confirmed: clean.confirmed,
+                unconfirmed: !clean.confirmed
+              }"
+              v-for="clean in cleaned"
+              :key="clean._id"
+            >
               <div class="clean-time">
                 <h3>{{ $t('message.date') }}</h3>
                 <p>
@@ -188,7 +193,7 @@
                     </button>
                   </div>
                 </div>
-                <template v-if="clean.confirm">
+                <template v-if="clean.confirmed">
                   <button
                     class="small-button confirm-button"
                     v-on:click="cancelCleaned($event, clean)"
@@ -197,7 +202,7 @@
                     {{ $t('message.cancel_cleaned') }}
                   </button>
                 </template>
-                <template v-if="!clean.confirm">
+                <template v-if="!clean.confirmed">
                   <button
                     class="small-button cancel-button"
                     v-on:click="confirmCleaned($event, clean)"
@@ -213,7 +218,7 @@
       </div>
     </div>
   </div>
-  <div v-else>
+  <div v-else class="loginview">
     <form class="form" v-on:submit.prevent="signin">
       <label for="username">{{ $t('message.username') }}</label>
       <input
@@ -378,8 +383,7 @@ export default {
         })
         .then(response => {
           if (response.data.status === 'ok') {
-            cleaned.confirm = false
-            this.shoreCleanedCanceled(response.data.json)
+            cleaned.confirmed = false
           }
         })
         .catch(function(error) {
@@ -427,7 +431,9 @@ export default {
           clean: clean._key
         })
         .then(response => {
-          clean.confirm = true
+          if (response.data.status === 'ok') {
+            clean.confirmed = true
+          }
         })
         .catch(function(error) {
           console.log(error)
@@ -450,22 +456,6 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    },
-    shoreCleaned(data) {
-      this.$refs.adminmap.removeSegmentFromLayer(
-        'freeShore',
-        'freelayer',
-        data._key
-      )
-      this.$refs.adminmap.addSegmentToLayer('cleanedShore', 'cleanlayer', data)
-    },
-    shoreCleanedCanceled(data) {
-      this.$refs.adminmap.removeSegmentFromLayer(
-        'cleanedShore',
-        'cleanlayer',
-        data._key
-      )
-      this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     showreservation(ev) {
       this.$refs.adminmap.unSelect()
@@ -630,32 +620,32 @@ export default {
             display: flex;
           }
         }
-
-        .resconfirmed {
-          background-color: #bbeebb;
-        }
-        .resunconfirmed {
-          background-color: #eebbbb;
-        }
       }
 
       .clean-infos {
-        width: 300px;
+        width: 350px;
         margin: 0 auto;
 
         .clean-info {
+          margin: 10px 0;
           padding: 10px 10px 20px 10px;
-          border-bottom: 1px solid #bbb;
+          border-bottom: 2px solid #bbb;
+
+          .clean-cta {
+            margin-top: 10px;
+            display: flex;
+          }
         }
       }
     }
-
-    .overlay-box-wrapper {
-      position: absolute;
-      bottom: 30px;
-      left: 110px;
-    }
   }
+}
+
+.confirmed {
+  background-color: #bbeebb;
+}
+.unconfirmed {
+  background-color: #eebbbb;
 }
 
 .small-button {
@@ -665,28 +655,31 @@ export default {
   padding: 10px;
 }
 
-.form {
-  position: fixed;
-  top: 10%;
-  left: 46%;
-  width: 250px;
-  padding: 20px;
-  border: 5px dotted grey;
-}
+.loginview {
+  position: absolute;
+  top: 30vh;
+  width: 100%;
 
-input[type='text'],
-input[type='password'] {
-  padding: 15px;
-  margin-bottom: 20px;
-  display: block;
-  border: none;
-  background: #f1f1f1;
-}
+  .form {
+    width: 250px;
+    padding: 20px;
+    margin: 0 auto;
+    border: 5px dotted grey;
 
-input[type='text']:focus,
-input[type='password']:focus {
-  background-color: #ddd;
-  outline: none;
+    input {
+      padding: 15px;
+      margin-bottom: 20px;
+      display: block;
+      border: none;
+      background: #f1f1f1;
+      width: 100%;
+    }
+
+    input:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+  }
 }
 
 .confirmation-wrapper {

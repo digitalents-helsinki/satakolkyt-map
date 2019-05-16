@@ -37,54 +37,58 @@
                   <div class="datetime-inputs">
                     <div class="datetime-input">
                       <h5>{{ $t('message.begins') }}</h5>
-                      <div class="datetime-item">
-                        <font-awesome-icon icon="calendar" />
+                      <div class="datetime-inputfields">
+                        <div class="datetime-item">
+                          <font-awesome-icon icon="calendar" />
 
-                        <input
-                          :required="required"
-                          v-model="reservationdata.startdate"
-                          type="date"
-                          @change="checkDateValidity"
-                        />
-                      </div>
-                      <div class="datetime-item">
-                        <font-awesome-icon icon="clock" />
+                          <input
+                            :required="required"
+                            v-model="reservationdata.startdate"
+                            type="date"
+                            @change="checkDateValidity"
+                          />
+                        </div>
+                        <div class="datetime-item">
+                          <font-awesome-icon icon="clock" />
 
-                        <vue-timepicker
-                          class="timepicker"
-                          :required="required"
-                          :format="timeformat"
-                          v-model="reservationdata.starttime"
-                          :minute-interval="30"
-                          hide-clear-button
-                          @change="checkDateValidity"
-                        />
+                          <vue-timepicker
+                            class="timepicker"
+                            :required="required"
+                            :format="timeformat"
+                            v-model="reservationdata.starttime"
+                            :minute-interval="30"
+                            hide-clear-button
+                            @change="checkDateValidity"
+                          />
+                        </div>
                       </div>
                     </div>
                     <div class="datetime-input">
                       <h5>{{ $t('message.ends') }}</h5>
-                      <div class="datetime-item">
-                        <font-awesome-icon icon="calendar" />
+                      <div class="datetime-inputfields">
+                        <div class="datetime-item">
+                          <font-awesome-icon icon="calendar" />
 
-                        <input
-                          :required="required"
-                          v-model="reservationdata.enddate"
-                          type="date"
-                          @change="checkDateValidity"
-                        />
-                      </div>
-                      <div class="datetime-item">
-                        <font-awesome-icon icon="clock" />
+                          <input
+                            :required="required"
+                            v-model="reservationdata.enddate"
+                            type="date"
+                            @change="checkDateValidity"
+                          />
+                        </div>
+                        <div class="datetime-item">
+                          <font-awesome-icon icon="clock" />
 
-                        <vue-timepicker
-                          class="timepicker"
-                          :required="required"
-                          :format="timeformat"
-                          v-model="reservationdata.endtime"
-                          :minute-interval="30"
-                          hide-clear-button
-                          @change="checkDateValidity"
-                        />
+                          <vue-timepicker
+                            class="timepicker"
+                            :required="required"
+                            :format="timeformat"
+                            v-model="reservationdata.endtime"
+                            :minute-interval="30"
+                            hide-clear-button
+                            @change="checkDateValidity"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -179,12 +183,17 @@
                     @click="$emit('show-privacy-info')"
                     ><h4>{{ $t('message.privacy_policy') }}</h4></span
                   >
-                  <h4>{{ $t('message.submit_permission_text') }}</h4>
-                  <input
-                    type="checkbox"
-                    v-model="privacy_permission"
-                    required
-                  />
+                  <div class="permission-input-container">
+                    <label for="reserve-permission">{{
+                      $t('message.submit_permission_text')
+                    }}</label>
+                    <input
+                      id="reserve-permission"
+                      type="checkbox"
+                      v-model="privacy_permission"
+                      required
+                    />
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -361,6 +370,8 @@ export default {
 }
 
 .cross-icon {
+  width: 30px;
+  height: 30px;
   position: relative;
   float: right;
   z-index: 9999;
@@ -368,18 +379,13 @@ export default {
 }
 
 .modal-container {
-  width: 600px;
+  width: 550px;
   height: 80vh;
   margin-left: 5%;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
-  overflow: hidden auto;
-}
-@media only screen and (max-width: 600px) {
-  .modal-container {
-    width: 95%;
-  }
+  overflow-y: auto;
 }
 
 form {
@@ -431,6 +437,10 @@ form {
   margin: 0.3rem 0;
   border-top: 1px solid #ccc;
   padding-top: 10px;
+}
+
+.datetime-inputfields {
+  display: flex;
 }
 
 .datetime-item {
@@ -502,7 +512,8 @@ form {
   justify-content: space-between;
 }
 
-.privacy-policy-button {
+.privacy-policy-button h4 {
+  text-decoration: underline;
   color: darkblue;
   cursor: pointer;
 }
@@ -510,6 +521,14 @@ form {
 .privacy-policy-button:hover {
   text-decoration: underline;
   color: #00d;
+}
+
+.permission-input-container {
+  display: flex;
+}
+
+.permission-input-container label {
+  flex: 0.8;
 }
 
 .permission-container input {
@@ -643,5 +662,57 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .modal-container {
+    margin-left: 5px;
+    height: 96vh;
+    width: 350px;
+  }
+
+  .input-field {
+    flex-direction: column;
+  }
+
+  .input-field h4 {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .input-field h5 {
+    width: 100%;
+    margin: 0 0 5px 0;
+  }
+
+  .datetime-inputs {
+    align-items: flex-start;
+  }
+
+  .datetime-input {
+    flex-direction: column;
+  }
+
+  .datetime-input h5 {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .datetime-item {
+    margin-left: 0;
+  }
+
+  .permission-container {
+    flex-direction: column;
+  }
+
+  .privacy-policy-button h4 {
+    margin-bottom: 10px;
+  }
+
+  .modal-footer button {
+    min-width: 0;
+    width: 150px;
+  }
 }
 </style>

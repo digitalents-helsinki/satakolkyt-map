@@ -39,11 +39,7 @@ export default {
     hideShore() {
       axios({
         method: 'POST',
-        url:
-          'http://' +
-          location.hostname +
-          ':8089/api/map/delete/' +
-          this.data.key,
+        url: process.env.VUE_APP_URL + '/api/map/delete/' + this.data.key,
 
         data: { key: this.data.key }
       }).then(response => {
