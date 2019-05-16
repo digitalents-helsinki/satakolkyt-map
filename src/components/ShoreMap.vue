@@ -77,10 +77,9 @@ export default {
       }
     },
     enhanceData(data) {
-      //apparently without this the data format is somehow wrong
       return data.map(e => ({
         ...e,
-        id: e._key,
+        id: e.properties.id,
         properties: { ...e.properties, key: e._key }
       }))
     },
@@ -116,7 +115,6 @@ export default {
       )
     },
     unSelect() {
-      console.log('hello')
       this.map.setFeatureState(
         { source: this.selected.layer, id: this.selected.id },
         { selected: false }
