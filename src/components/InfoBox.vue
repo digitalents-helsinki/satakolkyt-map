@@ -7,7 +7,7 @@
         @click="$emit('infobox-unselect')"
       />
     </div>
-    <template v-if="this.$props.type === 'reservation'">
+    <template v-if="type === 'reserved'">
       <h1>{{ $t('message.reserved_shore') }}</h1>
       <h2>
         {{
@@ -42,7 +42,7 @@
         </p>
       </template>
     </template>
-    <template v-if="this.$props.type === 'clean'">
+    <template v-if="type === 'cleaned'">
       <h1>{{ $t('message.cleaned_shore') }}</h1>
       <h2>
         {{
@@ -83,11 +83,11 @@ export default {
 </script>
 <style lang="scss">
 .infobox {
-  position: absolute;
+  //position: absolute;
   width: 300px;
   height: 200px;
-  bottom: 150px;
-  left: 50px;
+  //bottom: 150px;
+  //left: 50px;
   background-color: white;
   padding: 10px;
 

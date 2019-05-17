@@ -19,17 +19,18 @@
     >
       <MglAttributionControl :compact="false" />
       <MglPopup
-        v-if="showInfoBox"
+        ref="infopopup"
         :coordinates="infoBoxCoords"
+        :closeOnClick="true"
+        :closeButton="false"
         :showed="true"
-        @added="popupAdded"
+        @close="unSelect"
       >
-        <h1>Test Hello</h1>
-        <!--InfoBox
-          type="free"
-          :data="selectedShoreData"
-          @infobox-unselect="unselectShore"
-        /-->
+        <InfoBox
+          :type="infoBoxType"
+          :data="infoBoxData"
+          @infobox-unselect="removePopup"
+        />
       </MglPopup>
     </MglMap>
   </div>
@@ -52,7 +53,9 @@ export default {
     reservedshores: [Object, Array],
     cleanedshores: [Object, Array],
     hiddenshores: [Object, Array],
-    showOnMap: false
+    showOnMap: false,
+    infoBoxType: null,
+    infoBoxData: null
   },
   components: {
     //MapBox,
@@ -83,15 +86,11 @@ export default {
         id: null
       },
       hoveredIds: {},
-      showInfoBox: false,
       infoBoxCoords: [0, 0]
     }
   },
 
   methods: {
-    popupAdded(e) {
-      console.log(e.popup)
-    },
     generateLineStringStyle(basecolor, hovercolor) {
       return {
         layout: {
@@ -137,13 +136,17 @@ export default {
     addShoreClickHandler(map, layername, eventname) {
       map.on('click', layername, e => {
         this.infoBoxCoords = [e.lngLat.lng, e.lngLat.lat]
-        console.log(this.infoBoxCoords)
-        this.showInfoBox = true
         this.selectShore(e.features[0].id, layername)
         this.$emit(eventname, e.features[0].properties)
 
-        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 17 })
+        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 15 })
       })
+    },
+    showPopup() {
+      this.$refs.infopopup.popup.addTo(this.map)
+    },
+    removePopup() {
+      this.$refs.infopopup.popup.remove()
     },
     selectShore(id, layername) {
       this.unSelect()
