@@ -1,17 +1,45 @@
 <template>
   <div class="map-view">
-    <map-box
+    <!--map-box
       :access-token="accessToken"
       :map-options="mapOptions"
       :nav-control="navControl"
       @map-load="mapLoaded"
-    />
+    /-->
+    <MglMap
+      :accessToken="accessToken"
+      :mapStyle="mapOptions.style"
+      :hash="mapOptions.hash"
+      :attributionControl="mapOptions.attributionControl"
+      :dragRotate="mapOptions.dragRotate"
+      :touchZoomRotate="mapOptions.touchZoomRotate"
+      :center="mapOptions.center"
+      :zoom="mapOptions.zoom"
+      @load="mapLoaded"
+    >
+      <MglAttributionControl :compact="false" />
+      <MglPopup
+        v-if="showInfoBox"
+        :coordinates="infoBoxCoords"
+        :showed="true"
+        @added="popupAdded"
+      >
+        <h1>Test Hello</h1>
+        <!--InfoBox
+          type="free"
+          :data="selectedShoreData"
+          @infobox-unselect="unselectShore"
+        /-->
+      </MglPopup>
+    </MglMap>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import MapBox from 'mapbox-gl-vue'
+//import MapBox from 'mapbox-gl-vue'
+import { MglMap, MglAttributionControl, MglPopup } from 'vue-mapbox'
+import InfoBox from '@/components/InfoBox'
 
 export default {
   name: 'shore-map',
@@ -27,7 +55,11 @@ export default {
     showOnMap: false
   },
   components: {
-    MapBox
+    //MapBox,
+    MglMap,
+    MglAttributionControl,
+    MglPopup,
+    InfoBox
   },
   data() {
     return {
@@ -50,11 +82,16 @@ export default {
         layer: null,
         id: null
       },
-      hoveredIds: {}
+      hoveredIds: {},
+      showInfoBox: false,
+      infoBoxCoords: [0, 0]
     }
   },
 
   methods: {
+    popupAdded(e) {
+      console.log(e.popup)
+    },
     generateLineStringStyle(basecolor, hovercolor) {
       return {
         layout: {
@@ -79,7 +116,7 @@ export default {
     enhanceData(data) {
       return data.map(e => ({
         ...e,
-        id: e.properties.id,
+        id: e._key,
         properties: { ...e.properties, key: e._key }
       }))
     },
@@ -99,6 +136,9 @@ export default {
     },
     addShoreClickHandler(map, layername, eventname) {
       map.on('click', layername, e => {
+        this.infoBoxCoords = [e.lngLat.lng, e.lngLat.lat]
+        console.log(this.infoBoxCoords)
+        this.showInfoBox = true
         this.selectShore(e.features[0].id, layername)
         this.$emit(eventname, e.features[0].properties)
 
@@ -115,10 +155,12 @@ export default {
       )
     },
     unSelect() {
-      this.map.setFeatureState(
-        { source: this.selected.layer, id: this.selected.id },
-        { selected: false }
-      )
+      if (this.selected.id) {
+        this.map.setFeatureState(
+          { source: this.selected.layer, id: this.selected.id },
+          { selected: false }
+        )
+      }
       this.selected.layer = null
       this.selected.id = null
     },
@@ -133,19 +175,25 @@ export default {
         map.setPaintProperty('freeShore', 'line-width', MAX_WIDTH)
         map.setPaintProperty('reservedShore', 'line-width', MAX_WIDTH)
         map.setPaintProperty('cleanedShore', 'line-width', MAX_WIDTH)
-        map.setPaintProperty('hiddenShore', 'line-width', MAX_WIDTH)
+        if (this.adminmode) {
+          map.setPaintProperty('hiddenShore', 'line-width', MAX_WIDTH)
+        }
       } else if (zoom < MIN_ZOOM) {
         map.setPaintProperty('freeShore', 'line-width', MIN_WIDTH)
         map.setPaintProperty('reservedShore', 'line-width', MIN_WIDTH)
         map.setPaintProperty('cleanedShore', 'line-width', MIN_WIDTH)
-        map.setPaintProperty('hiddenShore', 'line-width', MIN_WIDTH)
+        if (this.adminmode) {
+          map.setPaintProperty('hiddenShore', 'line-width', MIN_WIDTH)
+        }
       } else {
         const zoomfactor = (zoom - MIN_ZOOM) / (MAX_ZOOM - MIN_ZOOM)
         const width = MIN_WIDTH + zoomfactor * (MAX_WIDTH - MIN_WIDTH)
         map.setPaintProperty('freeShore', 'line-width', width)
         map.setPaintProperty('reservedShore', 'line-width', width)
         map.setPaintProperty('cleanedShore', 'line-width', width)
-        map.setPaintProperty('hiddenShore', 'line-width', width)
+        if (this.adminmode) {
+          map.setPaintProperty('hiddenShore', 'line-width', width)
+        }
       }
     },
     removeSegmentFromLayer(mapname, vuexname, segKey) {
@@ -193,12 +241,13 @@ export default {
         this.hoveredIds[layername] = null
       })
     },
-    mapLoaded(map) {
-      map.addControl(
+    mapLoaded(e) {
+      const map = e.map
+      this.map = map
+      /*map.addControl(
         new mapboxgl.AttributionControl({ compact: false }),
         'bottom-right'
-      )
-      this.map = map
+      )*/
 
       this.addShoreType(map, 'freeShore', this.freeshores, '#f82828', '#ffb1b7')
       this.addShoreType(
@@ -273,21 +322,22 @@ export default {
     width: 100%;
   }
 }
-#map {
+/*#map {
   height: 100%;
   width: 100%;
+}*/
 
-  .mapboxgl-ctrl-bottom-right {
-    bottom: 80px;
-    right: 220px;
+.mapboxgl-ctrl-top-right {
+  top: initial;
+  bottom: 80px;
+  right: 220px;
 
-    @media only screen and (max-width: 768px) {
-      bottom: 64px;
-    }
+  @media only screen and (max-width: 768px) {
+    bottom: 64px;
+  }
 
-    .mapbox-improve-map {
-      display: none;
-    }
+  .mapbox-improve-map {
+    display: none;
   }
 }
 
