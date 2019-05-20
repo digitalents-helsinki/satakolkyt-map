@@ -9,8 +9,6 @@
         :reservedshores="this.$store.state.maplayers.reservedlayer"
         :cleanedshores="this.$store.state.maplayers.cleanlayer"
         :hiddenshores="this.$store.state.maplayers.hiddenlayer"
-        :infoBoxType="selectedShoreType"
-        :infoBoxData="infoBoxData"
         v-if="showMap"
         @map-loaded="mapLoaded"
         @free-click="selectFree"
@@ -38,27 +36,6 @@
         :seltype="selectedShoreType"
         :showReservation="showReservationForm"
       />
-      <!--div v-if="showReservedInfo">
-        <InfoBox
-          type="reservation"
-          v-bind:data="reservedInfo"
-          @infobox-unselect="unselectShore"
-        />
-      </div>
-      <div v-if="showCleanedInfo">
-        <InfoBox
-          type="clean"
-          v-bind:data="cleanedInfo"
-          @infobox-unselect="unselectShore"
-        />
-      </div>
-      <div v-if="showFreeInfo">
-        <InfoBox
-          type="free"
-          :data="selectedShoreData"
-          @infobox-unselect="unselectShore"
-        />
-      </div-->
       <div v-if="showReservationForm">
         <transition name="modal">
           <ReserveModal
@@ -111,12 +88,10 @@
 </template>
 
 <script>
-//import MapView from '@/components/MapView'
 import ShoreMap from '@/components/ShoreMap'
 import ReserveModal from '@/components/ReserveModal'
 import CleanModal from '@/components/CleanModal'
 import AppFooter from '@/components/AppFooter'
-//import InfoBox from '@/components/InfoBox'
 import axios from 'axios'
 export default {
   name: 'home',
@@ -125,20 +100,20 @@ export default {
     return {
       showMap: false,
       startMapOnMounted: false,
+
       showCleaned: false,
       showReservationForm: false,
-      infoBoxData: null,
+
       reservedInfo: null,
-      //showReservedInfo: false,
       cleanedInfo: null,
-      //showCleanedInfo: false,
-      //showFreeInfo: false,
-      // Overlay box
-      dimBackground: true,
+
       // Selected Shore
       selectedShoreData: null,
       selectedShoreType: '',
+
       showPrivacyInfo: false,
+
+      //Error stuff
       errMsg: '',
       showErrorInfo: false
     }
@@ -191,7 +166,6 @@ export default {
       this.showErrorInfo = true
     },
     shoreReserved(data) {
-      this.unselectShore()
       this.$refs.usermap.removeSegmentFromLayer(
         'freeShore',
         'freelayer',
@@ -204,7 +178,6 @@ export default {
       )
     },
     shoreCleaned(data) {
-      this.unselectShore()
       this.$refs.usermap.removeSegmentFromLayer(
         'freeShore',
         'freelayer',
@@ -226,17 +199,14 @@ export default {
       this.showModal = !this.showModal
     },
     selectReserved(data) {
-      this.resetSelection()
+      console.log('Home.selectReserved()')
       this.selectedShoreData = data
       this.selectedShoreType = 'reserved'
       axios
         .get(process.env.VUE_APP_URL + '/api/map/reservedinfo/' + data.key)
         .then(
           res => {
-            this.infoBoxData = res.data.data
-            this.$refs.usermap.showPopup()
-            //this.reservedInfo = res.data.data
-            //this.showReservedInfo = true
+            this.$refs.usermap.showPopup(res.data.data)
           },
           err => {
             console.log(err)
@@ -244,17 +214,14 @@ export default {
         )
     },
     selectCleaned(data) {
-      this.resetSelection()
+      console.log('Home.selectCleaned()')
       this.selectedShoreData = data
       this.selectedShoreType = 'cleaned'
       axios
         .get(process.env.VUE_APP_URL + '/api/map/cleanedinfo/' + data.key)
         .then(
           res => {
-            this.infoBoxData = res.data.data
-            this.$refs.usermap.showPopup()
-            //this.cleanedInfo = res.data.data
-            //this.showCleanedInfo = true
+            this.$refs.usermap.showPopup(res.data.data)
           },
           err => {
             console.log(err)
@@ -262,24 +229,10 @@ export default {
         )
     },
     selectFree(data) {
-      this.resetSelection()
+      console.log('Home.selectFree()')
       this.selectedShoreData = data
       this.selectedShoreType = 'free'
-      this.infoBoxData = data
-      this.$refs.usermap.showPopup()
-      //this.showFreeInfo = true
-    },
-    resetSelection() {
-      this.selectedShoreData = null
-      this.infoBoxType = null
-      this.infoBoxData = null
-      //this.showReservedInfo = false
-      //this.showCleanedInfo = false
-      //this.showFreeInfo = false
-    },
-    unselectShore() {
-      this.$refs.usermap.unSelect()
-      this.resetSelection()
+      this.$refs.usermap.showPopup(data)
     }
   },
 

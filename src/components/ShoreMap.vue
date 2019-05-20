@@ -1,11 +1,5 @@
 <template>
   <div class="map-view">
-    <!--map-box
-      :access-token="accessToken"
-      :map-options="mapOptions"
-      :nav-control="navControl"
-      @map-load="mapLoaded"
-    /-->
     <MglMap
       :accessToken="accessToken"
       :mapStyle="mapOptions.style"
@@ -23,13 +17,11 @@
         :coordinates="infoBoxCoords"
         :closeOnClick="true"
         :closeButton="false"
-        :showed="true"
-        @close="unSelect"
       >
         <InfoBox
           :type="infoBoxType"
           :data="infoBoxData"
-          @infobox-unselect="removePopup"
+          @infobox-close="hidePopup"
         />
       </MglPopup>
     </MglMap>
@@ -38,7 +30,6 @@
 
 <script>
 /* eslint-disable */
-//import MapBox from 'mapbox-gl-vue'
 import { MglMap, MglAttributionControl, MglPopup } from 'vue-mapbox'
 import InfoBox from '@/components/InfoBox'
 
@@ -53,12 +44,9 @@ export default {
     reservedshores: [Object, Array],
     cleanedshores: [Object, Array],
     hiddenshores: [Object, Array],
-    showOnMap: false,
-    infoBoxType: null,
-    infoBoxData: null
+    showOnMap: false
   },
   components: {
-    //MapBox,
     MglMap,
     MglAttributionControl,
     MglPopup,
@@ -86,10 +74,12 @@ export default {
         id: null
       },
       hoveredIds: {},
+      showInfoPopup: false,
+      infoBoxType: null,
+      infoBoxData: null,
       infoBoxCoords: [0, 0]
     }
   },
-
   methods: {
     generateLineStringStyle(basecolor, hovercolor) {
       return {
@@ -133,23 +123,49 @@ export default {
         ...this.generateLineStringStyle(basecolor, hovercolor)
       })
     },
-    addShoreClickHandler(map, layername, eventname) {
-      map.on('click', layername, e => {
-        this.infoBoxCoords = [e.lngLat.lng, e.lngLat.lat]
-        this.selectShore(e.features[0].id, layername)
-        this.$emit(eventname, e.features[0].properties)
+    addShoreClickHandler(map, shoretype) {
+      map.on('click', shoretype + 'Shore', e => {
+        //shoretype was clicked on, so it was selected
+        this.unRenderSelected()
 
-        map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 15 })
+        const clickedShore = e.features[0]
+        const clickpos = [e.lngLat.lng, e.lngLat.lat]
+
+        //highlight clicked feature:
+        this.renderSelected(clickedShore.id, shoretype + 'Shore')
+
+        //zoom to on map where we clicked:
+        map.flyTo({ center: clickpos, zoom: 15 })
+
+        //set coordinates and type for infobox popup
+        this.infoBoxCoords = clickpos
+        this.infoBoxType = shoretype
+
+        //let parent know:
+        this.$emit(shoretype + '-click', clickedShore.properties)
       })
     },
-    showPopup() {
-      this.$refs.infopopup.popup.addTo(this.map)
+    showPopup(data) {
+      console.log('ShoreMap.showPopup()')
+      if (!this.showInfoPopup) {
+        this.infoBoxData = data
+        this.$refs.infopopup.popup.addTo(this.map)
+
+        this.showInfoPopup = true
+      } else {
+        this.infoBoxData = data
+        this.$refs.infopopup.popup._update()
+      }
     },
-    removePopup() {
-      this.$refs.infopopup.popup.remove()
+    hidePopup() {
+      console.log('ShoreMap.hidePopup()')
+      if (this.showInfoPopup) {
+        this.showInfoPopup = false
+
+        this.$refs.infopopup.popup.remove()
+      }
     },
-    selectShore(id, layername) {
-      this.unSelect()
+    renderSelected(id, layername) {
       this.selected.layer = layername
       this.selected.id = id
       this.map.setFeatureState(
@@ -157,15 +173,15 @@ export default {
         { selected: true }
       )
     },
-    unSelect() {
+    unRenderSelected() {
       if (this.selected.id) {
         this.map.setFeatureState(
           { source: this.selected.layer, id: this.selected.id },
           { selected: false }
         )
+        this.selected.layer = null
+        this.selected.id = null
       }
-      this.selected.layer = null
-      this.selected.id = null
     },
     onZoom(map) {
       const MAX_ZOOM = 20
@@ -277,12 +293,12 @@ export default {
         )
       }
 
-      this.addShoreClickHandler(map, 'freeShore', 'free-click')
+      this.addShoreClickHandler(map, 'free')
       if (this.adminmode) {
-        this.addShoreClickHandler(map, 'hiddenShore', 'hidden-click')
+        this.addShoreClickHandler(map, 'hidden')
       } else {
-        this.addShoreClickHandler(map, 'reservedShore', 'reserved-click')
-        this.addShoreClickHandler(map, 'cleanedShore', 'cleaned-click')
+        this.addShoreClickHandler(map, 'reserved')
+        this.addShoreClickHandler(map, 'cleaned')
       }
 
       this.$emit('map-loaded', map)

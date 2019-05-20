@@ -4,7 +4,7 @@
       <font-awesome-icon
         icon="times"
         class="cross-icon"
-        @click="$emit('infobox-unselect')"
+        @click="$emit('infobox-close')"
       />
     </div>
     <template v-if="type === 'reserved'">
