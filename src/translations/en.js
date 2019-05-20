@@ -84,7 +84,7 @@ export const en = {
     shores: 'Shores',
     shorescleaned: 'Cleaned',
     shoresreserved: 'Reserved',
-    shoresfree: 'Free',
+    shoresfree: 'Uncleaned',
     shoresselected: 'Selected',
     reserved_shore: 'Reserved shore',
     cleaned_shore: 'Cleaned shore',

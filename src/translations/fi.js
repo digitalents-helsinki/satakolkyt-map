@@ -87,7 +87,7 @@ export const fi = {
     shores: 'Rantaviiva',
     shorescleaned: 'Siivottu',
     shoresreserved: 'Varattu',
-    shoresfree: 'Vapaa',
+    shoresfree: 'Siivoamaton',
     shoresselected: 'Valittu',
     reserved_shore: 'Varattu ranta',
     cleaned_shore: 'Siivottu ranta',

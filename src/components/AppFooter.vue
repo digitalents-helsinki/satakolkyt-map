@@ -215,7 +215,8 @@ export default {
     }
 
     .images img {
-      width: 50%;
+      width: 30%;
+      height: 10px;
     }
     .images {
       .free {
