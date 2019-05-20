@@ -35,6 +35,8 @@
         :data="selectedShoreData"
         :seltype="selectedShoreType"
         :showReservation="showReservationForm"
+        :counterSteps="counterSteps"
+        :counterKm="counterKm"
       />
       <div v-if="showReservationForm">
         <transition name="modal">
@@ -112,6 +114,10 @@ export default {
       selectedShoreType: '',
 
       showPrivacyInfo: false,
+
+      //Footer counter stuff
+      counterSteps: null,
+      counterKm: null,
 
       //Error stuff
       errMsg: '',
@@ -233,11 +239,23 @@ export default {
       this.selectedShoreData = data
       this.selectedShoreType = 'free'
       this.$refs.usermap.showPopup(data)
+    },
+    getStepsKm() {
+      axios.get(process.env.VUE_APP_URL + '/api/map/stepskm/').then(
+        res => {
+          this.counterKm = res.data.data.km
+          this.counterSteps = res.data.data.steps
+        },
+        err => {
+          console.log(err)
+        }
+      )
     }
   },
 
   mounted() {
     this.initMap()
+    this.getStepsKm()
   },
 
   beforeDestroy() {

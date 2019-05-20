@@ -24,13 +24,13 @@
         </div>
         <div class="counter" :class="{ hide: this.$props.data }">
           <div class="stepcount green">
-            620 597
+            {{ counterSteps }}
           </div>
           <div class="stepinfo">
             {{ $t('message.steps_walked') }}
           </div>
           <div class="kilometercount red">
-            189
+            {{ counterKm }}
           </div>
           <div class="kiloinfo">
             {{ $t('message.km_cleaned') }}
@@ -88,7 +88,9 @@ export default {
     'showShoreData',
     'unHideShore',
     'hideShore',
-    'adminmode'
+    'adminmode',
+    'counterSteps',
+    'counterKm'
   ],
   components: {
     ShoreInfo,
