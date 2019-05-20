@@ -407,7 +407,14 @@ export default {
 }
 @media only screen and (max-width: 600px) {
   .modal-container {
-    width: 95%;
+    width: 350px;
+    height: 90vh;
+    margin-left: 5px;
+  }
+
+  .modal-footer button {
+    min-width: 0;
+    width: 150px;
   }
 }
 
@@ -437,7 +444,6 @@ export default {
   padding-right: 20px;
   margin-right: 5px;
   flex: 1;
-  overflow-y: auto;
 }
 
 .cleaner {
