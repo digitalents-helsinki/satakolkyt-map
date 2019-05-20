@@ -184,11 +184,19 @@ export default {
       )
     },
     shoreCleaned(data) {
-      this.$refs.usermap.removeSegmentFromLayer(
-        'freeShore',
-        'freelayer',
-        data._key
-      )
+      if (data.status === 'reserved') {
+        this.$refs.usermap.removeSegmentFromLayer(
+          'reservedShore',
+          'reservedlayer',
+          data._key
+        )
+      } else if (data.status === 'free') {
+        this.$refs.usermap.removeSegmentFromLayer(
+          'freeShore',
+          'freelayer',
+          data._key
+        )
+      }
       this.$refs.usermap.addSegmentToLayer('cleanedShore', 'cleanlayer', data)
     },
     initMap() {

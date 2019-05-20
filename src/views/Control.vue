@@ -364,6 +364,9 @@ export default {
         })
     },
     shoreUnreserved(data) {
+      if (data.status === 'cleaned') {
+        return
+      }
       this.$refs.adminmap.removeSegmentFromLayer(
         'reservedShore',
         'reservedlayer',
@@ -377,7 +380,15 @@ export default {
         'cleanlayer',
         data._key
       )
-      this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
+      if (data.hasReservation) {
+        this.$refs.adminmap.addSegmentToLayer(
+          'reservedShore',
+          'reservedlayer',
+          data
+        )
+      } else {
+        this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
+      }
     },
     cancelCleaned(e, cleaned) {
       axios
@@ -464,8 +475,8 @@ export default {
         })
     },
     showreservation(ev) {
-      this.$refs.adminmap.unSelect()
-      this.$refs.adminmap.selectShore(ev.target.id, 'reservedShore')
+      this.$refs.adminmap.unRenderSelected()
+      this.$refs.adminmap.renderSelected(ev.target.id, 'reservedShore')
 
       const data = this.$store.state.maplayers['reservedlayer'].find(e => {
         return e._key === ev.target.id
@@ -479,8 +490,8 @@ export default {
       })
     },
     showcleaned(ev) {
-      this.$refs.adminmap.unSelect()
-      this.$refs.adminmap.selectShore(ev.target.id, 'cleanedShore')
+      this.$refs.adminmap.unRenderSelected()
+      this.$refs.adminmap.renderSelected(ev.target.id, 'cleanedShore')
 
       const data = this.$store.state.maplayers['cleanlayer'].find(e => {
         return e._key === ev.target.id
@@ -522,7 +533,6 @@ export default {
     getStepsKm() {
       axios.get(process.env.VUE_APP_URL + '/api/map/stepskm/').then(
         res => {
-          console.log(res.data)
           this.counterKm = res.data.km
           this.counterSteps = res.data.steps
         },
