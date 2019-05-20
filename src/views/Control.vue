@@ -8,6 +8,8 @@
       adminmode="true"
       :data="selectedShoreData"
       :action="mapOverlayAction"
+      :counterSteps="counterSteps"
+      :counterKm="counterKm"
       @hide-shore="shoreHidden"
       @unhide-shore="shoreUnhidden"
     />
@@ -267,7 +269,9 @@ export default {
       showCleanedShores: false,
       showOnMap: false,
       showReservationConfirmation: false,
-      showCleanConfirmation: false
+      showCleanConfirmation: false,
+      counterSteps: null,
+      counterKm: null
     }
   },
   components: {
@@ -384,6 +388,7 @@ export default {
         .then(response => {
           if (response.data.status === 'ok') {
             cleaned.confirmed = false
+            this.getStepsKm()
           }
         })
         .catch(function(error) {
@@ -433,6 +438,7 @@ export default {
         .then(response => {
           if (response.data.status === 'ok') {
             clean.confirmed = true
+            this.getStepsKm()
           }
         })
         .catch(function(error) {
@@ -513,6 +519,18 @@ export default {
           console.log(error)
         })
     },
+    getStepsKm() {
+      axios.get(process.env.VUE_APP_URL + '/api/map/stepskm/').then(
+        res => {
+          console.log(res.data)
+          this.counterKm = res.data.km
+          this.counterSteps = res.data.steps
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    },
     gettoken() {
       axios
         .post(process.env.VUE_APP_URL + '/api/map/authcheck', {})
@@ -528,6 +546,7 @@ export default {
   },
 
   mounted() {
+    this.getStepsKm()
     /*
     this.getReservations()
     this.getCleaned()
