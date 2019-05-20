@@ -168,8 +168,8 @@
               <div class="clean-cta">
                 <button
                   class="small-button show-button"
-                  v-bind:id="clean.selected.key"
-                  v-on:click="showcleaned"
+                  :id="clean.selected.key"
+                  @click="showcleaned"
                 >
                   {{ $t('message.show_map') }}
                 </button>
@@ -186,8 +186,8 @@
                       {{ $t('message.clean_deletion_confirmation_negative') }}
                     </button>
                     <button
-                      v-on:click="deleteCleaned($event, clean)"
-                      v-bind:id="clean.selected.key"
+                      @click="deleteCleaned($event, clean)"
+                      :id="clean.selected.key"
                     >
                       {{ $t('message.clean_deletion_confirmation_positive') }}
                     </button>
@@ -196,8 +196,8 @@
                 <template v-if="clean.confirmed">
                   <button
                     class="small-button confirm-button"
-                    v-on:click="cancelCleaned($event, clean)"
-                    v-bind:id="clean.selected.key"
+                    @click="cancelCleaned($event, clean)"
+                    :id="clean.selected.key"
                   >
                     {{ $t('message.cancel_cleaned') }}
                   </button>
@@ -205,8 +205,8 @@
                 <template v-if="!clean.confirmed">
                   <button
                     class="small-button cancel-button"
-                    v-on:click="confirmCleaned($event, clean)"
-                    v-bind:id="clean.selected.key"
+                    @click="confirmCleaned($event, clean)"
+                    :id="clean.selected.key"
                   >
                     {{ $t('message.confirm_cleaned') }}
                   </button>
@@ -343,7 +343,7 @@ export default {
       this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     confirmReservation(e, reservation) {
-      var id = e.target.id
+      const id = e.target.id
       axios({
         method: 'POST',
         url: process.env.VUE_APP_URL + '/api/map/confirmreservation/',
@@ -424,7 +424,7 @@ export default {
         })
     },
     confirmCleaned(e, clean) {
-      var id = e.target.id
+      const id = e.target.id
       axios
         .post(process.env.VUE_APP_URL + '/api/map/clean/', {
           key: id,

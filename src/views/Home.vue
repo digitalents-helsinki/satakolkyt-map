@@ -243,8 +243,9 @@ export default {
     getStepsKm() {
       axios.get(process.env.VUE_APP_URL + '/api/map/stepskm/').then(
         res => {
-          this.counterKm = res.data.data.km
-          this.counterSteps = res.data.data.steps
+          console.log(res.data)
+          this.counterKm = res.data.km
+          this.counterSteps = res.data.steps
         },
         err => {
           console.log(err)
