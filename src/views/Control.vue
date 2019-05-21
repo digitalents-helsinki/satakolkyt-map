@@ -52,6 +52,8 @@
               v-for="reservation in reservations"
               :key="reservation._id"
             >
+              <div>Reservation Key: {{ reservation._key }}</div>
+              <div>Shore Key: {{ reservation.selected.key }}</div>
               <div class="reservation-time">
                 <h3>{{ $t('message.date') }}</h3>
                 <p>
@@ -81,48 +83,28 @@
                 <p>{{ reservation.phonenumbery }}</p>
                 <p>{{ reservation.email }}</p>
               </div>
+
               <div class="reservation-cta">
                 <button
                   class="small-button show-button"
-                  v-bind:id="reservation.selected.key"
-                  v-on:click="showreservation"
+                  :id="reservation.selected.key"
+                  @click="showreservation"
                 >
                   {{ $t('message.show_map') }}
                 </button>
+
                 <button
                   class="small-button del-button"
-                  @click="toggleReservationConfirmation()"
+                  @click="openReservationConfirmation(reservation)"
                 >
                   {{ $t('message.delete_reservation') }}
                 </button>
-                <div
-                  class="confirmation-wrapper"
-                  v-if="showReservationConfirmation"
-                >
-                  <div class="confirmation-container">
-                    {{
-                      $t('message.reservation_deletion_confirmation_message')
-                    }}
-                    <button @click="toggleReservationConfirmation()">
-                      {{
-                        $t('message.reservation_deletion_confirmation_negative')
-                      }}
-                    </button>
-                    <button
-                      v-on:click="deleteReservation($event, reservation)"
-                      v-bind:id="reservation.selected.key"
-                    >
-                      {{
-                        $t('message.reservation_deletion_confirmation_positive')
-                      }}
-                    </button>
-                  </div>
-                </div>
+
                 <template v-if="reservation.confirmed">
                   <button
                     class="small-button cancel-button"
                     @click="cancelReservation($event, reservation)"
-                    v-bind:id="reservation.selected.key"
+                    :id="reservation.selected.key"
                   >
                     {{ $t('message.cancel_reservation') }}
                   </button>
@@ -130,8 +112,8 @@
                 <template v-else>
                   <button
                     class="small-button confirm-button"
-                    v-on:click="confirmReservation($event, reservation)"
-                    v-bind:id="reservation.selected.key"
+                    @click="confirmReservation($event, reservation)"
+                    :id="reservation.selected.key"
                   >
                     {{ $t('message.confirm_reservation') }}
                   </button>
@@ -177,24 +159,11 @@
                 </button>
                 <button
                   class="small-button del-button"
-                  @click="toggleCleanConfirmation()"
+                  @click="openCleanConfirmation(clean)"
                 >
                   {{ $t('message.delete_cleaned') }}
                 </button>
-                <div class="confirmation-wrapper" v-if="showCleanConfirmation">
-                  <div class="confirmation-container">
-                    {{ $t('message.clean_deletion_confirmation_message') }}
-                    <button @click="toggleCleanConfirmation()">
-                      {{ $t('message.clean_deletion_confirmation_negative') }}
-                    </button>
-                    <button
-                      @click="deleteCleaned($event, clean)"
-                      :id="clean.selected.key"
-                    >
-                      {{ $t('message.clean_deletion_confirmation_positive') }}
-                    </button>
-                  </div>
-                </div>
+
                 <template v-if="clean.confirmed">
                   <button
                     class="small-button confirm-button"
@@ -216,6 +185,34 @@
               </div>
             </li>
           </div>
+        </div>
+      </div>
+
+      <div class="confirmation-wrapper" v-if="showReservationConfirmation">
+        <div class="confirmation-container">
+          {{ $t('message.reservation_deletion_confirmation_message') }}
+
+          <button @click="showReservationConfirmation = false">
+            {{ $t('message.reservation_deletion_confirmation_negative') }}
+          </button>
+
+          <button @click="deleteReservation(reservationToDelete)">
+            {{ $t('message.reservation_deletion_confirmation_positive') }}
+          </button>
+        </div>
+      </div>
+
+      <div class="confirmation-wrapper" v-if="showCleanConfirmation">
+        <div class="confirmation-container">
+          {{ $t('message.clean_deletion_confirmation_message') }}
+
+          <button @click="showCleanConfirmation = false">
+            {{ $t('message.clean_deletion_confirmation_negative') }}
+          </button>
+
+          <button @click="deleteCleaned(cleanToDelete)">
+            {{ $t('message.clean_deletion_confirmation_positive') }}
+          </button>
         </div>
       </div>
     </div>
@@ -244,7 +241,6 @@
 </template>
 
 <script>
-//import AdminMapBox from '@/components/AdminMapBox'
 import ShoreMap from '@/components/ShoreMap'
 import AppFooter from '@/components/AppFooter'
 
@@ -268,7 +264,9 @@ export default {
       showReservations: false,
       showCleanedShores: false,
       showOnMap: false,
+      reservationToDelete: null,
       showReservationConfirmation: false,
+      cleanToDelete: null,
       showCleanConfirmation: false,
       counterSteps: null,
       counterKm: null
@@ -315,11 +313,13 @@ export default {
       this.showReservations = false
       this.showCleanedShores = !this.showCleanedShores
     },
-    toggleReservationConfirmation() {
-      this.showReservationConfirmation = !this.showReservationConfirmation
+    openReservationConfirmation(reservation) {
+      this.reservationToDelete = reservation
+      this.showReservationConfirmation = true
     },
-    toggleCleanConfirmation() {
-      this.showCleanConfirmation = !this.showCleanConfirmation
+    openCleanConfirmation(clean) {
+      this.cleanToDelete = clean
+      this.showCleanConfirmation = true
     },
     shoreHidden(data) {
       this.$refs.adminmap.unSelect()
@@ -406,11 +406,14 @@ export default {
           console.log(error)
         })
     },
-    deleteReservation(e, reservation) {
-      this.toggleReservationConfirmation()
+    deleteReservation(reservation) {
+      this.showReservationConfirmation = false
       axios
         .delete(process.env.VUE_APP_URL + '/api/map/reservation', {
-          data: { id: reservation._key, key: e.target.id }
+          data: {
+            reservkey: reservation._key,
+            shorekey: reservation.selected.key
+          }
         })
         .then(res => {
           if (res.data.status === 'ok') {
@@ -456,11 +459,11 @@ export default {
           console.log(error)
         })
     },
-    deleteCleaned(e, clean) {
-      this.toggleCleanConfirmation()
+    deleteCleaned(clean) {
+      this.showCleanConfirmation = false
       axios
         .delete(process.env.VUE_APP_URL + '/api/map/cleanedshore', {
-          data: { id: clean._key, key: e.target.id }
+          data: { cleankey: clean._key, shorekey: clean.selected.key }
         })
         .then(res => {
           if (res.data.status === 'ok') {
