@@ -61,7 +61,7 @@ html {
 }
 
 body {
-  color: #4e4a45;
+  color: hsl(33, 6%, 22%);
 }
 
 header {

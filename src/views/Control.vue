@@ -52,36 +52,38 @@
               v-for="reservation in reservations"
               :key="reservation._id"
             >
-              <div>Reservation Key: {{ reservation._key }}</div>
-              <div>Shore Key: {{ reservation.selected.key }}</div>
+              <h2 class="reservation-organizer">{{ reservation.organizer }}</h2>
               <div class="reservation-time">
-                <h3>{{ $t('message.date') }}</h3>
                 <p>
-                  {{ $t('message.starts') }}:
-                  <template v-if="$i18n.locale != 'fi'">
-                    {{ reservation.startdate | moment('DD MMMM YYYY') }}
-                  </template>
-                  <template v-else>
-                    {{ reservation.startdate | moment('DD MMMM[ta] YYYY') }} klo
-                  </template>
+                  <span class="bold">{{ $t('message.starts') }}: </span>
+                  {{ reservation.startdate | moment('DD.MM.YYYY') }}
                   {{ reservation.starttime }}
                 </p>
                 <p>
-                  {{ $t('message.ends') }}:
-                  <template v-if="$i18n.locale != 'fi'">
-                    {{ reservation.enddate | moment('DD MMMM YYYY') }}
-                  </template>
-                  <template v-else>
-                    {{ reservation.enddate | moment('DD MMMM[ta] YYYY') }} klo
-                  </template>
+                  <span class="bold">{{ $t('message.ends') }}: </span>
+                  {{ reservation.enddate | moment('DD.MM.YYYY') }}
                   {{ reservation.endtime }}
                 </p>
               </div>
               <div class="reservation-contact">
-                <h3>{{ $t('message.contact_info') }}</h3>
-                <p>{{ reservation.organizer }}</p>
-                <p>{{ reservation.phonenumbery }}</p>
-                <p>{{ reservation.email }}</p>
+                <p>
+                  <span class="bold">{{ $t('message.name') }}</span
+                  >: {{ reservation.name }}
+                </p>
+                <p>
+                  <span class="bold">{{ $t('message.phonenumber') }}</span
+                  >: {{ reservation.phonenumber }}
+                </p>
+                <p>
+                  <span class="bold">{{ $t('message.email') }}</span
+                  >: {{ reservation.email }}
+                </p>
+              </div>
+
+              <div v-if="reservation.openevent" class="reservation-open">
+                <h3>{{ $t('message.type_open') }}</h3>
+                <p>{{ reservation.openinfo }}</p>
+                <p>{{ reservation.openlink }}</p>
               </div>
 
               <div class="reservation-cta">
@@ -131,24 +133,29 @@
               v-for="clean in cleaned"
               :key="clean._id"
             >
+              <h2>{{ clean.organizer_name }}</h2>
               <div class="clean-time">
-                <h3>{{ $t('message.date') }}</h3>
                 <p>
-                  {{ $t('message.notified') }}:
-                  <template v-if="$i18n.locale != 'fi'">
-                    {{ clean.date | moment('DD MMMM YYYY') }}
-                  </template>
-                  <template v-else>
-                    {{ clean.date | moment('DD MMMM[ta] YYYY') }} klo
-                  </template>
+                  <span class="bold">{{ $t('message.notified') }}: </span>
+                  {{ clean.date | moment('DD.MM.YYYY') }}
                 </p>
               </div>
-              <div class="cleanform-contact">
-                <h3>{{ $t('message.contact_info') }}</h3>
-                <p>{{ clean.organizer_name }}</p>
-                <p>{{ clean.leader_phone }}</p>
-                <p>{{ clean.leader_email }}</p>
+
+              <div class="clean-contact">
+                <p>
+                  <span class="bold">{{ $t('message.name') }}</span
+                  >: {{ clean.organizer_name }}
+                </p>
+                <p>
+                  <span class="bold">{{ $t('message.phonenumber') }}</span
+                  >: {{ clean.leader_phone }}
+                </p>
+                <p>
+                  <span class="bold">{{ $t('message.email') }}</span
+                  >: {{ clean.leader_email }}
+                </p>
               </div>
+
               <div class="clean-cta">
                 <button
                   class="small-button show-button"
@@ -578,12 +585,27 @@ export default {
   display: flex;
   justify-content: space-between;
 
-  h3 {
+  h1 {
     font-weight: bold;
   }
 
-  h1 {
+  h2 {
+    font-size: 18px;
     font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 5px;
+  }
+
+  p {
+    font-size: 14px;
+    margin-top: 5px;
   }
 
   .editor-wrapper {
@@ -637,16 +659,23 @@ export default {
         margin: 0 auto;
 
         .reservation {
-          padding: 10px 10px 20px 10px;
+          padding: 10px;
           margin: 10px 0;
           border-bottom: 2px solid #bbb;
 
           .reservation-time {
-            padding: 5px;
+            margin-bottom: 10px;
+            padding-left: 10px;
           }
 
           .reservation-contact {
-            padding: 5px;
+            margin-bottom: 10px;
+            padding-left: 10px;
+          }
+
+          .reservation-open {
+            margin-bottom: 10px;
+            padding-left: 10px;
           }
 
           .reservation-cta {
@@ -661,8 +690,17 @@ export default {
 
         .clean-info {
           margin: 10px 0;
-          padding: 10px 10px 20px 10px;
+          padding: 10px;
           border-bottom: 2px solid #bbb;
+
+          .clean-time {
+            margin-bottom: 10px;
+            padding-left: 10px;
+          }
+
+          .clean-contact {
+            padding-left: 10px;
+          }
 
           .clean-cta {
             margin-top: 10px;
@@ -738,5 +776,9 @@ export default {
       margin-top: 1rem;
     }
   }
+}
+
+.bold {
+  font-weight: bold;
 }
 </style>

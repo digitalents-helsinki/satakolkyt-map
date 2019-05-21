@@ -159,7 +159,7 @@ export default {
             text-align: center;
             margin: 0 5px;
             color: #f0e41a;
-            background-color: #4e4a45;
+            background-color: hsl(33, 6%, 22%);
             border-radius: 50%;
             cursor: pointer;
           }
