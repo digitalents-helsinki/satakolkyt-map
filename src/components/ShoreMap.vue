@@ -58,8 +58,8 @@ export default {
         'pk.eyJ1Ijoic2F0YWtvbGt5dCIsImEiOiJjanY4MHB2MXQwYWN6M3lwa2xlZDdzMmY0In0.2H2gSyrO7PpTUcYN4qPbJg',
       mapOptions: {
         style: 'mapbox://styles/satakolkyt/cjv80rnwr02lu1fo4y7gxcldj',
-        center: [25.05, 60.2],
-        zoom: 11,
+        center: [25.014, 60.188],
+        zoom: 11.4,
         pitchWithRotate: false,
         dragRotate: false,
         touchZoomRotate: false,
