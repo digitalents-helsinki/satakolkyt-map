@@ -468,6 +468,7 @@ export default {
             this.cleaned = this.cleaned.filter(v => {
               return v !== clean
             })
+            this.getStepsKm()
           }
         })
         .catch(err => {
