@@ -220,14 +220,12 @@
         </template>
         <template v-if="saved && !loading">
           <div class="modal-header">
-            <slot name="header">
-              <div class="reservation-saved">
-                <h1 class="success">{{ $t('message.reservation_saved') }}</h1>
-                <button class="modal-default-button" @click="$emit('close')">
-                  {{ $t('message.close') }}
-                </button>
-              </div>
-            </slot>
+            <div class="reservation-saved">
+              <h1 class="success">{{ $t('message.reservation_saved') }}</h1>
+              <button class="modal-default-button" @click="$emit('close')">
+                {{ $t('message.close') }}
+              </button>
+            </div>
           </div>
         </template>
       </div>

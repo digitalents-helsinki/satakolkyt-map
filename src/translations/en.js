@@ -42,7 +42,7 @@ export const en = {
     trash_medium: 'About one refuse sack',
     trash_large: 'Many refuse sacks',
     reservation_saved: 'Reservation has been saved',
-    cleaned_saved: 'Cleaned Shore has been saved',
+    cleaned_saved: 'Cleaned shore report has been saved',
     trash_left: 'Did you leave trash bags on the shore that should be removed?',
     trash_bags_info: `If 'Yes', please provide accurate information about where they can be found (e.g. street address)`,
     foreign_species: 'Invasive species',

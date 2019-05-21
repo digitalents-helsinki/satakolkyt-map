@@ -44,7 +44,7 @@ export const fi = {
     trash_medium: 'Jätesäkillinen',
     trash_large: 'Monta jätesäkillistä',
     reservation_saved: 'Varaus on tallennettu',
-    cleaned_saved: 'Siivotut ranta on ilmoitettu',
+    cleaned_saved: 'Ilmoitus on tallennettu',
     trash_left: 'Jäikö rannalle pois vietäviä roskasäkkejä?',
     trash_bags_info: `Jos 'Kyllä', anna mahdollisimman tarkat tiedot mistä löytyvät (esim. katuosoite)`,
     foreign_species: 'Vieraslajit',

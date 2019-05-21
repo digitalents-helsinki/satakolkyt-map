@@ -295,12 +295,12 @@
         </template>
         <template v-if="saved && !loading">
           <div class="modal-header">
-            <slot name="header">
+            <div class="clean-saved">
               <h1 class="success">{{ $t('message.cleaned_saved') }}</h1>
               <button class="modal-default-button" @click="$emit('close')">
                 {{ $t('message.close') }}
               </button>
-            </slot>
+            </div>
           </div>
         </template>
       </div>
@@ -638,6 +638,14 @@ export default {
   width: 15px;
 }
 
+.clean-saved {
+  margin-top: 50%;
+}
+
+h1 {
+  font-weight: bold;
+}
+
 /*
  * The following styles are auto-applied to elements with
  * transition="modal" when their visibility is toggled
@@ -679,6 +687,9 @@ select {
 }
 .success {
   color: green;
+  font-size: 24px;
+  text-align: center;
+  margin: 20px 0;
 }
 textarea {
   border: 1px solid #bbb;
