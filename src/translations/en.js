@@ -100,6 +100,7 @@ export const en = {
     km_cleaned: 'km cleaned',
     start_in_future: 'The start must be in the future!',
     start_before_end: 'The start must be before the end!',
+    date_in_past: 'The date must be in the past!',
     username: 'Username',
     password: 'Password',
     login: 'Login',

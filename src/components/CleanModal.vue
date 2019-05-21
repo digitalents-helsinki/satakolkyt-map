@@ -19,7 +19,7 @@
                   <h5>{{ $t('message.organizer_clean') }}</h5>
                   <input
                     :required="required"
-                    v-model="data.organizer_name"
+                    v-model="cleandata.organizer_name"
                     type="text"
                   />
                 </div>
@@ -27,14 +27,20 @@
                 <div class="cleaned-info-item cleaned-time">
                   <h5>{{ $t('message.time_clean') }}</h5>
                   <font-awesome-icon icon="calendar" />
-                  <input :required="required" v-model="data.date" type="date" />
+                  <input
+                    :required="required"
+                    v-model="cleandata.date"
+                    type="date"
+                    @change="checkDateValidity"
+                  />
                 </div>
+                <div class="date-error">{{ dateerrormsg }}</div>
 
                 <div class="cleaned-info-item cleaner-count">
                   <h5>{{ $t('message.clean_count') }}</h5>
                   <input
                     :required="required"
-                    v-model="data.group_size"
+                    v-model="cleandata.group_size"
                     type="number"
                     min="1"
                     max="999"
@@ -43,7 +49,7 @@
 
                 <div class="cleaned-info-item trash-amount">
                   <h5>{{ $t('message.trash_count') }}</h5>
-                  <select :required="required" v-model="data.trash_amount">
+                  <select :required="required" v-model="cleandata.trash_amount">
                     <option value="1">{{ $t('message.trash_little') }}</option>
                     <option value="2">{{ $t('message.trash_small') }}</option>
                     <option value="3">{{ $t('message.trash_medium') }}</option>
@@ -62,7 +68,7 @@
                         name="trashbags"
                         value="yes"
                         :required="required"
-                        v-model="data.trash_left"
+                        v-model="cleandata.trash_left"
                       />
                     </div>
                     <div class="trash-bags-left-answer">
@@ -73,7 +79,7 @@
                         name="trashbags"
                         value="no"
                         :required="required"
-                        v-model="data.trash_left"
+                        v-model="cleandata.trash_left"
                       />
                     </div>
                   </div>
@@ -83,15 +89,15 @@
                     {{ $t('message.trash_bags_info') }}
                   </p>
                   <textarea
-                    v-model="data.trash_bags_info"
+                    v-model="cleandata.trash_bags_info"
                     rows="2"
-                    :required="data.trash_left === 'yes' && required"
+                    :required="cleandata.trash_left === 'yes' && required"
                   />
                 </div>
 
                 <div class="something-else">
                   <h4>{{ $t('message.clean_something_else') }}</h4>
-                  <textarea rows="4" v-model="data.cleanmoreinfo" />
+                  <textarea rows="4" v-model="cleandata.cleanmoreinfo" />
                 </div>
 
                 <div class="cleaner">
@@ -104,7 +110,7 @@
                     <h5>{{ $t('message.name') }}</h5>
                     <input
                       :required="required"
-                      v-model="data.leader_name"
+                      v-model="cleandata.leader_name"
                       type="text"
                     />
                   </div>
@@ -112,7 +118,7 @@
                     <h5>{{ $t('message.email') }}</h5>
                     <input
                       :required="required"
-                      v-model="data.leader_email"
+                      v-model="cleandata.leader_email"
                       type="email"
                     />
                   </div>
@@ -120,7 +126,7 @@
                     <h5>{{ $t('message.phonenumber') }}</h5>
                     <input
                       :required="required"
-                      v-model="data.leader_phone"
+                      v-model="cleandata.leader_phone"
                       type="tel"
                       pattern="[0-9]{3,11}"
                     />
@@ -151,7 +157,7 @@
                         id="kurttuyes"
                         name="kurtturuusu"
                         value="yes"
-                        v-model="data.kurtturuusu"
+                        v-model="cleandata.kurtturuusu"
                         :required="required"
                       />
                     </div>
@@ -162,7 +168,7 @@
                         id="kurttuno"
                         name="kurtturuusu"
                         value="no"
-                        v-model="data.kurtturuusu"
+                        v-model="cleandata.kurtturuusu"
                         :required="required"
                       />
                     </div>
@@ -173,7 +179,7 @@
                         id="kurttuidk"
                         name="kurtturuusu"
                         value="idk"
-                        v-model="data.kurtturuusu"
+                        v-model="cleandata.kurtturuusu"
                         :required="required"
                       />
                     </div>
@@ -194,7 +200,7 @@
                         id="jattiyes"
                         name="jattipalsami"
                         value="yes"
-                        v-model="data.jattipalsami"
+                        v-model="cleandata.jattipalsami"
                         :required="required"
                       />
                     </div>
@@ -205,7 +211,7 @@
                         id="jattino"
                         name="jattipalsami"
                         value="no"
-                        v-model="data.jattipalsami"
+                        v-model="cleandata.jattipalsami"
                         :required="required"
                       />
                     </div>
@@ -216,7 +222,7 @@
                         id="jattiidk"
                         name="jattipalsami"
                         value="idk"
-                        v-model="data.jattipalsami"
+                        v-model="cleandata.jattipalsami"
                         :required="required"
                       />
                     </div>
@@ -231,10 +237,10 @@
                   <p>{{ $t('message.foreign_species_detail2') }}</p>
                   <textarea
                     rows="4"
-                    v-model="data.foreignspeciesdetail"
+                    v-model="cleandata.foreignspeciesdetail"
                     :required="
-                      (data.kurtturuusu === 'yes' ||
-                        data.jattipalsami === 'yes') &&
+                      (cleandata.kurtturuusu === 'yes' ||
+                        cleandata.jattipalsami === 'yes') &&
                         required
                     "
                   />
@@ -311,7 +317,7 @@ export default {
 
   data() {
     return {
-      data: {
+      cleandata: {
         confirmed: false,
         organizer_name: '',
         date: '',
@@ -331,20 +337,24 @@ export default {
       saved: false,
       loading: false,
       required: true,
-      pagenum: 0
+      pagenum: 0,
+      dateerrormsg: ''
     }
   },
   mounted() {
-    this.data.selected = this.$props.selected
+    this.cleandata.selected = this.$props.selected
   },
   methods: {
     saveCleaned(e) {
       if (e.target.form.reportValidity()) {
+        if (!this.checkDateValidity()) {
+          return
+        }
         this.loading = true
         axios({
           method: 'POST',
           url: process.env.VUE_APP_URL + '/api/map/cleaninfo',
-          data: this.data
+          data: this.cleandata
         })
           .then(res => {
             if (res.data.status === 'ok') {
@@ -360,11 +370,35 @@ export default {
     },
     toNextPage(e) {
       if (e.target.form.reportValidity()) {
+        if (this.pagenum == 0 && !this.checkDateValidity()) {
+          return
+        }
         this.pagenum++
       }
     },
     toPrevPage() {
       this.pagenum--
+    },
+    checkDateValidity() {
+      const d = this.cleandata.date.split('-')
+      const date = new Date(
+        parseInt(d[0]),
+        parseInt(d[1]) - 1,
+        parseInt(d[2]),
+        0,
+        0,
+        0,
+        0
+      )
+
+      const now = new Date()
+      if (date > now) {
+        this.dateerrormsg = this.$t('message.date_in_past')
+        return false
+      } else {
+        this.dateerrormsg = ''
+        return true
+      }
     }
   }
 }
@@ -476,6 +510,12 @@ export default {
 
 .cleaned-time h5 {
   flex-basis: 30%;
+}
+
+.date-error {
+  margin: 0px 0 10px 0;
+  font-size: 14px;
+  color: red;
 }
 
 .cleaned-info-item h5 {

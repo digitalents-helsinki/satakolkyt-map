@@ -103,6 +103,7 @@ export const fi = {
     km_cleaned: 'km siivottu',
     start_in_future: 'Aloitusajan täytyy olla tulevaisuudessa!',
     start_before_end: 'Aloitusajan täytyy olla ennen päättymisaikaa!',
+    date_in_past: 'Ajan täytyy olla menneisyydessä!',
     username: 'Käyttäjätunnus',
     password: 'Salasana',
     login: 'Kirjaudu',

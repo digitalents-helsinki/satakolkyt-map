@@ -280,6 +280,9 @@ export default {
   methods: {
     toNextPage(e) {
       if (e.target.form.reportValidity()) {
+        if (this.pagenum == 0 && !this.checkDateValidity()) {
+          return
+        }
         this.pagenum++
       }
     },
