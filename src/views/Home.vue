@@ -61,6 +61,13 @@
           </CleanModal>
         </transition>
       </div>
+      <div v-if="showInfoBox" class="infoBoxWrapper">
+        <InfoBox
+          :data="infoBoxData"
+          :type="selectedShoreType"
+          @infobox-close="unSelect"
+        />
+      </div>
     </div>
     <div
       v-show="showPrivacyInfo"
@@ -94,6 +101,7 @@ import ShoreMap from '@/components/ShoreMap'
 import ReserveModal from '@/components/ReserveModal'
 import CleanModal from '@/components/CleanModal'
 import AppFooter from '@/components/AppFooter'
+import InfoBox from '@/components/InfoBox'
 import axios from 'axios'
 export default {
   name: 'home',
@@ -113,6 +121,10 @@ export default {
       selectedShoreData: null,
       selectedShoreType: '',
 
+      //Infobox
+      showInfoBox: false,
+      infoBoxData: null,
+
       showPrivacyInfo: false,
 
       //Footer counter stuff
@@ -130,8 +142,8 @@ export default {
     ShoreMap,
     ReserveModal,
     CleanModal,
-    AppFooter
-    //InfoBox
+    AppFooter,
+    InfoBox
   },
 
   methods: {
@@ -213,14 +225,15 @@ export default {
       this.showModal = !this.showModal
     },
     selectReserved(data) {
-      console.log('Home.selectReserved()')
+      this.infoBoxData = null
       this.selectedShoreData = data
       this.selectedShoreType = 'reserved'
+      this.showInfoBox = true
       axios
         .get(process.env.VUE_APP_URL + '/api/map/reservedinfo/' + data.key)
         .then(
           res => {
-            this.$refs.usermap.showPopup(res.data.data)
+            this.infoBoxData = res.data.data
           },
           err => {
             console.log(err)
@@ -228,14 +241,15 @@ export default {
         )
     },
     selectCleaned(data) {
-      console.log('Home.selectCleaned()')
+      this.infoBoxData = null
       this.selectedShoreData = data
       this.selectedShoreType = 'cleaned'
+      this.showInfoBox = true
       axios
         .get(process.env.VUE_APP_URL + '/api/map/cleanedinfo/' + data.key)
         .then(
           res => {
-            this.$refs.usermap.showPopup(res.data.data)
+            this.infoBoxData = res.data.data
           },
           err => {
             console.log(err)
@@ -243,10 +257,18 @@ export default {
         )
     },
     selectFree(data) {
-      console.log('Home.selectFree()')
+      this.infoBoxData = null
       this.selectedShoreData = data
       this.selectedShoreType = 'free'
-      this.$refs.usermap.showPopup(data)
+      this.infoBoxData = data
+      this.showInfoBox = true
+    },
+    unSelect() {
+      this.showInfoBox = false
+      this.infoBoxData = null
+      this.selectedShoreData = null
+      this.selectedShoreType = null
+      this.$refs.usermap.unRenderSelected()
     },
     getStepsKm() {
       axios.get(process.env.VUE_APP_URL + '/api/map/stepskm/').then(
@@ -358,7 +380,14 @@ export default {
 .map-container {
   position: relative;
   height: 100%;
+
+  .infoBoxWrapper {
+    position: absolute;
+    left: 50px;
+    bottom: 120px;
+  }
 }
+
 .initial-background {
   position: relative;
   background-image: url('/bg.jpg');

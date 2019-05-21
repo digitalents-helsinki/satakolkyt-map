@@ -12,7 +12,7 @@
       @load="mapLoaded"
     >
       <MglAttributionControl :compact="false" />
-      <MglPopup
+      <!--MglPopup
         ref="infopopup"
         :coordinates="infoBoxCoords"
         :closeOnClick="true"
@@ -23,7 +23,7 @@
           :data="infoBoxData"
           @infobox-close="hidePopup"
         />
-      </MglPopup>
+      </MglPopup-->
     </MglMap>
   </div>
 </template>
@@ -31,7 +31,7 @@
 <script>
 /* eslint-disable */
 import { MglMap, MglAttributionControl, MglPopup } from 'vue-mapbox'
-import InfoBox from '@/components/InfoBox'
+//import InfoBox from '@/components/InfoBox'
 
 export default {
   name: 'shore-map',
@@ -48,9 +48,9 @@ export default {
   },
   components: {
     MglMap,
-    MglAttributionControl,
-    MglPopup,
-    InfoBox
+    MglAttributionControl
+    //MglPopup,
+    //InfoBox
   },
   data() {
     return {
@@ -73,11 +73,11 @@ export default {
         layer: null,
         id: null
       },
-      hoveredIds: {},
-      showInfoPopup: false,
-      infoBoxType: null,
-      infoBoxData: null,
-      infoBoxCoords: [0, 0]
+      hoveredIds: {}
+      //showInfoPopup: false,
+      //infoBoxType: null,
+      //infoBoxData: null,
+      //infoBoxCoords: [0, 0]
     }
   },
   methods: {
@@ -138,14 +138,14 @@ export default {
         map.flyTo({ center: clickpos, zoom: 15 })
 
         //set coordinates and type for infobox popup
-        this.infoBoxCoords = clickpos
-        this.infoBoxType = shoretype
+        /*this.infoBoxCoords = clickpos
+        this.infoBoxType = shoretype*/
 
         //let parent know:
         this.$emit(shoretype + '-click', clickedShore.properties)
       })
     },
-    showPopup(data) {
+    /*showPopup(data) {
       console.log('ShoreMap.showPopup()')
       if (!this.showInfoPopup) {
         this.infoBoxData = data
@@ -164,7 +164,7 @@ export default {
 
         this.$refs.infopopup.popup.remove()
       }
-    },
+    },*/
     renderSelected(id, layername) {
       this.selected.layer = layername
       this.selected.id = id
