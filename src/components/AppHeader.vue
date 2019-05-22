@@ -13,10 +13,6 @@
       </div>
     </template>
 
-    <template v-if="isOffline">
-      <h2>{{ $t('message.offline') }}</h2>
-    </template>
-
     <div class="help-icon-wrapper">
       <div class="help-icon">
         <font-awesome-icon icon="question-circle" @click="showHelp = true" />
