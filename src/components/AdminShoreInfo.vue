@@ -1,3 +1,5 @@
+// Copyright (C) 2019 Digitalents Helsinki
+
 <template>
   <div>
     <div class="shore-info">

@@ -1,3 +1,5 @@
+// Copyright (C) 2019 Digitalents Helsinki
+
 <template>
   <div class="footer-wrapper">
     <div class="footer-container">

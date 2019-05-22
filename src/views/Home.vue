@@ -1,3 +1,5 @@
+// Copyright (C) 2019 Digitalents Helsinki
+
 <template>
   <div class="home">
     <vue-headful :title="$t('message.app')" />
