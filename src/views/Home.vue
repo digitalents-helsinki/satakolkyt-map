@@ -9,26 +9,11 @@
         :reservedshores="this.$store.state.maplayers.reservedlayer"
         :cleanedshores="this.$store.state.maplayers.cleanlayer"
         :hiddenshores="this.$store.state.maplayers.hiddenlayer"
-        v-if="showMap"
         @map-loaded="mapLoaded"
         @free-click="selectFree"
         @reserved-click="selectReserved"
         @cleaned-click="selectCleaned"
       />
-      <section v-else>
-        <div class="initial-background"></div>
-        <div class="initial">
-          <template v-if="isOnline" class="no-blur"
-            ><h1>{{ $t('message.open_map') }}</h1>
-            <button @click="() => (showMap = true)">
-              {{ $t('message.open') }}
-            </button>
-          </template>
-          <template class="no-blur" v-if="isOffline">
-            <h1>{{ $t('message.offline') }}</h1>
-          </template>
-        </div>
-      </section>
       <app-footer
         @show-reservationform="showReservationForm = true"
         @show-cleanform="showCleaned = true"
@@ -108,9 +93,6 @@ export default {
 
   data() {
     return {
-      showMap: false,
-      startMapOnMounted: false,
-
       showCleaned: false,
       showReservationForm: false,
 
@@ -218,10 +200,6 @@ export default {
       this.$store.dispatch('getreservedlayer')
       this.$store.dispatch('getcleanlayer')
       this.$store.dispatch('gethiddenlayer')
-
-      this.$nextTick(() => {
-        this.showMap = this.startMapOnMounted
-      })
     },
     toggleModal() {
       this.showModal = !this.showModal
@@ -288,10 +266,6 @@ export default {
   mounted() {
     this.initMap()
     this.getStepsKm()
-  },
-
-  beforeDestroy() {
-    this.showMap = this.startMapOnMounted
   }
 }
 </script>
