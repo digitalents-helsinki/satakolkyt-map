@@ -15,6 +15,7 @@ export const en = {
     time_clean: 'Cleaning date',
     organizer_clean: 'Organizer of the cleaning',
     clean_count: 'How many people participated in the cleaning',
+    group_size: 'Group size',
     date_end: 'Date for the end',
     time_end: 'Time for the end',
     time_start: 'Time for the start',
@@ -30,6 +31,7 @@ export const en = {
     name: 'Name',
     phonenumber: 'Phonenumber',
     trash_count: 'How much trash was there',
+    trash_amount: 'Trash amount',
     email: 'Email',
     contact: 'Contact person',
     close: 'Close',
@@ -45,11 +47,14 @@ export const en = {
     cleaned_saved: 'Cleaned shore report has been saved',
     trash_left: 'Did you leave trash bags on the shore that should be removed?',
     trash_bags_info: `If 'Yes', please provide accurate information about where they can be found (e.g. street address)`,
+    bags_to_collect: 'Trash bags to collect',
     foreign_species: 'Invasive species',
     foreign_species_info: `Invasive species are species that have, intentionally or unintentionally, been spread by people
                           from their native areas to a new area. Detrimental invasive species spread quickly and take away
                           living space from the native species as well as change the structure of the ecosystem.`,
+    kurtturuusu: 'Rosa rugosa',
     see_kurtturuusu: 'Did you see any Rosa rugosa on the shore?',
+    jattipalsami: 'Impatiens glandulifera',
     see_jattipalsami: 'Did you see any Impatiens glandulifera on the shore?',
     foreign_species_detail1: 'Please describe your sightings more specifically',
     foreign_species_detail2:

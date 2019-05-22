@@ -139,12 +139,16 @@
                   <span class="bold">{{ $t('message.notified') }}: </span>
                   {{ clean.date | moment('DD.MM.YYYY') }}
                 </p>
+                <p>
+                  <span class="bold">{{ $t('message.group_size') }}: </span
+                  >{{ clean.group_size }}
+                </p>
               </div>
 
               <div class="clean-contact">
                 <p>
                   <span class="bold">{{ $t('message.name') }}</span
-                  >: {{ clean.organizer_name }}
+                  >: {{ clean.leader_name }}
                 </p>
                 <p>
                   <span class="bold">{{ $t('message.phonenumber') }}</span
@@ -154,6 +158,59 @@
                   <span class="bold">{{ $t('message.email') }}</span
                   >: {{ clean.leader_email }}
                 </p>
+              </div>
+
+              <div class="clean-trash">
+                <p>
+                  <span class="bold">{{ $t('message.trash_amount') }}:</span>
+                  {{
+                    [
+                      $t('message.trash_little'),
+                      $t('message.trash_small'),
+                      $t('message.trash_medium'),
+                      $t('message.trash_large')
+                    ][clean.trash_amount]
+                  }}
+                </p>
+                <p>
+                  <span class="bold">{{ $t('message.bags_to_collect') }}:</span>
+                  {{
+                    clean.trash_left === 'yes'
+                      ? $t('message.yes')
+                      : $t('message.no')
+                  }}
+                </p>
+                <p v-if="clean.trash_left === 'yes'">
+                  {{ clean.trash_bags_info }}
+                </p>
+              </div>
+
+              <div class="clean-plants">
+                <p>
+                  <span class="bold">{{ $t('message.kurtturuusu') }}: </span>
+                  {{
+                    clean.kurtturuusu === 'yes'
+                      ? $t('message.yes')
+                      : clean.kurtturuusu === 'no'
+                      ? $t('message.no')
+                      : $t('message.unsure')
+                  }}
+                </p>
+                <p>
+                  <span class="bold">{{ $t('message.jattipalsami') }}: </span>
+                  {{
+                    clean.jattipalsami === 'yes'
+                      ? $t('message.yes')
+                      : clean.jattipalsami === 'no'
+                      ? $t('message.no')
+                      : $t('message.unsure')
+                  }}
+                </p>
+                <p>{{ clean.foreignspeciesdetail }}</p>
+              </div>
+
+              <div class="clean-more">
+                <p>{{ clean.cleanmoreinfo }}</p>
               </div>
 
               <div class="clean-cta">
@@ -663,18 +720,12 @@ export default {
           margin: 10px 0;
           border-bottom: 2px solid #bbb;
 
-          .reservation-time {
-            margin-bottom: 10px;
-            padding-left: 10px;
-          }
-
-          .reservation-contact {
-            margin-bottom: 10px;
-            padding-left: 10px;
-          }
-
+          .reservation-time,
+          .reservation-contact,
           .reservation-open {
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed grey;
             padding-left: 10px;
           }
 
@@ -693,13 +744,19 @@ export default {
           padding: 10px;
           border-bottom: 2px solid #bbb;
 
-          .clean-time {
-            margin-bottom: 10px;
+          .clean-time,
+          .clean-contact,
+          .clean-trash,
+          .clean-plants {
+            margin-bottom: 5px;
+            padding-bottom: 5px;
             padding-left: 10px;
+            border-bottom: 1px dashed grey;
           }
 
-          .clean-contact {
+          .clean-more {
             padding-left: 10px;
+            margin-bottom: 10px;
           }
 
           .clean-cta {

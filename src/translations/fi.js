@@ -31,9 +31,11 @@ export const fi = {
     contact: 'Yhteyshenkilö',
     close: 'Sulje',
     clean_count: 'Kuinka monta ihmistä osallistui talkoisiin?',
+    group_size: 'Ryhmän koko',
     time_clean: 'Ajankohta',
     organizer_clean: 'Järjestävä taho',
     trash_count: 'Paljonko rannalla oli roskaa?',
+    trash_amount: 'Roskan määrä',
     claim_clean: 'Ilmoita ranta siivotuksi',
     fill_cleaned_info: 'Täytä siivotun rannan tiedot',
     shore_cleaner: 'Yhteyshenkilö',
@@ -47,6 +49,7 @@ export const fi = {
     cleaned_saved: 'Ilmoitus on tallennettu',
     trash_left: 'Jäikö rannalle pois vietäviä roskasäkkejä?',
     trash_bags_info: `Jos 'Kyllä', anna mahdollisimman tarkat tiedot mistä löytyvät (esim. katuosoite)`,
+    bags_to_collect: 'Roskasäkkejä kerättävänä',
     foreign_species: 'Vieraslajit',
     foreign_species_info: `Vieraslajit ovat lajeja, jotka ovat levinneet luontaiselta levinneisyysalueeltaan
                           uudelle alueelle ihmisen mukana joko tahattomasti tai tarkoituksella. Haitalliset
