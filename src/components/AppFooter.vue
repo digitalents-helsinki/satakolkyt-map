@@ -5,7 +5,7 @@
     <div class="footer-container">
       <div class="footer">
         <div class="buttons">
-          <template v-if="!this.$props.adminmode">
+          <div v-if="!this.$props.adminmode">
             <shore-info
               v-show="this.$props.data"
               @show-reservationform="this.showReservationForm"
@@ -13,8 +13,8 @@
               :data="this.$props.data"
               :seltype="seltype"
             />
-          </template>
-          <template v-else>
+          </div>
+          <div v-else>
             <admin-shore-info
               :data="this.$props.data"
               :action="this.$props.action"
@@ -22,7 +22,7 @@
               @unhide-shore="this.unHideShoreMap"
             >
             </admin-shore-info>
-          </template>
+          </div>
         </div>
         <div class="counter" :class="{ hide: this.$props.data }">
           <div class="stepcount green">
