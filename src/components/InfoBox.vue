@@ -40,7 +40,9 @@
             </p>
             <p>
               <b>{{ $t('message.event_link') }}:</b>
-              {{ this.$props.data.openlink }}
+              <a :href="this.$props.data.openlink" target="_blank">{{
+                $t('message.openevent_link')
+              }}</a>
             </p>
           </template>
           <p>
