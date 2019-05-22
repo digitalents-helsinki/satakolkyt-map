@@ -2,6 +2,12 @@
   "name": "satakolkyt",
   "version": "0.1.0",
   "private": true,
+  "author": "Digitalents Helsinki",
+  "contributors": [
+    "Omar Benchbana",
+    "Samu Suvanto",
+    "Vesa Meriläinen <vesa.merilainen@digitalentshelsinki.fi>"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "dev": "yarn run serve",

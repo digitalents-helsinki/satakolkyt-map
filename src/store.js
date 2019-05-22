@@ -1,3 +1,5 @@
+// Copyright (C) 2019 Digitalents Helsinki
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 

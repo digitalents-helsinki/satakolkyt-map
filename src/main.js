@@ -1,3 +1,5 @@
+// Copyright (C) 2019 Digitalents Helsinki
+
 import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
 
