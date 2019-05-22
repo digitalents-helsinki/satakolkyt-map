@@ -120,6 +120,7 @@ export const en = {
     clean_deletion_confirmation_message:
       'Do you really want to discard the cleaning report?',
     clean_deletion_confirmation_positive: 'Yes discard',
-    clean_deletion_confirmation_negative: 'Cancel'
+    clean_deletion_confirmation_negative: 'Cancel',
+    hide_confirmed: 'Hide confirmed'
   }
 }

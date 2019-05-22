@@ -41,6 +41,12 @@
             <h1>{{ $t('message.cleaned') }}</h1>
           </div>
         </div>
+        <div class="hide-confirmed">
+          <label for="hideconfirmed"
+            >{{ $t('message.hide_confirmed') }}:
+          </label>
+          <input type="checkbox" id="hideconfirmed" v-model="hideConfirmed" />
+        </div>
         <div class="tab-content">
           <div class="reservations" v-show="showReservations">
             <li
@@ -51,6 +57,10 @@
               }"
               v-for="reservation in reservations"
               :key="reservation._id"
+              v-show="
+                !reservation.confirmed ||
+                  !(reservation.confirmed && hideConfirmed)
+              "
             >
               <h2 class="reservation-organizer">{{ reservation.organizer }}</h2>
               <div class="reservation-time">
@@ -132,6 +142,7 @@
               }"
               v-for="clean in cleaned"
               :key="clean._id"
+              v-show="!clean.confirmed || !(clean.confirmed && hideConfirmed)"
             >
               <h2>{{ clean.organizer_name }}</h2>
               <div class="clean-time">
@@ -333,7 +344,8 @@ export default {
       cleanToDelete: null,
       showCleanConfirmation: false,
       counterSteps: null,
-      counterKm: null
+      counterKm: null,
+      hideConfirmed: false
     }
   },
   components: {
@@ -681,6 +693,13 @@ export default {
       position: absolute;
       top: 100px;
       left: 30px;
+
+      .hide-confirmed {
+        background-color: white;
+        height: 40px;
+        width: 300px;
+        padding: 10px 50px;
+      }
 
       .list-tabs {
         display: flex;
