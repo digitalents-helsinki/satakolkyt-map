@@ -63,7 +63,7 @@
           <div class="come-clean">({{ $t('message.come_clean') }})</div>
           <div class="reserved">
             <img src="../Icons/orange.svg" alt="" />
-            {{ $t('message.shoresreserved') }}
+            <div>{{ $t('message.shoresreserved') }}</div>
           </div>
           <div class="cleaned">
             <img src="../Icons/green.svg" alt="" />
@@ -222,7 +222,17 @@ export default {
     }
     .images {
       .free {
-        margin: 20px 0 10px 0;
+        margin: 20px 0 5px 0;
+      }
+
+      .reserved {
+        display: flex;
+        align-items: center;
+        line-height: 1.2;
+
+        img {
+          margin-right: 5px;
+        }
       }
 
       .reserved,
@@ -320,7 +330,7 @@ export default {
       bottom: 64px;
       width: 45%;
       max-width: 200px;
-      height: 170px;
+      height: 190px;
       min-height: 0;
       pointer-events: all;
       cursor: pointer;
@@ -345,7 +355,7 @@ export default {
 
       .images {
         .img {
-          max-width: 50px;
+          max-width: 40px;
         }
 
         .free {
@@ -366,7 +376,7 @@ export default {
       }
     }
     .legenddown {
-      bottom: -75px;
+      bottom: -95px;
     }
   }
 }

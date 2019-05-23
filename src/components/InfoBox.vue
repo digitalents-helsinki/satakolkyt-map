@@ -130,7 +130,7 @@ export default {
     font-size: 30px;
     cursor: pointer;
     top: 10px;
-    right: 20px;
+    right: 15px;
   }
 
   h1 {
