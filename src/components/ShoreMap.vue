@@ -13,7 +13,8 @@
       :zoom="mapOptions.zoom"
       @load="mapLoaded"
     >
-      <MglAttributionControl :compact="false" />
+      <MglAttributionControl :compact="false" position="bottom-right" />
+      <MglNavigationControl position="top-right" />
       <!--MglPopup
         ref="infopopup"
         :coordinates="infoBoxCoords"
@@ -32,7 +33,7 @@
 
 <script>
 /* eslint-disable */
-import { MglMap, MglAttributionControl, MglPopup } from 'vue-mapbox'
+import { MglMap, MglAttributionControl, MglNavigationControl } from 'vue-mapbox'
 //import InfoBox from '@/components/InfoBox'
 
 export default {
@@ -50,7 +51,8 @@ export default {
   },
   components: {
     MglMap,
-    MglAttributionControl
+    MglAttributionControl,
+    MglNavigationControl
     //MglPopup,
     //InfoBox
   },
@@ -348,8 +350,8 @@ export default {
   width: 100%;
 }*/
 
-.mapboxgl-ctrl-top-right {
-  top: initial;
+.mapboxgl-ctrl-bottom-right {
+  top: unset;
   bottom: 80px;
   right: 220px;
 
@@ -359,6 +361,24 @@ export default {
 
   .mapbox-improve-map {
     display: none;
+  }
+}
+
+.mapboxgl-ctrl-top-right {
+  top: 90px;
+  right: 5vw;
+
+  .mapboxgl-ctrl {
+    width: 50px;
+
+    .mapboxgl-ctrl-zoom-in,
+    .mapboxgl-ctrl-zoom-out {
+      height: 50px;
+    }
+
+    .mapboxgl-ctrl-compass {
+      display: none;
+    }
   }
 }
 
