@@ -71,7 +71,7 @@
         </h2>
         <div v-if="this.$props.data.confirmed">
           <p>
-            <b>{{ $t('message.organizer') }}:</b>
+            <b>{{ $t('message.cleaning_text') }}:</b>
             {{ this.$props.data.organizer_name }}
           </p>
           <p>

@@ -27,6 +27,7 @@ export const en = {
     openevent_text: 'Tell us something about the cleanup event',
     openevent_link: 'Link to the event',
     organizer: 'Organizer',
+    cleaning_text: 'Shore was cleaned by',
     contact_explanation:
       'Fill in the information of the contact person. Contact information is kept private.',
     name: 'Name',

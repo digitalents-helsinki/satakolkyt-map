@@ -24,6 +24,7 @@ export const fi = {
     openevent_text: 'Kerro jotain talkoista',
     openevent_link: 'Linkki tapahtumaan',
     organizer: 'Järjestävä taho',
+    cleaning_text: 'Rannan siivosi',
     contact_explanation:
       'Täytä alle yhteyshenkilön tiedot. Yhteyshenkilön tiedot eivät näy muille käyttäjille.',
     name: 'Nimi',

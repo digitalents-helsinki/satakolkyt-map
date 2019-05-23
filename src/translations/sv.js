@@ -14,6 +14,7 @@ export const sv = {
     type_open: 'Talko som är öppna för alla',
     type_private: 'Privat talko',
     organizer: 'Organisatör',
+    cleaning_text: 'SV: cleaned by',
     name: 'Namn',
     phonenumber: 'Telefonnummer ',
     email: 'E-postadress',
