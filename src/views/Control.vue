@@ -141,6 +141,11 @@
             </li>
           </div>
           <div class="clean-infos" v-show="showCleanedShores">
+            <div class="remove-old-cleaninfos">
+              <button @click="removeOldCleaninfos">
+                Poista yli 2kk vanhat siivoukset
+              </button>
+            </div>
             <li
               class="clean-info"
               :class="{
@@ -648,6 +653,20 @@ export default {
           if (res.data.status === 'ok') {
             this.getReservations()
             alert('Poistettiin ' + res.data.removeCount + ' vanhaa varausta.')
+          }
+        })
+    },
+    removeOldCleaninfos() {
+      axios
+        .delete(process.env.VUE_APP_URL + '/api/map/removeoldcleaninfos')
+        .then(res => {
+          if (res.data.status === 'ok') {
+            this.getCleaned()
+            alert(
+              'Poistettiin ' +
+                res.data.removeCount +
+                ' vanhentunutta siivousta.'
+            )
           }
         })
     }
