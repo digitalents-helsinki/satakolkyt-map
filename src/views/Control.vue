@@ -67,15 +67,15 @@
               <h2 class="reservation-organizer">{{ reservation.organizer }}</h2>
               <div class="reservation-time">
                 <p>
-                  <span class="bold">{{ $t('message.starts') }}: </span>
+                  <span class="bold">{{ $t('message.date') }}: </span>
                   {{ reservation.startdate | moment('DD.MM.YYYY') }}
-                  {{ reservation.starttime }}
+                  {{ reservation.starttime + ' - ' + reservation.endtime }}
                 </p>
-                <p>
+                <!--p>
                   <span class="bold">{{ $t('message.ends') }}: </span>
                   {{ reservation.enddate | moment('DD.MM.YYYY') }}
                   {{ reservation.endtime }}
-                </p>
+                </p-->
               </div>
               <div class="reservation-contact">
                 <p>

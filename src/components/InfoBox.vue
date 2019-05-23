@@ -46,13 +46,18 @@
           <p>
             <b>{{ $t('message.begins') }}:</b>
             {{ this.$props.data.startdate | moment('DD.MM.YYYY') }}
-            {{ $t('message.at') + ' ' + this.$props.data.starttime }}
+            {{
+              $t('message.at') +
+                ' ' +
+                this.$props.data.starttime +
+                ' - ' +
+                this.$props.data.endtime
+            }}
           </p>
-          <p>
+          <!--p>
             <b>{{ $t('message.ends') }}:</b>
             {{ this.$props.data.enddate | moment('DD.MM.YYYY') }}
-            {{ $t('message.at') + ' ' + this.$props.data.endtime }}
-          </p>
+          </p-->
         </div>
       </div>
       <div v-if="type === 'cleaned'">

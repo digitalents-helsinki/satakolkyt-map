@@ -38,7 +38,6 @@
 
                   <div class="datetime-inputs">
                     <div class="datetime-input">
-                      <h5>{{ $t('message.begins') }}</h5>
                       <div class="datetime-inputfields">
                         <div class="datetime-item">
                           <font-awesome-icon icon="calendar" />
@@ -63,21 +62,7 @@
                             @change="checkDateValidity"
                           />
                         </div>
-                      </div>
-                    </div>
-                    <div class="datetime-input">
-                      <h5>{{ $t('message.ends') }}</h5>
-                      <div class="datetime-inputfields">
-                        <div class="datetime-item">
-                          <font-awesome-icon icon="calendar" />
-
-                          <input
-                            :required="required"
-                            v-model="reservationdata.enddate"
-                            type="date"
-                            @change="checkDateValidity"
-                          />
-                        </div>
+                        <div style="margin-top: 10px;">-</div>
                         <div class="datetime-item">
                           <font-awesome-icon icon="clock" />
 
@@ -93,6 +78,22 @@
                         </div>
                       </div>
                     </div>
+                    <!--div class="datetime-input">
+                      <h5>{{ $t('message.ends') }}</h5>
+                      <div class="datetime-inputfields">
+                        <div class="datetime-item">
+                          <font-awesome-icon icon="calendar" />
+
+                          <input
+                            :required="required"
+                            v-model="reservationdata.enddate"
+                            type="date"
+                            @change="checkDateValidity"
+                          />
+                        </div>
+                        
+                      </div>
+                    </div-->
                   </div>
                   <div class="date-error">{{ dateerrormsg }}</div>
                 </div>
@@ -259,7 +260,7 @@ export default {
           HH: '',
           mm: ''
         },
-        enddate: '',
+        //enddate: '',
         endtime: {
           HH: '',
           mm: ''
@@ -334,11 +335,11 @@ export default {
         this.dateerrormsg = ''
       }
 
-      const ed = this.reservationdata.enddate.split('-')
+      //const ed = this.reservationdata.enddate.split('-')
       const end = new Date(
-        parseInt(ed[0]),
-        parseInt(ed[1]) - 1,
-        parseInt(ed[2]),
+        parseInt(sd[0]),
+        parseInt(sd[1]) - 1,
+        parseInt(sd[2]),
         parseInt(this.reservationdata.endtime.HH),
         parseInt(this.reservationdata.endtime.mm),
         0,
