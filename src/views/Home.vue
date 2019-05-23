@@ -276,7 +276,6 @@ export default {
 .home {
   height: 100vh;
   position: relative;
-  overflow: hidden;
 
   .privacy-info-wrapper {
     position: absolute;

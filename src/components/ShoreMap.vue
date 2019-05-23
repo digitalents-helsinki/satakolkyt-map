@@ -335,7 +335,7 @@ export default {
 <style lang="scss">
 .map-view {
   position: relative;
-  height: 100vh;
+  height: 100%;
   cursor: pointer;
 
   .clickdetector {

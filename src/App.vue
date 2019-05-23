@@ -6,7 +6,7 @@
       <app-header />
     </header>
 
-    <main :style="mainStyle">
+    <main>
       <router-view />
     </main>
   </div>
@@ -27,13 +27,7 @@ export default {
     }
   },
 
-  computed: {
-    mainStyle() {
-      return {
-        height: '100vh'
-      }
-    }
-  },
+  computed: {},
 
   methods: {},
 
@@ -63,12 +57,11 @@ html {
     'Helvetica Neue', sans-serif;
 }
 
-#app {
-  height: 100vh;
-}
-
 body {
   color: hsl(33, 6%, 22%);
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
 }
 
 header {
