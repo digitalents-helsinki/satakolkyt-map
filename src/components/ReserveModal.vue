@@ -181,12 +181,14 @@
                     <label for="reserve-permission">{{
                       $t('message.submit_permission_text')
                     }}</label>
-                    <input
-                      id="reserve-permission"
-                      type="checkbox"
-                      v-model="privacy_permission"
-                      required
-                    />
+                    <span>
+                      <input
+                        id="reserve-permission"
+                        type="checkbox"
+                        v-model="privacy_permission"
+                        required
+                      />
+                    </span>
                   </div>
                 </div>
               </div>
@@ -381,6 +383,7 @@ export default {
   background-color: #fff;
   border-radius: 2px;
   overflow-y: auto;
+  line-height: 1.2;
 }
 
 form {
@@ -512,14 +515,24 @@ form {
 .permission-container {
   margin: 40px 0;
   display: flex;
-  flex-flow: row nowrap;
-  width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.privacy-policy-button {
+  max-width: 180px;
+  background-color: lightyellow;
+  border: 1px solid #555;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-right: 10px;
 }
 
 .privacy-policy-button h4 {
   text-decoration: underline;
-  color: darkblue;
+  font-size: 16px;
+  color: black;
   cursor: pointer;
 }
 
@@ -529,15 +542,20 @@ form {
 }
 
 .permission-input-container {
+  font-weight: bold;
+  font-size: 14px;
   display: flex;
+  align-items: center;
+  max-width: 250px;
 }
 
-.permission-input-container label {
-  flex: 0.8;
+.permission-input-container span {
+  min-width: 20px;
+  margin-left: 10px;
 }
 
-.permission-container input {
-  width: 15px;
+.permission-input-container span input {
+  transform: scale(1.5);
 }
 
 .modal-footer {
@@ -676,6 +694,10 @@ textarea {
     width: 350px;
   }
 
+  .contact-person {
+    margin-top: 30px;
+  }
+
   .input-field {
     flex-direction: column;
   }
@@ -704,10 +726,11 @@ textarea {
 
   .permission-container {
     flex-direction: column;
+    margin: 30px 0;
   }
 
-  .privacy-policy-button h4 {
-    margin-bottom: 10px;
+  .privacy-policy-button {
+    margin-bottom: 20px;
   }
 
   .modal-footer button {
