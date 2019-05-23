@@ -284,11 +284,11 @@ export default {
       this.pagenum--
     },
     saveReservation(e) {
-      this.loading = true
       if (e.target.form.reportValidity()) {
         if (!this.checkDateValidity()) {
           return
         }
+        this.loading = true
         var reservation = JSON.parse(JSON.stringify(this.reservationdata))
         reservation.endtime =
           this.reservationdata.endtime.HH +

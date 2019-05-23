@@ -107,11 +107,16 @@ export default {
       }
     },
     enhanceData(data) {
-      return data.map(e => ({
+      /*return data.map(e => ({
         ...e,
         id: e._key,
         properties: { ...e.properties, key: e._key }
-      }))
+      }))*/
+      for (let e of data) {
+        e.id = e._key
+        e.properties.key = e._key
+      }
+      return data
     },
     addShoreType(map, name, data, basecolor, hovercolor) {
       const shoreData = {
@@ -124,7 +129,24 @@ export default {
         id: name,
         type: 'line',
         source: name,
-        ...this.generateLineStringStyle(basecolor, hovercolor)
+        //...this.generateLineStringStyle(basecolor, hovercolor)
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': [
+            'case',
+            [
+              'any',
+              ['boolean', ['feature-state', 'hover'], false],
+              ['boolean', ['feature-state', 'selected'], false]
+            ],
+            hovercolor,
+            basecolor
+          ],
+          'line-width': 1
+        }
       })
     },
     addShoreClickHandler(map, shoretype) {
