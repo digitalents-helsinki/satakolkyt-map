@@ -1,7 +1,7 @@
 // Copyright (C) 2019 Digitalents Helsinki
 
 <template>
-  <div id="app">
+  <div id="app" :style="AppStyle">
     <header ref="nav">
       <app-header />
     </header>
@@ -27,7 +27,14 @@ export default {
     }
   },
 
-  computed: {},
+  computed: {
+    AppStyle() {
+      let vh = window.innerHeight * 0.01
+      return {
+        height: `calc(${vh} * 100px)`
+      }
+    }
+  },
 
   methods: {},
 
@@ -59,9 +66,10 @@ html {
 
 body {
   color: hsl(33, 6%, 22%);
-  position: relative;
+}
+
+#app {
   overflow: hidden;
-  height: 100vh;
 }
 
 header {
