@@ -30,7 +30,7 @@ export default {
   computed: {
     mainStyle() {
       return {
-        height: `calc(100vh - 0px)`
+        height: '100vh'
       }
     }
   },
@@ -61,6 +61,10 @@ html {
   font-family: 'Noto Sans', 'Ubuntu' 'Inter UI', -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Cantarell, 'Open Sans',
     'Helvetica Neue', sans-serif;
+}
+
+#app {
+  height: 100vh;
 }
 
 body {
