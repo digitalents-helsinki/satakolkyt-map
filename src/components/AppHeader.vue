@@ -6,11 +6,9 @@
     <div class="logo-container" v-if="!iframed">
       <img src="logo.svg" />
     </div>
-    <div v-else>
-      <div class="iframed-text">
-        <h1 v-if="!isOffline">{{ $t('message.iframe') }}</h1>
-        <h1 v-if="isOffline">{{ $t('message.offline') }}</h1>
-      </div>
+    <div v-else class="iframed-text">
+      <h1 v-if="!isOffline">{{ $t('message.iframe') }}</h1>
+      <h1 v-if="isOffline">{{ $t('message.offline') }}</h1>
     </div>
 
     <div class="help-icon-wrapper">
