@@ -5,25 +5,21 @@
     <div class="footer-container">
       <div class="footer">
         <div class="buttons">
-          <div v-if="!this.$props.adminmode">
-            <shore-info
-              v-show="this.$props.data"
-              @show-reservationform="this.showReservationForm"
-              @show-cleanform="this.showCleanedForm"
-              :data="this.$props.data"
-              :seltype="seltype"
-            />
-          </div>
-          <div v-else>
-            <admin-shore-info
-              v-show="this.$props.action"
-              :data="this.$props.data"
-              :action="this.$props.action"
-              @hide-shore="this.hideShoreMap"
-              @unhide-shore="this.unHideShoreMap"
-            >
-            </admin-shore-info>
-          </div>
+          <shore-info
+            v-if="!this.$props.adminmode && this.$props.data"
+            @show-reservationform="this.showReservationForm"
+            @show-cleanform="this.showCleanedForm"
+            :data="this.$props.data"
+            :seltype="seltype"
+          />
+          <admin-shore-info
+            v-if="this.$props.adminmode && this.$props.action"
+            :data="this.$props.data"
+            :action="this.$props.action"
+            @hide-shore="this.hideShoreMap"
+            @unhide-shore="this.unHideShoreMap"
+          >
+          </admin-shore-info>
         </div>
         <div class="counter" :class="{ hide: this.$props.data }">
           <div class="stepcount green">
