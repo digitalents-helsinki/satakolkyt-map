@@ -274,7 +274,7 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  height: 100%;
+  height: 100vh;
   position: relative;
   overflow: hidden;
 
