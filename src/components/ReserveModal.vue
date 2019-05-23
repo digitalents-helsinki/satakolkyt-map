@@ -30,6 +30,7 @@
                     :required="required"
                     type="text"
                     v-model="reservationdata.organizer"
+                    maxlength="40"
                   />
                 </div>
 
@@ -100,7 +101,11 @@
                   >
                     <div class="open-cleanup-text">
                       <h5>{{ $t('message.openevent_text') }}</h5>
-                      <textarea rows="3" v-model="reservationdata.openinfo" />
+                      <textarea
+                        rows="3"
+                        v-model="reservationdata.openinfo"
+                        maxlength="200"
+                      />
                     </div>
                     <div class="input-field">
                       <h5>{{ $t('message.openevent_link') }}</h5>
@@ -109,6 +114,7 @@
                         name=""
                         value=""
                         v-model="reservationdata.openlink"
+                        maxlength="100"
                       />
                     </div>
                   </div>
@@ -142,6 +148,7 @@
                       :required="required"
                       v-model="reservationdata.name"
                       type="text"
+                      maxlength="40"
                     />
                   </div>
                   <div class="input-field">
@@ -150,6 +157,7 @@
                       :required="required"
                       v-model="reservationdata.email"
                       type="email"
+                      maxlength="40"
                     />
                   </div>
                   <div class="input-field">
@@ -159,6 +167,7 @@
                       v-model="reservationdata.phonenumber"
                       pattern="[0-9]{3,11}"
                       type="tel"
+                      maxlength="12"
                     />
                   </div>
                 </div>
