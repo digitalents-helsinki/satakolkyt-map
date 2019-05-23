@@ -23,6 +23,7 @@
                     :required="required"
                     v-model="cleandata.organizer_name"
                     type="text"
+                    maxlength="40"
                   />
                 </div>
 
@@ -94,12 +95,17 @@
                     v-model="cleandata.trash_bags_info"
                     rows="2"
                     :required="cleandata.trash_left === 'yes' && required"
+                    maxlength="60"
                   />
                 </div>
 
                 <div class="something-else">
                   <h4>{{ $t('message.clean_something_else') }}</h4>
-                  <textarea rows="4" v-model="cleandata.cleanmoreinfo" />
+                  <textarea
+                    rows="4"
+                    v-model="cleandata.cleanmoreinfo"
+                    maxlength="200"
+                  />
                 </div>
 
                 <div class="cleaner">
@@ -114,6 +120,7 @@
                       :required="required"
                       v-model="cleandata.leader_name"
                       type="text"
+                      maxlength="40"
                     />
                   </div>
                   <div class="cleaned-info-item">
@@ -122,6 +129,7 @@
                       :required="required"
                       v-model="cleandata.leader_email"
                       type="email"
+                      maxlength="40"
                     />
                   </div>
                   <div class="cleaned-info-item">
@@ -131,6 +139,7 @@
                       v-model="cleandata.leader_phone"
                       type="tel"
                       pattern="[0-9]{3,11}"
+                      maxlength="12"
                     />
                   </div>
                 </div>
@@ -245,6 +254,7 @@
                         cleandata.jattipalsami === 'yes') &&
                         required
                     "
+                    maxlength="200"
                   />
                 </div>
               </div>
