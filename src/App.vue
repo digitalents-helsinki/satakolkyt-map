@@ -7,7 +7,7 @@
     </header>
 
     <main :style="mainStyle">
-      <router-view />
+      <home />
     </main>
   </div>
 </template>
@@ -15,9 +15,11 @@
 <script>
 import AppHeader from './components/AppHeader'
 import axios from 'axios'
+import Home from './views/Home'
 export default {
   components: {
-    AppHeader
+    AppHeader,
+    Home
   },
 
   data() {
