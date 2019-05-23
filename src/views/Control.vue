@@ -400,7 +400,9 @@ export default {
       this.showCleanConfirmation = true
     },
     shoreHidden(data) {
-      this.$refs.adminmap.unSelect()
+      this.$refs.adminmap.unRenderSelected()
+      this.selectedShoreData = null
+      this.mapOverlayAction = null
 
       //filter the feature from free shores data
       this.$refs.adminmap.removeSegmentFromLayer(
@@ -408,14 +410,13 @@ export default {
         'freelayer',
         data._key
       )
-      this.mapOverlayAction = 'unhide'
       //add the feature to hidden shore data
       this.$refs.adminmap.addSegmentToLayer('hiddenShore', 'hiddenlayer', data)
     },
     shoreUnhidden(data) {
-      this.$refs.adminmap.unSelect()
-
-      this.mapOverlayAction = 'hide'
+      this.$refs.adminmap.unRenderSelected()
+      this.selectedShoreData = null
+      this.mapOverlayAction = null
 
       this.$refs.adminmap.removeSegmentFromLayer(
         'hiddenShore',

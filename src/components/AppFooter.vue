@@ -16,6 +16,7 @@
           </div>
           <div v-else>
             <admin-shore-info
+              v-show="this.$props.action"
               :data="this.$props.data"
               :action="this.$props.action"
               @hide-shore="this.hideShoreMap"
