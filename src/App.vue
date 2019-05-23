@@ -23,22 +23,28 @@ export default {
 
   data() {
     return {
-      mainOffset: 0
+      vh: 0
     }
   },
 
   computed: {
     AppStyle() {
-      let vh = window.innerHeight * 0.01
       return {
-        height: `calc(${vh} * 100px)`
+        height: `calc(${this.$data.vh} * 100px)`
       }
     }
+  },
+
+  created: function() {
+    window.addEventListener('resize', () => {
+      this.$data.vh = window.innerHeight * 0.01
+    })
   },
 
   methods: {},
 
   mounted() {
+    this.$data.vh = window.innerHeight * 0.01
     axios.defaults.withCredentials = true
     axios.get(process.env.VUE_APP_URL + '/api/map/token').then(
       response => {
