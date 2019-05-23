@@ -3,6 +3,7 @@ export const fi = {
     yes: 'Kyllä',
     no: 'Ei',
     unsure: 'En osaa sanoa',
+    at: 'klo',
     open_map: 'Avataanko Karttanäkymä?',
     open: 'Avaa',
     app: 'SATAKOLKYT karttasovellus',

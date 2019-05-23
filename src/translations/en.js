@@ -3,6 +3,7 @@ export const en = {
     yes: 'Yes',
     no: 'No',
     unsure: 'Unsure',
+    at: 'at',
     open_map: 'Open the map view?',
     open: 'Open',
     app: 'SATAKOLKYT map application',

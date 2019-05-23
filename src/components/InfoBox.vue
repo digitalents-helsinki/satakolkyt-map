@@ -45,11 +45,13 @@
           </template>
           <p>
             <b>{{ $t('message.begins') }}:</b>
-            {{ this.$props.data.startdate + ' ' + this.$props.data.starttime }}
+            {{ this.$props.data.startdate | moment('DD.MM.YYYY') }}
+            {{ $t('message.at') + ' ' + this.$props.data.starttime }}
           </p>
           <p>
             <b>{{ $t('message.ends') }}:</b>
-            {{ this.$props.data.enddate + ' ' + this.$props.data.endtime }}
+            {{ this.$props.data.enddate | moment('DD.MM.YYYY') }}
+            {{ $t('message.at') + ' ' + this.$props.data.endtime }}
           </p>
         </template>
       </template>
@@ -69,7 +71,7 @@
           </p>
           <p>
             <b>{{ $t('message.shorescleaned') }}:</b>
-            {{ this.$props.data.date }}
+            {{ this.$props.data.date | moment('DD.MM.YYYY') }}
           </p>
         </template>
       </template>
