@@ -44,8 +44,10 @@ export const en = {
     trash_small: 'About one plastic bag',
     trash_medium: 'About one refuse sack',
     trash_large: 'Many refuse sacks',
-    reservation_saved: 'Reservation has been saved',
-    cleaned_saved: 'Cleaned shore report has been saved',
+    reservation_saved:
+      'Your reservation has been received and will be confirmed soon, usually in 1 to 2 working days.',
+    cleaned_saved:
+      'Your report has been received and will be confirmed soon, usually in 1 to 2 working days.',
     trash_left: 'Did you leave trash bags on the shore that should be removed?',
     trash_bags_info: `If 'Yes', please provide accurate information about where they can be found (e.g. street address)`,
     bags_to_collect: 'Trash bags to collect',
