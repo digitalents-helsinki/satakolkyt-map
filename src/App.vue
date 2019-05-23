@@ -15,6 +15,7 @@
 <script>
 import AppHeader from './components/AppHeader'
 import axios from 'axios'
+
 export default {
   components: {
     AppHeader

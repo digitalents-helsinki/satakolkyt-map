@@ -40,9 +40,7 @@
             </p>
             <p>
               <b>{{ $t('message.event_link') }}:</b>
-              <a :href="this.$props.data.openlink" target="_blank">{{
-                $t('message.openevent_link')
-              }}</a>
+              <a :href="stripProtocol()">{{ $t('message.openevent_link') }}</a>
             </p>
           </template>
           <p>
@@ -95,7 +93,19 @@ import Spinner from '@/components/Spinner'
 export default {
   name: 'infobox',
   components: { Spinner },
-  props: ['type', 'data']
+  props: ['type', 'data'],
+  methods: {
+    stripProtocol: function() {
+      if (
+        this.$props.data.openlink.startsWith('http://') ||
+        this.$props.data.openlink.startsWith('https://')
+      ) {
+        return this.$props.data.openlink
+      } else {
+        return 'http://' + this.$props.data.openlink
+      }
+    }
+  }
 }
 </script>
 <style lang="scss">
