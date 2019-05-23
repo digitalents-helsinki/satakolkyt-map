@@ -51,6 +51,11 @@
         </div>
         <div class="tab-content">
           <div class="reservations" v-show="showReservations">
+            <div class="remove-old-reservations">
+              <button @click="removeOldReservations">
+                Poista vanhat varaukset
+              </button>
+            </div>
             <li
               class="reservation"
               :class="{
@@ -634,6 +639,16 @@ export default {
         })
         .catch(error => {
           alert(error)
+        })
+    },
+    removeOldReservations() {
+      axios
+        .delete(process.env.VUE_APP_URL + '/api/map/removeoldreservations')
+        .then(res => {
+          if (res.data.status === 'ok') {
+            this.getReservations()
+            alert('Poistettiin ' + res.data.removeCount + ' vanhaa varausta.')
+          }
         })
     }
   },
