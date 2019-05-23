@@ -49,11 +49,11 @@ Sentry.configureScope(scope => {
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({
-  locale: 'en',
-  fallbackLocale: 'en',
+  locale: 'fi',
+  fallbackLocale: 'fi',
   messages // set locale messages
 })
-i18n.locale = navigator.language
+//i18n.locale = navigator.language
 moment.locale(i18n.locale)
 
 Vue.use(require('vue-moment'), {
