@@ -13,7 +13,7 @@
       />
     </div>
     <div v-if="this.$props.data">
-      <template v-if="type === 'reserved'">
+      <div v-if="type === 'reserved'">
         <h1>{{ $t('message.reserved_shore') }}</h1>
         <h2>
           {{
@@ -22,7 +22,7 @@
               : '(' + $t('message.unconfirmed') + ')'
           }}
         </h2>
-        <template v-if="this.$props.data.confirmed">
+        <div v-if="this.$props.data.confirmed">
           <p>
             <b>{{ $t('message.organizer') }}:</b>
             {{ this.$props.data.organizer }}
@@ -33,7 +33,7 @@
               this.$props.data.openevent ? $t('message.yes') : $t('message.no')
             }}
           </p>
-          <template v-if="this.$props.data.openevent">
+          <div v-if="this.$props.data.openevent">
             <p>
               <b>{{ $t('message.event_info') }}:</b>
               {{ this.$props.data.openinfo }}
@@ -42,7 +42,7 @@
               <b>{{ $t('message.event_link') }}:</b>
               <a :href="stripProtocol()">{{ $t('message.openevent_link') }}</a>
             </p>
-          </template>
+          </div>
           <p>
             <b>{{ $t('message.begins') }}:</b>
             {{ this.$props.data.startdate | moment('DD.MM.YYYY') }}
@@ -53,9 +53,9 @@
             {{ this.$props.data.enddate | moment('DD.MM.YYYY') }}
             {{ $t('message.at') + ' ' + this.$props.data.endtime }}
           </p>
-        </template>
-      </template>
-      <template v-if="type === 'cleaned'">
+        </div>
+      </div>
+      <div v-if="type === 'cleaned'">
         <h1>{{ $t('message.cleaned_shore') }}</h1>
         <h2>
           {{
@@ -64,7 +64,7 @@
               : '(' + $t('message.unconfirmed') + ')'
           }}
         </h2>
-        <template v-if="this.$props.data.confirmed">
+        <div v-if="this.$props.data.confirmed">
           <p>
             <b>{{ $t('message.organizer') }}:</b>
             {{ this.$props.data.organizer_name }}
@@ -73,12 +73,12 @@
             <b>{{ $t('message.shorescleaned') }}:</b>
             {{ this.$props.data.date | moment('DD.MM.YYYY') }}
           </p>
-        </template>
-      </template>
-      <template v-if="type === 'free'">
+        </div>
+      </div>
+      <div v-if="type === 'free'">
         <h1>{{ $t('message.free_shore') }}</h1>
         <p>{{ $t('message.come_clean') }}</p>
-      </template>
+      </div>
       <div class="idnum">
         ID:
         {{

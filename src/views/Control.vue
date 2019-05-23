@@ -114,7 +114,7 @@
                   {{ $t('message.delete_reservation') }}
                 </button>
 
-                <template v-if="reservation.confirmed">
+                <div v-if="reservation.confirmed">
                   <button
                     class="small-button cancel-button"
                     @click="cancelReservation($event, reservation)"
@@ -122,8 +122,8 @@
                   >
                     {{ $t('message.cancel_reservation') }}
                   </button>
-                </template>
-                <template v-else>
+                </div>
+                <div v-else>
                   <button
                     class="small-button confirm-button"
                     @click="confirmReservation($event, reservation)"
@@ -131,7 +131,7 @@
                   >
                     {{ $t('message.confirm_reservation') }}
                   </button>
-                </template>
+                </div>
               </div>
             </li>
           </div>
@@ -241,7 +241,7 @@
                   {{ $t('message.delete_cleaned') }}
                 </button>
 
-                <template v-if="clean.confirmed">
+                <div v-if="clean.confirmed">
                   <button
                     class="small-button confirm-button"
                     @click="cancelCleaned($event, clean)"
@@ -249,8 +249,8 @@
                   >
                     {{ $t('message.cancel_cleaned') }}
                   </button>
-                </template>
-                <template v-if="!clean.confirmed">
+                </div>
+                <div v-if="!clean.confirmed">
                   <button
                     class="small-button cancel-button"
                     @click="confirmCleaned($event, clean)"
@@ -258,7 +258,7 @@
                   >
                     {{ $t('message.confirm_cleaned') }}
                   </button>
-                </template>
+                </div>
               </div>
             </li>
           </div>

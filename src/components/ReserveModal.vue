@@ -13,7 +13,7 @@
           class="cross-icon"
           @click="$emit('close')"
         />
-        <template v-if="!saved && !loading">
+        <div v-if="!saved && !loading">
           <div class="modal-page" v-show="pagenum === 0">
             <form v-on:submit.prevent="saveReservation">
               <div class="modal-header">
@@ -214,13 +214,13 @@
               </div>
             </form>
           </div>
-        </template>
-        <template v-if="!saved && loading">
+        </div>
+        <div v-if="!saved && loading">
           <div class="spinner-container">
             <spinner />
           </div>
-        </template>
-        <template v-if="saved && !loading">
+        </div>
+        <div v-if="saved && !loading">
           <div class="modal-header">
             <div class="reservation-saved">
               <h1 class="success">{{ $t('message.reservation_saved') }}</h1>
@@ -229,7 +229,7 @@
               </button>
             </div>
           </div>
-        </template>
+        </div>
       </div>
     </div>
   </div>

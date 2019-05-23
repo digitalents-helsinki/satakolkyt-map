@@ -6,12 +6,12 @@
     <div class="logo-container" v-if="!iframed">
       <img src="logo.svg" />
     </div>
-    <template v-else>
+    <div v-else>
       <div class="iframed-text">
         <h1 v-if="!isOffline">{{ $t('message.iframe') }}</h1>
         <h1 v-if="isOffline">{{ $t('message.offline') }}</h1>
       </div>
-    </template>
+    </div>
 
     <div class="help-icon-wrapper">
       <div class="help-icon">
@@ -67,7 +67,7 @@ export default {
     }
   },
   mounted() {
-    //this.iframed = window.self !== window.top
+    this.iframed = window.self !== window.top
   }
 }
 </script>
