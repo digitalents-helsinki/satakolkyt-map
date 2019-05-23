@@ -37,63 +37,45 @@
                   <h4>{{ $t('message.date') }}</h4>
 
                   <div class="datetime-inputs">
-                    <div class="datetime-input">
-                      <div class="datetime-inputfields">
-                        <div class="datetime-item">
-                          <font-awesome-icon icon="calendar" />
+                    <div class="datetime-date">
+                      <font-awesome-icon icon="calendar" />
 
-                          <input
-                            :required="required"
-                            v-model="reservationdata.startdate"
-                            type="date"
-                            @change="checkDateValidity"
-                          />
-                        </div>
-                        <div class="datetime-item">
-                          <font-awesome-icon icon="clock" />
+                      <input
+                        :required="required"
+                        v-model="reservationdata.startdate"
+                        type="date"
+                        @change="checkDateValidity"
+                      />
+                    </div>
+                    <div class="datetime-timeinputs">
+                      <div class="datetime-time">
+                        <font-awesome-icon icon="clock" />
 
-                          <vue-timepicker
-                            class="timepicker"
-                            :required="required"
-                            :format="timeformat"
-                            v-model="reservationdata.starttime"
-                            :minute-interval="30"
-                            hide-clear-button
-                            @change="checkDateValidity"
-                          />
-                        </div>
-                        <div style="margin-top: 10px;">-</div>
-                        <div class="datetime-item">
-                          <font-awesome-icon icon="clock" />
+                        <vue-timepicker
+                          class="timepicker"
+                          :required="required"
+                          :format="timeformat"
+                          v-model="reservationdata.starttime"
+                          :minute-interval="30"
+                          hide-clear-button
+                          @change="checkDateValidity"
+                        />
+                      </div>
+                      <div>-</div>
+                      <div class="datetime-time">
+                        <font-awesome-icon icon="clock" />
 
-                          <vue-timepicker
-                            class="timepicker"
-                            :required="required"
-                            :format="timeformat"
-                            v-model="reservationdata.endtime"
-                            :minute-interval="30"
-                            hide-clear-button
-                            @change="checkDateValidity"
-                          />
-                        </div>
+                        <vue-timepicker
+                          class="timepicker"
+                          :required="required"
+                          :format="timeformat"
+                          v-model="reservationdata.endtime"
+                          :minute-interval="30"
+                          hide-clear-button
+                          @change="checkDateValidity"
+                        />
                       </div>
                     </div>
-                    <!--div class="datetime-input">
-                      <h5>{{ $t('message.ends') }}</h5>
-                      <div class="datetime-inputfields">
-                        <div class="datetime-item">
-                          <font-awesome-icon icon="calendar" />
-
-                          <input
-                            :required="required"
-                            v-model="reservationdata.enddate"
-                            type="date"
-                            @change="checkDateValidity"
-                          />
-                        </div>
-                        
-                      </div>
-                    </div-->
                   </div>
                   <div class="date-error">{{ dateerrormsg }}</div>
                 </div>
@@ -429,30 +411,40 @@ form {
   margin: 2rem 0;
 }
 
+.datetime h4 {
+  margin-bottom: 0.5rem;
+}
+
 .datetime-inputs {
   display: flex;
-  flex-direction: column;
 }
 
-.datetime-input {
+.datetime-date {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  margin: 0.3rem 0;
-  border-top: 1px solid #ccc;
-  padding-top: 10px;
 }
 
-.datetime-inputfields {
+.datetime-date input {
+  margin-left: 3px;
+}
+
+.datetime-timeinputs {
+  margin-left: 10px;
   display: flex;
+  align-items: center;
 }
 
-.datetime-item {
-  margin: 0 1rem;
+.datetime-time {
+  display: flex;
+  align-items: center;
 }
 
-.datetime-input h5 {
-  min-width: 100px;
+.datetime-time span {
+  margin-left: 3px;
+}
+
+.datetime-timeinputs > * {
+  margin: 0 5px;
 }
 
 .date-error {
@@ -690,20 +682,15 @@ textarea {
   }
 
   .datetime-inputs {
-    align-items: flex-start;
-  }
-
-  .datetime-input {
     flex-direction: column;
   }
 
-  .datetime-input h5 {
-    width: 100%;
-    margin-bottom: 5px;
+  .datetime-date {
+    margin: 0 0 10px 5px;
   }
 
-  .datetime-item {
-    margin-left: 0;
+  .datetime-timeinputs {
+    margin: 0;
   }
 
   .permission-container {
