@@ -1,12 +1,12 @@
 // Copyright (C) 2019 Digitalents Helsinki
 
 <template>
-  <div id="app" :style="AppStyle">
+  <div id="app">
     <header ref="nav">
       <app-header />
     </header>
 
-    <main>
+    <main :style="AppStyle">
       <router-view />
     </main>
   </div>
@@ -68,7 +68,7 @@ body {
   color: hsl(33, 6%, 22%);
 }
 
-#app {
+main {
   overflow: hidden;
 }
 

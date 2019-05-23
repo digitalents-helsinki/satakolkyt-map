@@ -274,7 +274,7 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  height: 100vh;
+  height: 100%;
   position: relative;
 
   .privacy-info-wrapper {
