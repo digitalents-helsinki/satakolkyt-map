@@ -99,15 +99,6 @@
                   />
                 </div>
 
-                <div class="something-else">
-                  <h4>{{ $t('message.clean_something_else') }}</h4>
-                  <textarea
-                    rows="4"
-                    v-model="cleandata.cleanmoreinfo"
-                    maxlength="200"
-                  />
-                </div>
-
                 <div class="cleaner">
                   <div class="cleaner-title">
                     <h4>{{ $t('message.shore_cleaner') }}</h4>
@@ -275,18 +266,34 @@
                 <p>{{ $t('message.clean_additional_info_sub') }}</p>
               </div>
               <div class="modal-body">
+                <div class="something-else">
+                  <h4>{{ $t('message.clean_something_else') }}</h4>
+                  <textarea
+                    rows="4"
+                    v-model="cleandata.cleanmoreinfo"
+                    maxlength="200"
+                  />
+                </div>
+
                 <div class="permission-container">
                   <span
                     class="privacy-policy-button"
                     @click="$emit('show-privacy-info')"
                     ><h4>{{ $t('message.privacy_policy') }}</h4></span
                   >
-                  <h4>{{ $t('message.submit_permission_text') }}</h4>
-                  <input
-                    type="checkbox"
-                    v-model="privacy_permission"
-                    required
-                  />
+                  <div class="permission-input-container">
+                    <label for="reserve-permission">{{
+                      $t('message.submit_permission_text')
+                    }}</label>
+                    <span>
+                      <input
+                        id="reserve-permission"
+                        type="checkbox"
+                        v-model="privacy_permission"
+                        required
+                      />
+                    </span>
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -628,14 +635,26 @@ export default {
 }
 
 .permission-container {
+  margin: 40px 0;
   display: flex;
-  flex-flow: row nowrap;
-  width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .privacy-policy-button {
-  color: darkblue;
+  max-width: 180px;
+  background-color: lightyellow;
+  border: 1px solid #555;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.privacy-policy-button h4 {
+  text-decoration: underline;
+  font-size: 16px;
+  color: black;
   cursor: pointer;
 }
 
@@ -644,8 +663,21 @@ export default {
   color: #00d;
 }
 
-.permission-container input {
-  width: 15px;
+.permission-input-container {
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  max-width: 250px;
+}
+
+.permission-input-container span {
+  min-width: 20px;
+  margin-left: 10px;
+}
+
+.permission-input-container span input {
+  transform: scale(1.5);
 }
 
 .clean-saved {
