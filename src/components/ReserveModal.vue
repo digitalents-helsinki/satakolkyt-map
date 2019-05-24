@@ -8,11 +8,13 @@
         v-bind:class="{ morespace: reservationdata.free }"
         @click.stop
       >
-        <font-awesome-icon
-          icon="times"
-          class="cross-icon"
-          @click="$emit('close')"
-        />
+        <div class="closer">
+          <font-awesome-icon
+            icon="times"
+            class="cross-icon"
+            @click="$emit('close')"
+          />
+        </div>
         <div v-if="!saved && !loading">
           <div class="modal-page" v-show="pagenum === 0">
             <form v-on:submit.prevent="saveReservation">
@@ -366,16 +368,8 @@ export default {
   vertical-align: middle;
 }
 
-.cross-icon {
-  width: 30px;
-  height: 30px;
-  position: relative;
-  float: right;
-  z-index: 9999;
-  cursor: pointer;
-}
-
 .modal-container {
+  position: relative;
   width: 550px;
   height: 80vh;
   margin-left: 5%;
@@ -384,6 +378,16 @@ export default {
   border-radius: 2px;
   overflow-y: auto;
   line-height: 1.2;
+}
+
+.closer {
+  position: absolute;
+  font-size: 30px;
+  cursor: pointer;
+  right: 10px;
+  top: 0;
+  padding: 20px;
+  z-index: 99999;
 }
 
 form {

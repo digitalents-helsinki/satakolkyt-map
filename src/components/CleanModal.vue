@@ -4,11 +4,13 @@
   <div class="modal-mask">
     <div class="modal-wrapper" @click="$emit('close')">
       <div class="modal-container" @click.stop>
-        <font-awesome-icon
-          icon="times"
-          class="cross-icon"
-          @click="$emit('close')"
-        />
+        <div class="closer">
+          <font-awesome-icon
+            icon="times"
+            class="cross-icon"
+            @click="$emit('close')"
+          />
+        </div>
         <div v-if="!saved && !loading">
           <div class="modal-page" v-show="pagenum == 0">
             <form>
@@ -433,19 +435,13 @@ export default {
   transition: opacity 0.3s ease;
 }
 
-.cross-icon {
-  position: relative;
-  float: right;
-  z-index: 9999;
-  cursor: pointer;
-}
-
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
 }
 
 .modal-container {
+  position: relative;
   width: 550px;
   height: 80vh;
   margin-left: 50px;
@@ -456,17 +452,14 @@ export default {
   transition: all 0.3s ease;
   overflow-y: auto;
 }
-@media only screen and (max-width: 600px) {
-  .modal-container {
-    width: 350px;
-    height: 90vh;
-    margin-left: 5px;
-  }
 
-  .modal-footer button {
-    min-width: 0;
-    width: 150px;
-  }
+.closer {
+  position: absolute;
+  font-size: 30px;
+  cursor: pointer;
+  right: 10px;
+  top: 0;
+  padding: 20px;
 }
 
 .modal-page {
@@ -688,28 +681,6 @@ h1 {
   font-weight: bold;
 }
 
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
 input {
   padding: 5px;
   margin: 0 0 0 10px;
@@ -748,5 +719,27 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .modal-container {
+    width: 350px;
+    height: 90vh;
+    margin-left: 5px;
+  }
+
+  .permission-container {
+    flex-direction: column;
+    margin: 30px 0;
+  }
+
+  .privacy-policy-button {
+    margin-bottom: 20px;
+  }
+
+  .modal-footer button {
+    min-width: 0;
+    width: 150px;
+  }
 }
 </style>

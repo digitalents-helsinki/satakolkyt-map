@@ -25,29 +25,21 @@
         :counterSteps="counterSteps"
         :counterKm="counterKm"
       />
-      <div v-if="showReservationForm">
-        <transition name="modal">
-          <ReserveModal
-            v-bind:selected="selectedShoreData"
-            @reservation-action="saveReservation"
-            @close="showReservationForm = false"
-            @show-privacy-info="showPrivacyInfo = true"
-          >
-          </ReserveModal>
-        </transition>
-      </div>
-      <div v-if="showCleaned">
-        <transition name="modal">
-          <CleanModal
-            v-bind:selected="selectedShoreData"
-            @close="showCleaned = false"
-            @show-privacy-info="showPrivacyInfo = true"
-            @cleaned-ok="shoreCleaned"
-            @error-msg="setError"
-          >
-          </CleanModal>
-        </transition>
-      </div>
+      <ReserveModal
+        v-if="showReservationForm"
+        v-bind:selected="selectedShoreData"
+        @reservation-action="saveReservation"
+        @close="showReservationForm = false"
+        @show-privacy-info="showPrivacyInfo = true"
+      />
+      <CleanModal
+        v-if="showCleaned"
+        v-bind:selected="selectedShoreData"
+        @close="showCleaned = false"
+        @show-privacy-info="showPrivacyInfo = true"
+        @cleaned-ok="shoreCleaned"
+        @error-msg="setError"
+      />
       <div v-if="showInfoBox" class="infoBoxWrapper">
         <InfoBox
           :data="infoBoxData"

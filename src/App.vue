@@ -95,8 +95,9 @@ header {
 button {
   background-color: #f0e41a;
   color: #000;
-  padding: 0.8rem 1rem;
+  padding: 0 1rem;
   font-size: 1rem;
+  min-height: 40px;
   min-width: 20ex;
   font-weight: bold;
   font-family: inherit;

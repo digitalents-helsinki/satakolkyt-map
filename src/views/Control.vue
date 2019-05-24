@@ -690,6 +690,7 @@ export default {
   background-color: white;
   display: flex;
   justify-content: space-between;
+  word-break: break-word;
 
   h1 {
     font-weight: bold;

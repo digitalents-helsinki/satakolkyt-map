@@ -23,7 +23,7 @@ export const fi = {
       'Rastittaessasi kohdan, kaikki voivat osallistua talkoisiin.',
     openevent_text: 'Kerro jotain talkoista',
     openevent_link: 'Linkki tapahtumaan',
-    organizer: 'Järjestävä taho',
+    organizer: 'Järjestäjä',
     cleaning_text: 'Rannan siivosi',
     contact_explanation:
       'Täytä alle yhteyshenkilön tiedot. Yhteyshenkilön tiedot eivät näy muille käyttäjille.',
@@ -126,6 +126,8 @@ export const fi = {
     clean_deletion_confirmation_message: 'Haluatko varmasti hylätä siivouksen?',
     clean_deletion_confirmation_positive: 'Hylkää siivous',
     clean_deletion_confirmation_negative: 'Peru',
-    hide_confirmed: 'Piilota varmistetut'
+    hide_confirmed: 'Piilota varmistetut',
+    join_cleaning: 'Tule mukaan talkoisiin!',
+    private_event: 'Yksityiset talkoot'
   }
 }

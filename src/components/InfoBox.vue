@@ -27,19 +27,19 @@
             <b>{{ $t('message.organizer') }}:</b>
             {{ this.$props.data.organizer }}
           </p>
-          <p>
-            <b>{{ $t('message.type_open') }}?:</b>
+          <h3>
             {{
-              this.$props.data.openevent ? $t('message.yes') : $t('message.no')
+              this.$props.data.openevent
+                ? $t('message.join_cleaning')
+                : $t('message.private_event')
             }}
-          </p>
+          </h3>
           <div v-if="this.$props.data.openevent">
             <p>
               <b>{{ $t('message.event_info') }}:</b>
               {{ this.$props.data.openinfo }}
             </p>
-            <p>
-              <b>{{ $t('message.event_link') }}:</b>
+            <p class="event-link">
               <a :href="stripProtocol()">{{ $t('message.openevent_link') }}</a>
             </p>
           </div>
@@ -54,10 +54,6 @@
                 this.$props.data.endtime
             }}
           </p>
-          <!--p>
-            <b>{{ $t('message.ends') }}:</b>
-            {{ this.$props.data.enddate | moment('DD.MM.YYYY') }}
-          </p-->
         </div>
       </div>
       <div v-if="type === 'cleaned'">
@@ -119,11 +115,12 @@ export default {
 .infobox {
   //position: absolute;
   width: 300px;
-  height: 200px;
+  min-height: 100px;
   //bottom: 150px;
   //left: 50px;
   background-color: white;
   padding: 15px 10px 10px 10px;
+  word-break: break-word;
 
   .spinner {
     width: 82px;
@@ -134,8 +131,9 @@ export default {
     position: absolute;
     font-size: 30px;
     cursor: pointer;
-    top: 10px;
-    right: 15px;
+    right: 0;
+    top: -5px;
+    padding: 15px;
   }
 
   h1 {
@@ -152,8 +150,18 @@ export default {
     margin-bottom: 20px;
   }
 
+  h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+
   p {
     margin: 5px 0;
+  }
+
+  .event-link {
+    font-size: 18px;
   }
 
   .idnum {
@@ -167,7 +175,6 @@ export default {
 @media only screen and (max-width: 768px) {
   .infobox {
     width: 280px;
-    height: 170px;
 
     h1 {
       font-size: 18px;

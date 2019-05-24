@@ -2,7 +2,6 @@
 
 <template>
   <div class="shore-info">
-    <!--h2>{{ data.key }}</h2-->
     <button v-if="seltype === 'free'" @click="$emit('show-reservationform')">
       {{ $t('message.reserve') }}
     </button>
@@ -50,12 +49,20 @@ export default {
   h2 {
     font-weight: bold;
   }
-  @media only screen and (max-width: 1366px) {
-    & {
-      justify-content: center;
-    }
+}
+
+@media only screen and (max-width: 1366px) {
+  .shore-info {
+    justify-content: center;
   }
-  @media only screen and (max-width: 768px) {
+}
+
+@media only screen and (max-width: 768px) {
+  .shore-info {
+    button {
+      min-width: 45vw;
+      max-width: 45vw;
+    }
   }
 }
 </style>
