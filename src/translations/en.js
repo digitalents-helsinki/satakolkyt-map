@@ -139,6 +139,7 @@ export const en = {
     possibility to select multiple sections on the same form is an upcoming feature!`,
       `As bird conservation areas are protected during the summer, we have removed the possiblity to reserve them during the protected
     period.`
-    ]
+    ],
+    powered_by: 'App powered by:'
   }
 }

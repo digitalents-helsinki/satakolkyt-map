@@ -140,6 +140,7 @@ export const fi = {
     erillinen ilmoitus. Mahdollisuus varata useampi rantaosuus samalla lomakkeella on tulossa!`,
       `Linnunsuojelualueet ovat rauhoitettuja kesän aikana, joten olemme poistaneet mahdollisuuden varata kyseiset 
     alueet rauhoituksen ajan.`
-    ]
+    ],
+    powered_by: 'Ohjelmiston tarjoaa:'
   }
 }

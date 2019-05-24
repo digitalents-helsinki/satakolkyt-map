@@ -20,6 +20,12 @@
           <p v-for="(para, index) in $t('message.help_text')" :key="index">
             {{ para }}
           </p>
+          <div class="digitalents">
+            <h2>{{ $t('message.powered_by') }}</h2>
+            <a href="http://digitalents.munstadi.fi" target="_blank">
+              <img src="DT_black.svg" />
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -83,6 +89,23 @@ export default {
         p {
           font-size: 18px;
           padding: 10px 0;
+        }
+
+        .digitalents {
+          margin-top: 10px;
+          padding-top: 40px;
+          border-top: 1px solid #bbb;
+
+          h2 {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+          }
+
+          img {
+            width: 100%;
+          }
         }
       }
     }
