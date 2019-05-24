@@ -81,7 +81,7 @@ main {
 header {
   position: fixed;
   width: 100vw;
-  z-index: 9999;
+  z-index: 9998;
 }
 .time-picker > input.display-time {
   width: 4em !important;
