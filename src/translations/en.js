@@ -127,6 +127,18 @@ export const en = {
     clean_deletion_confirmation_negative: 'Cancel',
     hide_confirmed: 'Hide confirmed',
     join_cleaning: 'Come join us!',
-    private_event: 'Private event'
+    private_event: 'Private event',
+    help_title: 'Guidance & Information',
+    help_text: [
+      `The pieces of shore used in the application are public places under the responsibility of the city of Helsinki.
+    The shores visible, however, do not necessarily correspond with the true shoreline and we cannot guarantee that they are in
+    public use.`,
+      `The visitors take all responsibility while traversing the shoreline, and Satakolkyt does not take any responsibility for
+    possible injuries, trespassing or damage caused by the cleaners.`,
+      `If you want to reserve, or report as cleaned more than one section of shore, you must do so separately for each section. The
+    possibility to select multiple sections on the same form is an upcoming feature!`,
+      `As bird conservation areas are protected during the summer, we have removed the possiblity to reserve them during the protected
+    period.`
+    ]
   }
 }

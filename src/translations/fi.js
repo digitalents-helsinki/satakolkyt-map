@@ -128,6 +128,18 @@ export const fi = {
     clean_deletion_confirmation_negative: 'Peru',
     hide_confirmed: 'Piilota varmistetut',
     join_cleaning: 'Tule mukaan talkoisiin!',
-    private_event: 'Yksityiset talkoot'
+    private_event: 'Yksityiset talkoot',
+    help_title: 'Ohjeita & Tietoja',
+    help_text: [
+      `Ohjelmistossa käytössä olevat rantaosuudet ovat Helsingin kaupungin vastuulla olevia julkisia paikkoja. 
+    Kuitenkaan ohjelmistossa näkyvät rannat eivät välttämättä vastaa todellisia rantaosuuksia ja emme voi luvata 
+    niiden olevan julkisessa käytössä.`,
+      `Rannoilla liikkuminen tapahtuu omalla vastuulla, eikä Satakolkyt ota vastuuta
+    mahdollisista tapaturmista, yksityisalueiden loukkauksista tai talkooväen aiheuttamista vahingoista`,
+      `Jos haluat varata talkoisiin, tai ilmoittaa siivotuksi enemmän kuin yhden rantaosuuden, täytyy sinun tehdä jokaisesta osuudesta
+    erillinen ilmoitus. Mahdollisuus varata useampi rantaosuus samalla lomakkeella on tulossa!`,
+      `Linnunsuojelualueet ovat rauhoitettuja kesän aikana, joten olemme poistaneet mahdollisuuden varata kyseiset 
+    alueet rauhoituksen ajan.`
+    ]
   }
 }
