@@ -2,6 +2,8 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
+import Home from './views/Home'
+import Control from './views/Control'
 
 Vue.use(Router)
 
@@ -11,13 +13,12 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import(/* webpackChunkName: "home" */ './views/Home.vue')
+      component: Home
     },
     {
       path: '/admin',
       name: 'admin',
-      component: () =>
-        import(/* webpackChunkName: "control" */ './views/Control.vue')
+      component: Control
     }
   ]
 })
