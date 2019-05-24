@@ -113,11 +113,8 @@ export default {
 </script>
 <style lang="scss">
 .infobox {
-  //position: absolute;
   width: 300px;
   min-height: 100px;
-  //bottom: 150px;
-  //left: 50px;
   background-color: white;
   padding: 15px 10px 10px 10px;
   word-break: break-word;

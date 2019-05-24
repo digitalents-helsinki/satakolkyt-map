@@ -54,7 +54,6 @@ export default {
         console.log(err)
       }
     )
-    // Calculate the header's height and size the <main/> element to fit the screen.
   }
 }
 </script>

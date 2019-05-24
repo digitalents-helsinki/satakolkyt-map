@@ -114,7 +114,6 @@ export default {
   },
 
   components: {
-    //MapView,
     ShoreMap,
     ReserveModal,
     CleanModal,
@@ -123,18 +122,6 @@ export default {
   },
 
   methods: {
-    generateLineStringStyle(color) {
-      return {
-        layout: {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        paint: {
-          'line-color': color,
-          'line-width': 5
-        }
-      }
-    },
     mapLoaded(map) {
       this.map = map
     },
@@ -355,29 +342,5 @@ export default {
     left: 50px;
     bottom: 120px;
   }
-}
-
-.overlay-box-wrapper {
-  position: fixed;
-  bottom: 0;
-  z-index: 100;
-  width: 100vw;
-}
-
-.overlayPop-enter-active {
-  transition: transform 0.3s;
-}
-
-.overlayPop-leave-active {
-  transition: all 0.5s;
-}
-.overlayPop-enter /* .fade-leave-active below version 2.1.8 */ {
-  transform: translateY(-1em);
-  opacity: 0;
-}
-
-.overlayPop-leave-to {
-  transform: translateY(1em);
-  opacity: 0;
 }
 </style>

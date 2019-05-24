@@ -46,7 +46,6 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity 0.3s ease;
 
   .help-wrapper {
     display: table-cell;
@@ -54,14 +53,13 @@ export default {
 
     .help-container {
       position: relative;
-      width: 400px;
-      max-height: 80vh;
+      width: 550px;
+      max-height: 90vh;
       margin: 0px auto;
       padding: 70px 30px 20px 30px;
       background-color: #fff;
       border-radius: 2px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-      transition: all 0.3s ease;
       overflow-y: auto;
       z-index: 9998;
 
@@ -92,9 +90,10 @@ export default {
         }
 
         .digitalents {
-          margin-top: 10px;
+          margin: 10px auto 0 auto;
           padding-top: 40px;
           border-top: 1px solid #bbb;
+          max-width: 350px;
 
           h2 {
             font-size: 14px;
@@ -105,6 +104,7 @@ export default {
 
           img {
             width: 100%;
+            padding-right: 40px;
           }
         }
       }

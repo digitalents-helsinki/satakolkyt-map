@@ -466,7 +466,7 @@ form {
 .date-error {
   margin-top: 5px;
   font-size: 14px;
-  color: red;
+  color: #f82828;
 }
 
 .open-cleanup {
@@ -582,28 +582,6 @@ form {
   color: black;
 }
 
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
 input {
   padding: 5px;
   box-sizing: border-box;

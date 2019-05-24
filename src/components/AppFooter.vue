@@ -159,9 +159,12 @@ export default {
         z-index: 9995;
         align-items: center;
         display: flex;
-        font-size: 3em;
         font-weight: bold;
         padding: 0 10px;
+
+        .stepinfo {
+          margin-right: 20px;
+        }
 
         .stepinfo,
         .kiloinfo {
@@ -170,9 +173,16 @@ export default {
           font-size: 32px;
           margin-left: 0.5em;
         }
+        .stepcount {
+          color: #006b32;
+        }
+        .kilometercount {
+          color: #f82828;
+        }
 
         .stepcount,
         .kilometercount {
+          font-size: 70px;
           white-space: nowrap;
         }
       }
@@ -245,15 +255,6 @@ export default {
   }
 }
 
-.green {
-  color: green;
-  margin-right: 5px;
-}
-.red {
-  color: red;
-  margin-left: 5px;
-}
-
 @media only screen and (max-width: 1366px) {
   .footer-wrapper {
     .footer-container {
@@ -271,11 +272,16 @@ export default {
         .counter {
           .stepcount,
           .kilometercount {
-            font-size: 36px;
+            font-size: 60px;
           }
+
+          .stepinfo {
+            margin-right: 40px;
+          }
+
           .stepinfo,
           .kiloinfo {
-            font-size: 24px;
+            font-size: 28px;
             max-width: 120px;
           }
         }
@@ -306,12 +312,12 @@ export default {
 
           .stepcount,
           .kilometercount {
-            font-size: 30px;
+            font-size: 40px;
             margin: 0;
           }
           .stepinfo,
           .kiloinfo {
-            font-size: 16px;
+            font-size: 18px;
             max-width: 90px;
             margin: 0 5px;
           }

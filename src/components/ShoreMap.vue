@@ -8,27 +8,12 @@
       :nav-control="navControl"
       @map-load="mapLoaded"
     />
-    <!--MglMap
-      :accessToken="accessToken"
-      :mapStyle="mapOptions.style"
-      :hash="mapOptions.hash"
-      :attributionControl="mapOptions.attributionControl"
-      :dragRotate="mapOptions.dragRotate"
-      :touchZoomRotate="mapOptions.touchZoomRotate"
-      :center="mapOptions.center"
-      :zoom="mapOptions.zoom"
-      @load="mapLoaded"
-    >
-      <MglAttributionControl :compact="false" position="bottom-right" />
-      <MglNavigationControl position="top-right" />
-    </MglMap-->
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 import MapBox from 'mapbox-gl-vue'
-//import { MglMap, MglAttributionControl, MglNavigationControl } from 'vue-mapbox'
 
 export default {
   name: 'shore-map',
@@ -40,14 +25,10 @@ export default {
     freeshores: [Object, Array],
     reservedshores: [Object, Array],
     cleanedshores: [Object, Array],
-    hiddenshores: [Object, Array],
-    showOnMap: false
+    hiddenshores: [Object, Array]
   },
   components: {
     MapBox
-    //MglMap,
-    //MglAttributionControl,
-    //MglNavigationControl
   },
   data() {
     return {
@@ -72,40 +53,10 @@ export default {
         id: null
       },
       hoveredIds: {}
-      //showInfoPopup: false,
-      //infoBoxType: null,
-      //infoBoxData: null,
-      //infoBoxCoords: [0, 0]
     }
   },
   methods: {
-    generateLineStringStyle(basecolor, hovercolor) {
-      return {
-        layout: {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        paint: {
-          'line-color': [
-            'case',
-            [
-              'any',
-              ['boolean', ['feature-state', 'hover'], false],
-              ['boolean', ['feature-state', 'selected'], false]
-            ],
-            hovercolor,
-            basecolor
-          ],
-          'line-width': 1
-        }
-      }
-    },
     enhanceData(data) {
-      /*return data.map(e => ({
-        ...e,
-        id: e._key,
-        properties: { ...e.properties, key: e._key }
-      }))*/
       for (let e of data) {
         e.id = e._key
         e.properties.key = e._key
@@ -123,7 +74,6 @@ export default {
         id: name,
         type: 'line',
         source: name,
-        //...this.generateLineStringStyle(basecolor, hovercolor)
         layout: {
           'line-join': 'round',
           'line-cap': 'round'
@@ -373,8 +323,7 @@ export default {
   }
 }
 
-.mapboxgl-canvas-container.mapboxgl-interactive,
-.mapboxgl-ctrl-group > button.mapboxgl-ctrl-compass {
+.mapboxgl-canvas-container.mapboxgl-interactive {
   cursor: -webkit-grab;
   cursor: grab;
   -moz-user-select: none;

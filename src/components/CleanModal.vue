@@ -525,7 +525,7 @@ export default {
 .date-error {
   margin: 0px 0 10px 0;
   font-size: 14px;
-  color: red;
+  color: #f82828;
 }
 
 .cleaned-info-item h5 {
