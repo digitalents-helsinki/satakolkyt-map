@@ -18,9 +18,7 @@
     </div>
 
     <div class="help" v-if="showHelp">
-      <transition name="modal">
-        <Help @close="showHelp = false"> </Help>
-      </transition>
+      <Help @close="showHelp = false"> </Help>
     </div>
 
     <div class="header-right-wrapper">

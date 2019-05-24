@@ -138,7 +138,7 @@ export default {
 
     .footer {
       position: relative;
-      z-index: 9999;
+      z-index: 9997;
       height: 80px;
       display: flex;
       flex-direction: row;
@@ -264,7 +264,7 @@ export default {
           position: absolute;
           align-content: center;
           background-color: white;
-          z-index: 9999;
+          z-index: 9997;
           margin: 0;
         }
 
