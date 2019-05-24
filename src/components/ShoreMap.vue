@@ -2,7 +2,13 @@
 
 <template>
   <div class="map-view">
-    <MglMap
+    <map-box
+      :access-token="accessToken"
+      :map-options="mapOptions"
+      :nav-control="navControl"
+      @map-load="mapLoaded"
+    />
+    <!--MglMap
       :accessToken="accessToken"
       :mapStyle="mapOptions.style"
       :hash="mapOptions.hash"
@@ -15,26 +21,14 @@
     >
       <MglAttributionControl :compact="false" position="bottom-right" />
       <MglNavigationControl position="top-right" />
-      <!--MglPopup
-        ref="infopopup"
-        :coordinates="infoBoxCoords"
-        :closeOnClick="true"
-        :closeButton="false"
-      >
-        <InfoBox
-          :type="infoBoxType"
-          :data="infoBoxData"
-          @infobox-close="hidePopup"
-        />
-      </MglPopup-->
-    </MglMap>
+    </MglMap-->
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import { MglMap, MglAttributionControl, MglNavigationControl } from 'vue-mapbox'
-//import InfoBox from '@/components/InfoBox'
+import MapBox from 'mapbox-gl-vue'
+//import { MglMap, MglAttributionControl, MglNavigationControl } from 'vue-mapbox'
 
 export default {
   name: 'shore-map',
@@ -50,11 +44,10 @@ export default {
     showOnMap: false
   },
   components: {
-    MglMap,
-    MglAttributionControl,
-    MglNavigationControl
-    //MglPopup,
-    //InfoBox
+    MapBox
+    //MglMap,
+    //MglAttributionControl,
+    //MglNavigationControl
   },
   data() {
     return {
@@ -71,7 +64,8 @@ export default {
         attributionControl: false
       },
       navControl: {
-        show: false
+        show: true,
+        position: 'top-right'
       },
       selected: {
         layer: null,
@@ -163,34 +157,10 @@ export default {
         //zoom to on map where we clicked:
         map.flyTo({ center: clickpos, zoom: 15 })
 
-        //set coordinates and type for infobox popup
-        /*this.infoBoxCoords = clickpos
-        this.infoBoxType = shoretype*/
-
         //let parent know:
         this.$emit(shoretype + '-click', clickedShore.properties)
       })
     },
-    /*showPopup(data) {
-      console.log('ShoreMap.showPopup()')
-      if (!this.showInfoPopup) {
-        this.infoBoxData = data
-        this.$refs.infopopup.popup.addTo(this.map)
-
-        this.showInfoPopup = true
-      } else {
-        this.infoBoxData = data
-        this.$refs.infopopup.popup._update()
-      }
-    },
-    hidePopup() {
-      console.log('ShoreMap.hidePopup()')
-      if (this.showInfoPopup) {
-        this.showInfoPopup = false
-
-        this.$refs.infopopup.popup.remove()
-      }
-    },*/
     renderSelected(id, layername) {
       this.selected.layer = layername
       this.selected.id = id
@@ -286,13 +256,12 @@ export default {
         this.hoveredIds[layername] = null
       })
     },
-    mapLoaded(e) {
-      const map = e.map
+    mapLoaded(map) {
       this.map = map
-      /*map.addControl(
+      map.addControl(
         new mapboxgl.AttributionControl({ compact: false }),
         'bottom-right'
-      )*/
+      )
 
       this.addShoreType(map, 'freeShore', this.freeshores, '#f82828', '#ffb1b7')
       this.addShoreType(
@@ -367,10 +336,10 @@ export default {
     width: 100%;
   }
 }
-/*#map {
-  height: 100%;
+#map {
+  height: 100vh;
   width: 100%;
-}*/
+}
 
 .mapboxgl-ctrl-bottom-right {
   top: unset;
