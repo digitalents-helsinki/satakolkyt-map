@@ -357,41 +357,6 @@ export default {
   }
 }
 
-.initial-background {
-  position: relative;
-  background-image: url('/bg.jpg');
-  filter: blur(4px) opacity(0.6);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
-}
-.initial {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  color: #4e4a45;
-
-  h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
-  }
-
-  button {
-    width: 20ex;
-  }
-  .no-blur {
-    filter: blur(0px);
-  }
-}
-
 .overlay-box-wrapper {
   position: fixed;
   bottom: 0;
