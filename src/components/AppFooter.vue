@@ -23,21 +23,13 @@
         </div>
         <div class="counter" :class="{ hide: this.$props.data }">
           <div class="stepcount green">
-            <ICountUp
-              :endVal="counterSteps"
-              :options="countOptions"
-              @ready="onReady"
-            />
+            <ICountUp :endVal="counterSteps" />
           </div>
           <div class="stepinfo">
             {{ $t('message.steps_walked') }}
           </div>
           <div class="kilometercount red">
-            <ICountUp
-              :endVal="counterKm"
-              :options="countOptions"
-              @ready="onReady"
-            />
+            <ICountUp :endVal="counterKm" />
           </div>
           <div class="kiloinfo">
             {{ $t('message.km_cleaned') }}
@@ -107,15 +99,7 @@ export default {
   },
   data() {
     return {
-      legendmobilehidden: true,
-      countOptions: {
-        useEasing: true,
-        useGrouping: true,
-        separator: ',',
-        decimal: '.',
-        prefix: '',
-        suffix: ''
-      }
+      legendmobilehidden: true
     }
   },
   mounted() {},
@@ -131,9 +115,6 @@ export default {
     },
     unHideShoreMap(data) {
       this.$emit('unhide-shore', data)
-    },
-    onReady: (instance, CountUp) => {
-      instance.update(this.endVal + 1)
     }
   }
 }
