@@ -4,7 +4,7 @@
   <div class="app-header">
     <vue-headful :lang="$i18n.locale" />
     <div class="logo-container" v-if="!iframed">
-      <img src="logo.svg" />
+      <img src="logo.svg" alt="Satakolkyt" />
     </div>
     <div v-else class="iframed-text">
       <h1 v-if="!isOffline">{{ $t('message.iframe') }}</h1>

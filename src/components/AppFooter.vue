@@ -23,13 +23,13 @@
         </div>
         <div class="counter" :class="{ hide: this.$props.data }">
           <div class="stepcount green">
-            <ICountUp :endVal="counterSteps" />
+            <ICountUp :endVal="counterSteps" :options="countOptions" />
           </div>
           <div class="stepinfo">
             {{ $t('message.steps_walked') }}
           </div>
           <div class="kilometercount red">
-            <ICountUp :endVal="counterKm" />
+            <ICountUp :endVal="counterKm" :options="countOptions" />
           </div>
           <div class="kiloinfo">
             {{ $t('message.km_cleaned') }}
@@ -99,7 +99,10 @@ export default {
   },
   data() {
     return {
-      legendmobilehidden: true
+      legendmobilehidden: true,
+      countOptions: {
+        useGrouping: true
+      }
     }
   },
   mounted() {},
