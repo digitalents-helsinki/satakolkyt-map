@@ -572,11 +572,19 @@ export default {
     },
     showreservation(ev) {
       this.$refs.adminmap.unRenderSelected()
-      this.$refs.adminmap.renderSelected(ev.target.id, 'reservedShore')
 
-      const data = this.$store.state.maplayers['reservedlayer'].find(e => {
+      let data = this.$store.state.maplayers['reservedlayer'].find(e => {
         return e._key === ev.target.id
       })
+      if (data) {
+        this.$refs.adminmap.renderSelected(ev.target.id, 'reservedShore')
+      } else {
+        data = this.$store.state.maplayers['cleanlayer'].find(e => {
+          return e._key === ev.target.id
+        })
+        this.$refs.adminmap.renderSelected(ev.target.id, 'cleanedShore')
+      }
+
       this.map.flyTo({
         center: [
           data.geometry.coordinates[0][0],
