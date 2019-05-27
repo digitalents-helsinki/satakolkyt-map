@@ -18,7 +18,7 @@
         <h2>
           {{
             this.$props.data.confirmed
-              ? ''
+              ? $t('message.private_event')
               : '(' + $t('message.unconfirmed') + ')'
           }}
         </h2>
@@ -129,7 +129,6 @@ export default {
   h2 {
     font-size: 16px;
     color: #aaa;
-    text-align: center;
     margin-bottom: 20px;
   }
 
