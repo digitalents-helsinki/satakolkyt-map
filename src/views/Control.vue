@@ -51,14 +51,16 @@
             <input type="checkbox" id="hideconfirmed" v-model="hideConfirmed" />
           </div>
           <button class="small-button" @click="toggleSort">
-            {{ newestfirst ? 'Vanhat ensin' : 'Uudet ensin' }}
+            {{
+              newestfirst ? $t('message.old_first') : $t('message.new_first')
+            }}
           </button>
         </div>
         <div class="tab-content">
           <div class="reservations" v-show="showReservations">
             <div class="remove-old-reservations">
               <button @click="removeOldReservations">
-                Poista vanhat varaukset
+                {{ $t('message.remove_old_reservations') }}
               </button>
             </div>
             <li
@@ -81,11 +83,6 @@
                   {{ reservation.startdate | moment('DD.MM.YYYY') }}
                   {{ reservation.starttime + ' - ' + reservation.endtime }}
                 </p>
-                <!--p>
-                  <span class="bold">{{ $t('message.ends') }}: </span>
-                  {{ reservation.enddate | moment('DD.MM.YYYY') }}
-                  {{ reservation.endtime }}
-                </p-->
               </div>
               <div class="reservation-contact">
                 <p>
@@ -148,7 +145,7 @@
           <div class="clean-infos" v-show="showCleanedShores">
             <div class="remove-old-cleaninfos">
               <button @click="removeOldCleaninfos">
-                Poista yli 2kk vanhat siivoukset
+                {{ $t('message.remove_old_cleanings') }}
               </button>
             </div>
             <li
@@ -686,7 +683,6 @@ export default {
           if (res.data.status === 'ok') {
             this.getCleaned()
             for (let s of res.data.shores) {
-              console.log(s)
               this.shoreUncleaned(s)
             }
             alert(
@@ -736,11 +732,6 @@ export default {
 
   mounted() {
     this.getStepsKm()
-    /*
-    this.getReservations()
-    this.getCleaned()
-    this.initMap()
-    */
   }
 }
 </script>
@@ -907,6 +898,7 @@ export default {
   max-width: 120px;
   font-size: 12px;
   padding: 10px;
+  word-break: normal;
 }
 
 .loginview {

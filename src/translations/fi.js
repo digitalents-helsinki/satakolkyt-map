@@ -141,6 +141,10 @@ export const fi = {
       `Linnunsuojelualueet ovat rauhoitettuja kesän aikana, joten olemme poistaneet mahdollisuuden varata kyseiset 
     alueet rauhoituksen ajan.`
     ],
-    powered_by: 'Ohjelmiston tarjoaa:'
+    powered_by: 'Ohjelmiston tarjoaa:',
+    remove_old_reservations: 'Poista vanhat varaukset',
+    remove_old_cleanings: 'Poista yli 2kk vanhat siivoukset',
+    old_first: 'Uudet ensin',
+    new_first: 'Vanhat ensin'
   }
 }

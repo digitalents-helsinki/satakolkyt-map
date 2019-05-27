@@ -140,6 +140,10 @@ export const en = {
       `As bird conservation areas are protected during the summer, we have removed the possiblity to reserve them during the protected
     period.`
     ],
-    powered_by: 'App powered by:'
+    powered_by: 'App powered by:',
+    remove_old_reservations: 'Remove old reservations',
+    remove_old_cleanings: 'Remove cleanings over 2mo old',
+    old_first: 'Old first',
+    new_first: 'New first'
   }
 }
