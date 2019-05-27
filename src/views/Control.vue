@@ -161,7 +161,7 @@
               <h2>{{ clean.organizer_name }}</h2>
               <div class="clean-time">
                 <p>
-                  <span class="bold">{{ $t('message.notified') }}: </span>
+                  <span class="bold">{{ $t('message.time_clean') }}: </span>
                   {{ clean.date | moment('DD.MM.YYYY') }}
                 </p>
                 <p>
@@ -282,11 +282,11 @@
           {{ $t('message.reservation_deletion_confirmation_message') }}
 
           <button @click="showReservationConfirmation = false">
-            {{ $t('message.reservation_deletion_confirmation_negative') }}
+            {{ $t('message.cancel') }}
           </button>
 
           <button @click="deleteReservation(reservationToDelete)">
-            {{ $t('message.reservation_deletion_confirmation_positive') }}
+            {{ $t('message.yes') }}
           </button>
         </div>
       </div>
@@ -296,11 +296,11 @@
           {{ $t('message.clean_deletion_confirmation_message') }}
 
           <button @click="showCleanConfirmation = false">
-            {{ $t('message.clean_deletion_confirmation_negative') }}
+            {{ $t('message.cancel') }}
           </button>
 
           <button @click="deleteCleaned(cleanToDelete)">
-            {{ $t('message.clean_deletion_confirmation_positive') }}
+            {{ $t('message.yes') }}
           </button>
         </div>
       </div>

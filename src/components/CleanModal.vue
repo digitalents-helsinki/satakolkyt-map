@@ -103,7 +103,7 @@
 
                 <div class="cleaner">
                   <div class="cleaner-title">
-                    <h4>{{ $t('message.shore_cleaner') }}</h4>
+                    <h4>{{ $t('message.contact_person') }}</h4>
                     <p>{{ $t('message.shore_cleaner_fill') }}</p>
                   </div>
 

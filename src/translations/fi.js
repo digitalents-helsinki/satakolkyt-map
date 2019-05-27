@@ -40,7 +40,6 @@ export const fi = {
     trash_amount: 'Roskan määrä',
     claim_clean: 'Ilmoita ranta siivotuksi',
     fill_cleaned_info: 'Täytä siivotun rannan tiedot',
-    shore_cleaner: 'Yhteyshenkilö',
     shore_cleaner_fill:
       'Täytä alle yhteyshenkilön tiedot. Yhteyshenkilön tiedot eivät näy muille käyttäjille.',
     trash_little: 'Ei juuri lainkaan',
@@ -75,7 +74,6 @@ export const fi = {
     date: 'Ajankohta',
     starts: 'Alkaa',
     ends: 'Loppuu',
-    notified: 'Ilmoitettu',
     contact_info: 'Yhteystiedot',
     time: 'Aika',
     cleaned: 'Siivotut rannat',
