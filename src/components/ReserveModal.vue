@@ -250,15 +250,14 @@ export default {
       reservationdata: {
         confirmed: false,
         organizer: '',
-        startdate: '',
+        startdate: null,
         starttime: {
-          HH: '',
-          mm: ''
+          HH: '00',
+          mm: '00'
         },
-        //enddate: '',
         endtime: {
-          HH: '',
-          mm: ''
+          HH: '00',
+          mm: '00'
         },
         openevent: false,
         openinfo: '',
