@@ -15,6 +15,13 @@
     <div v-if="this.$props.data">
       <div v-if="type === 'reserved'">
         <h1>{{ $t('message.reserved_shore') }}</h1>
+        <h2>
+          {{
+            this.$props.data.confirmed
+              ? ''
+              : '(' + $t('message.unconfirmed') + ')'
+          }}
+        </h2>
         <p v-if="this.$props.data.openevent" class="event-text">
           {{ $t('message.reservation_open') }}
         </p>
@@ -40,18 +47,15 @@
         <h2>
           {{
             this.$props.data.confirmed
-              ? '(' + $t('message.confirmed') + ')'
+              ? ''
               : '(' + $t('message.unconfirmed') + ')'
           }}
         </h2>
         <div v-if="this.$props.data.confirmed">
-          <p>
-            <b>{{ $t('message.cleaning_text') }}:</b>
-            {{ this.$props.data.organizer_name }}
-          </p>
-          <p>
-            <b>{{ $t('message.shorescleaned') }}:</b>
-            {{ this.$props.data.date | moment('DD.MM.YYYY') }}
+          <p class="shore-cleaned-text">{{ $t('message.cleaning_text') }}</p>
+          <p class="shore-cleaner-text">
+            <b>{{ this.$props.data.organizer_name }}</b>
+            <b>{{ this.$props.data.date | moment('DD.MM.YYYY') }}</b>
           </p>
         </div>
       </div>
@@ -152,6 +156,15 @@ export default {
       color: #00a0ff;
       text-decoration: none;
     }
+  }
+
+  .shore-cleaned-text {
+    color: gray;
+    padding-bottom: 10px;
+  }
+
+  .shore-cleaner-text b {
+    padding-right: 10px;
   }
 }
 
