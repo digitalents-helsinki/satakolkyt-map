@@ -39,7 +39,7 @@ export default {
   background-color: white;
 
   button {
-    background-color: #f0e41a;
+    background-color: #eee350;
     color: #000;
     font-size: 1rem;
     font-weight: bold;

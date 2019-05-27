@@ -204,7 +204,7 @@ export default {
     text-transform: uppercase;
     font-weight: 700;
     flex-direction: column;
-    background-color: #f0e41a;
+    background-color: #eee350;
 
     .header {
       position: relative;

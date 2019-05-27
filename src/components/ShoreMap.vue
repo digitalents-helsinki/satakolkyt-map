@@ -219,7 +219,7 @@ export default {
         'reservedShore',
         this.reservedshores,
         '#fda218',
-        '#f0e41a'
+        '#eee350'
       )
       this.addShoreType(
         map,

@@ -74,7 +74,7 @@ export default {
 .app-header {
   min-height: 75px;
   padding: 10px;
-  background-color: #f0e41a;
+  background-color: #eee350;
   box-shadow: 0 6px 2px -4px rgba(black, 0.15), 0 0 0 1px rgba(black, 0.05);
   display: flex;
   flex-direction: row;
@@ -154,7 +154,7 @@ export default {
             width: 40px;
             text-align: center;
             margin: 0 5px;
-            color: #f0e41a;
+            color: #eee350;
             background-color: hsl(33, 6%, 22%);
             border-radius: 50%;
             cursor: pointer;

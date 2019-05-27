@@ -92,7 +92,7 @@ header {
   width: 5em !important;
 }
 button {
-  background-color: #f0e41a;
+  background-color: #eee350;
   color: #000;
   padding: 0 1rem;
   font-size: 1rem;
