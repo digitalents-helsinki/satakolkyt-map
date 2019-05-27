@@ -23,13 +23,21 @@
         </div>
         <div class="counter" :class="{ hide: this.$props.data }">
           <div class="stepcount green">
-            {{ counterSteps }}
+            <ICountUp
+              :endVal="counterSteps"
+              :options="countOptions"
+              @ready="onReady"
+            />
           </div>
           <div class="stepinfo">
             {{ $t('message.steps_walked') }}
           </div>
           <div class="kilometercount red">
-            {{ counterKm }}
+            <ICountUp
+              :endVal="counterKm"
+              :options="countOptions"
+              @ready="onReady"
+            />
           </div>
           <div class="kiloinfo">
             {{ $t('message.km_cleaned') }}
@@ -75,6 +83,7 @@
 <script>
 import ShoreInfo from './ShoreInfo'
 import AdminShoreInfo from './AdminShoreInfo'
+import ICountUp from 'vue-countup-v2'
 
 export default {
   name: 'app-footer',
@@ -93,11 +102,20 @@ export default {
   ],
   components: {
     ShoreInfo,
-    AdminShoreInfo
+    AdminShoreInfo,
+    ICountUp
   },
   data() {
     return {
-      legendmobilehidden: true
+      legendmobilehidden: true,
+      countOptions: {
+        useEasing: true,
+        useGrouping: true,
+        separator: ',',
+        decimal: '.',
+        prefix: '',
+        suffix: ''
+      }
     }
   },
   mounted() {},
@@ -113,6 +131,9 @@ export default {
     },
     unHideShoreMap(data) {
       this.$emit('unhide-shore', data)
+    },
+    onReady: (instance, CountUp) => {
+      instance.update(this.endVal + 1)
     }
   }
 }
