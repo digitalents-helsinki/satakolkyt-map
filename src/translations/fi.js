@@ -97,7 +97,7 @@ export const fi = {
     shoresreserved: 'Talkoot tulossa',
     shoresfree: 'Siivoamaton',
     shoresselected: 'Valittu',
-    reserved_shore: 'Talkoot tulossa täällä!',
+    reserved_shore: 'Varattu ranta',
     cleaned_shore: 'Siivottu ranta',
     free_shore: 'Vapaa ranta',
     come_clean: 'Tule siivoamaan!',
@@ -145,6 +145,7 @@ export const fi = {
     remove_old_reservations: 'Poista vanhat varaukset',
     remove_old_cleanings: 'Poista yli 2kk vanhat siivoukset',
     old_first: 'Uudet ensin',
-    new_first: 'Vanhat ensin'
+    new_first: 'Vanhat ensin',
+    reservation_open: 'Tämä ranta on varattu vapaisiin talkoisiin.'
   }
 }

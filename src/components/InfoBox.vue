@@ -15,45 +15,24 @@
     <div v-if="this.$props.data">
       <div v-if="type === 'reserved'">
         <h1>{{ $t('message.reserved_shore') }}</h1>
-        <h2>
-          {{
-            this.$props.data.confirmed
-              ? '(' + $t('message.confirmed') + ')'
-              : '(' + $t('message.unconfirmed') + ')'
-          }}
-        </h2>
-        <div v-if="this.$props.data.confirmed">
+        <p v-if="this.$props.data.openevent" class="event-text">
+          {{ $t('message.reservation_open') }}
+        </p>
+        <div v-if="this.$props.data.confirmed" class="organizer-date">
           <p>
-            <b>{{ $t('message.organizer') }}:</b>
-            {{ this.$props.data.organizer }}
+            <b>
+              {{ this.$props.data.organizer }}
+              {{ this.$props.data.startdate | moment('DD.MM.YYYY') }}
+            </b>
           </p>
-          <h3>
-            {{
-              this.$props.data.openevent
-                ? $t('message.join_cleaning')
-                : $t('message.private_event')
-            }}
-          </h3>
-          <div v-if="this.$props.data.openevent">
+          <div v-if="this.$props.data.openevent" class="openinfo">
             <p>
-              <b>{{ $t('message.event_info') }}:</b>
               {{ this.$props.data.openinfo }}
             </p>
             <p class="event-link">
               <a :href="stripProtocol()">{{ $t('message.openevent_link') }}</a>
             </p>
           </div>
-          <p>
-            <b>{{ $t('message.begins') }}:</b>
-            {{ this.$props.data.startdate | moment('DD.MM.YYYY') }}
-            {{
-              $t('message.at') +
-                ' ' +
-                this.$props.data.starttime +
-                ' - ' +
-                this.$props.data.endtime
-            }}
-          </p>
         </div>
       </div>
       <div v-if="type === 'cleaned'">
@@ -79,12 +58,6 @@
       <div v-if="type === 'free'">
         <h1>{{ $t('message.free_shore') }}</h1>
         <p>{{ $t('message.come_clean') }}</p>
-      </div>
-      <div class="idnum">
-        ID:
-        {{
-          type === 'free' ? this.$props.data.key : this.$props.data.selected.key
-        }}
       </div>
     </div>
   </div>
@@ -113,10 +86,10 @@ export default {
 </script>
 <style lang="scss">
 .infobox {
-  width: 300px;
+  width: 350px;
   min-height: 100px;
   background-color: white;
-  padding: 15px 10px 10px 10px;
+  padding: 20px 30px 20px 30px;
   word-break: break-word;
 
   .spinner {
@@ -133,8 +106,17 @@ export default {
     padding: 15px;
   }
 
+  .event-text {
+    color: gray;
+    font-size: 15px;
+  }
+
+  .organizer-date {
+    padding-top: 15px;
+  }
+
   h1 {
-    text-align: center;
+    text-transform: uppercase;
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 5px;
@@ -157,15 +139,19 @@ export default {
     margin: 5px 0;
   }
 
-  .event-link {
-    font-size: 18px;
-  }
+  .openinfo {
+    padding-top: 10px;
+    color: gray;
 
-  .idnum {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    color: #bbb;
+    p {
+      padding-bottom: 10px;
+    }
+
+    a:any-link {
+      font-size: 18px;
+      color: #00a0ff;
+      text-decoration: none;
+    }
   }
 }
 
