@@ -135,6 +135,8 @@ export const sv = {
     remove_old_reservations: 'Ta bort gamla reservationer',
     remove_old_cleanings: 'Ta bort gamla rengöringarna',
     old_first: 'Gamla först',
-    new_first: 'Nya första'
+    new_first: 'Nya första',
+    reservation_open:
+      'Denna strand är reserverad för en öppen rengöring händelse.'
   }
 }
