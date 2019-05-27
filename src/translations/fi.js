@@ -58,7 +58,9 @@ export const fi = {
                           uudelle alueelle ihmisen mukana joko tahattomasti tai tarkoituksella. Haitalliset
                           vieraslajit leviävät nopeasti ja vievät elintilaan alkuperäisiltä lajeilta sekä muuttavat
                           ekosysteemin rakennetta.`,
+    kurtturuusu: 'Kurtturuusu',
     see_kurtturuusu: 'Havaitsitteko rannalla kurtturuusua?',
+    jattipalsami: 'Jättipalsami',
     see_jattipalsami: 'Havaitsitteko rannalla jättipalsamia?',
     foreign_species_detail1: 'Voitte kuvailla lajiesiintymiä tarkemmin',
     foreign_species_detail2:
