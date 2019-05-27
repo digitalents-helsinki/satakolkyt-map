@@ -121,11 +121,8 @@ export const fi = {
     err_validationerror: 'Virhe: Epäkelvolliset tiedot!',
     reservation_deletion_confirmation_message:
       'Haluatko varmasti poistaa varauksen?',
-    reservation_deletion_confirmation_positive: 'Poista varaus',
-    reservation_deletion_confirmation_negative: 'Peru',
+    cancel: 'Peru',
     clean_deletion_confirmation_message: 'Haluatko varmasti hylätä siivouksen?',
-    clean_deletion_confirmation_positive: 'Hylkää siivous',
-    clean_deletion_confirmation_negative: 'Peru',
     hide_confirmed: 'Piilota varmistetut',
     join_cleaning: 'Tule mukaan talkoisiin!',
     private_event: 'Yksityiset talkoot',
