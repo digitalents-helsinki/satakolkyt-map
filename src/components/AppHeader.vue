@@ -38,7 +38,9 @@
         </div>
         <div v-if="iframed" class="to-new-window-wrapper">
           <div class="to-new-window">
-            <h2>{{ $t('message.to_new_window') }}</h2>
+            <a href="https://map.satakolkyt.fi" target="_blank ">{{
+              $t('message.to_new_window')
+            }}</a>
           </div>
           <div class="arrow">
             <font-awesome-icon icon="arrow-right" />
@@ -171,9 +173,11 @@ export default {
           flex-direction: column;
           justify-content: center;
 
-          h2 {
+          a:any-link {
+            color: #00a0ff;
             text-align: end;
             text-transform: uppercase;
+            text-decoration: none;
           }
         }
 
