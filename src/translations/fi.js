@@ -58,7 +58,9 @@ export const fi = {
                           uudelle alueelle ihmisen mukana joko tahattomasti tai tarkoituksella. Haitalliset
                           vieraslajit leviävät nopeasti ja vievät elintilaan alkuperäisiltä lajeilta sekä muuttavat
                           ekosysteemin rakennetta.`,
+    kurtturuusu: 'Kurtturuusu',
     see_kurtturuusu: 'Havaitsitteko rannalla kurtturuusua?',
+    jattipalsami: 'Jättipalsami',
     see_jattipalsami: 'Havaitsitteko rannalla jättipalsamia?',
     foreign_species_detail1: 'Voitte kuvailla lajiesiintymiä tarkemmin',
     foreign_species_detail2:
@@ -119,11 +121,8 @@ export const fi = {
     err_validationerror: 'Virhe: Epäkelvolliset tiedot!',
     reservation_deletion_confirmation_message:
       'Haluatko varmasti poistaa varauksen?',
-    reservation_deletion_confirmation_positive: 'Poista varaus',
-    reservation_deletion_confirmation_negative: 'Peru',
+    cancel: 'Peru',
     clean_deletion_confirmation_message: 'Haluatko varmasti hylätä siivouksen?',
-    clean_deletion_confirmation_positive: 'Hylkää siivous',
-    clean_deletion_confirmation_negative: 'Peru',
     hide_confirmed: 'Piilota varmistetut',
     join_cleaning: 'Tule mukaan talkoisiin!',
     private_event: 'Yksityiset talkoot',

@@ -141,6 +141,7 @@ export const en = {
     remove_old_reservations: 'Remove old reservations',
     remove_old_cleanings: 'Remove cleanings over 2mo old',
     old_first: 'Old first',
-    new_first: 'New first'
+    new_first: 'New first',
+    reservation_open: 'This shore is reserved for an open cleanup event.'
   }
 }
