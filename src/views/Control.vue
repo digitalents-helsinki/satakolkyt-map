@@ -672,7 +672,10 @@ export default {
         .then(res => {
           if (res.data.status === 'ok') {
             this.getReservations()
-            alert('Poistettiin ' + res.data.removeCount + ' vanhaa varausta.')
+            for (let s of res.data.shores) {
+              this.shoreUnreserved(s)
+            }
+            alert('Poistettiin ' + res.data.shores.length + ' vanhaa varausta.')
           }
         })
     },
@@ -682,9 +685,13 @@ export default {
         .then(res => {
           if (res.data.status === 'ok') {
             this.getCleaned()
+            for (let s of res.data.shores) {
+              console.log(s)
+              this.shoreUncleaned(s)
+            }
             alert(
               'Poistettiin ' +
-                res.data.removeCount +
+                res.data.shores.length +
                 ' vanhentunutta siivousta.'
             )
           }
