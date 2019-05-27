@@ -43,11 +43,16 @@
             <h1>{{ $t('message.cleaned') }}</h1>
           </div>
         </div>
-        <div class="hide-confirmed">
-          <label for="hideconfirmed"
-            >{{ $t('message.hide_confirmed') }}:
-          </label>
-          <input type="checkbox" id="hideconfirmed" v-model="hideConfirmed" />
+        <div class="list-control">
+          <div class="hide-confirmed">
+            <label for="hideconfirmed"
+              >{{ $t('message.hide_confirmed') }}:
+            </label>
+            <input type="checkbox" id="hideconfirmed" v-model="hideConfirmed" />
+          </div>
+          <button class="small-button" @click="toggleSort">
+            {{ newestfirst ? 'Vanhat ensin' : 'Uudet ensin' }}
+          </button>
         </div>
         <div class="tab-content">
           <div class="reservations" v-show="showReservations">
@@ -357,7 +362,8 @@ export default {
       showCleanConfirmation: false,
       counterSteps: null,
       counterKm: null,
-      hideConfirmed: false
+      hideConfirmed: false,
+      newestfirst: true
     }
   },
   components: {
@@ -608,6 +614,13 @@ export default {
         .get(process.env.VUE_APP_URL + '/api/map/reservations/')
         .then(reservation => {
           this.reservations = reservation.data.data
+          this.reservations.sort((a, b) => {
+            return a.timestamp < b.timestamp
+              ? -1
+              : a.timestamp > b.timestamp
+              ? 1
+              : 0
+          })
         })
         .catch(error => {
           console.log(error)
@@ -618,6 +631,13 @@ export default {
         .get(process.env.VUE_APP_URL + '/api/map/cleaninfos/')
         .then(reservation => {
           this.cleaned = reservation.data.data
+          this.cleaned.sort((a, b) => {
+            return a.timestamp < b.timestamp
+              ? -1
+              : a.timestamp > b.timestamp
+              ? 1
+              : 0
+          })
         })
         .catch(error => {
           console.log(error)
@@ -669,6 +689,41 @@ export default {
             )
           }
         })
+    },
+    toggleSort() {
+      if (this.newestfirst) {
+        this.newestfirst = false
+        this.reservations.sort((a, b) => {
+          return a.timestamp > b.timestamp
+            ? -1
+            : a.timestamp < b.timestamp
+            ? 1
+            : 0
+        })
+        this.cleaned.sort((a, b) => {
+          return a.timestamp > b.timestamp
+            ? -1
+            : a.timestamp < b.timestamp
+            ? 1
+            : 0
+        })
+      } else {
+        this.newestfirst = true
+        this.reservations.sort((a, b) => {
+          return a.timestamp < b.timestamp
+            ? -1
+            : a.timestamp > b.timestamp
+            ? 1
+            : 0
+        })
+        this.cleaned.sort((a, b) => {
+          return a.timestamp < b.timestamp
+            ? -1
+            : a.timestamp > b.timestamp
+            ? 1
+            : 0
+        })
+      }
     }
   },
 
@@ -732,11 +787,18 @@ export default {
       top: 100px;
       left: 30px;
 
-      .hide-confirmed {
+      .list-control {
+        display: flex;
         background-color: white;
-        height: 40px;
+        height: 60px;
         width: 300px;
-        padding: 10px 50px;
+        padding: 10px 0;
+
+        .hide-confirmed {
+          padding: 15px 0;
+          margin-left: 10px;
+          width: 180px;
+        }
       }
 
       .list-tabs {
