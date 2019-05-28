@@ -18,7 +18,6 @@
 
     <div class="editor-wrapper">
       <div class="editor">
-        {{ $t('message.edit_map') }}
         <div class="adminMapContainer">
           <shore-map
             ref="adminmap"
@@ -620,9 +619,9 @@ export default {
         .then(reservation => {
           this.reservations = reservation.data.data
           this.reservations.sort((a, b) => {
-            return a.timestamp < b.timestamp
+            return a.timestamp > b.timestamp
               ? -1
-              : a.timestamp > b.timestamp
+              : a.timestamp < b.timestamp
               ? 1
               : 0
           })
@@ -637,9 +636,9 @@ export default {
         .then(reservation => {
           this.cleaned = reservation.data.data
           this.cleaned.sort((a, b) => {
-            return a.timestamp < b.timestamp
+            return a.timestamp > b.timestamp
               ? -1
-              : a.timestamp > b.timestamp
+              : a.timestamp < b.timestamp
               ? 1
               : 0
           })
@@ -705,32 +704,32 @@ export default {
       if (this.newestfirst) {
         this.newestfirst = false
         this.reservations.sort((a, b) => {
-          return a.timestamp > b.timestamp
+          return a.timestamp < b.timestamp
             ? -1
-            : a.timestamp < b.timestamp
+            : a.timestamp > b.timestamp
             ? 1
             : 0
         })
         this.cleaned.sort((a, b) => {
-          return a.timestamp > b.timestamp
+          return a.timestamp < b.timestamp
             ? -1
-            : a.timestamp < b.timestamp
+            : a.timestamp > b.timestamp
             ? 1
             : 0
         })
       } else {
         this.newestfirst = true
         this.reservations.sort((a, b) => {
-          return a.timestamp < b.timestamp
+          return a.timestamp > b.timestamp
             ? -1
-            : a.timestamp > b.timestamp
+            : a.timestamp < b.timestamp
             ? 1
             : 0
         })
         this.cleaned.sort((a, b) => {
-          return a.timestamp < b.timestamp
+          return a.timestamp > b.timestamp
             ? -1
-            : a.timestamp > b.timestamp
+            : a.timestamp < b.timestamp
             ? 1
             : 0
         })

@@ -415,7 +415,7 @@ form {
 }
 
 .modal-body h4 {
-  min-width: 100px;
+  min-width: 120px;
 }
 
 .modal-header h3 {
