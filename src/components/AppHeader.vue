@@ -84,6 +84,7 @@ export default {
     min-width: 150px;
     max-width: 350px;
     flex: 1;
+    margin-left: 20px;
 
     .img {
       width: 100%;
@@ -228,6 +229,10 @@ export default {
   .app-header {
     padding: 5px;
     font-size: 14px;
+
+    .logo-container {
+      margin-left: 8px;
+    }
 
     .help-icon-wrapper {
       flex: 0.7;

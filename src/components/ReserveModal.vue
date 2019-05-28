@@ -630,7 +630,7 @@ input {
   border: 1px solid #bbb;
 }
 .success {
-  color: green;
+  color: #006b32;
   font-size: 24px;
   text-align: center;
   margin: 20px 0;

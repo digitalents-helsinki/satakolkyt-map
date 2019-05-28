@@ -43,7 +43,7 @@
                     "
                     :monday-first="true"
                     v-model="cleandata.date"
-                    @change="checkDateValidity"
+                    @input="checkDateValidity"
                   />
                 </div>
                 <div class="date-error">{{ dateerrormsg }}</div>
@@ -351,14 +351,14 @@ export default {
         date: '',
         group_size: 1,
         trash_amount: 0,
-        trash_left: '',
+        trash_left: 'no',
         trash_bags_info: '',
         cleanmoreinfo: '',
         leader_name: '',
         leader_email: '',
         leader_phone: '',
-        kurtturuusu: '',
-        jattipalsami: '',
+        kurtturuusu: 'no',
+        jattipalsami: 'no',
         foreignspeciesdetail: ''
       },
       privacy_permission: false,
@@ -377,6 +377,7 @@ export default {
   },
   methods: {
     saveCleaned(e) {
+      this.cleandata.date = this.cleandata.date.toISOString().substring(0, 10)
       if (e.target.form.reportValidity()) {
         if (!this.checkDateValidity()) {
           return
@@ -411,8 +412,8 @@ export default {
       this.pagenum--
     },
     checkDateValidity() {
-      this.cleandata.date = this.cleandata.date.toISOString().substring(0, 10)
-      const d = this.cleandata.date.split('-')
+      const tempDate = this.cleandata.date.toISOString().substring(0, 10)
+      const d = tempDate.split('-')
       const date = new Date(
         parseInt(d[0]),
         parseInt(d[1]) - 1,
@@ -511,9 +512,17 @@ export default {
   flex-basis: 40%;
 }
 
+.cleaner-organizer input {
+  margin-left: 18px;
+}
+
 .cleaner-title {
   margin: 2rem 0 1rem 0;
+}
+
+.cleaner-title h4 {
   text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
 .modal-body h4 {
@@ -564,6 +573,7 @@ export default {
 
 .trash-amount select {
   flex-basis: 70%;
+  width: 50px;
 }
 
 .trash-bags-left {
@@ -649,24 +659,19 @@ export default {
 
 .privacy-policy-button {
   max-width: 180px;
-  background-color: lightyellow;
-  border: 1px solid #555;
+  background-color: #fda218;
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 10px 15px;
   margin-right: 10px;
 }
 
 .privacy-policy-button h4 {
   text-decoration: underline;
   font-size: 16px;
+  line-height: 1.3;
   color: black;
   cursor: pointer;
-}
-
-.privacy-policy-button:hover {
-  text-decoration: underline;
-  color: #00d;
 }
 
 .permission-input-container {
@@ -704,15 +709,17 @@ input {
 input[type='date'] {
   max-width: 140px;
 }
+input[type='number'] {
+  max-width: 70px;
+}
 select {
   padding: 5px;
   width: 100%;
-  border: none;
-  border-radius: 4px;
-  background-color: #f1f1f1;
+  border: 1px solid #bbb;
+  background-color: white;
 }
 .success {
-  color: green;
+  color: #006b32;
   font-size: 24px;
   text-align: center;
   margin: 20px 0;

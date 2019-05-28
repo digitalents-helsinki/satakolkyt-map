@@ -277,7 +277,7 @@ export default {
         .counter {
           .stepcount,
           .kilometercount {
-            font-size: 60px;
+            font-size: 50px;
           }
 
           .stepinfo {
@@ -286,7 +286,7 @@ export default {
 
           .stepinfo,
           .kiloinfo {
-            font-size: 28px;
+            font-size: 22px;
             max-width: 120px;
           }
         }
@@ -317,12 +317,12 @@ export default {
 
           .stepcount,
           .kilometercount {
-            font-size: 40px;
+            font-size: 32px;
             margin: 0;
           }
           .stepinfo,
           .kiloinfo {
-            font-size: 18px;
+            font-size: 14px;
             max-width: 90px;
             margin: 0 5px;
           }

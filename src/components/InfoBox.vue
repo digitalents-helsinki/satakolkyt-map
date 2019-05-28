@@ -40,7 +40,7 @@
             <p>
               {{ this.$props.data.openinfo }}
             </p>
-            <p class="event-link">
+            <p v-if="this.$props.data.openlink" class="event-link">
               <a :href="stripProtocol()">{{ $t('message.openevent_link') }}</a>
             </p>
           </div>
@@ -97,7 +97,7 @@ export default {
   width: 350px;
   min-height: 100px;
   background-color: white;
-  padding: 20px 30px 20px 30px;
+  padding: 30px 30px 20px 30px;
   word-break: break-word;
 
   .spinner {
