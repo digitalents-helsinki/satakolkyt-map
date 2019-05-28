@@ -292,7 +292,6 @@ export default {
 }
 
 .mapboxgl-ctrl-bottom-right {
-  top: unset;
   bottom: 80px;
   right: 220px;
 
