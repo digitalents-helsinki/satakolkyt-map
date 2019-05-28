@@ -91,6 +91,16 @@ header {
 .time-picker {
   width: 5em !important;
 }
+
+.vdp-datepicker {
+  border: 1px solid #d2d2d2;
+  height: 2.2em;
+  * header {
+    position: static;
+    width: inherit;
+  }
+}
+
 button {
   background-color: #eee350;
   color: #000;

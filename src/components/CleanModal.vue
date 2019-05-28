@@ -32,10 +32,11 @@
                 <div class="cleaned-info-item cleaned-time">
                   <h5>{{ $t('message.time_clean') }}</h5>
                   <font-awesome-icon icon="calendar" />
-                  <input
+                  <datepicker
                     :required="required"
+                    :language="fi"
+                    :monday-first="true"
                     v-model="cleandata.date"
-                    type="date"
                     @change="checkDateValidity"
                   />
                 </div>
@@ -328,9 +329,11 @@
 </template>
 <script>
 import Spinner from '@/components/Spinner'
+import Datepicker from 'vuejs-datepicker'
 import axios from 'axios'
+import { fi } from 'vuejs-datepicker/dist/locale'
 export default {
-  components: { Spinner },
+  components: { Spinner, Datepicker },
   name: 'clean-modal',
   props: ['selected'],
 
@@ -357,7 +360,8 @@ export default {
       loading: false,
       required: true,
       pagenum: 0,
-      dateerrormsg: ''
+      dateerrormsg: '',
+      fi: fi
     }
   },
   mounted() {
@@ -399,6 +403,7 @@ export default {
       this.pagenum--
     },
     checkDateValidity() {
+      this.cleandata.date = this.cleandata.date.toISOString().substring(0, 10)
       const d = this.cleandata.date.split('-')
       const date = new Date(
         parseInt(d[0]),

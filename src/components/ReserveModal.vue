@@ -42,12 +42,11 @@
                   <div class="datetime-inputs">
                     <div class="datetime-date">
                       <font-awesome-icon icon="calendar" />
-
-                      <input
+                      <datepicker
                         :required="required"
+                        :language="fi"
+                        :monday-first="true"
                         v-model="reservationdata.startdate"
-                        type="date"
-                        @change="checkDateValidity"
                       />
                     </div>
                     <div class="datetime-timeinputs">
@@ -61,7 +60,6 @@
                           v-model="reservationdata.starttime"
                           :minute-interval="30"
                           hide-clear-button
-                          @change="checkDateValidity"
                         />
                       </div>
                       <div>-</div>
@@ -75,7 +73,6 @@
                           v-model="reservationdata.endtime"
                           :minute-interval="30"
                           hide-clear-button
-                          @change="checkDateValidity"
                         />
                       </div>
                     </div>
@@ -232,9 +229,11 @@
 </template>
 <script>
 import VueTimepicker from 'vue2-timepicker'
+import Datepicker from 'vuejs-datepicker'
 import Spinner from '@/components/Spinner'
+import { fi } from 'vuejs-datepicker/dist/locale'
 export default {
-  components: { VueTimepicker, Spinner },
+  components: { VueTimepicker, Datepicker, Spinner },
   name: 'reserve-modal',
   props: ['selected'],
 
@@ -247,10 +246,11 @@ export default {
       errors: [],
       timeformat: 'HH:mm',
       dateerrormsg: '',
+      fi: fi,
       reservationdata: {
         confirmed: false,
         organizer: '',
-        startdate: null,
+        startdate: '',
         starttime: {
           HH: '00',
           mm: '00'
@@ -290,6 +290,9 @@ export default {
           return
         }
         this.loading = true
+        this.reservationdata.startdate = this.reservationdata.startdate
+          .toISOString()
+          .substring(0, 10)
         var reservation = JSON.parse(JSON.stringify(this.reservationdata))
         reservation.endtime =
           this.reservationdata.endtime.HH +
@@ -310,7 +313,10 @@ export default {
       this.saved = true
     },
     checkDateValidity() {
-      const sd = this.reservationdata.startdate.split('-')
+      const tempDate = this.reservationdata.startdate
+        .toISOString()
+        .substring(0, 10)
+      const sd = tempDate.split('-')
       const start = new Date(
         parseInt(sd[0]),
         parseInt(sd[1]) - 1,
@@ -339,6 +345,10 @@ export default {
         0,
         0
       )
+      console.log('start: ' + start)
+      console.log('end: ' + end)
+      console.log(start < end)
+
       if (start < end) {
         this.dateerrormsg = ''
         return true
