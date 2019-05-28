@@ -7,8 +7,7 @@
       <img src="logo.svg" alt="Satakolkyt" />
     </div>
     <div v-else class="iframed-text">
-      <h1 v-if="!isOffline">{{ $t('message.iframe') }}</h1>
-      <h1 v-if="isOffline">{{ $t('message.offline') }}</h1>
+      <h1>{{ $t('message.iframe') }}</h1>
     </div>
 
     <div class="help-icon-wrapper">
@@ -60,8 +59,7 @@ export default {
   data() {
     return {
       showHelp: false,
-      iframed: false,
-      isOffline: false
+      iframed: false
     }
   },
   mounted() {

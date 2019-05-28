@@ -18,12 +18,16 @@
         <h2>
           {{
             this.$props.data.confirmed
-              ? $t('message.private_event')
+              ? ''
               : '(' + $t('message.unconfirmed') + ')'
           }}
         </h2>
-        <p v-if="this.$props.data.openevent" class="event-text">
-          {{ $t('message.reservation_open') }}
+        <p v-if="this.$props.data.confirmed" class="event-text">
+          {{
+            this.$props.data.openevent
+              ? $t('message.reservation_open')
+              : $t('message.private_event')
+          }}
         </p>
         <div v-if="this.$props.data.confirmed" class="organizer-date">
           <p>
