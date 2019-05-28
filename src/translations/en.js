@@ -6,7 +6,7 @@ export const en = {
     at: 'at',
     app: 'SATAKOLKYT map application',
     legend: 'Legend',
-    reserve: 'Reserve a shore',
+    reserve: 'Reserve shore',
     reserve_clean: 'Reserve a shore to clean up ',
     reserve_sub:
       'Information about the event, such as the organizer and date are public.',
@@ -33,7 +33,7 @@ export const en = {
     email: 'Email',
     contact: 'Contact person',
     close: 'Close',
-    claim_clean: 'Report a cleaned shore',
+    claim_clean: 'Report cleaned shore',
     fill_cleaned_info: 'Fill in details about the cleaned shore',
     shore_cleaner_fill:
       'Fill in the information of the contact person. This information will not be shown to other users.',
@@ -118,6 +118,22 @@ export const en = {
     join_cleaning: 'Come join us!',
     private_event: 'Private event',
     help_title: 'Guidance & Information',
+    guide_coming_title: 'Coming to clean a shore?',
+    guide_coming_list: [
+      'Select your desired piece of shore from the map by tapping it',
+      'Open the reservation form from the "Reserve shore"-button at the bottom',
+      'Fill in the form and send it',
+      'Your reservation will be confirmed soon!',
+      'And to the beach!'
+    ],
+    guide_cleaned_title: 'Already cleaned a shore?',
+    guide_cleaned_list: [
+      'Select the cleaned piece of shore from the map by tapping it',
+      'Open the report form from the "Report cleaned shore"-button at the bottom',
+      'Fill in the form and send it',
+      'Your report will be confirmed soon!',
+      'Thank you for keeping the shores of Helsinki clean!'
+    ],
     help_text: [
       `The pieces of shore used in the application are public places under the responsibility of the city of Helsinki.
     The shores visible, however, do not necessarily correspond with the true shoreline and we cannot guarantee that they are in

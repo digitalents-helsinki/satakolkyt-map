@@ -6,8 +6,8 @@ export const sv = {
     at: 'kl.',
     app: 'SATAKOLKYT karta applikation',
     legend: 'Nyckel',
-    reserve: 'Boka en strand',
-    reserve_clean: 'Boka en strand för städningstalkot',
+    reserve: 'Boka stranden',
+    reserve_clean: 'Boka stranden för städningstalkot',
     reserve_sub:
       'Information om evenemanget, som arrangören och datumet är offentliga.',
     date_start: 'Datum för början',
@@ -117,6 +117,22 @@ export const sv = {
     join_cleaning: 'Kom och följ med oss',
     private_event: 'Privat händelse',
     help_title: 'Vägledning & Information',
+    guide_coming_title: 'Kommer att städa upp?',
+    guide_coming_list: [
+      'Välj strandstranden du vill ha på kartan genom att klicka på den',
+      'Öppna bokningsformuläret längst ner på knappen "Boka stranden"',
+      'Fyll i formuläret och skicka in',
+      'Din bokning kommer att bekräftas snart!',
+      'Och till stranden!'
+    ],
+    guide_cleaned_title: 'Vai siivositko jo?',
+    guide_cleaned_list: [
+      'Klicka på kartan för att välja strandstranden du städade',
+      'Avaa ilmoituslomake alareunan "Ilmoita ranta siivotuksi"-napista',
+      'Öppna anmälningsformuläret längst ner på knappen "Rapporttera en städad strand"',
+      'Din annons kommer snart att bekräftas!',
+      'Tack för att du håller dina stränder i Helsingfors ren!'
+    ],
     help_text: [
       `De stränder som används i ansökan är offentliga platser under Helsingfors stad. De synliga kusterna motsvarar emellertid inte nödvändigtvis den sanna kustlinjen och vi kan inte garantera att de är offentliga.`,
       `Besökarna tar allt ansvar när de går över kusten, och Satakolkyt tar inget ansvar för eventuella skador, intrång eller skador som orsakats av städarna.`,

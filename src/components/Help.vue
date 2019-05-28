@@ -17,11 +17,29 @@
         </div>
 
         <div class="help-body">
+          <h2>{{ $t('message.guide_coming_title') }}</h2>
+          <ul>
+            <li
+              v-for="(item, index) in $t('message.guide_coming_list')"
+              :key="index"
+            >
+              {{ item }}
+            </li>
+          </ul>
+          <h2>{{ $t('message.guide_cleaned_title') }}</h2>
+          <ul>
+            <li
+              v-for="(item, index) in $t('message.guide_cleaned_list')"
+              :key="index"
+            >
+              {{ item }}
+            </li>
+          </ul>
           <p v-for="(para, index) in $t('message.help_text')" :key="index">
             {{ para }}
           </p>
           <div class="digitalents">
-            <h2>{{ $t('message.powered_by') }}</h2>
+            <h3>{{ $t('message.powered_by') }}</h3>
             <a href="http://digitalents.munstadi.fi" target="_blank">
               <img src="DT_black.svg" />
             </a>
@@ -78,15 +96,35 @@ export default {
         h1 {
           font-size: 24px;
           font-weight: bold;
+          margin-bottom: 40px;
         }
       }
 
       .help-body {
         padding-bottom: 60px;
 
-        p {
+        h2 {
           font-size: 18px;
+          font-weight: bold;
+          margin-top: 20px;
+        }
+
+        ul {
+          li {
+            font-size: 16px;
+            list-style-type: disc;
+            margin-left: 30px;
+            margin-top: 10px;
+          }
+        }
+
+        p {
+          font-size: 16px;
           padding: 10px 0;
+
+          &:first-of-type {
+            margin-top: 20px;
+          }
         }
 
         .digitalents {
@@ -95,7 +133,7 @@ export default {
           border-top: 1px solid #bbb;
           max-width: 350px;
 
-          h2 {
+          h3 {
             font-size: 14px;
             font-weight: bold;
             text-align: center;

@@ -118,6 +118,22 @@ export const fi = {
     join_cleaning: 'Tule mukaan talkoisiin!',
     private_event: 'Yksityiset talkoot',
     help_title: 'Ohjeita & Tietoja',
+    guide_coming_title: 'Tulossa siivoamaan?',
+    guide_coming_list: [
+      'Valitse kartalta haluamasi rantapala näppäämällä sitä',
+      'Avaa varauslomake alareunan "Varaa ranta"-napista',
+      'Täytä lomakkeen tiedot ja lähetä',
+      'Varauksesi vahvistetaan pian!',
+      'Ja rannalle!'
+    ],
+    guide_cleaned_title: 'Vai siivositko jo?',
+    guide_cleaned_list: [
+      'Valitse siivoamasi rantapala kartalta näppäämällä sitä',
+      'Avaa ilmoituslomake alareunan "Ilmoita ranta siivotuksi"-napista',
+      'Täytä lomakkeen tiedot ja lähetä',
+      'Ilmoituksesi vahvistetaan pian!',
+      'Kiitos, että pidät Helsingin rannat puhtaana!'
+    ],
     help_text: [
       `Ohjelmistossa käytössä olevat rantaosuudet ovat Helsingin kaupungin vastuulla olevia julkisia paikkoja. 
     Kuitenkaan ohjelmistossa näkyvät rannat eivät välttämättä vastaa todellisia rantaosuuksia ja emme voi luvata 
