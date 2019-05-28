@@ -542,11 +542,10 @@ form {
 
 .privacy-policy-button {
   max-width: 180px;
-  background-color: lightyellow;
-  border: 1px solid #555;
+  background-color: #fda218;
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 10px 15px;
   margin-right: 10px;
 }
 
@@ -691,6 +690,15 @@ textarea {
     margin-left: 5px;
     height: 96vh;
     width: 350px;
+  }
+
+  .modal-header h3 {
+    max-width: 250px;
+  }
+
+  .closer {
+    right: 0;
+    top: -10px;
   }
 
   .contact-person {

@@ -14,6 +14,7 @@ export const fi = {
     time_clean: 'Ajankohta',
     organizer_clean: 'Järjestävä taho',
     clean_count: 'Kuinka monta ihmistä osallistui talkoisiin?',
+    select_from_list: 'Valitse listasta',
     group_size: 'Ryhmän koko',
     time_end: 'Kellonaika lopetukselle',
     time_start: 'Kellonaika aloitukselle',

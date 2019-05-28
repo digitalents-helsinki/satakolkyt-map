@@ -31,20 +31,22 @@
 
                 <div class="cleaned-info-item cleaned-time">
                   <h5>{{ $t('message.time_clean') }}</h5>
-                  <font-awesome-icon icon="calendar" />
-                  <datepicker
-                    :required="required"
-                    :language="
-                      $i18n.locale === 'fi'
-                        ? fi
-                        : $i18n.locale === 'en'
-                        ? en
-                        : sv
-                    "
-                    :monday-first="true"
-                    v-model="cleandata.date"
-                    @input="checkDateValidity"
-                  />
+                  <div class="date-input">
+                    <font-awesome-icon icon="calendar" />
+                    <datepicker
+                      :required="required"
+                      :language="
+                        $i18n.locale === 'fi'
+                          ? fi
+                          : $i18n.locale === 'en'
+                          ? en
+                          : sv
+                      "
+                      :monday-first="true"
+                      v-model="cleandata.date"
+                      @input="checkDateValidity"
+                    />
+                  </div>
                 </div>
                 <div class="date-error">{{ dateerrormsg }}</div>
 
@@ -62,6 +64,9 @@
                 <div class="cleaned-info-item trash-amount">
                   <h5>{{ $t('message.trash_count') }}</h5>
                   <select :required="required" v-model="cleandata.trash_amount">
+                    <option value="0" disabled selected hidden
+                      >-- {{ $t('message.select_from_list') }} --</option
+                    >
                     <option value="1">{{ $t('message.trash_little') }}</option>
                     <option value="2">{{ $t('message.trash_small') }}</option>
                     <option value="3">{{ $t('message.trash_medium') }}</option>
@@ -163,36 +168,42 @@
                     <h4>{{ $t('message.see_kurtturuusu') }}</h4>
                     <div class="label-radio">
                       <label for="kurttuyes">{{ $t('message.yes') }}</label>
-                      <input
-                        type="radio"
-                        id="kurttuyes"
-                        name="kurtturuusu"
-                        value="yes"
-                        v-model="cleandata.kurtturuusu"
-                        :required="required"
-                      />
+                      <div>
+                        <input
+                          type="radio"
+                          id="kurttuyes"
+                          name="kurtturuusu"
+                          value="yes"
+                          v-model="cleandata.kurtturuusu"
+                          :required="required"
+                        />
+                      </div>
                     </div>
                     <div class="label-radio">
                       <label for="kurttuno">{{ $t('message.no') }}</label>
-                      <input
-                        type="radio"
-                        id="kurttuno"
-                        name="kurtturuusu"
-                        value="no"
-                        v-model="cleandata.kurtturuusu"
-                        :required="required"
-                      />
+                      <div>
+                        <input
+                          type="radio"
+                          id="kurttuno"
+                          name="kurtturuusu"
+                          value="no"
+                          v-model="cleandata.kurtturuusu"
+                          :required="required"
+                        />
+                      </div>
                     </div>
                     <div class="label-radio">
                       <label for="kurttuidk">{{ $t('message.unsure') }}</label>
-                      <input
-                        type="radio"
-                        id="kurttuidk"
-                        name="kurtturuusu"
-                        value="idk"
-                        v-model="cleandata.kurtturuusu"
-                        :required="required"
-                      />
+                      <div>
+                        <input
+                          type="radio"
+                          id="kurttuidk"
+                          name="kurtturuusu"
+                          value="idk"
+                          v-model="cleandata.kurtturuusu"
+                          :required="required"
+                        />
+                      </div>
                     </div>
                   </div>
                   <div class="foreign-species-photo">
@@ -206,36 +217,42 @@
                     <h4>{{ $t('message.see_jattipalsami') }}</h4>
                     <div class="label-radio">
                       <label for="jattiyes">{{ $t('message.yes') }}</label>
-                      <input
-                        type="radio"
-                        id="jattiyes"
-                        name="jattipalsami"
-                        value="yes"
-                        v-model="cleandata.jattipalsami"
-                        :required="required"
-                      />
+                      <div>
+                        <input
+                          type="radio"
+                          id="jattiyes"
+                          name="jattipalsami"
+                          value="yes"
+                          v-model="cleandata.jattipalsami"
+                          :required="required"
+                        />
+                      </div>
                     </div>
                     <div class="label-radio">
                       <label for="jattino">{{ $t('message.no') }}</label>
-                      <input
-                        type="radio"
-                        id="jattino"
-                        name="jattipalsami"
-                        value="no"
-                        v-model="cleandata.jattipalsami"
-                        :required="required"
-                      />
+                      <div>
+                        <input
+                          type="radio"
+                          id="jattino"
+                          name="jattipalsami"
+                          value="no"
+                          v-model="cleandata.jattipalsami"
+                          :required="required"
+                        />
+                      </div>
                     </div>
                     <div class="label-radio">
                       <label for="jattiidk">{{ $t('message.unsure') }}</label>
-                      <input
-                        type="radio"
-                        id="jattiidk"
-                        name="jattipalsami"
-                        value="idk"
-                        v-model="cleandata.jattipalsami"
-                        :required="required"
-                      />
+                      <div>
+                        <input
+                          type="radio"
+                          id="jattiidk"
+                          name="jattipalsami"
+                          value="idk"
+                          v-model="cleandata.jattipalsami"
+                          :required="required"
+                        />
+                      </div>
                     </div>
                   </div>
                   <div class="foreign-species-photo">
@@ -517,7 +534,9 @@ export default {
 }
 
 .cleaner-title {
-  margin: 2rem 0 1rem 0;
+  margin: 10px 0 10px 0;
+  padding-top: 20px;
+  border-top: 1px dashed #bbb;
 }
 
 .cleaner-title h4 {
@@ -533,6 +552,7 @@ export default {
 .cleaned-info-item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: 0 0 10px 0;
 }
 
@@ -540,8 +560,17 @@ export default {
   width: 50%;
 }
 
+.cleaned-time {
+}
+
 .cleaned-time h5 {
   flex-basis: 30%;
+  margin-right: 10px;
+}
+
+.date-input {
+  display: flex;
+  align-items: center;
 }
 
 .date-error {
@@ -564,7 +593,9 @@ export default {
 }
 
 .trash-amount {
-  margin: 2rem 0;
+  margin: 20px 0;
+  padding: 30px 0 0 0;
+  border-top: 1px dashed #bbb;
 }
 
 .trash-amount h5 {
@@ -595,7 +626,8 @@ export default {
 }
 
 .trash-bags-left-answer {
-  margin-left: 2rem;
+  margin-right: 40px;
+  display: flex;
 }
 
 .trash-bags-where p {
@@ -616,7 +648,7 @@ export default {
 .foreign-species-input {
   display: flex;
   flex-direction: column;
-  margin-right: 5px;
+  margin-right: 15px;
   width: 75%;
 }
 
@@ -631,6 +663,11 @@ export default {
 
 .label-radio label {
   width: 100%;
+}
+
+.label-radio div {
+  display: flex;
+  align-content: center;
 }
 
 .foreign-species-detail h4 {
@@ -712,6 +749,10 @@ input[type='date'] {
 input[type='number'] {
   max-width: 70px;
 }
+input[type='radio'] {
+  padding: 0;
+  margin: 0 0 0 5px;
+}
 select {
   padding: 5px;
   width: 100%;
@@ -746,6 +787,29 @@ button {
     width: 350px;
     height: 90vh;
     margin-left: 5px;
+    padding: 20px;
+  }
+
+  .modal-header h3 {
+    max-width: 250px;
+  }
+
+  .cleaner .cleaned-info-item {
+    flex-direction: column;
+  }
+
+  .cleaner .cleaned-info-item h5 {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .cleaner .cleaned-info-item input {
+    margin-left: 0;
+    margin-bottom: 5px;
+  }
+
+  .cleaner-organizer input {
+    max-width: 180px;
   }
 
   .permission-container {

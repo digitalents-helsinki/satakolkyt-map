@@ -107,6 +107,10 @@ header {
     position: static;
     width: inherit;
   }
+
+  .vdp-datepicker__calendar {
+    left: -150px;
+  }
 }
 
 button {
