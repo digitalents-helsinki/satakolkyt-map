@@ -567,6 +567,7 @@ export default {
 
 .date-input {
   position: relative;
+  margin-right: 153px;
 }
 
 .date-input svg {
