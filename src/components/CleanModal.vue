@@ -560,17 +560,20 @@ export default {
   width: 50%;
 }
 
-.cleaned-time {
-}
-
 .cleaned-time h5 {
   flex-basis: 30%;
   margin-right: 10px;
 }
 
 .date-input {
-  display: flex;
-  align-items: center;
+  position: relative;
+}
+
+.date-input svg {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  z-index: 101;
 }
 
 .date-error {
@@ -808,8 +811,28 @@ button {
     margin-bottom: 5px;
   }
 
+  .cleaner-organizer,
+  .cleaned-time {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cleaner-organizer h5,
+  .cleaned-time h5 {
+    margin-bottom: 5px;
+  }
+
+  .cleaner-organizer input,
+  .cleaned-time input {
+    margin: 0;
+  }
+
   .cleaner-organizer input {
     max-width: 180px;
+  }
+
+  .date-input {
+    margin-left: 0;
   }
 
   .permission-container {

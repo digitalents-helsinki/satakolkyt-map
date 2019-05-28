@@ -453,8 +453,14 @@ form {
 }
 
 .datetime-date {
-  display: flex;
-  align-items: center;
+  position: relative;
+}
+
+.datetime-date svg {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  z-index: 101;
 }
 
 .datetime-date input {

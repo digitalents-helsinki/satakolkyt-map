@@ -94,22 +94,17 @@ header {
 
 .vdp-datepicker {
   border: 1px solid #bbb;
-  max-width: 150px;
-  margin-left: 5px;
+  max-width: 170px;
 
   input {
-    padding: 4px 10px;
+    padding: 4px 0 4px 30px;
     font-size: 18px;
-    max-width: 145px;
+    max-width: 165px;
   }
 
   * header {
     position: static;
     width: inherit;
-  }
-
-  .vdp-datepicker__calendar {
-    left: -150px;
   }
 }
 
