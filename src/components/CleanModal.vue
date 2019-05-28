@@ -13,7 +13,7 @@
         </div>
         <div v-if="!saved && !loading">
           <div class="modal-page" v-show="pagenum == 0">
-            <form>
+            <form v-on:submit.prevent="saveCleaned">
               <div class="modal-header">
                 <h3>{{ $t('message.claim_clean') }}</h3>
                 <p>{{ $t('message.fill_cleaned_info') }}</p>
@@ -377,12 +377,12 @@ export default {
   },
   methods: {
     saveCleaned(e) {
-      this.cleandata.date = this.cleandata.date.toISOString().substring(0, 10)
       if (e.target.form.reportValidity()) {
         if (!this.checkDateValidity()) {
           return
         }
         this.loading = true
+        this.cleandata.date = this.cleandata.date.toISOString().substring(0, 10)
         axios({
           method: 'POST',
           url: process.env.VUE_APP_URL + '/api/map/cleaninfo',
