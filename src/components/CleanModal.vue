@@ -34,7 +34,13 @@
                   <font-awesome-icon icon="calendar" />
                   <datepicker
                     :required="required"
-                    :language="fi"
+                    :language="
+                      $i18n.locale === 'fi'
+                        ? fi
+                        : $i18n.locale === 'en'
+                        ? en
+                        : sv
+                    "
                     :monday-first="true"
                     v-model="cleandata.date"
                     @change="checkDateValidity"
@@ -331,7 +337,7 @@
 import Spinner from '@/components/Spinner'
 import Datepicker from 'vuejs-datepicker'
 import axios from 'axios'
-import { fi } from 'vuejs-datepicker/dist/locale'
+import { fi, en, sv } from 'vuejs-datepicker/dist/locale'
 export default {
   components: { Spinner, Datepicker },
   name: 'clean-modal',
@@ -361,7 +367,9 @@ export default {
       required: true,
       pagenum: 0,
       dateerrormsg: '',
-      fi: fi
+      fi: fi,
+      en: en,
+      sv: sv
     }
   },
   mounted() {

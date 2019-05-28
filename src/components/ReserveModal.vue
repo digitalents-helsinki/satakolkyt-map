@@ -44,7 +44,13 @@
                       <font-awesome-icon icon="calendar" />
                       <datepicker
                         :required="required"
-                        :language="fi"
+                        :language="
+                          $i18n.locale === 'fi'
+                            ? fi
+                            : $i18n.locale === 'en'
+                            ? en
+                            : sv
+                        "
                         :monday-first="true"
                         v-model="reservationdata.startdate"
                       />
@@ -231,7 +237,7 @@
 import VueTimepicker from 'vue2-timepicker'
 import Datepicker from 'vuejs-datepicker'
 import Spinner from '@/components/Spinner'
-import { fi } from 'vuejs-datepicker/dist/locale'
+import { fi, en, sv } from 'vuejs-datepicker/dist/locale'
 export default {
   components: { VueTimepicker, Datepicker, Spinner },
   name: 'reserve-modal',
@@ -247,6 +253,8 @@ export default {
       timeformat: 'HH:mm',
       dateerrormsg: '',
       fi: fi,
+      en: en,
+      sv: sv,
       reservationdata: {
         confirmed: false,
         organizer: '',
