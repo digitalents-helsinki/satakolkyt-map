@@ -229,6 +229,7 @@ export default {
   .app-header {
     padding: 5px;
     font-size: 14px;
+    height: 75px;
 
     .logo-container {
       margin-left: 8px;
