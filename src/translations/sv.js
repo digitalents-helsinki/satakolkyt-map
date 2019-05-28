@@ -125,7 +125,7 @@ export const sv = {
       'Din bokning kommer att bekräftas snart!',
       'Och till stranden!'
     ],
-    guide_cleaned_title: 'Vai siivositko jo?',
+    guide_cleaned_title: 'Har du redan rengjort?',
     guide_cleaned_list: [
       'Klicka på kartan för att välja strandstranden du städade',
       'Avaa ilmoituslomake alareunan "Ilmoita ranta siivotuksi"-napista',
