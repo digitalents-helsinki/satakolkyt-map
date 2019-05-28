@@ -95,6 +95,16 @@ header {
 .vdp-datepicker {
   border: 1px solid #d2d2d2;
   height: 2.2em;
+  max-width: 150px;
+  margin-left: 5px;
+
+  input {
+    padding-top: 5px;
+    padding-left: 10px;
+    font-size: 18px;
+    max-width: 145px;
+  }
+
   * header {
     position: static;
     width: inherit;
