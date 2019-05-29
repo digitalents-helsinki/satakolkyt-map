@@ -240,7 +240,7 @@
         <div v-if="saved && !loading">
           <div class="modal-header">
             <div class="reservation-saved">
-              <img src="kalatunnus.png" alt="" />
+              <img src="img/fisu.gif" alt="" />
               <h1 class="success">{{ $t('message.reservation_saved') }}</h1>
               <button class="modal-default-button" @click="$emit('close')">
                 {{ $t('message.close') }}
