@@ -18,24 +18,21 @@
         <h2>
           {{
             this.$props.data.confirmed
-              ? ''
+              ? this.$props.data.openevent
+                ? $t('message.reservation_open')
+                : $t('message.private_event')
               : '(' + $t('message.unconfirmed') + ')'
           }}
         </h2>
-        <p v-if="this.$props.data.confirmed" class="event-text">
-          {{
-            this.$props.data.openevent
-              ? $t('message.reservation_open')
-              : $t('message.private_event')
-          }}
-        </p>
-        <div v-if="this.$props.data.confirmed" class="organizer-date">
-          <p>
-            <b>
-              {{ this.$props.data.organizer }}
+        <div v-if="this.$props.data.confirmed">
+          <div class="organizer-date">
+            <h3>{{ this.$props.data.organizer }}</h3>
+            <h4 v-if="this.$props.data.openevent">
               {{ this.$props.data.startdate | moment('DD.MM.YYYY') }}
-            </b>
-          </p>
+              {{ $t('message.at') }} {{ this.$props.data.starttime }} -
+              {{ this.$props.data.endtime }}
+            </h4>
+          </div>
           <div v-if="this.$props.data.openevent" class="openinfo">
             <p>
               {{ this.$props.data.openinfo }}
@@ -127,19 +124,24 @@ export default {
     text-transform: uppercase;
     font-size: 20px;
     font-weight: bold;
+    color: #006b32;
     margin-bottom: 5px;
   }
 
   h2 {
     font-size: 16px;
     color: #aaa;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   h3 {
     font-size: 18px;
     font-weight: bold;
-    margin: 10px 0;
+  }
+
+  h4 {
+    font-size: 18px;
+    padding-top: 5px;
   }
 
   p {

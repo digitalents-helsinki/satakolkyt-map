@@ -113,7 +113,7 @@ export const sv = {
       'Vill du verkligen rensa rengöringsrapporten?',
     hide_confirmed: 'Dölj bekräftad',
     join_cleaning: 'Kom och följ med oss',
-    private_event: 'Privat händelse',
+    private_event: 'Den här stranden är reserverat för en privat händelse',
     help_title: 'Vägledning & Information',
     guide_coming_title: 'Kommer att städa upp?',
     guide_coming_list: [

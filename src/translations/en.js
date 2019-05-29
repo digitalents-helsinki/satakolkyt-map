@@ -113,7 +113,7 @@ export const en = {
       'Do you really want to discard the cleaning report?',
     hide_confirmed: 'Hide confirmed',
     join_cleaning: 'Come join us!',
-    private_event: 'Private event',
+    private_event: 'This shore is reserved for a private cleanup event',
     help_title: 'Guidance & Information',
     guide_coming_title: 'Coming to clean a shore?',
     guide_coming_list: [
