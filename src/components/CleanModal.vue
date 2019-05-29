@@ -677,6 +677,10 @@ export default {
   align-content: center;
 }
 
+.label-radio div input {
+  width: 15px;
+}
+
 .foreign-species-detail h4 {
   margin: 0.5rem 0;
 }
