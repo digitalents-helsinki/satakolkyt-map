@@ -534,6 +534,10 @@ form {
   align-content: center;
 }
 
+.open-cleanup-radio div input {
+  width: 15px;
+}
+
 .open-cleanup-info {
   margin: 1rem 0;
   overflow: hidden;
