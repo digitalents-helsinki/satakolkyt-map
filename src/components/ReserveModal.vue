@@ -222,6 +222,7 @@
         <div v-if="saved && !loading">
           <div class="modal-header">
             <div class="reservation-saved">
+              <img src="kalatunnus.png" alt="" />
               <h1 class="success">{{ $t('message.reservation_saved') }}</h1>
               <button class="modal-default-button" @click="$emit('close')">
                 {{ $t('message.close') }}
@@ -591,8 +592,10 @@ form {
   justify-content: flex-end;
 }
 
-.reservation-saved {
-  margin-top: 50%;
+.reservation-saved img {
+  max-width: 300px;
+  display: block;
+  margin: 50px auto 30px auto;
 }
 
 .reservation-saved button {
@@ -749,6 +752,10 @@ textarea {
   .modal-footer button {
     min-width: 0;
     width: 150px;
+  }
+
+  .reservation-saved img {
+    margin-top: 0;
   }
 }
 </style>

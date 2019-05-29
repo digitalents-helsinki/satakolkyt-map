@@ -339,6 +339,7 @@
         <div v-if="saved && !loading">
           <div class="modal-header">
             <div class="clean-saved">
+              <img src="kalatunnus.png" alt="" />
               <h1 class="success">{{ $t('message.cleaned_saved') }}</h1>
               <button class="modal-default-button" @click="$emit('close')">
                 {{ $t('message.close') }}
@@ -686,11 +687,6 @@ export default {
   margin: 3rem 0 1rem 0;
 }
 
-.modal-default-button {
-  width: 100%;
-  margin-bottom: 5px;
-}
-
 .permission-container {
   margin: 40px 0;
   display: flex;
@@ -732,8 +728,15 @@ export default {
   transform: scale(1.5);
 }
 
-.clean-saved {
-  margin-top: 50%;
+.clean-saved img {
+  max-width: 300px;
+  display: block;
+  margin: 50px auto 30px auto;
+}
+
+.clean-saved button {
+  display: block;
+  margin: 0 auto;
 }
 
 h1 {
@@ -774,10 +777,7 @@ textarea {
   resize: none;
   width: 100%;
 }
-button {
-  background-color: #00a0ff;
-  color: white;
-}
+
 .spinner-container {
   width: 100%;
   height: 95%;
@@ -848,6 +848,10 @@ button {
   .modal-footer button {
     min-width: 0;
     width: 150px;
+  }
+
+  .clean-saved img {
+    margin-top: 0;
   }
 }
 </style>
