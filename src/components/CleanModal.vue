@@ -100,7 +100,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="trash-bags-where">
+                <div
+                  class="trash-bags-where"
+                  v-if="cleandata.trash_left === 'yes'"
+                >
                   <p>
                     {{ $t('message.trash_bags_info') }}
                   </p>

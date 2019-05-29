@@ -199,7 +199,6 @@ export default {
     z-index: 99;
     min-width: 220px;
     width: 220px;
-    height: 220px;
     display: flex;
     text-transform: uppercase;
     font-weight: 700;

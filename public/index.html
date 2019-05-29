@@ -23,6 +23,13 @@
     <noscript>
       <strong>We're sorry but satakolkyt doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <script>
+      if (navigator.userAgent.indexOf("Trident") != -1) {
+        document.body.outerHTML = "<p>Emme tue selaintanne.</p>"
+      } else {
+        null
+      }
+    </script>
     <div id="app"></div>
     <!-- built files will be auto injected -->
 
