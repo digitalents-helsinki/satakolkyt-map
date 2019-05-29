@@ -6,13 +6,12 @@ export const fi = {
     at: 'klo',
     app: 'SATAKOLKYT-karttasovellus',
     legend: 'Karttaselite',
-    reserve: 'Varaa ranta',
-    reserve_clean: 'Varaa ranta siivoukseen',
-    reserve_sub:
-      'Talkoiden tiedot, kuten järjestävä taho ja ajankohta näkyvät kaikille.',
+    reserve: 'Ilmoita tulevat talkoot',
+    reserve_sub: `Talkoiden tiedot, kuten järjestävä taho ja ajankohta näkyvät kaikille. 
+      Yhteyshenkilön tiedot eivät tule näkyviin.`,
     date_start: 'Päivämäärä aloitukselle',
     time_clean: 'Ajankohta',
-    organizer_clean: 'Järjestävä taho',
+    organizer_clean: 'Rannan siivosi',
     clean_count: 'Kuinka monta ihmistä osallistui talkoisiin?',
     select_from_list: 'Valitse listasta',
     group_size: 'Ryhmän koko',
@@ -20,10 +19,11 @@ export const fi = {
     time_start: 'Kellonaika aloitukselle',
     type_label: 'Minkäläiset talkoot',
     type_open: 'Avoimet talkoot',
+    type_private: 'Oman porukan talkoot',
     openevent_explanation:
       'Rastittaessasi kohdan, kaikki voivat osallistua talkoisiin.',
-    openevent_text: 'Kerro jotain talkoista',
-    openevent_link: 'Linkki tapahtumaan',
+    openevent_text: 'Tarkempaa tietoa talkoista',
+    openevent_link: 'Linkki lisätietoihin',
     organizer: 'Järjestäjä',
     cleaning_text: 'Rannan siivosi',
     contact_explanation:
@@ -34,9 +34,7 @@ export const fi = {
     contact: 'Yhteyshenkilö',
     close: 'Sulje',
     claim_clean: 'Ilmoita ranta siivotuksi',
-    fill_cleaned_info: 'Täytä siivotun rannan tiedot',
-    shore_cleaner_fill:
-      'Täytä alle yhteyshenkilön tiedot. Yhteyshenkilön tiedot eivät näy muille käyttäjille.',
+    shore_cleaner_fill: 'Yhteyshenkilön tiedot eivät näy julkisesti.',
     trash_count: 'Paljonko rannalla oli roskaa?',
     trash_amount: 'Roskan määrä',
     trash_little: 'Ei juuri lainkaan',
@@ -44,31 +42,33 @@ export const fi = {
     trash_medium: 'Jätesäkillinen',
     trash_large: 'Monta jätesäkillistä',
     trash_left: 'Jäikö rannalle pois vietäviä roskasäkkejä?',
-    trash_bags_info: `Jos 'Kyllä', anna mahdollisimman tarkat tiedot mistä löytyvät (esim. katuosoite)`,
+    trash_bags_info: `Anna mahdollisimman tarkat tiedot, mihin jätitte roskasäkit 
+    (esim. lähin katuosoite tai maamerkki).`,
     bags_to_collect: 'Roskasäkkejä kerättävänä',
     foreign_species: 'Vieraslajit',
-    foreign_species_info: `Vieraslajit ovat lajeja, jotka ovat levinneet luontaiselta levinneisyysalueeltaan
-                          uudelle alueelle ihmisen mukana joko tahattomasti tai tarkoituksella. Haitalliset
-                          vieraslajit leviävät nopeasti ja vievät elintilaan alkuperäisiltä lajeilta sekä muuttavat
-                          ekosysteemin rakennetta.`,
+    foreign_species_info: `Vieraslajit ovat lajeja, jotka ovat levinneet luontaiselta 
+    levinneisyysalueeltaan uudelle alueelle ihmisen mukana joko tahattomasti tai tarkoituksella. 
+    Haitalliset vieraslajit leviävät nopeasti ja vievät elintilaan alkuperäisiltä lajeilta sekä 
+    muuttavat ekosysteemin rakennetta. Kartoitamme vieraslajien esiintymistä Helsingin rannoilla 
+    ja siksi keräämme havaintoja kurtturuususta ja jättipalsamista.`,
     kurtturuusu: 'Kurtturuusu',
     see_kurtturuusu: 'Havaitsitteko rannalla kurtturuusua?',
     jattipalsami: 'Jättipalsami',
     see_jattipalsami: 'Havaitsitteko rannalla jättipalsamia?',
-    foreign_species_detail1: 'Voitte kuvailla lajiesiintymiä tarkemmin',
+    foreign_species_detail1: 'Kuvaile lajiesiintymää tarkemmin',
     foreign_species_detail2:
       'Missä kohtaa vieraslajia esiintyy ja kuinka paljon?',
     next: 'Seuraava',
     previous: 'Edellinen',
     photo: 'Kuva',
     clean_additional_info: 'Lisätiedot',
-    clean_additional_info_sub: 'Lisätietojen täyttäminen on vapaaehtoista',
+    clean_additional_info_sub: 'Jos jotain jäi vielä kertomatta',
     clean_something_else: 'Jotain muuta, mitä haluatte kertoa?',
     send: 'Lähetä',
-    reservation_saved:
-      'Varauksenne on vastaanotettu ja varmistetaan pian, yleensä 1-2 työpäivässä.',
-    cleaned_saved:
-      'Ilmoituksenne on vastaanotettu ja varmistetaan pian, yleensä 1-2 työpäivässä.',
+    reservation_saved: `Kiitos kun järjestätte talkoot! Talkoopaikan varaus vahvistetaan ja se 
+      tulee näkyviin kartalle yleensä seuraavana arkipäivänä.`,
+    cleaned_saved: `Kiitos Rannan Sankareille, jotka siivositte rannan. Ilmoitus siivotusta 
+      rannasta on vastaanotettu ja tieto tulee näkyviin kartalle yleensä seuraavana arkipäivänä.`,
     reservations: 'Varaukset',
     date: 'Ajankohta',
     ends: 'Loppuu',
@@ -121,7 +121,7 @@ export const fi = {
     guide_coming_title: 'Tulossa siivoamaan?',
     guide_coming_list: [
       'Valitse kartalta haluamasi rantapala näppäämällä sitä',
-      'Avaa varauslomake alareunan "Varaa ranta"-napista',
+      'Avaa varauslomake alareunan "Ilmoita tulevat talkoot"-napista',
       'Täytä lomakkeen tiedot ja lähetä',
       'Varauksesi vahvistetaan pian!',
       'Ja rannalle!'

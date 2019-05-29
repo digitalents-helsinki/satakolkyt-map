@@ -19,7 +19,7 @@
           <div class="modal-page" v-show="pagenum === 0">
             <form v-on:submit.prevent="saveReservation">
               <div class="modal-header">
-                <h3>{{ $t('message.reserve_clean') }}</h3>
+                <h3>{{ $t('message.reserve') }}</h3>
                 <p>
                   {{ $t('message.reserve_sub') }}
                 </p>
@@ -88,15 +88,41 @@
 
                 <div class="open-cleanup">
                   <div class="open-cleanup-check">
-                    <h5>{{ $t('message.type_open') }}</h5>
+                    <!--h5>{{ $t('message.type_open') }}</h5>
                     <input
                       v-model="reservationdata.openevent"
                       type="checkbox"
-                    />
+                    /-->
+                    <div class="open-cleanup-radio">
+                      <label for="open_event_yes">{{
+                        $t('message.type_open')
+                      }}</label>
+                      <div>
+                        <input
+                          :value="true"
+                          v-model="reservationdata.openevent"
+                          type="radio"
+                          id="open_event_yes"
+                        />
+                      </div>
+                    </div>
+                    <div class="open-cleanup-radio">
+                      <label for="open_event_no">{{
+                        $t('message.type_private')
+                      }}</label>
+                      <div>
+                        <input
+                          :value="false"
+                          v-model="reservationdata.openevent"
+                          type="radio"
+                          id="open_event_no"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <p>
+                  <!--p>
                     {{ $t('message.openevent_explanation') }}
-                  </p>
+                  </p-->
                   <div
                     class="open-cleanup-info"
                     :class="{
@@ -502,8 +528,18 @@ form {
   margin-bottom: 0.5rem;
 }
 
-.open-cleanup-check input {
-  width: 10%;
+.open-cleanup-radio {
+  display: flex;
+  margin-right: 30px;
+}
+
+.open-cleanup-radio label {
+  margin-right: 10px;
+}
+
+.open-cleanup-radio div {
+  display: flex;
+  align-content: center;
 }
 
 .open-cleanup-info {
@@ -513,7 +549,7 @@ form {
 }
 
 .opencleanupexpand {
-  max-height: 150px;
+  max-height: 200px;
 }
 
 .opencleanupshrink {
@@ -708,6 +744,10 @@ textarea {
   .closer {
     right: 0;
     top: -10px;
+  }
+
+  .open-cleanup-radio label {
+    flex: 0.8;
   }
 
   .contact-person {

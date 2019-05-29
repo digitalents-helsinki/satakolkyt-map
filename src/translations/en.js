@@ -6,13 +6,12 @@ export const en = {
     at: 'at',
     app: 'SATAKOLKYT map application',
     legend: 'Legend',
-    reserve: 'Reserve shore',
-    reserve_clean: 'Reserve a shore to clean up ',
-    reserve_sub:
-      'Information about the event, such as the organizer and date are public.',
+    reserve: 'Announce cleanup',
+    reserve_sub: `Information about the event, such as the organizer and date are public. 
+      The details of the contact person will not be visible.`,
     date_start: 'Starting date',
     time_clean: 'Cleaning date',
-    organizer_clean: 'Organizing party',
+    organizer_clean: 'Shore cleaned by',
     clean_count: 'How many people participated in the cleaning',
     select_from_list: 'Select from list',
     group_size: 'Group size',
@@ -20,10 +19,11 @@ export const en = {
     time_start: 'Time for the start',
     type_label: 'Which kind of clean-up event',
     type_open: 'Open to everyone',
+    type_private: 'Private cleanup',
     openevent_explanation:
       'When checked, the event becomes open for everyone to participate.',
-    openevent_text: 'Tell us something about the cleanup event',
-    openevent_link: 'Link to the event',
+    openevent_text: 'More specific info about the cleanup event',
+    openevent_link: 'Link to more info',
     organizer: 'Organizer',
     cleaning_text: 'Shore was cleaned by',
     contact_explanation:
@@ -34,9 +34,7 @@ export const en = {
     contact: 'Contact person',
     close: 'Close',
     claim_clean: 'Report cleaned shore',
-    fill_cleaned_info: 'Fill in details about the cleaned shore',
-    shore_cleaner_fill:
-      'Fill in the information of the contact person. This information will not be shown to other users.',
+    shore_cleaner_fill: 'Contact information will not be publicly visible.',
     trash_count: 'How much trash was there',
     trash_amount: 'Trash amount',
     trash_little: 'Almost nothing at all',
@@ -44,30 +42,33 @@ export const en = {
     trash_medium: 'About one refuse sack',
     trash_large: 'Many refuse sacks',
     trash_left: 'Did you leave trash bags on the shore that should be removed?',
-    trash_bags_info: `If 'Yes', please provide accurate information about where they can be found (e.g. street address)`,
+    trash_bags_info: `Please provide accurate information about where you left the 
+    the trash bags (e.g. nearest street address or landmark).`,
     bags_to_collect: 'Trash bags to collect',
     foreign_species: 'Invasive species',
     foreign_species_info: `Invasive species are species that have, intentionally or unintentionally, been spread by people
                           from their native areas to a new area. Detrimental invasive species spread quickly and take away
-                          living space from the native species as well as change the structure of the ecosystem.`,
+                          living space from the native species as well as change the structure of the ecosystem. We are
+                          mapping the appearance of invasive species on the shores of Helsinki and thus collecting
+                          collecting sightings of Rosa rugosa and Impatiens glandulifera.`,
     kurtturuusu: 'Rosa rugosa',
     see_kurtturuusu: 'Did you see any Rosa rugosa on the shore?',
     jattipalsami: 'Impatiens glandulifera',
     see_jattipalsami: 'Did you see any Impatiens glandulifera on the shore?',
-    foreign_species_detail1: 'Please describe your sightings more specifically',
+    foreign_species_detail1: 'Describe your sightings more specifically',
     foreign_species_detail2:
       'Where exactly did you see it and how much was there?',
     next: 'Next',
     previous: 'Previous',
     photo: 'Photo',
     clean_additional_info: 'Additional information',
-    clean_additional_info_sub: 'Filling additional information is optional',
+    clean_additional_info_sub: 'If something went unsaid',
     clean_something_else: 'Anything else you want to tell?',
     send: 'Send',
-    reservation_saved:
-      'Your reservation has been received and will be confirmed soon, usually in 1 to 2 working days.',
-    cleaned_saved:
-      'Your report has been received and will be confirmed soon, usually in 1 to 2 working days.',
+    reservation_saved: `Thanks for organizing a cleanup! The reservation will be confirmed and 
+      visible on the map usually the next working day.`,
+    cleaned_saved: `Thanks to the Heroes of the Shore who cleaned up the shore. The report has been received and will become visible on the
+      map usually on the next working day.`,
     reservations: 'Reservations',
     date: 'Date',
     ends: 'Ends',
@@ -121,7 +122,7 @@ export const en = {
     guide_coming_title: 'Coming to clean a shore?',
     guide_coming_list: [
       'Select your desired piece of shore from the map by tapping it',
-      'Open the reservation form from the "Reserve shore"-button at the bottom',
+      'Open the reservation form from the "Announce cleanup"-button at the bottom',
       'Fill in the form and send it',
       'Your reservation will be confirmed soon!',
       'And to the beach!'

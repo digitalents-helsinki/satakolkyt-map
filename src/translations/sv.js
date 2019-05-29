@@ -6,13 +6,12 @@ export const sv = {
     at: 'kl.',
     app: 'SATAKOLKYT karta applikation',
     legend: 'Nyckel',
-    reserve: 'Boka stranden',
-    reserve_clean: 'Boka stranden för städningstalkot',
-    reserve_sub:
-      'Information om evenemanget, som arrangören och datumet är offentliga.',
+    reserve: 'Meddela rengöring',
+    reserve_sub: `Information om evenemanget, som arrangören och datumet är offentliga. 
+      Kontaktpersonens detaljer är inte synliga.`,
     date_start: 'Datum för början',
     time_clean: 'Städdatum',
-    organizer_clean: 'Organiserande parti',
+    organizer_clean: 'Shore städas av',
     clean_count: 'Hur många personer deltog i städningen?',
     select_from_list: 'Välj från listan',
     group_size: 'Gruppstorlek',
@@ -20,10 +19,11 @@ export const sv = {
     time_start: 'Tid för början',
     type_label: 'Hurdant talko',
     type_open: 'Talko som är öppna för alla',
+    type_private: 'Privat talkot',
     openevent_explanation:
       'När den är markerad blir evenemanget öppet för alla att delta.',
-    openevent_text: 'Berätta något om rengöringshändelsen',
-    openevent_link: 'Länk till händelsen',
+    openevent_text: 'Mer specifik info om rengöringshändelsen',
+    openevent_link: 'Länk till mer info',
     organizer: 'Organisatör',
     cleaning_text: 'Stranden städades av',
     contact_explanation:
@@ -34,9 +34,8 @@ export const sv = {
     contact: 'Kontakt person',
     close: 'Stäng',
     claim_clean: 'Rapporttera en städad strand',
-    fill_cleaned_info: 'Fyll i detaljer om den rengjorda stranden',
     shore_cleaner_fill:
-      'Fyll i kontaktpersonens uppgifter. Denna information kommer inte att visas för andra användare.',
+      'Kontaktinformation kommer inte att vara offentligt synlig.',
     trash_count: 'Hur mycket skräp var det?',
     trash_amount: 'Mängd skräp',
     trash_little: 'Nästan inte alls',
@@ -44,12 +43,15 @@ export const sv = {
     trash_medium: 'Cirka en sopsäck',
     trash_large: 'Många sopsäckar',
     trash_left: 'Finns sopsäckar kvar på stranden, vilken borde hämtas bort?',
-    trash_bags_info: `Om 'Ja', ange exakt information om var de kan hittas (t.ex. gatuadress)`,
+    trash_bags_info: `Ange noggrann information om var du lämnade
+    papperskorgen (t.ex. närmaste gatuadress eller landmärke).`,
     bags_to_collect: 'Skräpspåsar att samla',
     foreign_species: 'Invasiva arter',
     foreign_species_info: `Invasiva arter är arter som avsiktligt eller oavsiktligt har spridits av människor från deras 
                           inhemska områden till ett nytt område. Skadliga invasiva arter sprider sig snabbt och tar bort 
-                          bostadsutrymmet från de inhemska arterna samt förändrar ekosystemets struktur.`,
+                          bostadsutrymmet från de inhemska arterna samt förändrar ekosystemets struktur. Vi är
+                          kartlägga utseendet av invasiva arter på Helsingfors stränder och därmed samla in
+                          samla in observationer av vresros och jättebalsamin.`,
     kurtturuusu: 'Vresros',
     see_kurtturuusu: 'Såg du någon vresros på stranden?',
     jattipalsami: 'Jättebalsamin',
@@ -60,13 +62,13 @@ export const sv = {
     previous: 'Förra',
     photo: 'Foto',
     clean_additional_info: 'Ytterligare information',
-    clean_additional_info_sub: 'Fyllning av ytterligare information är valfri',
+    clean_additional_info_sub: 'Om något gick outtalat',
     clean_something_else: 'Något annat du vill berätta?',
     send: 'Skicka',
-    reservation_saved:
-      'Din bokning har mottagits och kommer att bekräftas snart, vanligtvis inom 1-2 arbetsdagar.',
-    cleaned_saved:
-      'Din rapport har mottagits och kommer att bekräftas snart, vanligtvis om 1-2 arbetsdagar.',
+    reservation_saved: `Tack för att du har organiserat en rengöring! Bokningen kommer att bekräftas och
+      synlig på kartan vanligtvis nästa arbetsdag.`,
+    cleaned_saved: `Tack till Hjältar av Stranden som städade upp stranden. Rapporten har mottagits och kommer att synas på
+      karta vanligtvis på nästa arbetsdag.`,
     reservations: 'Bokningar',
     date: 'Datum',
     ends: 'Slutar',
@@ -120,7 +122,7 @@ export const sv = {
     guide_coming_title: 'Kommer att städa upp?',
     guide_coming_list: [
       'Välj strandstranden du vill ha på kartan genom att klicka på den',
-      'Öppna bokningsformuläret längst ner på knappen "Boka stranden"',
+      'Öppna bokningsformuläret längst ner på knappen "Meddela rengöring"',
       'Fyll i formuläret och skicka in',
       'Din bokning kommer att bekräftas snart!',
       'Och till stranden!'
@@ -128,8 +130,8 @@ export const sv = {
     guide_cleaned_title: 'Har du redan rengjort?',
     guide_cleaned_list: [
       'Klicka på kartan för att välja strandstranden du städade',
-      'Avaa ilmoituslomake alareunan "Ilmoita ranta siivotuksi"-napista',
       'Öppna anmälningsformuläret längst ner på knappen "Rapporttera en städad strand"',
+      'Fyll i formuläret och skicka in',
       'Din annons kommer snart att bekräftas!',
       'Tack för att du håller dina stränder i Helsingfors ren!'
     ],

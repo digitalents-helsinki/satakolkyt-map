@@ -16,7 +16,6 @@
             <form v-on:submit.prevent="saveCleaned">
               <div class="modal-header">
                 <h3>{{ $t('message.claim_clean') }}</h3>
-                <p>{{ $t('message.fill_cleaned_info') }}</p>
               </div>
               <div class="modal-body">
                 <div class="cleaned-info-item cleaner-organizer">
