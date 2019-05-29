@@ -93,9 +93,10 @@ export default {
 .infobox {
   width: 350px;
   min-height: 100px;
-  background-color: white;
+  background-color: #eee350;
   padding: 30px 30px 20px 30px;
   word-break: break-word;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 
   .spinner {
     width: 82px;
@@ -124,13 +125,13 @@ export default {
     text-transform: uppercase;
     font-size: 20px;
     font-weight: bold;
-    color: #006b32;
+    color: black;
     margin-bottom: 5px;
   }
 
   h2 {
     font-size: 16px;
-    color: #aaa;
+    color: #777;
     margin-bottom: 10px;
   }
 
@@ -150,7 +151,7 @@ export default {
 
   .openinfo {
     padding-top: 10px;
-    color: gray;
+    color: #777;
 
     p {
       padding-bottom: 10px;
