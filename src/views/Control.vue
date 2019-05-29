@@ -214,7 +214,7 @@
                   <span class="bold">{{ $t('message.kurtturuusu') }}: </span>
                   {{
                     clean.kurtturuusu === 'yes'
-                      ? $t('message.yes')
+                      ? $t('message.yes') + ', ' + clean.kurtturuusu_detail
                       : clean.kurtturuusu === 'no'
                       ? $t('message.no')
                       : $t('message.unsure')
@@ -224,13 +224,12 @@
                   <span class="bold">{{ $t('message.jattipalsami') }}: </span>
                   {{
                     clean.jattipalsami === 'yes'
-                      ? $t('message.yes')
+                      ? $t('message.yes') + ', ' + clean.jattipalsami_detail
                       : clean.jattipalsami === 'no'
                       ? $t('message.no')
                       : $t('message.unsure')
                   }}
                 </p>
-                <p>{{ clean.foreignspeciesdetail }}</p>
               </div>
 
               <div class="clean-more">
