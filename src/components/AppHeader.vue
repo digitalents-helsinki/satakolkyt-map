@@ -9,21 +9,19 @@
     <div v-else class="iframed-text">
       <h1>{{ $t('message.iframe') }}</h1>
     </div>
-
-    <div class="help-icon-wrapper">
-      <div class="help-icon">
-        <font-awesome-icon icon="question-circle" @click="showHelp = true" />
-      </div>
-    </div>
-
-    <div class="help" v-if="showHelp">
-      <Help @close="showHelp = false"> </Help>
-    </div>
-
     <div class="header-right-wrapper">
       <div class="header-right">
         <div class="locale-changer-wrapper">
           <div class="locale-changer">
+            <div class="help-icon">
+              <font-awesome-icon
+                icon="question-circle"
+                @click="showHelp = true"
+              />
+            </div>
+            <div class="help" v-if="showHelp">
+              <Help @close="showHelp = false"> </Help>
+            </div>
             <div class="locale-button" @click="$i18n.locale = 'fi'">
               <div>FI</div>
             </div>
@@ -102,22 +100,15 @@ export default {
     }
   }
 
-  .help-icon-wrapper {
+  .help-icon {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-    flex: 1;
+    font-size: 40px;
+    margin: 0 20px;
 
-    .help-icon {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      font-size: 40px;
-      margin: 0 20px;
-
-      & > * {
-        cursor: pointer;
-      }
+    & > * {
+      cursor: pointer;
     }
   }
 
@@ -223,6 +214,10 @@ export default {
       }
     }
   }
+
+  .help-icon {
+    font-size: 30px !important;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -233,14 +228,6 @@ export default {
 
     .logo-container {
       margin-left: 8px;
-    }
-
-    .help-icon-wrapper {
-      flex: 0.7;
-
-      .help-icon {
-        font-size: 30px;
-      }
     }
   }
 }
