@@ -88,11 +88,6 @@
 
                 <div class="open-cleanup">
                   <div class="open-cleanup-check">
-                    <!--h5>{{ $t('message.type_open') }}</h5>
-                    <input
-                      v-model="reservationdata.openevent"
-                      type="checkbox"
-                    /-->
                     <div class="open-cleanup-radio">
                       <label for="open_event_yes">{{
                         $t('message.type_open')
@@ -120,9 +115,6 @@
                       </div>
                     </div>
                   </div>
-                  <!--p>
-                    {{ $t('message.openevent_explanation') }}
-                  </p-->
                   <div
                     class="open-cleanup-info"
                     :class="{

@@ -20,8 +20,6 @@ export const en = {
     type_label: 'Which kind of clean-up event',
     type_open: 'Open to everyone',
     type_private: 'Private cleanup',
-    openevent_explanation:
-      'When checked, the event becomes open for everyone to participate.',
     openevent_text: 'More specific info about the cleanup event',
     openevent_link: 'Link to more info',
     organizer: 'Organizer',

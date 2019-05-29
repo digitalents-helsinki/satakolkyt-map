@@ -20,8 +20,6 @@ export const fi = {
     type_label: 'Minkäläiset talkoot',
     type_open: 'Avoimet talkoot',
     type_private: 'Oman porukan talkoot',
-    openevent_explanation:
-      'Rastittaessasi kohdan, kaikki voivat osallistua talkoisiin.',
     openevent_text: 'Tarkempaa tietoa talkoista',
     openevent_link: 'Linkki lisätietoihin',
     organizer: 'Järjestäjä',

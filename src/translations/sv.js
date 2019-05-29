@@ -20,8 +20,6 @@ export const sv = {
     type_label: 'Hurdant talko',
     type_open: 'Talko som är öppna för alla',
     type_private: 'Privat talkot',
-    openevent_explanation:
-      'När den är markerad blir evenemanget öppet för alla att delta.',
     openevent_text: 'Mer specifik info om rengöringshändelsen',
     openevent_link: 'Länk till mer info',
     organizer: 'Organisatör',
