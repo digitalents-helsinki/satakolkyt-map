@@ -137,6 +137,9 @@ export const sv = {
       `Om du vill reservera, eller rapportera som rengöras mer än ett avsnitt av stranden, måste du göra det separat för varje avsnitt. Möjligheten att välja flera sektioner i samma form är en kommande funktion!`,
       `Eftersom fågelskyddsområden är skyddade under sommaren har vi tagit bort möjligheten att reservera dem under den skyddade perioden.`
     ],
+    help_contact: `SV: Jos haluat antaa palautetta karttasovellukseen liittyen, ota yhteyttä 
+      hankekoordinaattoriin`,
+    help_phone: 'SV: puh.',
     powered_by: 'App drivs av:',
     remove_old_reservations: 'Ta bort gamla reservationer',
     remove_old_cleanings: 'Ta bort rengöringarna äldre än 2mån',

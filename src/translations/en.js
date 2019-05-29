@@ -142,6 +142,9 @@ export const en = {
       `As bird conservation areas are protected during the summer, we have removed the possiblity to reserve them during the protected
     period.`
     ],
+    help_contact: `EN: Jos haluat antaa palautetta karttasovellukseen liittyen, ota yhteyttä 
+      hankekoordinaattoriin`,
+    help_phone: 'EN: puh.',
     powered_by: 'App powered by:',
     remove_old_reservations: 'Remove old reservations',
     remove_old_cleanings: 'Remove cleanings over 2mo old',

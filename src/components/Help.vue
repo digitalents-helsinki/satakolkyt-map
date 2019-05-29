@@ -38,6 +38,11 @@
           <p v-for="(para, index) in $t('message.help_text')" :key="index">
             {{ para }}
           </p>
+          <p>
+            {{ $t('message.help_contact') }}
+            <a href="mailto:eeva.puustjarvi@hel.fi">eeva.puustjarvi@hel.fi</a>,
+            {{ $t('message.help_phone') }} 044 270 0573
+          </p>
           <div class="digitalents">
             <h3>{{ $t('message.powered_by') }}</h3>
             <a href="http://digitalents.munstadi.fi" target="_blank">
@@ -80,6 +85,7 @@ export default {
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
       overflow-y: auto;
       z-index: 9998;
+      line-height: 1.2;
 
       .closer {
         position: absolute;
