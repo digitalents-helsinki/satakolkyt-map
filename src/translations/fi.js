@@ -156,7 +156,7 @@ export const fi = {
     help_phone: 'puh.',
     powered_by: 'Ohjelmiston tarjoaa:',
     remove_old_reservations: 'Poista vanhat varaukset',
-    remove_old_cleanings: 'Poista yli 2kk vanhat siivoukset',
+    remove_old_cleanings: 'Arkistoi yli 2kk vanhat siivoukset',
     old_first: 'Vanhat ensin',
     new_first: 'Uudet ensin',
     reservation_open: 'Tämä ranta on varattu vapaisiin talkoisiin.'

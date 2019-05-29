@@ -147,7 +147,7 @@ export const en = {
     help_phone: 'EN: puh.',
     powered_by: 'App powered by:',
     remove_old_reservations: 'Remove old reservations',
-    remove_old_cleanings: 'Remove cleanings over 2mo old',
+    remove_old_cleanings: 'Archive cleanings over 2mo old',
     old_first: 'Old first',
     new_first: 'New first',
     reservation_open: 'This shore is reserved for an open cleanup event.'
