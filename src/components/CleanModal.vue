@@ -213,6 +213,19 @@
                     <p>{{ $t('message.photo') }}: Johanna Kolehmainen</p>
                   </div>
                 </div>
+                <div
+                  class="foreign-species-detail"
+                  v-if="cleandata.kurtturuusu === 'yes'"
+                >
+                  <h4>{{ $t('message.foreign_species_detail1') }}</h4>
+                  <p>{{ $t('message.foreign_species_detail2') }}</p>
+                  <textarea
+                    rows="4"
+                    v-model="cleandata.kurtturuusu_detail"
+                    :required="cleandata.kurtturuusu === 'yes' && required"
+                    maxlength="200"
+                  />
+                </div>
 
                 <div class="foreign-species">
                   <div class="foreign-species-input">
@@ -262,17 +275,16 @@
                     <p>{{ $t('message.photo') }}: Terhi Ryttäri</p>
                   </div>
                 </div>
-                <div class="foreign-species-detail">
+                <div
+                  class="foreign-species-detail"
+                  v-if="cleandata.jattipalsami === 'yes'"
+                >
                   <h4>{{ $t('message.foreign_species_detail1') }}</h4>
                   <p>{{ $t('message.foreign_species_detail2') }}</p>
                   <textarea
                     rows="4"
-                    v-model="cleandata.foreignspeciesdetail"
-                    :required="
-                      (cleandata.kurtturuusu === 'yes' ||
-                        cleandata.jattipalsami === 'yes') &&
-                        required
-                    "
+                    v-model="cleandata.jattipalsami_detail"
+                    :required="cleandata.jattipalsami === 'yes' && required"
                     maxlength="200"
                   />
                 </div>
@@ -379,7 +391,8 @@ export default {
         leader_phone: '',
         kurtturuusu: 'no',
         jattipalsami: 'no',
-        foreignspeciesdetail: ''
+        kurtturuusu_detail: '',
+        jattipalsami_detail: ''
       },
       privacy_permission: false,
       saved: false,
