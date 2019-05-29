@@ -24,8 +24,6 @@ export const sv = {
     openevent_link: 'Länk till mer info',
     organizer: 'Organisatör',
     cleaning_text: 'Stranden städades av',
-    contact_explanation:
-      'Fyll i kontaktpersonens uppgifter. Kontaktinformationen hålls privat.',
     name: 'Namn',
     phonenumber: 'Telefonnummer',
     email: 'E-postadress',
@@ -104,7 +102,7 @@ export const sv = {
     username: 'Användarnamn',
     password: 'Lösenord',
     login: 'Logga in',
-    iframe: 'KOMMA IHOP OCH PLOCKA EN\xa0STRAND\xa0FÖR\xa0ATT\xa0RENGÖRA',
+    iframe: 'PLOCKA\xa0EN\xa0STRAND FÖR\xa0ATT\xa0RENGÖRA',
     to_new_window: 'Öppna\xa0kartan\xa0i ett nytt fönster',
     err_shoreunavailable: 'Fel: Shore otillgänglig!',
     err_validationerror: 'Fel: Ogiltig inmatning!',

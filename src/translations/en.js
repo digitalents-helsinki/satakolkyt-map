@@ -24,8 +24,6 @@ export const en = {
     openevent_link: 'Link to more info',
     organizer: 'Organizer',
     cleaning_text: 'Shore was cleaned by',
-    contact_explanation:
-      'Fill in the information of the contact person. Contact information is kept private.',
     name: 'Name',
     phonenumber: 'Phonenumber',
     email: 'Email',
@@ -104,7 +102,7 @@ export const en = {
     username: 'Username',
     password: 'Password',
     login: 'Login',
-    iframe: 'GET TOGETHER AND PICK A\xa0SHORE TO\xa0CLEAN!',
+    iframe: 'SELECT\xa0A\xa0SHORE TO\xa0CLEAN!',
     to_new_window: 'Open\xa0the\xa0map in\xa0a\xa0new\xa0window',
     err_shoreunavailable: 'Error: Shore unavailable!',
     err_validationerror: 'Error: Invalid input!',

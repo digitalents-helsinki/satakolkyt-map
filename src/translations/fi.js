@@ -24,8 +24,6 @@ export const fi = {
     openevent_link: 'Linkki lisätietoihin',
     organizer: 'Järjestäjä',
     cleaning_text: 'Rannan siivosi',
-    contact_explanation:
-      'Täytä alle yhteyshenkilön tiedot. Yhteyshenkilön tiedot eivät näy muille käyttäjille.',
     name: 'Nimi',
     phonenumber: 'Puhelinnumero',
     email: 'Sähköposti',
@@ -104,7 +102,7 @@ export const fi = {
     username: 'Käyttäjätunnus',
     password: 'Salasana',
     login: 'Kirjaudu',
-    iframe: 'KUTSU\xa0RYHMÄSI JA\xa0VALITSE PALA RANTAVIIVAA SIIVOTTAVAKSI!',
+    iframe: 'VALITSE PALA RANTAVIIVAA SIIVOTTAVAKSI!',
     to_new_window: 'Avaa\xa0kartta uuteen\xa0ikkunaan',
     err_shoreunavailable: 'Virhe: Ranta ei ole saatavilla!',
     err_validationerror: 'Virhe: Epäkelvolliset tiedot!',

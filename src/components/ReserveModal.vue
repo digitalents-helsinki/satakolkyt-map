@@ -157,14 +157,14 @@
           <div class="modal-page" v-show="pagenum === 1">
             <form>
               <div class="modal-header">
-                <h3>{{ $t('message.contact_info') }}</h3>
+                <h3>{{ $t('message.reserve') }}</h3>
+                <p>
+                  {{ $t('message.reserve_sub') }}
+                </p>
               </div>
               <div class="modal-body">
                 <div class="contact-person">
                   <h4>{{ $t('message.contact') }}</h4>
-                  <p>
-                    {{ $t('message.contact_explanation') }}
-                  </p>
                   <div class="input-field">
                     <h5>{{ $t('message.name') }}</h5>
                     <input
