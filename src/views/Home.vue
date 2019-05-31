@@ -313,7 +313,8 @@ export default {
   .infoBoxWrapper {
     position: absolute;
     left: 50px;
-    bottom: 120px;
+    bottom: 130px;
+    z-index: 2;
   }
 }
 </style>

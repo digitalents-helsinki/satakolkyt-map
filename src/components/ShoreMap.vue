@@ -42,7 +42,8 @@ export default {
         dragRotate: false,
         touchZoomRotate: false,
         hash: true,
-        attributionControl: false
+        attributionControl: false,
+        logoPosition: 'top-left'
       },
       navControl: {
         show: true,
@@ -278,13 +279,6 @@ export default {
   position: relative;
   height: 100%;
   cursor: pointer;
-
-  .clickdetector {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 100%;
-  }
 }
 #map {
   height: 100%;
@@ -301,7 +295,8 @@ export default {
   }
 }
 
-.mapboxgl-ctrl-bottom-left {
+.mapboxgl-ctrl-top-left {
+  top: 80px;
   z-index: 999999;
 }
 
