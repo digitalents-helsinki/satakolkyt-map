@@ -295,7 +295,6 @@ export default {
 .mapboxgl-ctrl-bottom-right {
   bottom: 80px;
   right: 220px;
-  z-index: 999999;
 
   @media only screen and (max-width: 768px) {
     bottom: 64px;
@@ -304,7 +303,6 @@ export default {
 
 .mapboxgl-ctrl-top-left {
   top: 80px;
-  z-index: 999999;
 }
 
 .mapboxgl-ctrl-top-right {
