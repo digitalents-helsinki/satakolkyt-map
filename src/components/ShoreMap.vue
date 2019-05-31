@@ -7,6 +7,7 @@
       :map-options="mapOptions"
       :nav-control="navControl"
       @map-load="mapLoaded"
+      ref="map"
     />
   </div>
 </template>
@@ -52,7 +53,8 @@ export default {
         layer: null,
         id: null
       },
-      hoveredIds: {}
+      hoveredIds: {},
+      vh: 0
     }
   },
   methods: {
@@ -208,6 +210,11 @@ export default {
     },
     mapLoaded(map) {
       this.map = map
+      map.resize()
+      window.addEventListener('resize', () => {
+        map.resize()
+      })
+
       map.addControl(
         new mapboxgl.AttributionControl({ compact: false }),
         'bottom-right'
@@ -287,8 +294,8 @@ export default {
   }
 }
 #map {
-  height: 100%;
   width: 100%;
+  height: 100%;
 }
 
 .mapboxgl-ctrl-bottom-right {
