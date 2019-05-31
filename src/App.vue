@@ -63,7 +63,7 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans|Ubuntu');
 html {
-  overflow-y: auto;
+  //overflow-y: auto;
   font-family: 'Noto Sans', 'Ubuntu' 'Inter UI', -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Cantarell, 'Open Sans',
     'Helvetica Neue', sans-serif;
@@ -74,7 +74,7 @@ body {
 }
 
 main {
-  //overflow: hidden;
+  overflow: hidden;
 }
 
 header {
