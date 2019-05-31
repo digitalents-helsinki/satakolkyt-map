@@ -51,9 +51,11 @@ export const en = {
     see_kurtturuusu: 'Did you see any Rosa rugosa on the shore?',
     jattipalsami: 'Impatiens glandulifera',
     see_jattipalsami: 'Did you see any Impatiens glandulifera on the shore?',
-    foreign_species_detail1: 'Describe your sightings more specifically',
-    foreign_species_detail2:
-      'Where exactly did you see it and how much was there?',
+    foreign_species1_detail: 'Describe your Rosa rugosa sighting',
+    foreign_species2_detail: 'Describe your Impatiens glandulifera sighting',
+    foreign_species1_detail_sub: 'Where and how much did you see Rosa rugosa?',
+    foreign_species2_detail_sub:
+      'Where and how much did you see Impatiens glandulifera?',
     next: 'Next',
     previous: 'Previous',
     photo: 'Photo',

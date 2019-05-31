@@ -52,8 +52,13 @@ export const sv = {
     see_kurtturuusu: 'Såg du någon vresros på stranden?',
     jattipalsami: 'Jättebalsamin',
     see_jattipalsami: 'Såg du någon jättebalsamin på stranden?',
-    foreign_species_detail1: 'Beskriv dina synpunkter mer specifikt',
-    foreign_species_detail2: 'Var såg du och hur mycket var det där?',
+    foreign_species1_detail: 'SV: Describe your Rosa rugosa sighting',
+    foreign_species2_detail:
+      'SV: Describe your Impatiens glandulifera sighting',
+    foreign_species1_detail_sub:
+      'SV: Where and how much did you see Rosa rugosa?',
+    foreign_species2_detail_sub:
+      'SV: Where and how much did you see Impatiens glandulifera?',
     next: 'Nästa',
     previous: 'Förra',
     photo: 'Foto',

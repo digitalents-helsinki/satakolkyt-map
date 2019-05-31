@@ -51,9 +51,12 @@ export const fi = {
     see_kurtturuusu: 'Havaitsitteko rannalla kurtturuusua?',
     jattipalsami: 'Jättipalsami',
     see_jattipalsami: 'Havaitsitteko rannalla jättipalsamia?',
-    foreign_species_detail1: 'Kuvaile lajiesiintymää tarkemmin',
-    foreign_species_detail2:
-      'Missä kohtaa vieraslajia esiintyy ja kuinka paljon?',
+    foreign_species1_detail: 'Kuvaile kurtturuusuesiintymiä tarkemmin',
+    foreign_species2_detail: 'Kuvaile jättipalsamiesiintymiä tarkemmin',
+    foreign_species1_detail_sub:
+      'Missä kohtaa kurtturuusua esiintyy ja kuinka paljon?',
+    foreign_species2_detail_sub:
+      'Missä kohtaa jättipalsamia esiintyy ja kuinka paljon?',
     next: 'Seuraava',
     previous: 'Edellinen',
     photo: 'Kuva',

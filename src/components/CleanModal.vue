@@ -213,14 +213,11 @@
                     <p>{{ $t('message.photo') }}: Johanna Kolehmainen</p>
                   </div>
                 </div>
-                <div
-                  class="foreign-species-detail"
-                  v-if="cleandata.kurtturuusu === 'yes'"
-                >
-                  <h4>{{ $t('message.foreign_species_detail1') }}</h4>
-                  <p>{{ $t('message.foreign_species_detail2') }}</p>
+                <div class="foreign-species-detail">
+                  <h5>{{ $t('message.foreign_species1_detail') }}</h5>
+                  <p>{{ $t('message.foreign_species1_detail_sub') }}</p>
                   <textarea
-                    rows="4"
+                    rows="3"
                     v-model="cleandata.kurtturuusu_detail"
                     :required="cleandata.kurtturuusu === 'yes' && required"
                     maxlength="200"
@@ -275,14 +272,11 @@
                     <p>{{ $t('message.photo') }}: Terhi Ryttäri</p>
                   </div>
                 </div>
-                <div
-                  class="foreign-species-detail"
-                  v-if="cleandata.jattipalsami === 'yes'"
-                >
-                  <h4>{{ $t('message.foreign_species_detail1') }}</h4>
-                  <p>{{ $t('message.foreign_species_detail2') }}</p>
+                <div class="foreign-species-detail">
+                  <h5>{{ $t('message.foreign_species2_detail') }}</h5>
+                  <p>{{ $t('message.foreign_species2_detail_sub') }}</p>
                   <textarea
-                    rows="4"
+                    rows="3"
                     v-model="cleandata.jattipalsami_detail"
                     :required="cleandata.jattipalsami === 'yes' && required"
                     maxlength="200"
@@ -662,7 +656,9 @@ export default {
 
 .foreign-species {
   display: flex;
-  margin: 2rem 0;
+  margin: 25px 0 15px 0;
+  padding-top: 20px;
+  border-top: 1px dashed #bbb;
 }
 
 .foreign-species-input {
@@ -678,7 +674,9 @@ export default {
 
 .label-radio {
   display: flex;
-  margin: 0.7rem 0;
+  justify-content: space-around;
+  margin: 0.7rem 20px;
+  width: 70%;
 }
 
 .label-radio label {
@@ -694,8 +692,9 @@ export default {
   width: 15px;
 }
 
-.foreign-species-detail h4 {
-  margin: 0.5rem 0;
+.foreign-species-detail h5 {
+  font-weight: bold;
+  margin: 10px 0;
 }
 
 .foreign-species-detail p {
@@ -810,11 +809,15 @@ textarea {
     width: 350px;
     height: 90vh;
     margin-left: 5px;
-    padding: 20px;
+    padding: 15px;
   }
 
   .modal-header h3 {
     max-width: 250px;
+  }
+
+  .modal-body {
+    padding-right: 0;
   }
 
   .cleaner .cleaned-info-item {
@@ -853,6 +856,14 @@ textarea {
 
   .date-input {
     margin-left: 0;
+  }
+
+  .foreign-species-input {
+    margin-right: 5px;
+  }
+
+  .foreign-species-photo img {
+    margin-top: 30px;
   }
 
   .permission-container {
