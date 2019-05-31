@@ -1,17 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>satakolkyt</title>
+    <script>
+      /*if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js', { scope: '/' })
+          .then(function(registration) {
+                console.log('Service Worker Registered');
+          });
+        navigator.serviceWorker.ready.then(function(registration) {
+           console.log('Service Worker Ready');
+        });
+      }
+      */
+      </script>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but satakolkyt doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <script>
+      if (navigator.userAgent.indexOf("Trident") != -1) {
+        document.body.outerHTML = "<h1>Satakolkyt</h1>" +
+        "<img src='./img/fish.gif' />" +
+        "<p>Hups... selaimesi on liian vanha.</p>" +
+        "<p>Tulethan sivullemme tukemillamme selaimilla." +
+        "<p>Tukemamme selaimet ovat Microsoft Edge, Mozilla Firefox, Google Chrome ja Apple Safari</p>" +
+        "<p>Jos kysyttävää. Otathan yhteyttä hankekoordinaattori Eeva Puustjärveen eeva.puustjarvi@hel.fi"
+      } else {
+        null
+      }
+    </script>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+
   </body>
 </html>
