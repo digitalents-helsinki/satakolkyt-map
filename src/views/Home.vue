@@ -53,14 +53,7 @@
       class="privacy-info-wrapper"
       @click="showPrivacyInfo = false"
     >
-      <div class="privacy-info">
-        <h1>{{ $t('message.privacy_policy') }}</h1>
-        <p v-for="n in 20" :key="n">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, et!
-          Alias impedit exercitationem a minus commodi quos eum illum? Fugiat
-          sit cumque amet unde natus dolorum tempore sint dolore beatae!
-        </p>
-      </div>
+      <Policy />
     </div>
     <div
       class="error-info-wrapper"
@@ -81,6 +74,7 @@ import ReserveModal from '@/components/ReserveModal'
 import CleanModal from '@/components/CleanModal'
 import AppFooter from '@/components/AppFooter'
 import InfoBox from '@/components/InfoBox'
+import Policy from '@/components/Policy'
 import axios from 'axios'
 export default {
   name: 'home',
@@ -118,7 +112,8 @@ export default {
     ReserveModal,
     CleanModal,
     AppFooter,
-    InfoBox
+    InfoBox,
+    Policy
   },
 
   methods: {
@@ -263,28 +258,6 @@ export default {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 9999;
-
-    .privacy-info {
-      max-width: 600px;
-      width: 90vw;
-      max-height: 800px;
-      height: 90vh;
-      background-color: white;
-      margin: 5vh auto;
-      overflow-y: auto;
-      padding: 10px 30px;
-
-      h1 {
-        font-size: 24px;
-        font-weight: bold;
-        text-align: center;
-        margin: 20px 0 40px 0;
-      }
-
-      p {
-        margin: 20px 0;
-      }
-    }
   }
 
   .error-info-wrapper {
