@@ -111,6 +111,8 @@ export const en = {
       'Do you really want to delete the reservation?',
     clean_deletion_confirmation_message:
       'Do you really want to discard the cleaning report?',
+    clean_confirm_confirmation_message:
+      'Do you really want to confirm the cleaning? Contact info will be permanently deleted!',
     hide_confirmed: 'Hide confirmed',
     join_cleaning: 'Come join us!',
     private_event: 'This shore is reserved for a private cleanup event',

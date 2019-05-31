@@ -115,7 +115,7 @@
 
                 <button
                   class="small-button del-button"
-                  @click="openReservationConfirmation(reservation)"
+                  @click="openDeleteReservationConfirmation(reservation)"
                 >
                   {{ $t('message.delete_reservation') }}
                 </button>
@@ -246,7 +246,7 @@
                 </button>
                 <button
                   class="small-button del-button"
-                  @click="openCleanConfirmation(clean)"
+                  @click="openDeleteCleanConfirmation(clean)"
                 >
                   {{ $t('message.delete_cleaned') }}
                 </button>
@@ -263,7 +263,7 @@
                 <div v-if="!clean.confirmed">
                   <button
                     class="small-button cancel-button"
-                    @click="confirmCleaned($event, clean)"
+                    @click="openConfirmCleanConfirmation(clean)"
                     :id="clean.selected.key"
                   >
                     {{ $t('message.confirm_cleaned') }}
@@ -275,11 +275,14 @@
         </div>
       </div>
 
-      <div class="confirmation-wrapper" v-if="showReservationConfirmation">
+      <div
+        class="confirmation-wrapper"
+        v-if="showDeleteReservationConfirmation"
+      >
         <div class="confirmation-container">
           {{ $t('message.reservation_deletion_confirmation_message') }}
 
-          <button @click="showReservationConfirmation = false">
+          <button @click="showDeleteReservationConfirmation = false">
             {{ $t('message.cancel') }}
           </button>
 
@@ -289,15 +292,29 @@
         </div>
       </div>
 
-      <div class="confirmation-wrapper" v-if="showCleanConfirmation">
+      <div class="confirmation-wrapper" v-if="showDeleteCleanConfirmation">
         <div class="confirmation-container">
           {{ $t('message.clean_deletion_confirmation_message') }}
 
-          <button @click="showCleanConfirmation = false">
+          <button @click="showDeleteCleanConfirmation = false">
             {{ $t('message.cancel') }}
           </button>
 
           <button @click="deleteCleaned(cleanToDelete)">
+            {{ $t('message.yes') }}
+          </button>
+        </div>
+      </div>
+
+      <div class="confirmation-wrapper" v-if="showCleanConfirmConfirmation">
+        <div class="confirmation-container">
+          {{ $t('message.clean_confirm_confirmation_message') }}
+
+          <button @click="showCleanConfirmConfirmation = false">
+            {{ $t('message.cancel') }}
+          </button>
+
+          <button @click="confirmCleaned(cleanToConfirm)">
             {{ $t('message.yes') }}
           </button>
         </div>
@@ -352,9 +369,11 @@ export default {
       showCleanedShores: false,
       showOnMap: false,
       reservationToDelete: null,
-      showReservationConfirmation: false,
+      showDeleteReservationConfirmation: false,
       cleanToDelete: null,
-      showCleanConfirmation: false,
+      showDeleteCleanConfirmation: false,
+      cleanToConfirm: null,
+      showCleanConfirmConfirmation: false,
       counterSteps: null,
       counterKm: null,
       hideConfirmed: false,
@@ -402,13 +421,17 @@ export default {
       this.showReservations = false
       this.showCleanedShores = !this.showCleanedShores
     },
-    openReservationConfirmation(reservation) {
+    openDeleteReservationConfirmation(reservation) {
       this.reservationToDelete = reservation
-      this.showReservationConfirmation = true
+      this.showDeleteReservationConfirmation = true
     },
-    openCleanConfirmation(clean) {
+    openDeleteCleanConfirmation(clean) {
       this.cleanToDelete = clean
-      this.showCleanConfirmation = true
+      this.showDeleteCleanConfirmation = true
+    },
+    openConfirmCleanConfirmation(clean) {
+      this.cleanToConfirm = clean
+      this.showCleanConfirmConfirmation = true
     },
     shoreHidden(data) {
       this.$refs.adminmap.unRenderSelected()
@@ -497,7 +520,7 @@ export default {
         })
     },
     deleteReservation(reservation) {
-      this.showReservationConfirmation = false
+      this.showDeleteReservationConfirmation = false
       axios
         .delete(process.env.VUE_APP_URL + '/api/map/reservation', {
           data: {
@@ -532,16 +555,19 @@ export default {
           console.log(error)
         })
     },
-    confirmCleaned(e, clean) {
-      const id = e.target.id
+    confirmCleaned(clean) {
+      this.showCleanConfirmConfirmation = false
       axios
         .post(process.env.VUE_APP_URL + '/api/map/clean/', {
-          key: id,
+          key: clean.selected.key,
           clean: clean._key
         })
         .then(response => {
           if (response.data.status === 'ok') {
             clean.confirmed = true
+            clean.leader_name = '---'
+            clean.leader_email = '---'
+            clean.leader_phone = '---'
             this.getStepsKm()
           }
         })
@@ -550,7 +576,7 @@ export default {
         })
     },
     deleteCleaned(clean) {
-      this.showCleanConfirmation = false
+      this.showDeleteCleanConfirmation = false
       axios
         .delete(process.env.VUE_APP_URL + '/api/map/cleanedshore', {
           data: { cleankey: clean._key, shorekey: clean.selected.key }

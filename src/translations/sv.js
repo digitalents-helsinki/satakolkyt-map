@@ -111,6 +111,8 @@ export const sv = {
       'Vill du verkligen ta bort bokningen?',
     clean_deletion_confirmation_message:
       'Vill du verkligen rensa rengöringsrapporten?',
+    clean_confirm_confirmation_message:
+      'SV: Do you really want to confirm the cleaning? Contact info will be permanently deleted!',
     hide_confirmed: 'Dölj bekräftad',
     join_cleaning: 'Kom och följ med oss',
     private_event: 'Den här stranden är reserverat för en privat händelse',

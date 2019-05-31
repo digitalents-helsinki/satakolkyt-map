@@ -110,6 +110,8 @@ export const fi = {
     reservation_deletion_confirmation_message:
       'Haluatko varmasti poistaa varauksen?',
     clean_deletion_confirmation_message: 'Haluatko varmasti hylätä siivouksen?',
+    clean_confirm_confirmation_message:
+      'Haluatko varmasti varmistaa siivouksen? Yhteyshenkilön tiedot poistetaan lopullisesti!',
     hide_confirmed: 'Piilota varmistetut',
     join_cleaning: 'Tule mukaan talkoisiin!',
     private_event: 'Tämä ranta on varattu oman porukan talkoisiin.',
