@@ -341,6 +341,7 @@ export default {
       min-height: 0;
       pointer-events: all;
       cursor: pointer;
+      overflow: hidden;
 
       .container {
         margin-left: 10px;
@@ -383,7 +384,7 @@ export default {
       }
     }
     .legenddown {
-      bottom: -95px;
+      max-height: 30px;
     }
   }
 }

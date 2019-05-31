@@ -74,7 +74,7 @@ body {
 }
 
 main {
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 header {
