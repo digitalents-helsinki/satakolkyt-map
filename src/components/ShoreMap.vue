@@ -294,14 +294,15 @@ export default {
 .mapboxgl-ctrl-bottom-right {
   bottom: 80px;
   right: 220px;
+  z-index: 999999;
 
   @media only screen and (max-width: 768px) {
     bottom: 64px;
   }
+}
 
-  .mapbox-improve-map {
-    display: none;
-  }
+.mapboxgl-ctrl-bottom-left {
+  z-index: 999999;
 }
 
 .mapboxgl-ctrl-top-right {
