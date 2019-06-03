@@ -21,6 +21,7 @@
       <div class="editor">
         <div class="adminMapContainer">
           <shore-map
+            :key="mapkey"
             ref="adminmap"
             adminmode
             @map-loaded="mapLoaded"
@@ -34,6 +35,7 @@
           />
         </div>
       </div>
+
       <div class="list-wrapper">
         <div class="list-tabs">
           <div class="tab" @click="toggleReservationList">
@@ -276,6 +278,12 @@
         </div>
       </div>
 
+      <div class="refreshcontainer">
+        <button class="small-button" @click="refresh">
+          Päivitä tiedot
+        </button>
+      </div>
+
       <div
         class="confirmation-wrapper"
         v-if="showDeleteReservationConfirmation"
@@ -354,6 +362,8 @@ export default {
   name: 'control',
   data() {
     return {
+      //mapkey to remount component
+      mapkey: 0,
       adminmode: true,
       reservations: {},
       selected: {},
@@ -386,6 +396,13 @@ export default {
     ShoreMap
   },
   methods: {
+    refresh() {
+      this.getReservations()
+      this.getCleaned()
+      this.getStepsKm()
+      this.initMap()
+      this.mapkey++
+    },
     unSelect() {
       this.selectedShoreData = null
       this.mapOverlayAction = null
@@ -402,6 +419,7 @@ export default {
           axios.defaults.headers.common['authorization'] = this.login_token
           this.getReservations()
           this.getCleaned()
+          this.getStepsKm()
           this.initMap()
         })
         .catch(function(error) {
@@ -649,13 +667,7 @@ export default {
         .get(process.env.VUE_APP_URL + '/api/map/reservations/')
         .then(reservation => {
           this.reservations = reservation.data.data
-          this.reservations.sort((a, b) => {
-            return a.timestamp > b.timestamp
-              ? -1
-              : a.timestamp < b.timestamp
-              ? 1
-              : 0
-          })
+          this.sortList(this.reservations, this.newestfirst)
         })
         .catch(error => {
           console.log(error)
@@ -666,13 +678,7 @@ export default {
         .get(process.env.VUE_APP_URL + '/api/map/cleaninfos/')
         .then(reservation => {
           this.cleaned = reservation.data.data
-          this.cleaned.sort((a, b) => {
-            return a.timestamp > b.timestamp
-              ? -1
-              : a.timestamp < b.timestamp
-              ? 1
-              : 0
-          })
+          this.sortList(this.cleaned, this.newestfirst)
         })
         .catch(error => {
           console.log(error)
@@ -731,45 +737,29 @@ export default {
           }
         })
     },
+    sortList(array, newfirst) {
+      array.sort((a, b) => {
+        if (newfirst) {
+          return a.timestamp < b.timestamp
+            ? -1
+            : a.timestamp > b.timestamp
+            ? 1
+            : 0
+        } else {
+          return a.timestamp > b.timestamp
+            ? -1
+            : a.timestamp < b.timestamp
+            ? 1
+            : 0
+        }
+      })
+    },
     toggleSort() {
-      if (this.newestfirst) {
-        this.newestfirst = false
-        this.reservations.sort((a, b) => {
-          return a.timestamp < b.timestamp
-            ? -1
-            : a.timestamp > b.timestamp
-            ? 1
-            : 0
-        })
-        this.cleaned.sort((a, b) => {
-          return a.timestamp < b.timestamp
-            ? -1
-            : a.timestamp > b.timestamp
-            ? 1
-            : 0
-        })
-      } else {
-        this.newestfirst = true
-        this.reservations.sort((a, b) => {
-          return a.timestamp > b.timestamp
-            ? -1
-            : a.timestamp < b.timestamp
-            ? 1
-            : 0
-        })
-        this.cleaned.sort((a, b) => {
-          return a.timestamp > b.timestamp
-            ? -1
-            : a.timestamp < b.timestamp
-            ? 1
-            : 0
-        })
-      }
+      console.log('toggle')
+      this.sortList(this.reservations, this.newestfirst)
+      this.sortList(this.cleaned, this.newestfirst)
+      this.newestfirst = !this.newestfirst
     }
-  },
-
-  mounted() {
-    this.getStepsKm()
   }
 }
 </script>
@@ -919,6 +909,20 @@ export default {
             display: flex;
           }
         }
+      }
+    }
+
+    .refreshcontainer {
+      position: absolute;
+      top: 100px;
+      left: 350px;
+      width: 150px;
+      height: 50px;
+      background-color: white;
+
+      button {
+        display: block;
+        margin: 5px auto;
       }
     }
   }
