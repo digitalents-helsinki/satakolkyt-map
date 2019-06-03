@@ -125,6 +125,7 @@ export const en = {
       'Open the reservation form from the "Announce cleanup"-button at the bottom',
       'Fill in the form and send it',
       'Your reservation will be confirmed soon!',
+      'Get cleaning equipment from a library',
       'And to the beach!'
     ],
     guide_cleaned_title: 'Already cleaned a shore?',

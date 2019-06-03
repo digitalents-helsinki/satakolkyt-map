@@ -125,6 +125,7 @@ export const fi = {
       'Avaa varauslomake alareunan "Ilmoita tulevat talkoot"-napista',
       'Täytä lomakkeen tiedot ja lähetä',
       'Varauksesi vahvistetaan pian!',
+      'Hae siivousvälineet lainaan kirjastosta',
       'Ja rannalle!',
       `Voit myös liittyä mukaan muiden järjestämiin talkoisiin etsimällä kartalta 
       tulevia talkoita (oranssi rantaviiva). Jos talkoot ovat kaikille avoimet, löydät 

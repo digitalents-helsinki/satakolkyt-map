@@ -128,6 +128,7 @@ export const sv = {
       'Öppna bokningsformuläret längst ner på knappen "Meddela rengöring"',
       'Fyll i formuläret och skicka in',
       'Din bokning kommer att bekräftas snart!',
+      'SV: Hae siivousvälineet lainaan kirjastosta',
       'Och till stranden!'
     ],
     guide_cleaned_title: 'Har du redan rengjort?',
