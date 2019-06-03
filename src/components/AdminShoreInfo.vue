@@ -3,23 +3,25 @@
 <template>
   <div>
     <div class="shore-info">
-      <h2>{{ data['hel:id'] }}</h2>
-      <slot name="header">
-        <button
-          v-if="action === 'hide'"
-          class="hideShoreButton"
-          v-on:click="hideShore"
-        >
-          {{ $t('message.hideshore') }}
-        </button>
-        <button
-          v-if="action === 'unhide'"
-          class="unHideShoreButton"
-          v-on:click="unHideShore"
-        >
-          {{ $t('message.unhideshore') }}
-        </button>
-      </slot>
+      <button
+        v-if="action === 'hide'"
+        class="hideShoreButton"
+        v-on:click="hideShore"
+      >
+        {{ $t('message.hideshore') }}
+      </button>
+      <button
+        v-if="action === 'unhide'"
+        class="unHideShoreButton"
+        v-on:click="unHideShore"
+      >
+        {{ $t('message.unhideshore') }}
+      </button>
+      <font-awesome-icon
+        icon="times"
+        class="cross-icon"
+        @click="$emit('unselect')"
+      />
     </div>
   </div>
 </template>
@@ -64,6 +66,11 @@ export default {
 
 <style lang="scss" scoped>
 .shore-info {
+  .cross-icon {
+    font-size: 32px;
+    margin-left: 20px;
+    cursor: pointer;
+  }
   h2 {
     font-weight: bold;
   }
