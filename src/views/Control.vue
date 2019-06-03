@@ -14,6 +14,7 @@
       :counterKm="counterKm"
       @hide-shore="shoreHidden"
       @unhide-shore="shoreUnhidden"
+      @unselect="unSelect"
     />
 
     <div class="editor-wrapper">
@@ -385,6 +386,11 @@ export default {
     ShoreMap
   },
   methods: {
+    unSelect() {
+      this.selectedShoreData = null
+      this.mapOverlayAction = null
+      this.$refs.adminmap.unRenderSelected()
+    },
     signin() {
       axios
         .post(process.env.VUE_APP_URL + '/api/map/login/', {
@@ -775,7 +781,6 @@ export default {
   background-color: white;
   display: flex;
   justify-content: space-between;
-  word-break: break-word;
 
   h1 {
     font-weight: bold;
@@ -816,6 +821,7 @@ export default {
       position: absolute;
       top: 100px;
       left: 30px;
+      word-break: break-word;
 
       .list-control {
         display: flex;

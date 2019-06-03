@@ -18,10 +18,11 @@
             :action="this.$props.action"
             @hide-shore="this.hideShoreMap"
             @unhide-shore="this.unHideShoreMap"
+            @unselect="$emit('unselect')"
           >
           </admin-shore-info>
         </div>
-        <div class="counter" :class="{ hide: this.$props.data }">
+        <div class="counter" :class="{ hide: this.$props.data && !adminmode }">
           <div class="stepcount green">
             <ICountUp :endVal="counterSteps" :options="countOptions" />
           </div>
