@@ -98,7 +98,9 @@ export default {
         //shoretype was clicked on, so it was selected
         if (
           this.selected[0] &&
-          (shoretype !== 'free' || this.selected[0].layer !== 'freeShore')
+          ((shoretype !== 'free' && shoretype !== 'reserved') ||
+            (this.selected[0].layer !== 'freeShore' &&
+              this.selected[0].layer !== 'reservedShore'))
         ) {
           this.unHighlightAll()
         }
