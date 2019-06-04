@@ -44,6 +44,7 @@
                       <font-awesome-icon icon="calendar" />
                       <datepicker
                         :required="required"
+                        :disabledDates="disabledDates"
                         :language="
                           $i18n.locale === 'fi'
                             ? fi
@@ -271,6 +272,9 @@ export default {
       errors: [],
       timeformat: 'HH:mm',
       dateerrormsg: '',
+      disabledDates: {
+        to: null
+      },
       fi: fi,
       en: en,
       sv: sv,
@@ -295,6 +299,11 @@ export default {
       },
       privacy_permission: false
     }
+  },
+  created() {
+    const date = new Date()
+    date.setDate(date.getDate() - 1)
+    this.disabledDates.to = date
   },
   mounted() {
     this.reservationdata.selected = this.$props.selected

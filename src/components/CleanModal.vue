@@ -34,6 +34,7 @@
                     <font-awesome-icon icon="calendar" />
                     <datepicker
                       :required="required"
+                      :disabledDates="disabledDates"
                       :language="
                         $i18n.locale === 'fi'
                           ? fi
@@ -394,6 +395,9 @@ export default {
       required: true,
       pagenum: 0,
       dateerrormsg: '',
+      disabledDates: {
+        from: new Date()
+      },
       fi: fi,
       en: en,
       sv: sv
