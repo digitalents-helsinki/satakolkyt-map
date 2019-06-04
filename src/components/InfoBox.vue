@@ -2,7 +2,12 @@
 
 <template>
   <div class="infobox">
-    <div v-if="!this.$props.data" class="spinner">
+    <div
+      v-if="
+        !this.$props.data && type !== 'multifree' && type !== 'multireserved'
+      "
+      class="spinner"
+    >
       <spinner />
     </div>
     <div class="closer">
@@ -63,6 +68,9 @@
       <div v-if="type === 'free'">
         <h1>{{ $t('message.free_shore') }}</h1>
         <p>{{ $t('message.come_clean') }}</p>
+      </div>
+      <div v-if="type === 'multifree' || type === 'multireserved'">
+        <h1>Olet valinnut useamman rannan</h1>
       </div>
     </div>
   </div>

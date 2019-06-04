@@ -178,7 +178,11 @@ export default {
       this.showModal = !this.showModal
     },
     selectReserved(data) {
-      this.infoBoxData = null
+      if (this.selectedShoreType === 'cleaned') {
+        this.infoBoxData = null
+        this.selectedShoreData = []
+        this.selectedShoreType = null
+      }
       this.selectedShoreData.push(data)
       if (this.selectedShoreData.length > 1) {
         this.selectedShoreType = 'multireserved'
@@ -196,6 +200,7 @@ export default {
             }
           )
       }
+      console.log(this.selectedShoreType)
       this.showInfoBox = true
     },
     selectCleaned(data) {
@@ -213,9 +218,14 @@ export default {
             console.log(err)
           }
         )
+      console.log(this.selectedShoreType)
     },
     selectFree(data) {
-      this.infoBoxData = null
+      if (this.selectedShoreType === 'cleaned') {
+        this.infoBoxData = null
+        this.selectedShoreData = []
+        this.selectedShoreType = null
+      }
       this.selectedShoreData.push(data)
       if (this.selectedShoreType !== 'multireserved') {
         if (this.selectedShoreType === 'reserved') {
@@ -228,6 +238,7 @@ export default {
           this.infoBoxData = data
         }
       }
+      console.log(this.selectedShoreType)
       this.showInfoBox = true
     },
     unSelect() {
