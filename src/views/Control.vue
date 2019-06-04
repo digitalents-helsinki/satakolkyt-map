@@ -150,6 +150,16 @@
                 {{ $t('message.remove_old_cleanings') }}
               </button>
             </div>
+            <div class="show-invasive">
+              <label for="showinvasiveonly"
+                >Näytä vain vieraslajitietoja sisältävät:
+              </label>
+              <input
+                type="checkbox"
+                id="showinvasiveonly"
+                v-model="invasiveonly"
+              />
+            </div>
             <li
               class="clean-info"
               :class="{
@@ -158,7 +168,7 @@
               }"
               v-for="clean in cleaned"
               :key="clean._id"
-              v-show="!clean.confirmed || !(clean.confirmed && hideConfirmed)"
+              v-show="shouldShowClean(clean)"
             >
               <h2>{{ clean.organizer_name }}</h2>
               <div class="clean-time">
@@ -217,20 +227,20 @@
                   <span class="bold">{{ $t('message.kurtturuusu') }}: </span>
                   {{
                     clean.kurtturuusu === 'yes'
-                      ? $t('message.yes') + ', ' + clean.kurtturuusu_detail
+                      ? $t('message.yes') + ': ' + clean.kurtturuusu_detail
                       : clean.kurtturuusu === 'no'
                       ? $t('message.no')
-                      : $t('message.unsure')
+                      : $t('message.unsure') + ': ' + clean.kurtturuusu_detail
                   }}
                 </p>
                 <p>
                   <span class="bold">{{ $t('message.jattipalsami') }}: </span>
                   {{
                     clean.jattipalsami === 'yes'
-                      ? $t('message.yes') + ', ' + clean.jattipalsami_detail
+                      ? $t('message.yes') + ': ' + clean.jattipalsami_detail
                       : clean.jattipalsami === 'no'
                       ? $t('message.no')
-                      : $t('message.unsure')
+                      : $t('message.unsure') + ': ' + clean.jattipalsami_detail
                   }}
                 </p>
               </div>
@@ -388,7 +398,8 @@ export default {
       counterSteps: null,
       counterKm: null,
       hideConfirmed: false,
-      newestfirst: true
+      newestfirst: true,
+      invasiveonly: false
     }
   },
   components: {
@@ -396,6 +407,26 @@ export default {
     ShoreMap
   },
   methods: {
+    shouldShowClean(c) {
+      if (!this.hideConfirmed && !this.invasiveonly) {
+        return true
+      }
+      if (this.hideConfirmed && c.confirmed) {
+        return false
+      }
+      if (this.invasiveonly) {
+        if (c.kurtturuusu == 'yes' || c.jattipalsami == 'yes') {
+          return true
+        } else if (
+          (c.kurtturuusu == 'idk' && c.kurtturuusu_detail) ||
+          (c.jattipalsami == 'idk' && c.jattipalsami_detail)
+        ) {
+          return true
+        } else {
+          return false
+        }
+      }
+    },
     refresh() {
       this.getReservations()
       this.getCleaned()
@@ -883,6 +914,10 @@ export default {
       .clean-infos {
         width: 350px;
         margin: 0 auto;
+
+        .show-invasive {
+          margin: 10px 0;
+        }
 
         .clean-info {
           margin: 10px 0;
