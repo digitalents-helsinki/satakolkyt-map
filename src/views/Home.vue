@@ -224,7 +224,7 @@ export default {
       this.infoBoxData = null
       this.selectedShoreData = null
       this.selectedShoreType = null
-      this.$refs.usermap.unRenderSelected()
+      this.$refs.usermap.unHighlightAll()
     },
     getStepsKm() {
       axios.get(process.env.VUE_APP_URL + '/api/map/stepskm/').then(

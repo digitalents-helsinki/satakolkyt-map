@@ -50,10 +50,7 @@ export default {
         show: true,
         position: 'top-right'
       },
-      selected: {
-        layer: null,
-        id: null
-      },
+      selected: [],
       hoveredIds: {},
       vh: 0
     }
@@ -99,13 +96,18 @@ export default {
     addShoreClickHandler(map, shoretype) {
       map.on('click', shoretype + 'Shore', e => {
         //shoretype was clicked on, so it was selected
-        this.unRenderSelected()
+        if (
+          this.selected[0] &&
+          (shoretype !== 'free' || this.selected[0].layer !== 'freeShore')
+        ) {
+          this.unHighlightAll()
+        }
 
         const clickedShore = e.features[0]
         const clickpos = [e.lngLat.lng, e.lngLat.lat]
 
         //highlight clicked feature:
-        this.renderSelected(clickedShore.id, shoretype + 'Shore')
+        this.highlight(clickedShore.id, shoretype + 'Shore')
 
         //zoom to on map where we clicked:
         map.flyTo({ center: clickpos, zoom: 15 })
@@ -114,23 +116,21 @@ export default {
         this.$emit(shoretype + '-click', clickedShore.properties)
       })
     },
-    renderSelected(id, layername) {
-      this.selected.layer = layername
-      this.selected.id = id
+    highlight(id, layername) {
+      this.selected.push({ id: id, layer: layername })
       this.map.setFeatureState(
         { source: layername, id: id },
         { selected: true }
       )
     },
-    unRenderSelected() {
-      if (this.selected.id) {
+    unHighlightAll() {
+      for (let s of this.selected) {
         this.map.setFeatureState(
-          { source: this.selected.layer, id: this.selected.id },
+          { source: s.layer, id: s.id },
           { selected: false }
         )
-        this.selected.layer = null
-        this.selected.id = null
       }
+      this.selected = []
     },
     onZoom(map) {
       const MAX_ZOOM = 20
