@@ -84,11 +84,8 @@ export default {
       showCleaned: false,
       showReservationForm: false,
 
-      reservedInfo: null,
-      cleanedInfo: null,
-
       // Selected Shore
-      selectedShoreData: null,
+      selectedShoreData: [],
       selectedShoreType: '',
 
       //Infobox
@@ -182,23 +179,28 @@ export default {
     },
     selectReserved(data) {
       this.infoBoxData = null
-      this.selectedShoreData = data
-      this.selectedShoreType = 'reserved'
+      this.selectedShoreData.push(data)
+      if (this.selectedShoreData.length > 1) {
+        this.selectedShoreType = 'multireserved'
+        this.infoBoxData = null
+      } else {
+        this.selectedShoreType = 'reserved'
+        axios
+          .get(process.env.VUE_APP_URL + '/api/map/reservedinfo/' + data.key)
+          .then(
+            res => {
+              this.infoBoxData = res.data.data
+            },
+            err => {
+              console.log(err)
+            }
+          )
+      }
       this.showInfoBox = true
-      axios
-        .get(process.env.VUE_APP_URL + '/api/map/reservedinfo/' + data.key)
-        .then(
-          res => {
-            this.infoBoxData = res.data.data
-          },
-          err => {
-            console.log(err)
-          }
-        )
     },
     selectCleaned(data) {
       this.infoBoxData = null
-      this.selectedShoreData = data
+      this.selectedShoreData.push(data)
       this.selectedShoreType = 'cleaned'
       this.showInfoBox = true
       axios
@@ -214,15 +216,24 @@ export default {
     },
     selectFree(data) {
       this.infoBoxData = null
-      this.selectedShoreData = data
-      this.selectedShoreType = 'free'
-      this.infoBoxData = data
+      this.selectedShoreData.push(data)
+      if (this.selectedShoreType !== 'multireserved') {
+        if (this.selectedShoreType === 'reserved') {
+          this.selectedShoreType = 'multireserved'
+        } else if (this.selectedShoreData.length > 1) {
+          this.selectedShoreType = 'multifree'
+          this.infoBoxData = null
+        } else {
+          this.selectedShoreType = 'free'
+          this.infoBoxData = data
+        }
+      }
       this.showInfoBox = true
     },
     unSelect() {
       this.showInfoBox = false
       this.infoBoxData = null
-      this.selectedShoreData = null
+      this.selectedShoreData = []
       this.selectedShoreType = null
       this.$refs.usermap.unHighlightAll()
     },
