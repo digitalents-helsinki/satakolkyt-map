@@ -95,7 +95,8 @@ export default {
     },
     addShoreClickHandler(map, shoretype) {
       map.on('click', shoretype + 'Shore', e => {
-        //shoretype was clicked on, so it was selected
+        //remove highlighting on all shores if we clicked on a non-free, non-reserved shore or
+        //if a non-free, non-reserved shore was already highlighted
         if (
           this.selected[0] &&
           ((shoretype !== 'free' && shoretype !== 'reserved') ||
@@ -124,6 +125,20 @@ export default {
         { source: layername, id: id },
         { selected: true }
       )
+    },
+    unHighlight(id) {
+      const newlist = []
+      for (let s of this.selected) {
+        if (id === s.id) {
+          this.map.setFeatureState(
+            { source: s.layer, id: s.id },
+            { selected: false }
+          )
+        } else {
+          newlist.push(s)
+        }
+      }
+      this.selected = newlist
     },
     unHighlightAll() {
       for (let s of this.selected) {
