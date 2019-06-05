@@ -127,7 +127,6 @@ export default {
       const newlist = []
       for (let s of this.selected) {
         if (id === s.id) {
-          console.log('unhighlight')
           this.map.setFeatureState(
             { source: s.layer, id: s.id },
             { selected: false }

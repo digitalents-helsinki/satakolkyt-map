@@ -2,6 +2,7 @@
 
 <template>
   <div class="infobox">
+    <h5>{{ type }}</h5>
     <div
       v-if="
         !this.$props.data && type !== 'multifree' && type !== 'multireserved'

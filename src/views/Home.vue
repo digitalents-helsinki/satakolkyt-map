@@ -181,22 +181,8 @@ export default {
       this.showModal = !this.showModal
     },
     selectReserved(data) {
-      const newarray = []
-      let unselect = false
-      for (let s of this.selectedShoreData) {
-        if (s.key === data.key) {
-          this.$refs.usermap.unHighlight(data.key)
-          unselect = true
-        } else {
-          newarray.push(s)
-        }
-      }
-      if (unselect) {
-        if (newarray.length === 0) {
-          this.unSelect()
-          return
-        }
-        this.selectedShoreData = newarray
+      this.infoBoxKey++
+      if (this.reSelected(data)) {
         return
       }
       if (this.selectedShoreType === 'cleaned') {
@@ -205,7 +191,7 @@ export default {
         this.selectedShoreType = null
       }
       this.$refs.usermap.highlight(data.key, 'reservedShore')
-      this.selectedShoreData.push(data)
+      this.selectedShoreData.push({ ...data, type: 'reserved' })
       if (this.selectedShoreData.length > 1) {
         this.selectedShoreType = 'multireserved'
         this.infoBoxData = null
@@ -216,6 +202,7 @@ export default {
           .then(
             res => {
               this.infoBoxData = res.data.data
+              this.infoBoxKey++
             },
             err => {
               console.log(err)
@@ -223,9 +210,10 @@ export default {
           )
       }
       this.showInfoBox = true
-      this.infoBoxKey++
     },
     selectCleaned(data) {
+      this.infoBoxKey++
+      this.selectedShoreData = []
       if (
         this.selectedShoreData.length > 0 &&
         this.selectedShoreData[0].key === data.key
@@ -238,12 +226,12 @@ export default {
       this.selectedShoreData.push(data)
       this.selectedShoreType = 'cleaned'
       this.showInfoBox = true
-      this.infoBoxKey++
       axios
         .get(process.env.VUE_APP_URL + '/api/map/cleanedinfo/' + data.key)
         .then(
           res => {
             this.infoBoxData = res.data.data
+            this.infoBoxKey++
           },
           err => {
             console.log(err)
@@ -251,22 +239,8 @@ export default {
         )
     },
     selectFree(data) {
-      const newarray = []
-      let unselect = false
-      for (let s of this.selectedShoreData) {
-        if (s.key === data.key) {
-          this.$refs.usermap.unHighlight(data.key)
-          unselect = true
-        } else {
-          newarray.push(s)
-        }
-      }
-      if (unselect) {
-        if (newarray.length === 0) {
-          this.unSelect()
-          return
-        }
-        this.selectedShoreData = newarray
+      this.infoBoxKey++
+      if (this.reSelected(data)) {
         return
       }
       if (this.selectedShoreType === 'cleaned') {
@@ -275,7 +249,7 @@ export default {
         this.selectedShoreType = null
       }
       this.$refs.usermap.highlight(data.key, 'freeShore')
-      this.selectedShoreData.push(data)
+      this.selectedShoreData.push({ ...data, type: 'free' })
       if (this.selectedShoreType !== 'multireserved') {
         if (this.selectedShoreType === 'reserved') {
           this.selectedShoreType = 'multireserved'
@@ -289,6 +263,43 @@ export default {
       }
       this.showInfoBox = true
       this.infoBoxKey++
+    },
+    reSelected(data) {
+      const newarray = []
+      let unselect = false
+      for (let s of this.selectedShoreData) {
+        if (s.key === data.key) {
+          this.$refs.usermap.unHighlight(data.key)
+          unselect = true
+        } else {
+          newarray.push(s)
+        }
+      }
+      if (unselect) {
+        if (newarray.length === 0) {
+          this.unSelect()
+          return true
+        }
+        if (newarray.length === 1) {
+          this.selectedShoreType = newarray[0].type
+          this.infoBoxKey++
+        } else {
+          let includesreserved = false
+          for (let s of newarray) {
+            if (s.type === 'reserved') {
+              includesreserved = true
+              break
+            }
+          }
+          this.selectedShoreType = includesreserved
+            ? 'multireserved'
+            : 'multifree'
+          this.infoBoxKey++
+        }
+        this.selectedShoreData = newarray
+        return true
+      }
+      return false
     },
     unSelect() {
       this.showInfoBox = false
