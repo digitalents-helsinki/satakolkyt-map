@@ -30,6 +30,7 @@ export const fi = {
     contact: 'Yhteyshenkilö',
     close: 'Sulje',
     claim_clean: 'Ilmoita ranta siivotuksi',
+    claim_clean_multi: 'Ilmoita rannat siivotuiksi',
     shore_cleaner_fill: 'Yhteyshenkilön tiedot eivät näy julkisesti.',
     trash_count: 'Paljonko rannalla oli roskaa?',
     trash_amount: 'Roskan määrä',

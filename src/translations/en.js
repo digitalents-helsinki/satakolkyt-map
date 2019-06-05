@@ -30,6 +30,7 @@ export const en = {
     contact: 'Contact person',
     close: 'Close',
     claim_clean: 'Report cleaned shore',
+    claim_clean_multi: 'Report cleaned shores',
     shore_cleaner_fill: 'Contact information will not be publicly visible.',
     trash_count: 'How much trash was there',
     trash_amount: 'Trash amount',
