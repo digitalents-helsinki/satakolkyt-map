@@ -70,7 +70,7 @@
         <p>{{ $t('message.come_clean') }}</p>
       </div>
       <div v-if="type === 'multifree' || type === 'multireserved'">
-        <h1>Olet valinnut useamman rannan</h1>
+        <h1>Olet valinnut {{ num }} rantaa</h1>
       </div>
     </div>
   </div>
@@ -82,7 +82,7 @@ import Spinner from '@/components/Spinner'
 export default {
   name: 'infobox',
   components: { Spinner },
-  props: ['type', 'data'],
+  props: ['type', 'data', 'num'],
   methods: {
     stripProtocol: function() {
       if (

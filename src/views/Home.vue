@@ -45,6 +45,7 @@
           :key="infoBoxKey"
           :data="infoBoxData"
           :type="selectedShoreType"
+          :num="selectedShoreData.length"
           @infobox-close="unSelect"
         />
       </div>
