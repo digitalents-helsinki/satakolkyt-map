@@ -305,9 +305,6 @@ export default {
     date.setDate(date.getDate() - 1)
     this.disabledDates.to = date
   },
-  mounted() {
-    this.reservationdata.selected = this.$props.selected
-  },
   methods: {
     toNextPage(e) {
       if (e.target.form.reportValidity()) {
@@ -338,10 +335,12 @@ export default {
           this.reservationdata.starttime.HH +
           ':' +
           this.reservationdata.starttime.mm
-        this.$emit('reservation-action', {
-          data: reservation,
-          okCB: this.reservationOk
-        })
+        for (let s of this.selected) {
+          this.$emit('reservation-action', {
+            data: { ...reservation, selected: s },
+            okCB: this.reservationOk
+          })
+        }
       }
     },
     reservationOk() {

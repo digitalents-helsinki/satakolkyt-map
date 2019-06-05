@@ -403,9 +403,6 @@ export default {
       sv: sv
     }
   },
-  mounted() {
-    this.cleandata.selected = this.$props.selected
-  },
   methods: {
     saveCleaned(e) {
       if (e.target.form.reportValidity()) {
@@ -414,21 +411,23 @@ export default {
         }
         this.loading = true
         this.cleandata.date = this.cleandata.date.toISOString().substring(0, 10)
-        axios({
-          method: 'POST',
-          url: process.env.VUE_APP_URL + '/api/map/cleaninfo',
-          data: this.cleandata
-        })
-          .then(res => {
-            if (res.data.status === 'ok') {
-              this.$emit('cleaned-ok', res.data.json)
-              this.loading = false
-              this.saved = true
-            }
+        for (let s of this.selected) {
+          axios({
+            method: 'POST',
+            url: process.env.VUE_APP_URL + '/api/map/cleaninfo',
+            data: { ...this.cleandata, selected: s }
           })
-          .catch(err => {
-            this.$emit('error-msg', err.response.data.error)
-          })
+            .then(res => {
+              if (res.data.status === 'ok') {
+                this.$emit('cleaned-ok', res.data.json)
+                this.loading = false
+                this.saved = true
+              }
+            })
+            .catch(err => {
+              this.$emit('error-msg', err.response.data.error)
+            })
+        }
       }
     },
     toNextPage(e) {
