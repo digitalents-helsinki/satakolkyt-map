@@ -42,7 +42,6 @@
       />
       <div v-if="showInfoBox" class="infoBoxWrapper">
         <InfoBox
-          :key="infoBoxKey"
           :data="infoBoxData"
           :type="selectedShoreType"
           :num="selectedShoreData.length"
@@ -90,10 +89,9 @@ export default {
       selectedShoreData: [],
       selectedShoreType: '',
 
-      //Infobox (key for key hack to refresh)
+      //Infobox
       showInfoBox: false,
       infoBoxData: null,
-      infoBoxKey: 0,
 
       showPrivacyInfo: false,
 
