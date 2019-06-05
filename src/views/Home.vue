@@ -181,7 +181,6 @@ export default {
       this.showModal = !this.showModal
     },
     selectReserved(data) {
-      this.infoBoxKey++
       if (this.reSelected(data)) {
         return
       }
@@ -197,22 +196,23 @@ export default {
         this.infoBoxData = null
       } else {
         this.selectedShoreType = 'reserved'
-        axios
-          .get(process.env.VUE_APP_URL + '/api/map/reservedinfo/' + data.key)
-          .then(
-            res => {
-              this.infoBoxData = res.data.data
-              this.infoBoxKey++
-            },
-            err => {
-              console.log(err)
-            }
-          )
+        this.getReservationInfo(data)
       }
       this.showInfoBox = true
     },
+    getReservationInfo(data) {
+      axios
+        .get(process.env.VUE_APP_URL + '/api/map/reservedinfo/' + data.key)
+        .then(
+          res => {
+            this.infoBoxData = res.data.data
+          },
+          err => {
+            console.log(err)
+          }
+        )
+    },
     selectCleaned(data) {
-      this.infoBoxKey++
       this.selectedShoreData = []
       if (
         this.selectedShoreData.length > 0 &&
@@ -226,12 +226,14 @@ export default {
       this.selectedShoreData.push(data)
       this.selectedShoreType = 'cleaned'
       this.showInfoBox = true
+      this.getCleanInfo(data)
+    },
+    getCleanInfo(data) {
       axios
         .get(process.env.VUE_APP_URL + '/api/map/cleanedinfo/' + data.key)
         .then(
           res => {
             this.infoBoxData = res.data.data
-            this.infoBoxKey++
           },
           err => {
             console.log(err)
@@ -239,7 +241,6 @@ export default {
         )
     },
     selectFree(data) {
-      this.infoBoxKey++
       if (this.reSelected(data)) {
         return
       }
@@ -255,14 +256,11 @@ export default {
           this.selectedShoreType = 'multireserved'
         } else if (this.selectedShoreData.length > 1) {
           this.selectedShoreType = 'multifree'
-          this.infoBoxData = null
         } else {
           this.selectedShoreType = 'free'
-          this.infoBoxData = data
         }
       }
       this.showInfoBox = true
-      this.infoBoxKey++
     },
     reSelected(data) {
       const newarray = []
@@ -282,7 +280,9 @@ export default {
         }
         if (newarray.length === 1) {
           this.selectedShoreType = newarray[0].type
-          this.infoBoxKey++
+          if (this.selectedShoreType == 'reserved') {
+            this.getReservationInfo(newarray[0])
+          }
         } else {
           let includesreserved = false
           for (let s of newarray) {
@@ -294,7 +294,6 @@ export default {
           this.selectedShoreType = includesreserved
             ? 'multireserved'
             : 'multifree'
-          this.infoBoxKey++
         }
         this.selectedShoreData = newarray
         return true

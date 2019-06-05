@@ -2,10 +2,12 @@
 
 <template>
   <div class="infobox">
-    <h5>{{ type }}</h5>
     <div
       v-if="
-        !this.$props.data && type !== 'multifree' && type !== 'multireserved'
+        !this.$props.data &&
+          type !== 'multifree' &&
+          type !== 'multireserved' &&
+          type !== 'free'
       "
       class="spinner"
     >
@@ -20,7 +22,10 @@
     </div>
     <div
       v-if="
-        this.$props.data || type === 'multifree' || type === 'multireserved'
+        this.$props.data ||
+          type === 'multifree' ||
+          type === 'multireserved' ||
+          type === 'free'
       "
     >
       <div v-if="type === 'reserved'">
