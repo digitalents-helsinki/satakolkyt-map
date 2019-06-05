@@ -42,6 +42,7 @@
       />
       <div v-if="showInfoBox" class="infoBoxWrapper">
         <InfoBox
+          :key="infoBoxKey"
           :data="infoBoxData"
           :type="selectedShoreType"
           @infobox-close="unSelect"
@@ -88,9 +89,10 @@ export default {
       selectedShoreData: [],
       selectedShoreType: '',
 
-      //Infobox
+      //Infobox (key for key hack to refresh)
       showInfoBox: false,
       infoBoxData: null,
+      infoBoxKey: 0,
 
       showPrivacyInfo: false,
 
@@ -220,6 +222,7 @@ export default {
           )
       }
       this.showInfoBox = true
+      this.infoBoxKey++
     },
     selectCleaned(data) {
       if (
@@ -234,6 +237,7 @@ export default {
       this.selectedShoreData.push(data)
       this.selectedShoreType = 'cleaned'
       this.showInfoBox = true
+      this.infoBoxKey++
       axios
         .get(process.env.VUE_APP_URL + '/api/map/cleanedinfo/' + data.key)
         .then(
@@ -283,6 +287,7 @@ export default {
         }
       }
       this.showInfoBox = true
+      this.infoBoxKey++
     },
     unSelect() {
       this.showInfoBox = false
