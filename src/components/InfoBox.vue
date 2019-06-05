@@ -18,7 +18,11 @@
         @click="$emit('infobox-close')"
       />
     </div>
-    <div v-if="this.$props.data">
+    <div
+      v-if="
+        this.$props.data || type === 'multifree' || type === 'multireserved'
+      "
+    >
       <div v-if="type === 'reserved'">
         <h1>{{ $t('message.reserved_shore') }}</h1>
         <h2>
@@ -70,7 +74,7 @@
         <h1>{{ $t('message.free_shore') }}</h1>
         <p>{{ $t('message.come_clean') }}</p>
       </div>
-      <div v-if="type === 'multifree' || type === 'multireserved'">
+      <div v-if="type === 'multireserved' || type === 'multifree'">
         <h1>Olet valinnut {{ num }} rantaa</h1>
       </div>
     </div>
