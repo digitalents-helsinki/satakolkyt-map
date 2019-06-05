@@ -178,11 +178,30 @@ export default {
       this.showModal = !this.showModal
     },
     selectReserved(data) {
+      const newarray = []
+      let unselect = false
+      for (let s of this.selectedShoreData) {
+        if (s.key === data.key) {
+          this.$refs.usermap.unHighlight(data.key)
+          unselect = true
+        } else {
+          newarray.push(s)
+        }
+      }
+      if (unselect) {
+        if (newarray.length === 0) {
+          this.unSelect()
+          return
+        }
+        this.selectedShoreData = newarray
+        return
+      }
       if (this.selectedShoreType === 'cleaned') {
         this.infoBoxData = null
         this.selectedShoreData = []
         this.selectedShoreType = null
       }
+      this.$refs.usermap.highlight(data.key, 'reservedShore')
       this.selectedShoreData.push(data)
       if (this.selectedShoreData.length > 1) {
         this.selectedShoreType = 'multireserved'
@@ -200,11 +219,18 @@ export default {
             }
           )
       }
-      console.log(this.selectedShoreType)
       this.showInfoBox = true
     },
     selectCleaned(data) {
+      if (
+        this.selectedShoreData.length > 0 &&
+        this.selectedShoreData[0].key === data.key
+      ) {
+        this.unSelect()
+        return
+      }
       this.infoBoxData = null
+      this.$refs.usermap.highlight(data.key, 'cleanedShore')
       this.selectedShoreData.push(data)
       this.selectedShoreType = 'cleaned'
       this.showInfoBox = true
@@ -218,14 +244,32 @@ export default {
             console.log(err)
           }
         )
-      console.log(this.selectedShoreType)
     },
     selectFree(data) {
+      const newarray = []
+      let unselect = false
+      for (let s of this.selectedShoreData) {
+        if (s.key === data.key) {
+          this.$refs.usermap.unHighlight(data.key)
+          unselect = true
+        } else {
+          newarray.push(s)
+        }
+      }
+      if (unselect) {
+        if (newarray.length === 0) {
+          this.unSelect()
+          return
+        }
+        this.selectedShoreData = newarray
+        return
+      }
       if (this.selectedShoreType === 'cleaned') {
         this.infoBoxData = null
         this.selectedShoreData = []
         this.selectedShoreType = null
       }
+      this.$refs.usermap.highlight(data.key, 'freeShore')
       this.selectedShoreData.push(data)
       if (this.selectedShoreType !== 'multireserved') {
         if (this.selectedShoreType === 'reserved') {
@@ -238,7 +282,6 @@ export default {
           this.infoBoxData = data
         }
       }
-      console.log(this.selectedShoreType)
       this.showInfoBox = true
     },
     unSelect() {

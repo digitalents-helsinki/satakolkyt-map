@@ -109,9 +109,6 @@ export default {
         const clickedShore = e.features[0]
         const clickpos = [e.lngLat.lng, e.lngLat.lat]
 
-        //highlight clicked feature:
-        this.highlight(clickedShore.id, shoretype + 'Shore')
-
         //zoom to on map where we clicked:
         map.flyTo({ center: clickpos, zoom: 15 })
 
@@ -130,6 +127,7 @@ export default {
       const newlist = []
       for (let s of this.selected) {
         if (id === s.id) {
+          console.log('unhighlight')
           this.map.setFeatureState(
             { source: s.layer, id: s.id },
             { selected: false }
