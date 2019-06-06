@@ -387,7 +387,8 @@ export default {
         kurtturuusu: 'no',
         jattipalsami: 'no',
         kurtturuusu_detail: '',
-        jattipalsami_detail: ''
+        jattipalsami_detail: '',
+        multiID: this.randString(12)
       },
       privacy_permission: false,
       saved: false,
@@ -429,6 +430,15 @@ export default {
             })
         }
       }
+    },
+    randString(len) {
+      const chars =
+        'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ0123456789'
+      const rs = []
+      for (let i = 0; i < len; i++) {
+        rs.push(chars.charAt(Math.floor(Math.random() * chars.length)))
+      }
+      return rs.join('')
     },
     toNextPage(e) {
       if (e.target.form.reportValidity()) {

@@ -295,7 +295,8 @@ export default {
         openlink: '',
         name: '',
         email: '',
-        phonenumber: ''
+        phonenumber: '',
+        multiID: this.randString(12)
       },
       privacy_permission: false
     }
@@ -342,6 +343,15 @@ export default {
           })
         }
       }
+    },
+    randString(len) {
+      const chars =
+        'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ0123456789'
+      const rs = []
+      for (let i = 0; i < len; i++) {
+        rs.push(chars.charAt(Math.floor(Math.random() * chars.length)))
+      }
+      return rs.join('')
     },
     reservationOk() {
       this.loading = false
