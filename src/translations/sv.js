@@ -30,6 +30,7 @@ export const sv = {
     contact: 'Kontakt person',
     close: 'Stäng',
     claim_clean: 'Rapporttera en städad strand',
+    cleam_clean_multi: 'Rapportera städade stränder',
     shore_cleaner_fill:
       'Kontaktinformation kommer inte att vara offentligt synlig.',
     trash_count: 'Hur mycket skräp var det?',

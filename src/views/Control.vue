@@ -437,7 +437,7 @@ export default {
     unSelect() {
       this.selectedShoreData = null
       this.mapOverlayAction = null
-      this.$refs.adminmap.unRenderSelected()
+      this.$refs.adminmap.unHighlightAll()
     },
     signin() {
       axios
@@ -489,7 +489,7 @@ export default {
       this.showCleanConfirmConfirmation = true
     },
     shoreHidden(data) {
-      this.$refs.adminmap.unRenderSelected()
+      this.$refs.adminmap.unHighlightAll()
       this.selectedShoreData = null
       this.mapOverlayAction = null
 
@@ -503,7 +503,7 @@ export default {
       this.$refs.adminmap.addSegmentToLayer('hiddenShore', 'hiddenlayer', data)
     },
     shoreUnhidden(data) {
-      this.$refs.adminmap.unRenderSelected()
+      this.$refs.adminmap.unHighlightAll()
       this.selectedShoreData = null
       this.mapOverlayAction = null
 
@@ -650,18 +650,18 @@ export default {
         })
     },
     showreservation(ev) {
-      this.$refs.adminmap.unRenderSelected()
+      this.$refs.adminmap.unHighlightAll()
 
       let data = this.$store.state.maplayers['reservedlayer'].find(e => {
         return e._key === ev.target.id
       })
       if (data) {
-        this.$refs.adminmap.renderSelected(ev.target.id, 'reservedShore')
+        this.$refs.adminmap.highlight(ev.target.id, 'reservedShore')
       } else {
         data = this.$store.state.maplayers['cleanlayer'].find(e => {
           return e._key === ev.target.id
         })
-        this.$refs.adminmap.renderSelected(ev.target.id, 'cleanedShore')
+        this.$refs.adminmap.highlight(ev.target.id, 'cleanedShore')
       }
 
       this.map.flyTo({
@@ -673,8 +673,8 @@ export default {
       })
     },
     showcleaned(ev) {
-      this.$refs.adminmap.unRenderSelected()
-      this.$refs.adminmap.renderSelected(ev.target.id, 'cleanedShore')
+      this.$refs.adminmap.unHighlightAll()
+      this.$refs.adminmap.highlight(ev.target.id, 'cleanedShore')
 
       const data = this.$store.state.maplayers['cleanlayer'].find(e => {
         return e._key === ev.target.id

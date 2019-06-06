@@ -50,10 +50,7 @@ export default {
         show: true,
         position: 'top-right'
       },
-      selected: {
-        layer: null,
-        id: null
-      },
+      selected: [],
       hoveredIds: {},
       vh: 0
     }
@@ -98,14 +95,19 @@ export default {
     },
     addShoreClickHandler(map, shoretype) {
       map.on('click', shoretype + 'Shore', e => {
-        //shoretype was clicked on, so it was selected
-        this.unRenderSelected()
+        //remove highlighting on all shores if we clicked on a non-free, non-reserved shore or
+        //if a non-free, non-reserved shore was already highlighted
+        if (
+          this.selected[0] &&
+          ((shoretype !== 'free' && shoretype !== 'reserved') ||
+            (this.selected[0].layer !== 'freeShore' &&
+              this.selected[0].layer !== 'reservedShore'))
+        ) {
+          this.unHighlightAll()
+        }
 
         const clickedShore = e.features[0]
         const clickpos = [e.lngLat.lng, e.lngLat.lat]
-
-        //highlight clicked feature:
-        this.renderSelected(clickedShore.id, shoretype + 'Shore')
 
         //zoom to on map where we clicked:
         map.flyTo({ center: clickpos, zoom: 15 })
@@ -114,23 +116,35 @@ export default {
         this.$emit(shoretype + '-click', clickedShore.properties)
       })
     },
-    renderSelected(id, layername) {
-      this.selected.layer = layername
-      this.selected.id = id
+    highlight(id, layername) {
+      this.selected.push({ id: id, layer: layername })
       this.map.setFeatureState(
         { source: layername, id: id },
         { selected: true }
       )
     },
-    unRenderSelected() {
-      if (this.selected.id) {
+    unHighlight(id) {
+      const newlist = []
+      for (let s of this.selected) {
+        if (id === s.id) {
+          this.map.setFeatureState(
+            { source: s.layer, id: s.id },
+            { selected: false }
+          )
+        } else {
+          newlist.push(s)
+        }
+      }
+      this.selected = newlist
+    },
+    unHighlightAll() {
+      for (let s of this.selected) {
         this.map.setFeatureState(
-          { source: this.selected.layer, id: this.selected.id },
+          { source: s.layer, id: s.id },
           { selected: false }
         )
-        this.selected.layer = null
-        this.selected.id = null
       }
+      this.selected = []
     },
     onZoom(map) {
       const MAX_ZOOM = 20

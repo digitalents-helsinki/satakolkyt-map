@@ -295,7 +295,8 @@ export default {
         openlink: '',
         name: '',
         email: '',
-        phonenumber: ''
+        phonenumber: '',
+        multiID: this.randString(12)
       },
       privacy_permission: false
     }
@@ -304,9 +305,6 @@ export default {
     const date = new Date()
     date.setDate(date.getDate() - 1)
     this.disabledDates.to = date
-  },
-  mounted() {
-    this.reservationdata.selected = this.$props.selected
   },
   methods: {
     toNextPage(e) {
@@ -338,11 +336,22 @@ export default {
           this.reservationdata.starttime.HH +
           ':' +
           this.reservationdata.starttime.mm
-        this.$emit('reservation-action', {
-          data: reservation,
-          okCB: this.reservationOk
-        })
+        for (let s of this.selected) {
+          this.$emit('reservation-action', {
+            data: { ...reservation, selected: s },
+            okCB: this.reservationOk
+          })
+        }
       }
+    },
+    randString(len) {
+      const chars =
+        'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ0123456789'
+      const rs = []
+      for (let i = 0; i < len; i++) {
+        rs.push(chars.charAt(Math.floor(Math.random() * chars.length)))
+      }
+      return rs.join('')
     },
     reservationOk() {
       this.loading = false

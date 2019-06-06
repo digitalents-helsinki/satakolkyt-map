@@ -44,6 +44,7 @@
         <InfoBox
           :data="infoBoxData"
           :type="selectedShoreType"
+          :num="selectedShoreData.length"
           @infobox-close="unSelect"
         />
       </div>
@@ -84,11 +85,8 @@ export default {
       showCleaned: false,
       showReservationForm: false,
 
-      reservedInfo: null,
-      cleanedInfo: null,
-
       // Selected Shore
-      selectedShoreData: null,
+      selectedShoreData: [],
       selectedShoreType: '',
 
       //Infobox
@@ -181,10 +179,26 @@ export default {
       this.showModal = !this.showModal
     },
     selectReserved(data) {
-      this.infoBoxData = null
-      this.selectedShoreData = data
-      this.selectedShoreType = 'reserved'
+      if (this.reSelected(data)) {
+        return
+      }
+      if (this.selectedShoreType === 'cleaned') {
+        this.infoBoxData = null
+        this.selectedShoreData = []
+        this.selectedShoreType = null
+      }
+      this.$refs.usermap.highlight(data.key, 'reservedShore')
+      this.selectedShoreData.push({ ...data, type: 'reserved' })
+      if (this.selectedShoreData.length > 1) {
+        this.selectedShoreType = 'multireserved'
+        this.infoBoxData = null
+      } else {
+        this.selectedShoreType = 'reserved'
+        this.getReservationInfo(data)
+      }
       this.showInfoBox = true
+    },
+    getReservationInfo(data) {
       axios
         .get(process.env.VUE_APP_URL + '/api/map/reservedinfo/' + data.key)
         .then(
@@ -197,10 +211,22 @@ export default {
         )
     },
     selectCleaned(data) {
+      this.selectedShoreData = []
+      if (
+        this.selectedShoreData.length > 0 &&
+        this.selectedShoreData[0].key === data.key
+      ) {
+        this.unSelect()
+        return
+      }
       this.infoBoxData = null
-      this.selectedShoreData = data
+      this.$refs.usermap.highlight(data.key, 'cleanedShore')
+      this.selectedShoreData.push(data)
       this.selectedShoreType = 'cleaned'
       this.showInfoBox = true
+      this.getCleanInfo(data)
+    },
+    getCleanInfo(data) {
       axios
         .get(process.env.VUE_APP_URL + '/api/map/cleanedinfo/' + data.key)
         .then(
@@ -213,18 +239,71 @@ export default {
         )
     },
     selectFree(data) {
-      this.infoBoxData = null
-      this.selectedShoreData = data
-      this.selectedShoreType = 'free'
-      this.infoBoxData = data
+      if (this.reSelected(data)) {
+        return
+      }
+      if (this.selectedShoreType === 'cleaned') {
+        this.infoBoxData = null
+        this.selectedShoreData = []
+        this.selectedShoreType = null
+      }
+      this.$refs.usermap.highlight(data.key, 'freeShore')
+      this.selectedShoreData.push({ ...data, type: 'free' })
+      if (this.selectedShoreType !== 'multireserved') {
+        if (this.selectedShoreType === 'reserved') {
+          this.selectedShoreType = 'multireserved'
+        } else if (this.selectedShoreData.length > 1) {
+          this.selectedShoreType = 'multifree'
+        } else {
+          this.selectedShoreType = 'free'
+        }
+      }
       this.showInfoBox = true
+    },
+    reSelected(data) {
+      const newarray = []
+      let unselect = false
+      for (let s of this.selectedShoreData) {
+        if (s.key === data.key) {
+          this.$refs.usermap.unHighlight(data.key)
+          unselect = true
+        } else {
+          newarray.push(s)
+        }
+      }
+      if (unselect) {
+        if (newarray.length === 0) {
+          this.unSelect()
+          return true
+        }
+        if (newarray.length === 1) {
+          this.selectedShoreType = newarray[0].type
+          if (this.selectedShoreType == 'reserved') {
+            this.getReservationInfo(newarray[0])
+          }
+        } else {
+          let includesreserved = false
+          for (let s of newarray) {
+            if (s.type === 'reserved') {
+              includesreserved = true
+              break
+            }
+          }
+          this.selectedShoreType = includesreserved
+            ? 'multireserved'
+            : 'multifree'
+        }
+        this.selectedShoreData = newarray
+        return true
+      }
+      return false
     },
     unSelect() {
       this.showInfoBox = false
       this.infoBoxData = null
-      this.selectedShoreData = null
+      this.selectedShoreData = []
       this.selectedShoreType = null
-      this.$refs.usermap.unRenderSelected()
+      this.$refs.usermap.unHighlightAll()
     },
     getStepsKm() {
       axios.get(process.env.VUE_APP_URL + '/api/map/stepskm/').then(
