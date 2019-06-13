@@ -151,7 +151,7 @@ export const fi = {
       `Rantaviiva on jaettu kartalla noin 100 metrin paloihin. Jos haluat siivota 
       useamman rantaosuuden, tee jokaisesta osuudesta erillinen ilmoitus. 
       Mahdollisuus varata useampi rantaosuus samalla lomakkeella on tulossa! 
-      Siivottu ranta säilyy kartalla vihreänä 2 kuukautta.`,
+      Siivottu ranta säilyy kartalla vihreänä 3 kuukautta.`,
       `Lintujen pesimäaikaan 15.3.-15.8. talkoita ei saa järjestää lintujen 
       pesimäalueilla. Kartalta on siksi poistettu rauhoitusajaksi 
       luonnonsuojelualueita, joilla pesii paljon lintuja (esim. Vanhankaupunginlahti).`,
@@ -166,6 +166,7 @@ export const fi = {
     remove_old_cleanings: 'Arkistoi yli 3kk vanhat siivoukset',
     old_first: 'Vanhat ensin',
     new_first: 'Uudet ensin',
-    reservation_open: 'Tämä ranta on varattu vapaisiin talkoisiin.'
+    reservation_open:
+      'Tämä ranta on varattu kaikille avoimiin talkoisiin. Tervetuloa mukaan!'
   }
 }
