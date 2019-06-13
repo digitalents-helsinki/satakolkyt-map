@@ -156,6 +156,7 @@ export const en = {
     remove_old_cleanings: 'Archive cleanings over 3mo old',
     old_first: 'Old first',
     new_first: 'New first',
-    reservation_open: 'This shore is reserved for an open cleanup event.'
+    reservation_open:
+      'This shore is reserved for an free for all cleanup event. Welcome!'
   }
 }

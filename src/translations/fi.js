@@ -166,6 +166,7 @@ export const fi = {
     remove_old_cleanings: 'Arkistoi yli 3kk vanhat siivoukset',
     old_first: 'Vanhat ensin',
     new_first: 'Uudet ensin',
-    reservation_open: 'Tämä ranta on varattu vapaisiin talkoisiin.'
+    reservation_open:
+      'Tämä ranta on varattu kaikille avoimiin talkoisiin. Tervetuloa mukaan!'
   }
 }

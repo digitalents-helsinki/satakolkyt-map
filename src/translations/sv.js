@@ -155,6 +155,6 @@ export const sv = {
     old_first: 'Gamla först',
     new_first: 'Nya första',
     reservation_open:
-      'Denna strand är reserverad för en öppen rengöring händelse.'
+      'Denna strand är reserverad för en öppen rengöring händelse. Välkommen!'
   }
 }
