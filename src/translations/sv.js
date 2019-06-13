@@ -151,7 +151,7 @@ export const sv = {
     help_phone: 'SV: puh.',
     powered_by: 'App drivs av:',
     remove_old_reservations: 'Ta bort gamla reservationer',
-    remove_old_cleanings: 'SV:[Arkistoi] rengöringarna äldre än 2mån',
+    remove_old_cleanings: 'SV:[Arkistoi] rengöringarna äldre än 3mån',
     old_first: 'Gamla först',
     new_first: 'Nya första',
     reservation_open:
