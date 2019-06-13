@@ -461,12 +461,16 @@ export default {
       this.map = map
     },
     populateSelectedShoreData(data) {
+      this.unSelect()
       this.selectedShoreData = data
       this.mapOverlayAction = 'hide'
+      this.$refs.adminmap.highlight(data.key, 'freeShore')
     },
     populateSelectedHiddenShoreData(data) {
+      this.unSelect()
       this.selectedShoreData = data
       this.mapOverlayAction = 'unhide'
+      this.$refs.adminmap.highlight(data.key, 'hiddenShore')
     },
     toggleReservationList() {
       this.showCleanedShores = false
