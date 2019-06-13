@@ -761,8 +761,11 @@ export default {
 
 .clean-saved img {
   max-width: 300px;
+  max-height: 300px;
+  min-height: 150px;
+  height: 30vh;
   display: block;
-  margin: 50px auto 30px auto;
+  margin: 3vh auto 6vh auto;
 }
 
 .clean-saved button {
