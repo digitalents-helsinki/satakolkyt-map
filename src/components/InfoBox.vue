@@ -47,6 +47,9 @@
               {{ $t('message.at') }} {{ this.$props.data.starttime }} -
               {{ this.$props.data.endtime }}
             </h4>
+            <h4 v-else>
+              {{ this.$props.data.startdate | moment('DD.MM.YYYY') }}
+            </h4>
           </div>
           <div v-if="this.$props.data.openevent" class="openinfo">
             <p>
