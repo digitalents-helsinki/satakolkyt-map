@@ -22,7 +22,7 @@
           >
           </admin-shore-info>
         </div>
-        <div class="counter" :class="{ hide: this.$props.data && !adminmode }">
+        <div class="counter" :class="{ hide: seltype && !adminmode }">
           <div class="stepcount green">
             <ICountUp :endVal="counterSteps" :options="countOptions" />
           </div>
