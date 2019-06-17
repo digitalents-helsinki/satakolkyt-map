@@ -1,0 +1,134 @@
+[
+  {
+    "coords": {
+      "lat": 60.196887,
+      "long": 24.875837
+    },
+    "name": "Munkkiniemen kirjasto",
+    "address": "Riihitie 22",
+    "email": "munkkiniemen_kirjasto@hel.fi",
+    "phone": "(09) 310 85033",
+    "site": "https://www.helmet.fi/fi-FI/Kirjastot_ja_palvelut/Munkkiniemen_kirjasto"
+  },
+  {
+    "coords": {
+      "lat": 60.183356,
+      "long": 24.917504
+    },
+    "name": "Töölön kirjasto",
+    "address": "Topeliuksenkatu 6",
+    "email": "toolon_kirjasto@hel.fi",
+    "phone": "(09) 310 85925",
+    "site": "https://www.helmet.fi/fi-FI/Kirjastot_ja_palvelut/Toolon_kirjasto"
+  },
+  {
+    "coords": {
+      "lat": 60.16001,
+      "long": 24.920939
+    },
+    "name": "Jätkäsaaren kirjasto",
+    "address": "Tyynenmerenkatu 1",
+    "email": "jatkasaaren_kirjasto@hel.fi",
+    "phone": "(09) 310 85815",
+    "site": "https://www.helmet.fi/fi-FI/Kirjastot_ja_palvelut/Jatkasaaren_kirjasto_ja_infokeskus"
+  },
+  {
+    "coords": {
+      "lat": 60.1585,
+      "long": 24.88347
+    },
+    "name": "Lauttasaaren kirjasto",
+    "address": "Pajalahdentie 10a",
+    "email": "lauttasaaren_kirjasto@hel.fi",
+    "phone": " - ",
+    "site": "https://www.helmet.fi/fi-FI/Kirjastot_ja_palvelut/Lauttasaaren_kirjasto"
+  },
+  {
+    "coords": {
+      "lat": 60.173682,
+      "long": 24.938083
+    },
+    "name": "Keskustakirjasto Oodi",
+    "address": "Töölönlahdenkatu 4",
+    "email": "oodi@hel.fi",
+    "phone": "(09) 310 85000",
+    "site": "https://www.helmet.fi/fi-FI/Kirjastot_ja_palvelut/Keskustakirjasto_Oodi"
+  },
+  {
+    "coords": {
+      "lat": 60.208731,
+      "long": 24.975589
+    },
+    "name": "Arabianrannan kirjasto",
+    "address": "Hämeentie 135 A",
+    "email": "arabianrannan_kirjasto@hel.fi",
+    "phone": "(09) 310 85056",
+    "site": "https://www.helmet.fi/fi-FI/Kirjastot_ja_palvelut/Arabianrannan_kirjasto"
+  },
+  {
+    "coords": {
+      "lat": 60.227578,
+      "long": 25.012883
+    },
+    "name": "Viikin kirjasto",
+    "address": "Viikinkaari 11 A",
+    "email": "viikin_kirjasto@hel.fi",
+    "phone": "(09) 310 85071",
+    "site": "https://www.helmet.fi/fi-FI/Kirjastot_ja_palvelut/Viikin_kirjasto"
+  },
+  {
+    "coords": {
+      "lat": 60.206985,
+      "long": 25.03767
+    },
+    "name": "Herttoniemen kirjasto",
+    "address": "Kettutie 8 C",
+    "email": "herttoniemen_kirjasto@hel.fi",
+    "phone": "(09) 310 85080",
+    "site": "https://www.helmet.fi/fi-FI/Kirjastot_ja_palvelut/Herttoniemen_kirjasto"
+  },
+  {
+    "coords": {
+      "lat": 60.211893,
+      "long": 25.080518
+    },
+    "name": "Itäkeskuksen kirjasto",
+    "address": "Turunlinnantie 1",
+    "email": "itakeskuksen_kirjasto@hel.fi",
+    "phone": "(09) 310 85090",
+    "site": "https://www.helmet.fi/fi-FI/Kirjastot_ja_palvelut/Itakeskuksen_kirjasto"
+  },
+  {
+    "coords": {
+      "lat": 60.194602,
+      "long": 25.052735
+    },
+    "name": "Roihuvuoren kirjasto",
+    "address": "Roihuvuorentie 2",
+    "email": "roihuvuoren_kirjasto@hel.fi",
+    "phone": "(09) 310 85082",
+    "site": "https://www.helmet.fi/fi-FI/Kirjastot_ja_palvelut/Roihuvuoren_kirjasto"
+  },
+  {
+    "coords": {
+      "lat": 60.179776,
+      "long": 25.051394
+    },
+    "name": "Laajasalon kirjasto",
+    "address": "Yliskylän puistokatu 4",
+    "email": "laajasalon_kirjasto@hel.fi",
+    "phone": "(09) 310 85084",
+    "site": "https://www.helmet.fi/fi-FI/Kirjastot_ja_palvelut/Laajasalon_kirjasto"
+  },
+  {
+    "coords": {
+      "lat": 60.208799,
+      "long": 25.143313
+    },
+    "name": "Vuosaaren kirjasto",
+    "address": "Mosaiikkitori 2",
+    "email": "vuosaaren_kirjasto@hel.fi",
+    "phone": "(09) 310 85098",
+    "site": "https://www.helmet.fi/fi-FI/Kirjastot_ja_palvelut/Vuosaaren_kirjasto"
+  }
+]

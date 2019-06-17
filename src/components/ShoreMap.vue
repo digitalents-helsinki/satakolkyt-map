@@ -15,6 +15,7 @@
 <script>
 /* eslint-disable */
 import MapBox from 'mapbox-gl-vue'
+import libraries from '../libraries.json'
 
 export default {
   name: 'shore-map',
@@ -230,6 +231,29 @@ export default {
         map.resize()
       })
 
+      for (let lib of libraries) {
+        const el = document.createElement('div')
+        el.className = 'marker'
+        el.textContent = 'X'
+        const pop = new mapboxgl.Popup({
+          closeButton: false,
+          maxWidth: '320px'
+        }).setHTML(`
+          <h1>Talkootarvikkeiden lainaus</h1>
+          <h2>${lib.name}</h2>
+          <h3>${lib.address}</h3>
+          <h3>&#128231; ${lib.email}</h3>
+          <h3>&#128222; ${lib.phone}</h3>
+          <a href="${
+            lib.site
+          }" target="_blank">Lisätietoja, kuten aukioloajat, löydät kirjaston sivuilta</a>
+        `)
+        new mapboxgl.Marker(el)
+          .setLngLat([lib.coords.long, lib.coords.lat])
+          .setPopup(pop)
+          .addTo(map)
+      }
+
       map.addControl(
         new mapboxgl.AttributionControl({ compact: false }),
         'bottom-right'
@@ -300,6 +324,46 @@ export default {
   position: relative;
   height: 100%;
   cursor: pointer;
+
+  .marker {
+    //temp styling, make nicer
+    width: 25px;
+    border-radius: 50%;
+    border: 2px solid #333;
+    background-color: #eee350;
+    color: green;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .mapboxgl-popup-content {
+    min-width: 200px;
+    padding: 20px;
+
+    h1 {
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 8px 0;
+    }
+
+    a {
+      display: block;
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
 }
 #map {
   width: 100%;
