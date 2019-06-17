@@ -234,7 +234,8 @@ export default {
       for (let lib of libraries) {
         const el = document.createElement('div')
         el.className = 'marker'
-        el.textContent = 'X'
+        //el.innerHTML = '&#128214;'
+        el.innerHTML = '&#128295;'
         const pop = new mapboxgl.Popup({
           closeButton: false,
           maxWidth: '320px'
@@ -326,13 +327,14 @@ export default {
   cursor: pointer;
 
   .marker {
-    //temp styling, make nicer
-    width: 25px;
+    cursor: pointer;
+    padding-top: 4px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    border: 2px solid #333;
+    border: 2px solid #555;
     background-color: #eee350;
-    color: green;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: bold;
     text-align: center;
   }
@@ -340,6 +342,9 @@ export default {
   .mapboxgl-popup-content {
     min-width: 200px;
     padding: 20px;
+    background-color: #eee350;
+    cursor: default;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 
     h1 {
       font-size: 22px;
@@ -363,6 +368,10 @@ export default {
       font-size: 16px;
       font-weight: bold;
     }
+  }
+
+  .mapboxgl-popup-tip {
+    border-top-color: #555;
   }
 }
 #map {
