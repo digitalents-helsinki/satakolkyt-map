@@ -86,7 +86,6 @@ export const fi = {
     cancel_reservation: 'Poista Vahvistus',
     submit_permission_text:
       'Hyväksyn rekisteriselosteen mukaisen tietojeni käytön.',
-    shores: 'Rantaviiva',
     shorescleaned: 'Siivottu',
     shoresreserved: 'Talkoot tulossa',
     shoresfree: 'Siivoamaton',

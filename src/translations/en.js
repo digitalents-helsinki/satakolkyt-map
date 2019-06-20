@@ -85,7 +85,6 @@ export const en = {
     cancel_reservation: 'Cancel Reservation',
     submit_permission_text:
       'I accept the use of my data per the privacy policy',
-    shores: 'Shores',
     shorescleaned: 'Cleaned',
     shoresreserved: 'Upcoming cleanup',
     shoresfree: 'Uncleaned',

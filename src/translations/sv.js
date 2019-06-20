@@ -88,7 +88,6 @@ export const sv = {
     cancel_reservation: 'Avbryt bokningen',
     submit_permission_text:
       'Jag accepterar användningen av mina uppgifter i enlighet med integritetspolicyen.',
-    shores: 'Stränder',
     shorescleaned: 'Rengöras',
     shoresreserved: 'Kommande rengöring',
     shoresfree: 'Ej rengjorda',

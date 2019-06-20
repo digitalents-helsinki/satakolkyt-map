@@ -231,11 +231,12 @@ export default {
         map.resize()
       })
 
+      //Add library/equipment loan markers
       for (let lib of libraries) {
         const el = document.createElement('div')
         el.className = 'marker'
         //el.innerHTML = '&#128214;'
-        el.innerHTML = '&#128295;'
+        //el.innerHTML = '&#128295;'
         const pop = new mapboxgl.Popup({
           closeButton: false,
           maxWidth: '320px'
@@ -328,15 +329,16 @@ export default {
 
   .marker {
     cursor: pointer;
-    padding-top: 4px;
-    width: 30px;
-    height: 30px;
+    //padding-top: 4px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    border: 2px solid #555;
-    background-color: #eee350;
-    font-size: 19px;
-    font-weight: bold;
-    text-align: center;
+    border: 3px dotted #ddc;
+    //background-color: #eee350;
+    background-color: #933486;
+    //font-size: 19px;
+    //font-weight: bold;
+    //text-align: center;
   }
 
   .mapboxgl-popup-content {
@@ -371,7 +373,8 @@ export default {
   }
 
   .mapboxgl-popup-tip {
-    border-top-color: #555;
+    //border-top-color: #555;
+    border-top-color: #eee350;
   }
 }
 #map {

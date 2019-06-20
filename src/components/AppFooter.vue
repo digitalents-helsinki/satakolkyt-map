@@ -51,9 +51,22 @@
               {{ legendmobilehidden ? '&#9650;' : '&#9660;' }}
             </div>
           </div>
-          <h6 class="title">{{ $t('message.shores') }}:</h6>
         </div>
         <div class="images">
+          <div class="iconlegend">
+            <div class="library">
+              <div class="libraryicon-container">
+                <div class="libraryicon"></div>
+              </div>
+              <h6>Tarvikkeiden lainaus</h6>
+            </div>
+            <div class="trashcans">
+              <div class="trashcanicon">
+                &#128465;
+              </div>
+              <h6>Jäteastiat</h6>
+            </div>
+          </div>
           <div class="free">
             <img src="../Icons/red.svg" alt="" />
             {{ $t('message.shoresfree') }}
@@ -233,6 +246,36 @@ export default {
       height: 10px;
     }
     .images {
+      .iconlegend {
+        .library,
+        .trashcans {
+          display: flex;
+          margin-bottom: 15px;
+          align-items: center;
+
+          .libraryicon-container,
+          .trashcanicon {
+            margin-right: 10px;
+
+            .libraryicon {
+              width: 18px;
+              height: 18px;
+              background-color: #933486;
+              border: 3px dotted #ddc;
+              border-radius: 50%;
+            }
+          }
+
+          .trashcanicon {
+            font-size: 14px;
+            padding: 3px 2px;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: white;
+          }
+        }
+      }
+
       .free {
         margin: 20px 0 5px 0;
       }
@@ -338,7 +381,7 @@ export default {
       bottom: 64px;
       width: 45%;
       max-width: 200px;
-      height: 190px;
+      height: 250px;
       min-height: 0;
       pointer-events: all;
       cursor: pointer;
@@ -346,41 +389,44 @@ export default {
 
       .container {
         margin-left: 10px;
-      }
 
-      .header {
-        font-size: 14px;
-        margin: 10px 0;
-
-        .title {
-          padding-top: 7px;
-          border-top: 1px solid black;
-        }
-
-        .hideable {
-          display: block;
-        }
-      }
-
-      .images {
-        .img {
-          max-width: 40px;
-        }
-
-        .free {
-          margin: 0 0 5px 0;
+        .header {
           font-size: 14px;
+          margin: 10px 0;
+
+          .hideable {
+            display: block;
+          }
         }
 
-        .reserved,
-        .cleaned {
-          margin: 15px 0;
-          font-size: 14px;
-        }
+        .images {
+          .iconlegend {
+            margin-top: 20px;
 
-        .come-clean {
-          margin: 0;
-          font-size: 11px;
+            h6 {
+              font-size: 14px;
+            }
+          }
+
+          .img {
+            max-width: 40px;
+          }
+
+          .free {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+          }
+
+          .reserved,
+          .cleaned {
+            margin: 15px 0;
+            font-size: 14px;
+          }
+
+          .come-clean {
+            margin: 0;
+            font-size: 11px;
+          }
         }
       }
     }
