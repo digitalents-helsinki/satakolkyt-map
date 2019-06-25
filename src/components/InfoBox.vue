@@ -83,7 +83,7 @@
         <p>{{ $t('message.come_clean') }}</p>
       </div>
       <div v-if="type === 'multireserved' || type === 'multifree'">
-        <h1>Olet valinnut {{ num }} rantaa</h1>
+        <h1>Olet valinnut noin {{ selLen }} metriä rantaa</h1>
       </div>
     </div>
   </div>
@@ -95,7 +95,15 @@ import Spinner from '@/components/Spinner'
 export default {
   name: 'infobox',
   components: { Spinner },
-  props: ['type', 'data', 'num'],
+  props: ['type', 'data', 'shores'],
+  computed: {
+    selLen() {
+      const val = this.shores.reduce((acc, shore) => {
+        return acc + parseFloat(shore.length)
+      }, 0)
+      return Math.round(val)
+    }
+  },
   methods: {
     stripProtocol: function() {
       if (
