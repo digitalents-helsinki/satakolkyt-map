@@ -54,7 +54,8 @@ export default {
       },
       selected: [],
       hoveredIds: {},
-      vh: 0
+      vh: 0,
+      trashmarkers: null
     }
   },
   methods: {
@@ -257,14 +258,6 @@ export default {
           .addTo(map)
       }
 
-      //add trash bin markers
-      for (let bin of trashbins.features) {
-        const el = document.createElement('div')
-        el.className = 'trashbin'
-        el.innerHTML = '&#128465;'
-        new mapboxgl.Marker(el).setLngLat(bin.geometry.coordinates).addTo(map)
-      }
-
       map.addControl(
         new mapboxgl.AttributionControl({ compact: false }),
         'bottom-right'
@@ -324,6 +317,30 @@ export default {
         this.addHoverHandler(canv, 'cleanedShore')
       } else {
         this.addHoverHandler(canv, 'hiddenShore')
+      }
+    },
+    addTrashBins() {
+      if (this.trashmarkers) {
+        for (let m of this.trashmarkers) {
+          m.addTo(this.map)
+        }
+      } else {
+        this.trashmarkers = []
+        const bins = trashbins.features
+        for (let i = 0; i < bins.length; i++) {
+          const el = document.createElement('div')
+          el.className = 'trashbin'
+          el.innerHTML = '&#128465;'
+          const mark = new mapboxgl.Marker(el)
+            .setLngLat(bins[i].geometry.coordinates)
+            .addTo(this.map)
+          this.trashmarkers[i] = mark
+        }
+      }
+    },
+    removeTrashBins() {
+      for (let m of this.trashmarkers) {
+        m.remove()
       }
     }
   }

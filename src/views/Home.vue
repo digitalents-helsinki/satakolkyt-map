@@ -48,6 +48,15 @@
           @infobox-close="unSelect"
         />
       </div>
+      <div class="trashtoggle">
+        <label for="trashcb">Näytä jäteastiat</label>
+        <input
+          type="checkbox"
+          id="trashcb"
+          v-model="showTrashBins"
+          @change="toggleTrashBins"
+        />
+      </div>
     </div>
     <div
       v-show="showPrivacyInfo"
@@ -94,6 +103,8 @@ export default {
       infoBoxData: null,
 
       showPrivacyInfo: false,
+
+      showTrashBins: false,
 
       //Footer counter stuff
       counterSteps: null,
@@ -315,6 +326,13 @@ export default {
           console.log(err)
         }
       )
+    },
+    toggleTrashBins(ev) {
+      if (this.showTrashBins) {
+        this.$refs.usermap.addTrashBins()
+      } else {
+        this.$refs.usermap.removeTrashBins()
+      }
     }
   },
 
@@ -394,6 +412,18 @@ export default {
     left: 50px;
     bottom: 130px;
     z-index: 2;
+  }
+
+  .trashtoggle {
+    position: absolute;
+    right: 20px;
+    bottom: 300px;
+    background-color: white;
+    padding: 30px;
+
+    label {
+      margin-right: 20px;
+    }
   }
 }
 </style>
