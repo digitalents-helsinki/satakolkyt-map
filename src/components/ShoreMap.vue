@@ -16,6 +16,7 @@
 /* eslint-disable */
 import MapBox from 'mapbox-gl-vue'
 import libraries from '../libraries.json'
+import trashbins from '../roskikset_wgs84.json'
 
 export default {
   name: 'shore-map',
@@ -256,6 +257,14 @@ export default {
           .addTo(map)
       }
 
+      //add trash bin markers
+      for (let bin of trashbins.features) {
+        const el = document.createElement('div')
+        el.className = 'trashbin'
+        el.innerHTML = '&#128465;'
+        new mapboxgl.Marker(el).setLngLat(bin.geometry.coordinates).addTo(map)
+      }
+
       map.addControl(
         new mapboxgl.AttributionControl({ compact: false }),
         'bottom-right'
@@ -339,6 +348,14 @@ export default {
     //font-size: 19px;
     //font-weight: bold;
     //text-align: center;
+  }
+
+  .trashbin {
+    font-size: 14px;
+    padding: 0px 2px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
   }
 
   .mapboxgl-popup-content {
