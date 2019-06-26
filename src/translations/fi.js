@@ -166,6 +166,8 @@ export const fi = {
     old_first: 'Vanhat ensin',
     new_first: 'Uudet ensin',
     reservation_open:
-      'Tämä ranta on varattu kaikille avoimiin talkoisiin. Tervetuloa mukaan!'
+      'Tämä ranta on varattu kaikille avoimiin talkoisiin. Tervetuloa mukaan!',
+    loanequipment: 'Tarvikkeiden lainaus',
+    trashbins: 'Jäteastiat'
   }
 }

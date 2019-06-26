@@ -236,7 +236,8 @@ export default {
       //Add library/equipment loan markers
       for (let lib of libraries) {
         const el = document.createElement('div')
-        el.className = 'marker'
+        el.className = 'tool-marker'
+        el.innerHTML = '<img alt="" src="tool_icon.svg"/>'
         //el.innerHTML = '&#128214;'
         //el.innerHTML = '&#128295;'
         const pop = new mapboxgl.Popup({
@@ -330,7 +331,7 @@ export default {
         for (let i = 0; i < bins.length; i++) {
           const el = document.createElement('div')
           el.className = 'trashbin'
-          el.innerHTML = '&#128465;'
+          el.innerHTML = '<img alt="" src="bin_icon.svg" />'
           const mark = new mapboxgl.Marker(el)
             .setLngLat(bins[i].geometry.coordinates)
             .addTo(this.map)
@@ -353,26 +354,17 @@ export default {
   height: 100%;
   cursor: pointer;
 
-  .marker {
+  .tool-marker {
     cursor: pointer;
-    //padding-top: 4px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 3px dotted #ddc;
-    //background-color: #eee350;
-    background-color: #933486;
-    //font-size: 19px;
-    //font-weight: bold;
-    //text-align: center;
+    width: 24px;
+    height: 24px;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
   }
 
   .trashbin {
-    font-size: 14px;
-    padding: 0px 2px;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: white;
+    width: 24px;
+    height: 24px;
   }
 
   .mapboxgl-popup-content {

@@ -54,17 +54,21 @@
         </div>
         <div class="images">
           <div class="iconlegend">
-            <div class="library">
-              <div class="libraryicon-container">
-                <div class="libraryicon"></div>
+            <div class="iconlegendrow">
+              <div class="icon">
+                <img
+                  alt=""
+                  src="tool_icon.svg"
+                  style="box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5); border-radius: 8px;"
+                />
               </div>
-              <h6>Tarvikkeiden lainaus</h6>
+              <h6>{{ $t('message.loanequipment') }}</h6>
             </div>
-            <div class="trashcans">
-              <div class="trashcanicon">
-                &#128465;
+            <div class="iconlegendrow">
+              <div class="icon">
+                <img alt="" src="bin_icon.svg" />
               </div>
-              <h6>Jäteastiat</h6>
+              <h6>{{ $t('message.trashbins') }}</h6>
             </div>
           </div>
           <div class="free">
@@ -247,31 +251,19 @@ export default {
     }
     .images {
       .iconlegend {
-        .library,
-        .trashcans {
+        .iconlegendrow {
+          margin: 15px 0;
           display: flex;
-          margin-bottom: 15px;
           align-items: center;
 
-          .libraryicon-container,
-          .trashcanicon {
-            margin-right: 10px;
+          .icon {
+            min-width: 24px;
+            margin-right: 15px;
 
-            .libraryicon {
-              width: 18px;
-              height: 18px;
-              background-color: #933486;
-              border: 3px dotted #ddc;
-              border-radius: 50%;
+            img {
+              width: 24px;
+              height: 24px;
             }
-          }
-
-          .trashcanicon {
-            font-size: 14px;
-            padding: 3px 2px;
-            border: 1px solid black;
-            border-radius: 5px;
-            background-color: white;
           }
         }
       }

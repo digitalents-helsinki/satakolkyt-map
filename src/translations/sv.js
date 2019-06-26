@@ -154,6 +154,8 @@ export const sv = {
     old_first: 'Gamla först',
     new_first: 'Nya första',
     reservation_open:
-      'Denna strand är reserverad för en öppen rengöring händelse. Välkommen!'
+      'Denna strand är reserverad för en öppen rengöring händelse. Välkommen!',
+    loanequipment: 'SV: Tarvikkeiden lainaus',
+    trashbins: 'SV: Jäteastiat'
   }
 }
