@@ -49,7 +49,9 @@
         />
       </div>
       <div class="trashtoggle">
-        <label for="trashcb">Näytä jäteastiat</label>
+        <label for="trashcb"
+          >Näytä jäteastiat <img alt="" src="bin_icon.svg" width="24px"
+        /></label>
         <input
           type="checkbox"
           id="trashcb"
@@ -416,13 +418,25 @@ export default {
 
   .trashtoggle {
     position: absolute;
-    right: 20px;
-    bottom: 350px;
+    right: calc(5vw + 70px);
+    top: 90px;
     background-color: white;
-    padding: 30px;
+    border: 1px solid #555;
+    border-radius: 15px;
+    padding: 5px 0px 5px 10px;
+    background-color: #eee350;
 
     label {
-      margin-right: 20px;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 14px;
+      margin-right: 5px;
+      text-transform: uppercase;
+    }
+
+    input {
+      display: none;
     }
   }
 }
