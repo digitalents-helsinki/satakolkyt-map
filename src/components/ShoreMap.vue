@@ -253,7 +253,7 @@ export default {
             lib.site
           }" target="_blank">Lisätietoja, kuten aukioloajat, löydät kirjaston sivuilta</a>
         `)
-        new mapboxgl.Marker(el)
+        new mapboxgl.Marker({ element: el, offset: [0, -20] })
           .setLngLat([lib.coords.long, lib.coords.lat])
           .setPopup(pop)
           .addTo(map)
@@ -356,15 +356,15 @@ export default {
 
   .tool-marker {
     cursor: pointer;
-    width: 24px;
-    height: 24px;
-    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    //box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
+    //border-radius: 8px;
   }
 
   .trashbin {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
 
   .mapboxgl-popup-content {

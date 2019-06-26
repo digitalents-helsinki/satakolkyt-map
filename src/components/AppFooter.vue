@@ -59,14 +59,18 @@
                 <img
                   alt=""
                   src="tool_icon.svg"
-                  style="box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5); border-radius: 8px;"
+                  style="width: 40px; height: 40px;"
                 />
               </div>
               <h6>{{ $t('message.loanequipment') }}</h6>
             </div>
             <div class="iconlegendrow">
               <div class="icon">
-                <img alt="" src="bin_icon.svg" />
+                <img
+                  alt=""
+                  src="bin_icon.svg"
+                  style="width: 28px; height: 28px;"
+                />
               </div>
               <h6>{{ $t('message.trashbins') }}</h6>
             </div>
@@ -252,18 +256,13 @@ export default {
     .images {
       .iconlegend {
         .iconlegendrow {
-          margin: 15px 0;
+          margin: 15px 0 15px 20px;
           display: flex;
           align-items: center;
 
           .icon {
-            min-width: 24px;
+            min-width: 32px;
             margin-right: 15px;
-
-            img {
-              width: 24px;
-              height: 24px;
-            }
           }
         }
       }
@@ -373,7 +372,6 @@ export default {
       bottom: 64px;
       width: 45%;
       max-width: 200px;
-      height: 250px;
       min-height: 0;
       pointer-events: all;
       cursor: pointer;

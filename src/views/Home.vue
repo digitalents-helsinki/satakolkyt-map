@@ -417,7 +417,7 @@ export default {
   .trashtoggle {
     position: absolute;
     right: 20px;
-    bottom: 300px;
+    bottom: 350px;
     background-color: white;
     padding: 30px;
 
