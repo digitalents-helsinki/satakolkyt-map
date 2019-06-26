@@ -296,7 +296,8 @@ export default {
         name: '',
         email: '',
         phonenumber: '',
-        multiID: this.randString(12)
+        multiID: this.randString(12),
+        multiLength: 0
       },
       privacy_permission: false
     }
@@ -327,6 +328,9 @@ export default {
         this.reservationdata.startdate = this.reservationdata.startdate
           .toISOString()
           .substring(0, 10)
+        for (let s of this.selected) {
+          this.reservationdata.multiLength += parseFloat(s.length)
+        }
         var reservation = JSON.parse(JSON.stringify(this.reservationdata))
         reservation.endtime =
           this.reservationdata.endtime.HH +
