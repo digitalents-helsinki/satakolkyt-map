@@ -48,10 +48,16 @@
           @infobox-close="unSelect"
         />
       </div>
-      <div class="trashtoggle">
+      <div class="trashtoggle-wrapper">
         <label for="trashcb"
-          >Näytä jäteastiat <img alt="" src="bin_icon.svg" width="24px"
-        /></label>
+          ><div class="trashtoggle">
+            {{ showTrashBins ? 'Piilota jäteastiat' : 'Näytä jäteastiat' }}
+            <img
+              alt=""
+              :src="showTrashBins ? 'hide_bins.svg' : 'show_bins.svg'"
+              width="24px"
+            /></div
+        ></label>
         <input
           type="checkbox"
           id="trashcb"
@@ -416,23 +422,25 @@ export default {
     z-index: 2;
   }
 
-  .trashtoggle {
+  .trashtoggle-wrapper {
     position: absolute;
     right: calc(5vw + 70px);
     top: 90px;
-    background-color: white;
-    border: 1px solid #555;
-    border-radius: 15px;
-    padding: 5px 0px 5px 10px;
-    background-color: #eee350;
 
     label {
-      display: flex;
-      align-items: center;
       font-weight: bold;
       font-size: 14px;
       margin-right: 5px;
       text-transform: uppercase;
+
+      .trashtoggle {
+        display: flex;
+        align-items: center;
+        border: 1px solid #555;
+        border-radius: 15px;
+        padding: 5px 0px 5px 10px;
+        background-color: #eee350;
+      }
     }
 
     input {

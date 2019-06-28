@@ -53,6 +53,19 @@
           </div>
         </div>
         <div class="images">
+          <div class="free">
+            <img src="../Icons/red.svg" alt="" />
+            {{ $t('message.shoresfree') }}
+          </div>
+          <div class="come-clean">({{ $t('message.come_clean') }})</div>
+          <div class="reserved">
+            <img src="../Icons/orange.svg" alt="" />
+            <div>{{ $t('message.shoresreserved') }}</div>
+          </div>
+          <div class="cleaned">
+            <img src="../Icons/green.svg" alt="" />
+            {{ $t('message.shorescleaned') }}
+          </div>
           <div class="iconlegend">
             <div class="iconlegendrow">
               <div class="icon">
@@ -74,19 +87,6 @@
               </div>
               <h6>{{ $t('message.trashbins') }}</h6>
             </div>
-          </div>
-          <div class="free">
-            <img src="../Icons/red.svg" alt="" />
-            {{ $t('message.shoresfree') }}
-          </div>
-          <div class="come-clean">({{ $t('message.come_clean') }})</div>
-          <div class="reserved">
-            <img src="../Icons/orange.svg" alt="" />
-            <div>{{ $t('message.shoresreserved') }}</div>
-          </div>
-          <div class="cleaned">
-            <img src="../Icons/green.svg" alt="" />
-            {{ $t('message.shorescleaned') }}
           </div>
         </div>
       </div>
@@ -256,7 +256,7 @@ export default {
     .images {
       .iconlegend {
         .iconlegendrow {
-          margin: 15px 0 15px 20px;
+          margin: 15px 0 15px 15px;
           display: flex;
           align-items: center;
 
