@@ -441,6 +441,7 @@ export default {
         box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
         padding: 5px;
         background-color: #fff;
+        border-radius: 5px;
       }
     }
 
