@@ -51,7 +51,7 @@
       <div class="trashtoggle-wrapper">
         <label for="trashcb"
           ><div class="trashtoggle">
-            {{ showTrashBins ? 'Piilota jäteastiat' : 'Näytä jäteastiat' }}
+            {{ showTrashBins ? 'Piilota' : 'Näytä' }}
             <img
               alt=""
               :src="showTrashBins ? 'hide_bins.svg' : 'show_bins.svg'"
@@ -424,8 +424,8 @@ export default {
 
   .trashtoggle-wrapper {
     position: absolute;
-    right: calc(5vw + 70px);
-    top: 90px;
+    right: 6vw;
+    top: 200px;
 
     label {
       font-weight: bold;
@@ -435,11 +435,12 @@ export default {
 
       .trashtoggle {
         display: flex;
+        flex-flow: column wrap;
         align-items: center;
         border: 1px solid #555;
-        border-radius: 15px;
-        padding: 5px 0px 5px 10px;
-        background-color: #eee350;
+        border-radius: 5px;
+        padding: 5px;
+        background-color: #fff;
       }
     }
 
