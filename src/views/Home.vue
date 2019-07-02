@@ -426,6 +426,7 @@ export default {
     position: absolute;
     right: 5.5vw;
     top: 225px;
+    width: 65px;
 
     label {
       font-weight: bold;
@@ -437,8 +438,7 @@ export default {
         display: flex;
         flex-flow: column wrap;
         align-items: center;
-        border: 1px solid #555;
-        border-radius: 5px;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
         padding: 5px;
         background-color: #fff;
       }
