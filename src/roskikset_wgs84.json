@@ -48,14 +48,6 @@
     },
     {
       "type": "Feature",
-      "properties": { "osan_id": 176025.0 },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [24.95962612670338, 60.176572654577164]
-      }
-    },
-    {
-      "type": "Feature",
       "properties": { "osan_id": 176032.0 },
       "geometry": {
         "type": "Point",
@@ -400,14 +392,6 @@
     },
     {
       "type": "Feature",
-      "properties": { "osan_id": 490957.0 },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [24.937305039353511, 60.182137923402053]
-      }
-    },
-    {
-      "type": "Feature",
       "properties": { "osan_id": 491670.0 },
       "geometry": {
         "type": "Point",
@@ -580,14 +564,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [24.882342081587709, 60.180613871737968]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": { "osan_id": 160799.0 },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [24.871881349620271, 60.194518986637718]
       }
     },
     {
@@ -1156,14 +1132,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [25.060437231391827, 60.169431533172286]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": { "osan_id": 518138.0 },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [24.854087464224264, 60.181571086629496]
       }
     },
     {
