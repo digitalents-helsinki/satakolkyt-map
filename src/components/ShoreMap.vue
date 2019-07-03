@@ -244,11 +244,11 @@ export default {
           closeButton: false,
           maxWidth: '320px'
         }).setHTML(`
-          <h1>Talkootarvikkeiden lainaus</h1>
-          <h2>${lib.name}</h2>
+          <h2>Talkootarvikkeiden lainaus</h2>
+          <h1>${lib.name}</h1>
           <h3>${lib.address}</h3>
-          <h3>&#128231; ${lib.email}</h3>
-          <h3>&#128222; ${lib.phone}</h3>
+          <h3><img alt="" src="email.svg" width="24px"/> ${lib.email}</h3>
+          <h3><img alt="" src="phone.svg" width="24px"/> ${lib.phone}</h3>
           <a href="${
             lib.site
           }" target="_blank">Lisätietoja, kuten aukioloajat, löydät kirjaston sivuilta</a>
@@ -370,37 +370,45 @@ export default {
   .mapboxgl-popup-content {
     min-width: 200px;
     padding: 20px;
-    background-color: #eee350;
+    background-color: #ec6608;
     cursor: default;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    color: white;
 
     h1 {
       font-size: 22px;
       font-weight: bold;
-      text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     h2 {
-      font-size: 20px;
+      font-size: 18px;
+      margin-bottom: 5px;
     }
 
     h3 {
-      font-size: 16px;
-      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      margin: 6px 0;
+
+      img {
+        margin-right: 5px;
+      }
     }
 
     a {
+      color: #eee350;
       display: block;
-      margin-top: 15px;
+      margin-top: 10px;
       font-size: 16px;
       font-weight: bold;
     }
   }
 
   .mapboxgl-popup-tip {
-    //border-top-color: #555;
-    border-top-color: #eee350;
+    border-top-color: #ec6608;
   }
 }
 #map {
