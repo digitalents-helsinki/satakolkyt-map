@@ -387,7 +387,8 @@ export default {
         kurtturuusu: 'no',
         jattipalsami: 'no',
         kurtturuusu_detail: '',
-        jattipalsami_detail: ''
+        jattipalsami_detail: '',
+        multiID: this.randString(12)
       },
       privacy_permission: false,
       saved: false,
@@ -403,9 +404,6 @@ export default {
       sv: sv
     }
   },
-  mounted() {
-    this.cleandata.selected = this.$props.selected
-  },
   methods: {
     saveCleaned(e) {
       if (e.target.form.reportValidity()) {
@@ -414,22 +412,33 @@ export default {
         }
         this.loading = true
         this.cleandata.date = this.cleandata.date.toISOString().substring(0, 10)
-        axios({
-          method: 'POST',
-          url: process.env.VUE_APP_URL + '/api/map/cleaninfo',
-          data: this.cleandata
-        })
-          .then(res => {
-            if (res.data.status === 'ok') {
-              this.$emit('cleaned-ok', res.data.json)
-              this.loading = false
-              this.saved = true
-            }
+        for (let s of this.selected) {
+          axios({
+            method: 'POST',
+            url: process.env.VUE_APP_URL + '/api/map/cleaninfo',
+            data: { ...this.cleandata, selected: s }
           })
-          .catch(err => {
-            this.$emit('error-msg', err.response.data.error)
-          })
+            .then(res => {
+              if (res.data.status === 'ok') {
+                this.$emit('cleaned-ok', res.data.json)
+                this.loading = false
+                this.saved = true
+              }
+            })
+            .catch(err => {
+              this.$emit('error-msg', err.response.data.error)
+            })
+        }
       }
+    },
+    randString(len) {
+      const chars =
+        'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ0123456789'
+      const rs = []
+      for (let i = 0; i < len; i++) {
+        rs.push(chars.charAt(Math.floor(Math.random() * chars.length)))
+      }
+      return rs.join('')
     },
     toNextPage(e) {
       if (e.target.form.reportValidity()) {
@@ -752,8 +761,11 @@ export default {
 
 .clean-saved img {
   max-width: 300px;
+  max-height: 300px;
+  min-height: 150px;
+  height: 30vh;
   display: block;
-  margin: 50px auto 30px auto;
+  margin: 3vh auto 6vh auto;
 }
 
 .clean-saved button {

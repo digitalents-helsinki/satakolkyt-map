@@ -30,6 +30,7 @@ export const fi = {
     contact: 'Yhteyshenkilö',
     close: 'Sulje',
     claim_clean: 'Ilmoita ranta siivotuksi',
+    claim_clean_multi: 'Ilmoita rannat siivotuiksi',
     shore_cleaner_fill: 'Yhteyshenkilön tiedot eivät näy julkisesti.',
     trash_count: 'Paljonko rannalla oli roskaa?',
     trash_amount: 'Roskan määrä',
@@ -85,7 +86,6 @@ export const fi = {
     cancel_reservation: 'Poista Vahvistus',
     submit_permission_text:
       'Hyväksyn rekisteriselosteen mukaisen tietojeni käytön.',
-    shores: 'Rantaviiva',
     shorescleaned: 'Siivottu',
     shoresreserved: 'Talkoot tulossa',
     shoresfree: 'Siivoamaton',
@@ -121,50 +121,55 @@ export const fi = {
     help_title: 'Ohjeita & Tietoja',
     guide_coming_title: 'Tulossa siivoamaan?',
     guide_coming_list: [
-      'Valitse kartalta haluamasi rantapala näppäämällä sitä',
+      'Valitse kartalta haluamasi rantapätkät näppäämällä niitä',
       'Avaa varauslomake alareunan "Ilmoita tulevat talkoot"-napista',
-      'Täytä lomakkeen tiedot ja lähetä',
-      'Varauksesi vahvistetaan pian!',
-      'Hae siivousvälineet lainaan kirjastosta',
-      'Ja rannalle!',
+      'Täytä lomakkeen tiedot ja lähetä. Varauksesi vahvistetaan pian.',
+      'Voit hakea talkoovälineet lainaan kartalla näkyvistä kirjastoista.',
       `Voit myös liittyä mukaan muiden järjestämiin talkoisiin etsimällä kartalta 
       tulevia talkoita (oranssi rantaviiva). Jos talkoot ovat kaikille avoimet, löydät 
       niistä lisätietoa näppäämällä.`
     ],
     guide_cleaned_title: 'Vai siivositko jo?',
     guide_cleaned_list: [
-      'Valitse siivoamasi rantapala kartalta näppäämällä sitä',
+      'Valitse siivoamasi rantapätkät kartalta näppäämällä niitä',
       'Avaa ilmoituslomake alareunan "Ilmoita ranta siivotuksi"-napista',
-      'Täytä lomakkeen tiedot ja lähetä',
-      'Ilmoituksesi vahvistetaan pian!',
+      'Täytä lomakkeen tiedot ja lähetä. Ilmoituksesi vahvistetaan pian!',
+      'Voit samalla ilmoittaa mahdolliset kurtturuusu- ja jättipalsamihavainnot rannoilta.',
       'Kiitos, että pidät Helsingin rannat puhtaana!'
     ],
     help_text: [
+      `Talkooroskat voi jättää rannoilla oleviin isoihin jäteastioihin, joiden sijainnit saa 
+      näkyviin kartalle ”Näytä jäteastiat” painikkeesta. Jos rannalla ei ole isoja 
+      jäteastioita tai jos roskat eivät mahdu jäteastioihin, ne voi jättää tiukasti 
+      suljetussa jätesäkissä johonkin helposti löydettävään paikkaan rannalle. 
+      Kaupunki hoitaa tällöin roskien poisviennin, kunhan ilmoitat välittömästi 
+      talkoiden jälkeen roskasäkkien mahdollisimman tarkan sijainnin. Voit tehdä sen 
+      Ilmoita ranta siivotuksi –lomakkeen kautta.`,
+      `Rantaviiva on jaettu kartalla noin 100 metrin pätkiin. Voit valita siivottavaksi 
+      myös useamman rantapätkän. Siivottu ranta säilyy kartalla vihreänä 3 
+      kuukautta.`,
+      `Lintujen pesimäaikaan 15.3.-15.8. talkoita ei saa järjestää lintujen 
+      pesimäalueilla. Kartalta on siksi poistettu rauhoitusajaksi 
+      luonnonsuojelualueita, joilla pesii paljon lintuja (esim. Vanhankaupunginlahti).`,
       `Kartalla näkyvät rantaosuudet ovat Helsingin kaupungin vastuulla olevia julkisia
       viheralueita. Kartalla näkyvä rantojen rajaus ei kuitenkaan välttämättä vastaa 
       tarkasti julkisten alueiden ja yksityisten alueiden rajausta maastossa, joten 
       emme voi luvata kaikkien rantojen olevan täysin käytettävissä.`,
       `Rannoilla liikkuminen tapahtuu omalla vastuulla, eikä SATAKOLKYT ota vastuuta
       mahdollisista tapaturmista, yksityisalueiden loukkauksista tai talkooväen 
-      aiheuttamista vahingoista.`,
-      `Rantaviiva on jaettu kartalla noin 100 metrin paloihin. Jos haluat siivota 
-      useamman rantaosuuden, tee jokaisesta osuudesta erillinen ilmoitus. 
-      Mahdollisuus varata useampi rantaosuus samalla lomakkeella on tulossa! 
-      Siivottu ranta säilyy kartalla vihreänä 2 kuukautta.`,
-      `Lintujen pesimäaikaan 15.3.-15.8. talkoita ei saa järjestää lintujen 
-      pesimäalueilla. Kartalta on siksi poistettu rauhoitusajaksi 
-      luonnonsuojelualueita, joilla pesii paljon lintuja (esim. Vanhankaupunginlahti).`,
-      `Kaupunki hoitaa tarvittaessa talkooroskien poisviennin. Ilmoita pois haettavista 
-      roskasäkeistä välittömästi talkoiden jälkeen Ilmoita siivottu ranta- napin kautta.`
+      aiheuttamista vahingoista.`
     ],
     help_contact: `Jos haluat antaa palautetta karttasovellukseen liittyen, ota yhteyttä 
-      hankekoordinaattoriin`,
+      SATAKOLKYT-koordinaattoriin`,
     help_phone: 'puh.',
     powered_by: 'Ohjelmiston tarjoaa:',
     remove_old_reservations: 'Poista vanhat varaukset',
-    remove_old_cleanings: 'Arkistoi yli 2kk vanhat siivoukset',
+    remove_old_cleanings: 'Arkistoi yli 3kk vanhat siivoukset',
     old_first: 'Vanhat ensin',
     new_first: 'Uudet ensin',
-    reservation_open: 'Tämä ranta on varattu vapaisiin talkoisiin.'
+    reservation_open:
+      'Tämä ranta on varattu kaikille avoimiin talkoisiin. Tervetuloa mukaan!',
+    loanequipment: 'Tarvikkeiden lainaus',
+    trashbins: 'Jäteastiat'
   }
 }

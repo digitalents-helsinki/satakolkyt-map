@@ -2,15 +2,27 @@
 
 <template>
   <div class="shore-info">
-    <button v-if="seltype === 'free'" @click="$emit('show-reservationform')">
+    <button
+      v-if="seltype === 'free' || seltype === 'multifree'"
+      @click="$emit('show-reservationform')"
+    >
       {{ $t('message.reserve') }}
     </button>
     <button
-      v-if="seltype === 'free' || seltype === 'reserved'"
+      v-if="
+        seltype === 'free' ||
+          seltype === 'reserved' ||
+          seltype === 'multifree' ||
+          seltype === 'multireserved'
+      "
       id="show-modal2"
       @click="$emit('show-cleanform')"
     >
-      {{ $t('message.claim_clean') }}
+      {{
+        seltype === 'free' || seltype === 'reserved'
+          ? $t('message.claim_clean')
+          : $t('message.claim_clean_multi')
+      }}
     </button>
   </div>
 </template>

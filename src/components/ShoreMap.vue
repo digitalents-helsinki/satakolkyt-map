@@ -15,6 +15,8 @@
 <script>
 /* eslint-disable */
 import MapBox from 'mapbox-gl-vue'
+import libraries from '../libraries.json'
+import trashbins from '../roskikset_wgs84.json'
 
 export default {
   name: 'shore-map',
@@ -50,12 +52,10 @@ export default {
         show: true,
         position: 'top-right'
       },
-      selected: {
-        layer: null,
-        id: null
-      },
+      selected: [],
       hoveredIds: {},
-      vh: 0
+      vh: 0,
+      trashmarkers: null
     }
   },
   methods: {
@@ -98,14 +98,19 @@ export default {
     },
     addShoreClickHandler(map, shoretype) {
       map.on('click', shoretype + 'Shore', e => {
-        //shoretype was clicked on, so it was selected
-        this.unRenderSelected()
+        //remove highlighting on all shores if we clicked on a non-free, non-reserved shore or
+        //if a non-free, non-reserved shore was already highlighted
+        if (
+          this.selected[0] &&
+          ((shoretype !== 'free' && shoretype !== 'reserved') ||
+            (this.selected[0].layer !== 'freeShore' &&
+              this.selected[0].layer !== 'reservedShore'))
+        ) {
+          this.unHighlightAll()
+        }
 
         const clickedShore = e.features[0]
         const clickpos = [e.lngLat.lng, e.lngLat.lat]
-
-        //highlight clicked feature:
-        this.renderSelected(clickedShore.id, shoretype + 'Shore')
 
         //zoom to on map where we clicked:
         map.flyTo({ center: clickpos, zoom: 15 })
@@ -114,23 +119,35 @@ export default {
         this.$emit(shoretype + '-click', clickedShore.properties)
       })
     },
-    renderSelected(id, layername) {
-      this.selected.layer = layername
-      this.selected.id = id
+    highlight(id, layername) {
+      this.selected.push({ id: id, layer: layername })
       this.map.setFeatureState(
         { source: layername, id: id },
         { selected: true }
       )
     },
-    unRenderSelected() {
-      if (this.selected.id) {
+    unHighlight(id) {
+      const newlist = []
+      for (let s of this.selected) {
+        if (id === s.id) {
+          this.map.setFeatureState(
+            { source: s.layer, id: s.id },
+            { selected: false }
+          )
+        } else {
+          newlist.push(s)
+        }
+      }
+      this.selected = newlist
+    },
+    unHighlightAll() {
+      for (let s of this.selected) {
         this.map.setFeatureState(
-          { source: this.selected.layer, id: this.selected.id },
+          { source: s.layer, id: s.id },
           { selected: false }
         )
-        this.selected.layer = null
-        this.selected.id = null
       }
+      this.selected = []
     },
     onZoom(map) {
       const MAX_ZOOM = 20
@@ -216,6 +233,32 @@ export default {
         map.resize()
       })
 
+      //Add library/equipment loan markers
+      for (let lib of libraries) {
+        const el = document.createElement('div')
+        el.className = 'tool-marker'
+        el.innerHTML = '<img alt="" src="tool_icon.svg"/>'
+        //el.innerHTML = '&#128214;'
+        //el.innerHTML = '&#128295;'
+        const pop = new mapboxgl.Popup({
+          closeButton: false,
+          maxWidth: '320px'
+        }).setHTML(`
+          <h2>Talkootarvikkeiden lainaus</h2>
+          <h1>${lib.name}</h1>
+          <h3>${lib.address}</h3>
+          <h3><img alt="" src="email.svg" width="24px"/> ${lib.email}</h3>
+          <h3><img alt="" src="phone.svg" width="24px"/> ${lib.phone}</h3>
+          <a href="${
+            lib.site
+          }" target="_blank">Lisätietoja, kuten aukioloajat, löydät kirjaston sivuilta</a>
+        `)
+        new mapboxgl.Marker({ element: el, offset: [0, -20] })
+          .setLngLat([lib.coords.long, lib.coords.lat])
+          .setPopup(pop)
+          .addTo(map)
+      }
+
       map.addControl(
         new mapboxgl.AttributionControl({ compact: false }),
         'bottom-right'
@@ -276,6 +319,30 @@ export default {
       } else {
         this.addHoverHandler(canv, 'hiddenShore')
       }
+    },
+    addTrashBins() {
+      if (this.trashmarkers) {
+        for (let m of this.trashmarkers) {
+          m.addTo(this.map)
+        }
+      } else {
+        this.trashmarkers = []
+        const bins = trashbins.features
+        for (let i = 0; i < bins.length; i++) {
+          const el = document.createElement('div')
+          el.className = 'trashbin'
+          el.innerHTML = '<img alt="" src="bin_icon.svg" />'
+          const mark = new mapboxgl.Marker(el)
+            .setLngLat(bins[i].geometry.coordinates)
+            .addTo(this.map)
+          this.trashmarkers[i] = mark
+        }
+      }
+    },
+    removeTrashBins() {
+      for (let m of this.trashmarkers) {
+        m.remove()
+      }
     }
   }
 }
@@ -286,6 +353,63 @@ export default {
   position: relative;
   height: 100%;
   cursor: pointer;
+
+  .tool-marker {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    //box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
+    //border-radius: 8px;
+  }
+
+  .trashbin {
+    width: 28px;
+    height: 28px;
+  }
+
+  .mapboxgl-popup-content {
+    min-width: 200px;
+    padding: 20px;
+    background-color: #ec6608;
+    cursor: default;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    color: white;
+
+    h1 {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    h3 {
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      margin: 6px 0;
+
+      img {
+        margin-right: 5px;
+      }
+    }
+
+    a {
+      color: #eee350;
+      display: block;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+
+  .mapboxgl-popup-tip {
+    border-top-color: #ec6608;
+  }
 }
 #map {
   width: 100%;
@@ -306,11 +430,12 @@ export default {
 }
 
 .mapboxgl-ctrl-top-right {
-  top: 90px;
+  top: 100px;
   right: 5vw;
 
   .mapboxgl-ctrl {
     width: 50px;
+    margin: 0;
 
     .mapboxgl-ctrl-zoom-in,
     .mapboxgl-ctrl-zoom-out {

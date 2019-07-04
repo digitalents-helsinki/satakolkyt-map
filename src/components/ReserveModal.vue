@@ -295,7 +295,9 @@ export default {
         openlink: '',
         name: '',
         email: '',
-        phonenumber: ''
+        phonenumber: '',
+        multiID: this.randString(12),
+        multiLength: 0
       },
       privacy_permission: false
     }
@@ -304,9 +306,6 @@ export default {
     const date = new Date()
     date.setDate(date.getDate() - 1)
     this.disabledDates.to = date
-  },
-  mounted() {
-    this.reservationdata.selected = this.$props.selected
   },
   methods: {
     toNextPage(e) {
@@ -329,6 +328,9 @@ export default {
         this.reservationdata.startdate = this.reservationdata.startdate
           .toISOString()
           .substring(0, 10)
+        for (let s of this.selected) {
+          this.reservationdata.multiLength += parseFloat(s.length)
+        }
         var reservation = JSON.parse(JSON.stringify(this.reservationdata))
         reservation.endtime =
           this.reservationdata.endtime.HH +
@@ -338,11 +340,22 @@ export default {
           this.reservationdata.starttime.HH +
           ':' +
           this.reservationdata.starttime.mm
-        this.$emit('reservation-action', {
-          data: reservation,
-          okCB: this.reservationOk
-        })
+        for (let s of this.selected) {
+          this.$emit('reservation-action', {
+            data: { ...reservation, selected: s },
+            okCB: this.reservationOk
+          })
+        }
       }
+    },
+    randString(len) {
+      const chars =
+        'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ0123456789'
+      const rs = []
+      for (let i = 0; i < len; i++) {
+        rs.push(chars.charAt(Math.floor(Math.random() * chars.length)))
+      }
+      return rs.join('')
     },
     reservationOk() {
       this.loading = false
@@ -635,8 +648,11 @@ form {
 
 .reservation-saved img {
   max-width: 300px;
+  max-height: 300px;
+  min-height: 150px;
+  height: 30vh;
   display: block;
-  margin: 50px auto 30px auto;
+  margin: 3vh auto 6vh auto;
 }
 
 .reservation-saved button {

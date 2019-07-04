@@ -66,6 +66,13 @@ export default {
 
 <style lang="scss" scoped>
 .shore-info {
+  position: absolute;
+  top: -100px;
+  right: 0;
+  display: flex;
+  background-color: white;
+  padding: 20px;
+
   .cross-icon {
     font-size: 32px;
     margin-left: 20px;

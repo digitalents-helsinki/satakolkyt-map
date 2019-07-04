@@ -30,6 +30,7 @@ export const en = {
     contact: 'Contact person',
     close: 'Close',
     claim_clean: 'Report cleaned shore',
+    claim_clean_multi: 'Report cleaned shores',
     shore_cleaner_fill: 'Contact information will not be publicly visible.',
     trash_count: 'How much trash was there',
     trash_amount: 'Trash amount',
@@ -84,7 +85,6 @@ export const en = {
     cancel_reservation: 'Cancel Reservation',
     submit_permission_text:
       'I accept the use of my data per the privacy policy',
-    shores: 'Shores',
     shorescleaned: 'Cleaned',
     shoresreserved: 'Upcoming cleanup',
     shoresfree: 'Uncleaned',
@@ -149,12 +149,15 @@ export const en = {
     ],
     help_contact: `EN: Jos haluat antaa palautetta karttasovellukseen liittyen, ota yhteyttä 
       hankekoordinaattoriin`,
-    help_phone: 'EN: puh.',
+    help_phone: 'tel.',
     powered_by: 'App powered by:',
     remove_old_reservations: 'Remove old reservations',
-    remove_old_cleanings: 'Archive cleanings over 2mo old',
+    remove_old_cleanings: 'Archive cleanings over 3mo old',
     old_first: 'Old first',
     new_first: 'New first',
-    reservation_open: 'This shore is reserved for an open cleanup event.'
+    reservation_open:
+      'This shore is reserved for an free for all cleanup event. Welcome!',
+    loanequipment: 'Equipment loan',
+    trashbins: 'Trash bins'
   }
 }

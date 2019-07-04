@@ -22,7 +22,7 @@
           >
           </admin-shore-info>
         </div>
-        <div class="counter" :class="{ hide: this.$props.data && !adminmode }">
+        <div class="counter" :class="{ hide: seltype && !adminmode }">
           <div class="stepcount green">
             <ICountUp :endVal="counterSteps" :options="countOptions" />
           </div>
@@ -51,7 +51,6 @@
               {{ legendmobilehidden ? '&#9650;' : '&#9660;' }}
             </div>
           </div>
-          <h6 class="title">{{ $t('message.shores') }}:</h6>
         </div>
         <div class="images">
           <div class="free">
@@ -66,6 +65,28 @@
           <div class="cleaned">
             <img src="../Icons/green.svg" alt="" />
             {{ $t('message.shorescleaned') }}
+          </div>
+          <div class="iconlegend">
+            <div class="iconlegendrow">
+              <div class="icon">
+                <img
+                  alt=""
+                  src="tool_icon.svg"
+                  style="width: 40px; height: 40px;"
+                />
+              </div>
+              <h6>{{ $t('message.loanequipment') }}</h6>
+            </div>
+            <div class="iconlegendrow">
+              <div class="icon">
+                <img
+                  alt=""
+                  src="bin_icon.svg"
+                  style="width: 28px; height: 28px;"
+                />
+              </div>
+              <h6>{{ $t('message.trashbins') }}</h6>
+            </div>
           </div>
         </div>
       </div>
@@ -179,11 +200,9 @@ export default {
           font-size: 32px;
           margin-left: 0.5em;
         }
-        .stepcount {
-          color: #006b32;
-        }
+        .stepcount,
         .kilometercount {
-          color: #f82828;
+          color: #006b32;
         }
 
         .stepcount,
@@ -233,6 +252,19 @@ export default {
       height: 10px;
     }
     .images {
+      .iconlegend {
+        .iconlegendrow {
+          margin: 15px 0 15px 15px;
+          display: flex;
+          align-items: center;
+
+          .icon {
+            min-width: 32px;
+            margin-right: 15px;
+          }
+        }
+      }
+
       .free {
         margin: 20px 0 5px 0;
       }
@@ -338,7 +370,6 @@ export default {
       bottom: 64px;
       width: 45%;
       max-width: 200px;
-      height: 190px;
       min-height: 0;
       pointer-events: all;
       cursor: pointer;
@@ -346,41 +377,44 @@ export default {
 
       .container {
         margin-left: 10px;
-      }
 
-      .header {
-        font-size: 14px;
-        margin: 10px 0;
-
-        .title {
-          padding-top: 7px;
-          border-top: 1px solid black;
-        }
-
-        .hideable {
-          display: block;
-        }
-      }
-
-      .images {
-        .img {
-          max-width: 40px;
-        }
-
-        .free {
-          margin: 0 0 5px 0;
+        .header {
           font-size: 14px;
+          margin: 10px 0;
+
+          .hideable {
+            display: block;
+          }
         }
 
-        .reserved,
-        .cleaned {
-          margin: 15px 0;
-          font-size: 14px;
-        }
+        .images {
+          .iconlegend {
+            margin-top: 20px;
 
-        .come-clean {
-          margin: 0;
-          font-size: 11px;
+            h6 {
+              font-size: 14px;
+            }
+          }
+
+          .img {
+            max-width: 40px;
+          }
+
+          .free {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+          }
+
+          .reserved,
+          .cleaned {
+            margin: 15px 0;
+            font-size: 14px;
+          }
+
+          .come-clean {
+            margin: 0;
+            font-size: 11px;
+          }
         }
       }
     }

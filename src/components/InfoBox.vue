@@ -2,7 +2,15 @@
 
 <template>
   <div class="infobox">
-    <div v-if="!this.$props.data" class="spinner">
+    <div
+      v-if="
+        !this.$props.data &&
+          type !== 'multifree' &&
+          type !== 'multireserved' &&
+          type !== 'free'
+      "
+      class="spinner"
+    >
       <spinner />
     </div>
     <div class="closer">
@@ -12,7 +20,14 @@
         @click="$emit('infobox-close')"
       />
     </div>
-    <div v-if="this.$props.data">
+    <div
+      v-if="
+        this.$props.data ||
+          type === 'multifree' ||
+          type === 'multireserved' ||
+          type === 'free'
+      "
+    >
       <div v-if="type === 'reserved'">
         <h1>{{ $t('message.reserved_shore') }}</h1>
         <h2>
@@ -31,6 +46,9 @@
               {{ this.$props.data.startdate | moment('DD.MM.YYYY') }}
               {{ $t('message.at') }} {{ this.$props.data.starttime }} -
               {{ this.$props.data.endtime }}
+            </h4>
+            <h4 v-else>
+              {{ this.$props.data.startdate | moment('DD.MM.YYYY') }}
             </h4>
           </div>
           <div v-if="this.$props.data.openevent" class="openinfo">
@@ -64,6 +82,9 @@
         <h1>{{ $t('message.free_shore') }}</h1>
         <p>{{ $t('message.come_clean') }}</p>
       </div>
+      <div v-if="type === 'multireserved' || type === 'multifree'">
+        <h1>Olet valinnut noin {{ selLen }} metriä rantaa</h1>
+      </div>
     </div>
   </div>
 </template>
@@ -74,7 +95,15 @@ import Spinner from '@/components/Spinner'
 export default {
   name: 'infobox',
   components: { Spinner },
-  props: ['type', 'data'],
+  props: ['type', 'data', 'shores'],
+  computed: {
+    selLen() {
+      const val = this.shores.reduce((acc, shore) => {
+        return acc + parseFloat(shore.length)
+      }, 0)
+      return Math.round(val)
+    }
+  },
   methods: {
     stripProtocol: function() {
       if (

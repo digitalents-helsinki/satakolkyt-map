@@ -30,6 +30,7 @@ export const sv = {
     contact: 'Kontakt person',
     close: 'Stäng',
     claim_clean: 'Rapporttera en städad strand',
+    cleam_clean_multi: 'Rapportera städade stränder',
     shore_cleaner_fill:
       'Kontaktinformation kommer inte att vara offentligt synlig.',
     trash_count: 'Hur mycket skräp var det?',
@@ -87,7 +88,6 @@ export const sv = {
     cancel_reservation: 'Avbryt bokningen',
     submit_permission_text:
       'Jag accepterar användningen av mina uppgifter i enlighet med integritetspolicyen.',
-    shores: 'Stränder',
     shorescleaned: 'Rengöras',
     shoresreserved: 'Kommande rengöring',
     shoresfree: 'Ej rengjorda',
@@ -150,10 +150,12 @@ export const sv = {
     help_phone: 'SV: puh.',
     powered_by: 'App drivs av:',
     remove_old_reservations: 'Ta bort gamla reservationer',
-    remove_old_cleanings: 'SV:[Arkistoi] rengöringarna äldre än 2mån',
+    remove_old_cleanings: 'SV:[Arkistoi] rengöringarna äldre än 3mån',
     old_first: 'Gamla först',
     new_first: 'Nya första',
     reservation_open:
-      'Denna strand är reserverad för en öppen rengöring händelse.'
+      'Denna strand är reserverad för en öppen rengöring händelse. Välkommen!',
+    loanequipment: 'SV: Tarvikkeiden lainaus',
+    trashbins: 'SV: Jäteastiat'
   }
 }
