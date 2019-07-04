@@ -200,11 +200,9 @@ export default {
           font-size: 32px;
           margin-left: 0.5em;
         }
-        .stepcount {
-          color: #006b32;
-        }
+        .stepcount,
         .kilometercount {
-          color: #f82828;
+          color: #006b32;
         }
 
         .stepcount,
