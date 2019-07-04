@@ -430,7 +430,7 @@ export default {
 }
 
 .mapboxgl-ctrl-top-right {
-  top: 90px;
+  top: 100px;
   right: 5vw;
 
   .mapboxgl-ctrl {

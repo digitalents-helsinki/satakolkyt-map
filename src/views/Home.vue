@@ -424,8 +424,8 @@ export default {
 
   .trashtoggle-wrapper {
     position: absolute;
-    top: 210px;
-    right: 5vw;
+    top: 100px;
+    right: calc(5vw + 70px);
 
     label {
       position: absolute;
@@ -442,7 +442,7 @@ export default {
         flex-flow: column wrap;
         align-items: center;
         box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-        padding: 5px;
+        padding: 7px 0 8px 0;
         background-color: #fff;
         border-radius: 5px;
       }
