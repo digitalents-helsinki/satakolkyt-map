@@ -435,6 +435,7 @@ export default {
 
   .mapboxgl-ctrl {
     width: 50px;
+    margin: 0;
 
     .mapboxgl-ctrl-zoom-in,
     .mapboxgl-ctrl-zoom-out {

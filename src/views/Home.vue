@@ -423,14 +423,17 @@ export default {
   }
 
   .trashtoggle-wrapper {
+    position: absolute;
+    top: 210px;
+    right: 5vw;
+
     label {
       position: absolute;
-      top: 210px;
-      right: 5.5vw;
+      top: 0;
+      right: 0;
       width: 50px;
       font-weight: bold;
       font-size: 14px;
-      margin-right: 5px;
       text-transform: uppercase;
       font-size: 11px;
 
