@@ -414,6 +414,9 @@ export default {
       if (this.hideConfirmed && c.confirmed) {
         return false
       }
+      if (this.hideConfirmed && !c.confirmed) {
+        return true
+      }
       if (this.invasiveonly) {
         if (c.kurtturuusu == 'yes' || c.jattipalsami == 'yes') {
           return true
