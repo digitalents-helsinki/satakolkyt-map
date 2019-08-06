@@ -8,3 +8,5 @@
 ## Deployment
 
 Currently deploys to Netlify. There is a testing and production build.
+
+https://map.satakolkyt.fi
