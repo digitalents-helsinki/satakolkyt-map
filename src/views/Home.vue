@@ -15,6 +15,7 @@
         @free-click="selectFree"
         @reserved-click="selectReserved"
         @cleaned-click="selectCleaned"
+        @exit-hover="showInfoBox = false"
       />
       <app-footer
         @show-reservationform="showReservationForm = true"

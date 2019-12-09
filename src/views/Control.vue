@@ -6,17 +6,6 @@
     class="controlpanel-wrapper"
     @click="$emit('close')"
   >
-    <app-footer
-      adminmode="true"
-      :data="selectedShoreData"
-      :action="mapOverlayAction"
-      :counterSteps="counterSteps"
-      :counterKm="counterKm"
-      @hide-shore="shoreHidden"
-      @unhide-shore="shoreUnhidden"
-      @unselect="unSelect"
-    />
-
     <div class="editor-wrapper">
       <div class="editor">
         <div class="adminMapContainer">
@@ -403,7 +392,6 @@ export default {
     }
   },
   components: {
-    AppFooter,
     ShoreMap
   },
   methods: {

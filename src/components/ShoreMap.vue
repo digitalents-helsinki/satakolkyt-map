@@ -97,6 +97,19 @@ export default {
       })
     },
     addShoreClickHandler(map, shoretype) {
+      map.on('mouseenter', shoretype + 'Shore', e => {
+        if (shoretype === 'cleaned') {
+          const clickedShore = e.features[0]
+          const clickpos = [e.lngLat.lng, e.lngLat.lat]
+          this.$emit(shoretype + '-click', clickedShore.properties)
+        }
+      })
+      map.on('mouseleave', shoretype + 'Shore', e => {
+        if (shoretype === 'cleaned') {
+          this.unHighlightAll()
+          this.$emit('exit-hover')
+        }
+      })
       map.on('click', shoretype + 'Shore', e => {
         //remove highlighting on all shores if we clicked on a non-free, non-reserved shore or
         //if a non-free, non-reserved shore was already highlighted
