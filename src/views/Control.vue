@@ -510,21 +510,26 @@ export default {
       this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     confirmReservation(e, reservation) {
-      const id = e.target.id
-      axios({
-        method: 'POST',
-        url: process.env.VUE_APP_URL + '/api/map/confirmreservation/',
-
-        data: { key: id, reservation: reservation._key }
-      })
-        .then(response => {
-          if (response.data.status === 'ok') {
-            reservation.confirmed = true
-          }
+      const confirmReservation = reservation => {
+        axios({
+          method: 'POST',
+          url: process.env.VUE_APP_URL + '/api/map/confirmreservation/',
+          data: { key: reservation.selected.key, reservation: reservation._key }
         })
-        .catch(function(error) {
-          console.log(error)
-        })
+          .then(response => {
+            if (response.data.status === 'ok') {
+              reservation.confirmed = true
+            }
+          })
+          .catch(function(error) {
+            console.log(error)
+          })
+      }
+      confirmReservation(reservation)
+      if (reservation.multiples)
+        reservation.multiples.forEach(reservation =>
+          confirmReservation(reservation)
+        )
     },
     shoreUnreserved(data) {
       if (data.status === 'cleaned') {
@@ -647,16 +652,29 @@ export default {
     showreservation(ev) {
       this.$refs.adminmap.unHighlightAll()
 
+      const reservation = this.reservations.find(
+        reservation => reservation.selected.key === ev.target.id
+      )
       let data = this.$store.state.maplayers['reservedlayer'].find(e => {
-        return e._key === ev.target.id
+        return e._key === reservation.selected.key
       })
+      const highlights = reservation.multiples
+        ? [
+            reservation.selected.key,
+            ...reservation.multiples.map(res => res.selected.key)
+          ]
+        : [reservation.selected.key]
       if (data) {
-        this.$refs.adminmap.highlight(ev.target.id, 'reservedShore')
+        highlights.forEach(highlight =>
+          this.$refs.adminmap.highlight(highlight, 'reservedShore')
+        )
       } else {
         data = this.$store.state.maplayers['cleanlayer'].find(e => {
-          return e._key === ev.target.id
+          return e._key === reservation.selected.key
         })
-        this.$refs.adminmap.highlight(ev.target.id, 'cleanedShore')
+        highlights.forEach(highlight =>
+          this.$refs.adminmap.highlight(highlight, 'cleanedShore')
+        )
       }
 
       this.map.flyTo({
@@ -691,8 +709,17 @@ export default {
     getReservations() {
       axios
         .get(process.env.VUE_APP_URL + '/api/map/reservations/')
-        .then(reservation => {
-          this.reservations = reservation.data.data
+        .then(res => {
+          this.reservations = res.data.data.reduce((arr, reservation) => {
+            const sameMultiID = arr.find(
+              res => res.multiID === reservation.multiID
+            )
+            if (sameMultiID) {
+              if (sameMultiID.multiples) sameMultiID.multiples.push(reservation)
+              else sameMultiID.multiples = [reservation]
+              return arr
+            } else return [...arr, reservation]
+          }, [])
           this.sortList(this.reservations, this.newestfirst)
         })
         .catch(error => {
