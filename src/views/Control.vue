@@ -596,19 +596,24 @@ export default {
         })
     },
     cancelReservation(e, reservation) {
-      axios
-        .post(process.env.VUE_APP_URL + '/api/map/cancelreservation/', {
-          key: e.target.id,
-          reservation: reservation._key
-        })
-        .then(response => {
-          if (response.data.status === 'ok') {
-            reservation.confirmed = false
-          }
-        })
-        .catch(function(error) {
-          console.log(error)
-        })
+      const cancelReservation = reservation => {
+        axios
+          .post(process.env.VUE_APP_URL + '/api/map/cancelreservation/', {
+            key: reservation.selected.key,
+            reservation: reservation._key
+          })
+          .then(response => {
+            if (response.data.status === 'ok') {
+              reservation.confirmed = false
+            }
+          })
+          .catch(error => console.log(error))
+      }
+      cancelReservation(reservation)
+      if (reservation.multiples)
+        reservation.multiples.forEach(reservation =>
+          cancelReservation(reservation)
+        )
     },
     confirmCleaned(clean) {
       this.showCleanConfirmConfirmation = false
