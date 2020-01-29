@@ -576,24 +576,31 @@ export default {
     },
     deleteReservation(reservation) {
       this.showDeleteReservationConfirmation = false
-      axios
-        .delete(process.env.VUE_APP_URL + '/api/map/reservation', {
-          data: {
-            reservkey: reservation._key,
-            shorekey: reservation.selected.key
-          }
-        })
-        .then(res => {
-          if (res.data.status === 'ok') {
-            this.shoreUnreserved(res.data.json)
-            this.reservations = this.reservations.filter(v => {
-              return v !== reservation
-            })
-          }
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      const deleteReservation = reservation => {
+        axios
+          .delete(process.env.VUE_APP_URL + '/api/map/reservation', {
+            data: {
+              reservkey: reservation._key,
+              shorekey: reservation.selected.key
+            }
+          })
+          .then(res => {
+            if (res.data.status === 'ok') {
+              this.shoreUnreserved(res.data.json)
+              this.reservations = this.reservations.filter(v => {
+                return v !== reservation
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
+      deleteReservation(reservation)
+      if (reservation.multiples)
+        reservation.multiples.forEach(reservation =>
+          deleteReservation(reservation)
+        )
     },
     cancelReservation(e, reservation) {
       const cancelReservation = reservation => {
