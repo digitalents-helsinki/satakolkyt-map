@@ -128,7 +128,7 @@
                       <textarea
                         rows="3"
                         v-model="reservationdata.openinfo"
-                        maxlength="200"
+                        maxlength="400"
                       />
                     </div>
                     <div class="input-field">

@@ -112,7 +112,7 @@
                     v-model="cleandata.trash_bags_info"
                     rows="2"
                     :required="cleandata.trash_left === 'yes' && required"
-                    maxlength="60"
+                    maxlength="300"
                   />
                 </div>
 
@@ -220,7 +220,7 @@
                     rows="3"
                     v-model="cleandata.kurtturuusu_detail"
                     :required="cleandata.kurtturuusu === 'yes' && required"
-                    maxlength="200"
+                    maxlength="400"
                   />
                 </div>
 
@@ -278,7 +278,7 @@
                     rows="3"
                     v-model="cleandata.jattipalsami_detail"
                     :required="cleandata.jattipalsami === 'yes' && required"
-                    maxlength="200"
+                    maxlength="400"
                   />
                 </div>
               </div>
@@ -304,7 +304,7 @@
                   <textarea
                     rows="4"
                     v-model="cleandata.cleanmoreinfo"
-                    maxlength="200"
+                    maxlength="400"
                   />
                 </div>
 

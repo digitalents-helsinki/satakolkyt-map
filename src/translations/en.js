@@ -6,7 +6,7 @@ export const en = {
     at: 'at',
     app: 'SATAKOLKYT map application',
     legend: 'Legend',
-    reserve: 'Book a bench to clean up',
+    reserve: 'Book a beach to clean up',
     reserve_sub: `The cleaning time and the organizing body will be visible to all. The contact details of the organizer will not be shown.`,
     date_start: 'Starting date',
     time_clean: 'Time of cleaning',
