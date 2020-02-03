@@ -215,8 +215,7 @@
                   </div>
                 </div>
                 <div class="foreign-species-detail">
-                  <h5>{{ $t('message.foreign_species1_detail') }}</h5>
-                  <p>{{ $t('message.foreign_species1_detail_sub') }}</p>
+                  <p>{{ $t('message.foreign_species_detail') }}</p>
                   <textarea
                     rows="3"
                     v-model="cleandata.kurtturuusu_detail"
@@ -274,8 +273,7 @@
                   </div>
                 </div>
                 <div class="foreign-species-detail">
-                  <h5>{{ $t('message.foreign_species2_detail') }}</h5>
-                  <p>{{ $t('message.foreign_species2_detail_sub') }}</p>
+                  <p>{{ $t('message.foreign_species_detail') }}</p>
                   <textarea
                     rows="3"
                     v-model="cleandata.jattipalsami_detail"
@@ -726,7 +724,7 @@ export default {
 }
 
 .privacy-policy-button {
-  max-width: 180px;
+  max-width: 200px;
   background-color: #fda218;
   display: flex;
   align-items: center;

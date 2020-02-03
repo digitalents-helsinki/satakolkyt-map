@@ -7,19 +7,19 @@ export const fi = {
     app: 'SATAKOLKYT-karttasovellus',
     legend: 'Karttaselite',
     reserve: 'Ilmoita tulevat talkoot',
-    reserve_sub: `Talkoiden tiedot, kuten järjestävä taho ja ajankohta näkyvät kaikille. 
+    reserve_sub: `Siivousajankohta ja järjestävä taho näkyvät kaikille. 
       Yhteyshenkilön tiedot eivät tule näkyviin.`,
     date_start: 'Päivämäärä aloitukselle',
-    time_clean: 'Ajankohta',
+    time_clean: 'Siivouksen ajankohta',
     organizer_clean: 'Rannan siivosi',
-    clean_count: 'Kuinka monta ihmistä osallistui talkoisiin?',
+    clean_count: 'Montako ihmistä osallistui siivoukseen?',
     select_from_list: 'Valitse listasta',
     group_size: 'Ryhmän koko',
     time_end: 'Kellonaika lopetukselle',
     time_start: 'Kellonaika aloitukselle',
     type_label: 'Minkäläiset talkoot',
-    type_open: 'Avoimet talkoot',
-    type_private: 'Oman porukan talkoot',
+    type_open: 'Kaikille avoimet talkoot',
+    type_private: 'Omalla porukalla',
     openevent_text: 'Tarkempaa tietoa talkoista',
     openevent_link: 'Lisätietoja tapahtumasta',
     organizer: 'Järjestäjä',
@@ -29,29 +29,30 @@ export const fi = {
     email: 'Sähköposti',
     contact: 'Yhteyshenkilö',
     close: 'Sulje',
-    claim_clean: 'Ilmoita ranta siivotuksi',
+    claim_clean: 'Ilmoita siivottu ranta',
     claim_clean_multi: 'Ilmoita rannat siivotuiksi',
     shore_cleaner_fill: 'Yhteyshenkilön tiedot eivät näy julkisesti.',
-    trash_count: 'Paljonko rannalla oli roskaa?',
+    trash_count: 'Kuinka paljon rannalta löytyi roskaa?',
     trash_amount: 'Roskan määrä',
     trash_little: 'Ei juuri lainkaan',
     trash_small: 'Muovipussillinen',
     trash_medium: 'Jätesäkillinen',
     trash_large: 'Monta jätesäkillistä',
-    trash_left: 'Jäikö rannalle pois vietäviä roskasäkkejä?',
-    trash_bags_info: `Anna mahdollisimman tarkat tiedot, mihin jätitte roskasäkit 
-    (esim. lähin katuosoite tai maamerkki).`,
+    trash_left: 'Jäikö rannalle pois vietäviä roskia roskisten ulkopuolelle?',
+    trash_bags_info: `Anna mahdollisimman tarkat tiedot, mistä roskat löytyvät 
+    (esim. lähin katuosoite).`,
     bags_to_collect: 'Roskasäkkejä kerättävänä',
     foreign_species: 'Vieraslajit',
     foreign_species_info: `Vieraslajit ovat lajeja, jotka ovat levinneet luontaiselta 
     levinneisyysalueeltaan uudelle alueelle ihmisen mukana joko tahattomasti tai tarkoituksella. 
-    Haitalliset vieraslajit leviävät nopeasti ja vievät elintilaan alkuperäisiltä lajeilta sekä 
-    muuttavat ekosysteemin rakennetta. Kartoitamme vieraslajien esiintymistä Helsingin rannoilla 
-    ja siksi keräämme havaintoja kurtturuususta ja jättipalsamista.`,
+    Haitalliset vieraslajit leviävät nopeasti ja vievät elintilaa alkuperäisiltä lajeilta sekä 
+    muuttavat ekosysteemin rakennetta.`,
     kurtturuusu: 'Kurtturuusu',
     see_kurtturuusu: 'Havaitsitteko rannalla kurtturuusua?',
     jattipalsami: 'Jättipalsami',
     see_jattipalsami: 'Havaitsitteko rannalla jättipalsamia?',
+    foreign_species_detail:
+      'Voitte kuvata vieraslajiesiintymää tarkemmin (esim. missä kohtaa rantaa vieraslajeja esiintyy ja kuinka paljon) ',
     foreign_species1_detail: 'Kuvaile kurtturuusuesiintymiä tarkemmin',
     foreign_species2_detail: 'Kuvaile jättipalsamiesiintymiä tarkemmin',
     foreign_species1_detail_sub:
@@ -65,8 +66,7 @@ export const fi = {
     clean_additional_info_sub: 'Jos jotain jäi vielä kertomatta',
     clean_something_else: 'Jotain muuta, mitä haluatte kertoa?',
     send: 'Lähetä',
-    reservation_saved: `Kiitos kun järjestätte talkoot! Talkoopaikan varaus vahvistetaan ja se 
-      tulee näkyviin kartalle yleensä seuraavana arkipäivänä.`,
+    reservation_saved: `Kiitos, että lähdette mukaan SATAKOLKYT-talkoisiin! Rantavarauksesi vahvistetaan sinulle sähköpostilla yleensä seuraavana arkipäivänä.`,
     cleaned_saved: `Kiitos Rannan Sankareille, jotka siivositte rannan. Ilmoitus siivotusta 
       rannasta on vastaanotettu ja tieto tulee näkyviin kartalle yleensä seuraavana arkipäivänä.`,
     reservations: 'Varaukset',
@@ -87,7 +87,7 @@ export const fi = {
     submit_permission_text:
       'Hyväksyn rekisteriselosteen mukaisen tietojeni käytön.',
     shorescleaned: 'Siivottu',
-    shoresreserved: 'Talkoot tulossa',
+    shoresreserved: 'Siivous tulossa',
     shoresfree: 'Siivoamaton',
     shoresselected: 'Valittu',
     reserved_shore: 'Talkoot tulossa',
@@ -139,7 +139,7 @@ export const fi = {
     ],
     help_text: [
       `Talkooroskat voi jättää rannoilla oleviin isoihin jäteastioihin, joiden sijainnit saa 
-      näkyviin kartalle ”Näytä jäteastiat” painikkeesta. Jos rannalla ei ole isoja 
+      näkyviin kartalle ”Näytä jäteastia” painikkeesta. Jos rannalla ei ole isoja 
       jäteastioita tai jos roskat eivät mahdu jäteastioihin, ne voi jättää tiukasti 
       suljetussa jätesäkissä johonkin helposti löydettävään paikkaan rannalle. 
       Kaupunki hoitaa tällöin roskien poisviennin, kunhan ilmoitat välittömästi 
@@ -170,6 +170,6 @@ export const fi = {
     reservation_open:
       'Tämä ranta on varattu kaikille avoimiin talkoisiin. Tervetuloa mukaan!',
     loanequipment: 'Tarvikkeiden lainaus',
-    trashbins: 'Jäteastiat'
+    trashbins: 'Jäteastia'
   }
 }

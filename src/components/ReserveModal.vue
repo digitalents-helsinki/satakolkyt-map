@@ -602,7 +602,7 @@ form {
 }
 
 .privacy-policy-button {
-  max-width: 180px;
+  max-width: 200px;
   background-color: #fda218;
   display: flex;
   align-items: center;
