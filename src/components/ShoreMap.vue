@@ -357,6 +357,10 @@ export default {
         m.remove()
       }
     }
+  },
+  mounted() {
+    if (this.adminmode)
+      this.$el.querySelector('.mapboxgl-ctrl-bottom-right').style.bottom = '0px'
   }
 }
 </script>
