@@ -344,7 +344,6 @@ export default {
       }
     }
   },
-
   mounted() {
     this.initMap()
     this.getStepsKm()

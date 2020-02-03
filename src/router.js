@@ -11,7 +11,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/(sv|en)?',
+      path: '/(fi|sv|en)?',
       name: 'home',
       component: Home
     },
