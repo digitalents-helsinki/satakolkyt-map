@@ -16,6 +16,7 @@
             @map-loaded="mapLoaded"
             @free-click="populateSelectedShoreData"
             @hidden-click="populateSelectedHiddenShoreData"
+            @cleaned-click="scrollToClickedCleanShore"
             :showOnMap="showOnMap"
             :freeshores="this.$store.state.maplayers.freelayer"
             :reservedshores="this.$store.state.maplayers.reservedlayer"
@@ -155,6 +156,7 @@
                 confirmed: clean.confirmed,
                 unconfirmed: !clean.confirmed
               }"
+              :ref="`cleanedShore_${clean.selected.key}`"
               v-for="clean in cleaned"
               :key="clean._id"
               v-show="shouldShowClean(clean)"
@@ -462,6 +464,19 @@ export default {
       this.selectedShoreData = data
       this.mapOverlayAction = 'unhide'
       this.$refs.adminmap.highlight(data.key, 'hiddenShore')
+    },
+    scrollToClickedCleanShore(data) {
+      this.unSelect()
+      this.$refs.adminmap.highlight(data.key, 'cleanedShore')
+      this.showReservations = false
+      this.showCleanedShores = true
+      const [cleanedShore] = this.$refs[`cleanedShore_${data.key}`]
+      this.$nextTick(() => {
+        cleanedShore.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+      })
     },
     toggleReservationList() {
       this.showCleanedShores = false
