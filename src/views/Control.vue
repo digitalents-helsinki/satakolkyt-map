@@ -673,7 +673,6 @@ export default {
     },
     archiveCleaned(clean) {
       this.showCleanArchivalConfirmation = false
-      console.log(clean._key)
       axios
         .post(process.env.VUE_APP_URL + '/api/map/archive/', {
           key: clean._key
