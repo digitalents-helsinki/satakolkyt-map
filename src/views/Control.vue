@@ -28,10 +28,16 @@
 
       <div class="list-wrapper">
         <div class="list-tabs">
-          <div class="tab" @click="toggleReservationList">
+          <div
+            :class="showReservations ? 'tab-active' : 'tab'"
+            @click="toggleReservationList"
+          >
             <h1>{{ $t('message.reservations') }}</h1>
           </div>
-          <div class="tab" @click="toggleCleanedShoresList">
+          <div
+            :class="showCleanedShores ? 'tab-active' : 'tab'"
+            @click="toggleCleanedShoresList"
+          >
             <h1>{{ $t('message.cleaned') }}</h1>
           </div>
         </div>
@@ -918,10 +924,14 @@ export default {
           height: 50px;
           background-color: white;
           border: 1px solid #bbb;
-          border-bottom: none;
           border-top-left-radius: 10px;
           border-top-right-radius: 10px;
           cursor: pointer;
+
+          &-active {
+            @extend .tab;
+            border-bottom: none;
+          }
 
           &:hover {
             background-color: #eee;
