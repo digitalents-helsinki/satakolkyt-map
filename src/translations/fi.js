@@ -79,6 +79,7 @@ export const fi = {
     confirm_cleaned: 'Vahvista siivotuksi',
     cancel_cleaned: 'Poista Vahvistus',
     delete_cleaned: 'Hylkää siivous',
+    archive_cleaned: 'Arkistoi siivous',
     unhideshore: 'Näytä ranta',
     hideshore: 'Piilota ranta',
     delete_reservation: 'Poista varaus',
@@ -115,6 +116,8 @@ export const fi = {
     clean_deletion_confirmation_message: 'Haluatko varmasti hylätä siivouksen?',
     clean_confirm_confirmation_message:
       'Haluatko varmasti varmistaa siivouksen? Yhteyshenkilön tiedot poistetaan lopullisesti!',
+    clean_archival_confirmation_message:
+      'Haluatko varmasti arkistoida siivouksen? Arkistointia ei voi peruuttaa.',
     hide_confirmed: 'Piilota varmistetut',
     join_cleaning: 'Tule mukaan talkoisiin!',
     private_event: 'Tämä ranta on varattu oman porukan talkoisiin.',

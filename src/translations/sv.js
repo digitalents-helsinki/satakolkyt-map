@@ -80,6 +80,7 @@ export const sv = {
     confirm_cleaned: 'Bekräfta rengöring',
     cancel_cleaned: 'Avbryt bekräftelse',
     delete_cleaned: 'Avvisa rengöring',
+    archive_cleaned: 'Arkivet rengörs',
     unhideshore: 'Avslöja stranden',
     hideshore: 'Dölj stranden',
     delete_reservation: 'Ta bort bokningen',
@@ -117,6 +118,8 @@ export const sv = {
       'Vill du verkligen rensa rengöringsrapporten?',
     clean_confirm_confirmation_message:
       'SV: Do you really want to confirm the cleaning? Contact info will be permanently deleted!',
+    clean_archival_confirmation_message:
+      'Är du säker på att du vill arkivera rengöringen? Arkivering kan inte ångras.',
     hide_confirmed: 'Dölj bekräftad',
     join_cleaning: 'Kom och följ med oss',
     private_event: 'Den här stranden är reserverat för en privat händelse',

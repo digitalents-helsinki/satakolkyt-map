@@ -279,6 +279,14 @@
                     {{ $t('message.confirm_cleaned') }}
                   </button>
                 </div>
+                <button
+                  :disabled="!clean.confirmed"
+                  class="small-button archive-button"
+                  :id="clean.selected.key"
+                  @click="openConfirmCleanArchival(clean)"
+                >
+                  {{ $t('message.archive_cleaned') }}
+                </button>
               </div>
             </li>
           </div>
@@ -331,6 +339,20 @@
           </button>
 
           <button @click="confirmCleaned(cleanToConfirm)">
+            {{ $t('message.yes') }}
+          </button>
+        </div>
+      </div>
+
+      <div class="confirmation-wrapper" v-if="showCleanArchivalConfirmation">
+        <div class="confirmation-container">
+          {{ $t('message.clean_archival_confirmation_message') }}
+
+          <button @click="showCleanArchivalConfirmation = false">
+            {{ $t('message.cancel') }}
+          </button>
+
+          <button @click="archiveCleaned(cleanToArchive)">
             {{ $t('message.yes') }}
           </button>
         </div>
@@ -392,6 +414,8 @@ export default {
       showDeleteCleanConfirmation: false,
       cleanToConfirm: null,
       showCleanConfirmConfirmation: false,
+      cleanToArchive: null,
+      showCleanArchivalConfirmation: false,
       counterSteps: null,
       counterKm: null,
       hideConfirmed: false,
@@ -503,6 +527,10 @@ export default {
     openConfirmCleanConfirmation(clean) {
       this.cleanToConfirm = clean
       this.showCleanConfirmConfirmation = true
+    },
+    openConfirmCleanArchival(clean) {
+      this.cleanToArchive = clean
+      this.showCleanArchivalConfirmation = true
     },
     shoreHidden(data) {
       this.$refs.adminmap.unHighlightAll()
@@ -642,6 +670,21 @@ export default {
         reservation.multiples.forEach(reservation =>
           cancelReservation(reservation)
         )
+    },
+    archiveCleaned(clean) {
+      this.showCleanArchivalConfirmation = false
+      console.log(clean._key)
+      axios
+        .post(process.env.VUE_APP_URL + '/api/map/archive/', {
+          key: clean._key
+        })
+        .then(response => {
+          if (response.data.status === 'ok') {
+            this.getCleaned()
+            this.shoreUncleaned(response.data.shore)
+          }
+        })
+        .catch(err => console.error(err))
     },
     confirmCleaned(clean) {
       this.showCleanConfirmConfirmation = false
@@ -1001,6 +1044,10 @@ export default {
           .clean-cta {
             margin-top: 10px;
             display: flex;
+
+            .archive-button[disabled] {
+              opacity: 38%;
+            }
           }
         }
       }

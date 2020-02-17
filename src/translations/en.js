@@ -76,6 +76,7 @@ export const en = {
     confirm_cleaned: 'Confirm cleaning',
     cancel_cleaned: 'Cancel confirmation',
     delete_cleaned: 'Reject cleaning',
+    archive_cleaned: 'Archive cleaning',
     unhideshore: 'Show Shore',
     hideshore: 'Hide Shore',
     delete_reservation: 'Delete Reservation',
@@ -112,6 +113,8 @@ export const en = {
       'Do you really want to discard the cleaning report?',
     clean_confirm_confirmation_message:
       'Do you really want to confirm the cleaning? Contact info will be permanently deleted!',
+    clean_archival_confirmation_message:
+      'Do you really want to archive the cleaning? Archival cannot be undone.',
     hide_confirmed: 'Hide confirmed',
     join_cleaning: 'Come join us!',
     private_event: 'This shore is reserved for a private cleanup event',
