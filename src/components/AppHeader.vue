@@ -22,19 +22,30 @@
             <div class="help" v-if="showHelp">
               <Help @close="showHelp = false"> </Help>
             </div>
-            <!-- HIDDEN TEMPORARILY DON'T DELETE!!! -->
-            <!--div class="locale-button" @click="$i18n.locale = 'fi'">
+            <div
+              v-if="!iframed"
+              class="locale-button"
+              @click="$i18n.locale = 'fi'"
+            >
               <div>FI</div>
             </div>
-            <div class="locale-button" @click="$i18n.locale = 'sv'">
+            <div
+              v-if="!iframed"
+              class="locale-button"
+              @click="$i18n.locale = 'sv'"
+            >
               <div>SV</div>
             </div>
-            <div class="locale-button" @click="$i18n.locale = 'en'">
+            <div
+              v-if="!iframed"
+              class="locale-button"
+              @click="$i18n.locale = 'en'"
+            >
               <div>EN</div>
-            </div-->
+            </div>
           </div>
         </div>
-        <div v-if="iframed" class="to-new-window-wrapper">
+        <div class="to-new-window-wrapper">
           <div class="to-new-window">
             <a href="https://map.satakolkyt.fi" target="_blank ">{{
               $t('message.to_new_window')
@@ -183,7 +194,7 @@ export default {
   }
 }
 
-@media only screen and (max-width: 1366px) {
+@media only screen and (max-width: 1024px) {
   .app-header {
     font-size: 20px;
 
