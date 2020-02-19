@@ -45,7 +45,7 @@
             </div>
           </div>
         </div>
-        <div class="to-new-window-wrapper">
+        <div v-if="iframed" class="to-new-window-wrapper">
           <div class="to-new-window">
             <a href="https://map.satakolkyt.fi" target="_blank ">{{
               $t('message.to_new_window')
