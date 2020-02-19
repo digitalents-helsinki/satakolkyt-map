@@ -414,7 +414,11 @@ export default {
           axios({
             method: 'POST',
             url: process.env.VUE_APP_URL + '/api/map/cleaninfo',
-            data: { ...this.cleandata, selected: s }
+            data: {
+              ...this.cleandata,
+              selected: s,
+              language: this.$i18n.locale
+            }
           })
             .then(res => {
               if (res.data.status === 'ok') {

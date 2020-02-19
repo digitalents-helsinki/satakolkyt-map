@@ -342,7 +342,7 @@ export default {
           this.reservationdata.starttime.mm
         for (let s of this.selected) {
           this.$emit('reservation-action', {
-            data: { ...reservation, selected: s },
+            data: { ...reservation, selected: s, language: this.$i18n.locale },
             okCB: this.reservationOk
           })
         }
