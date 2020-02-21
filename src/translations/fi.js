@@ -121,50 +121,40 @@ export const fi = {
     hide_confirmed: 'Piilota varmistetut',
     join_cleaning: 'Tule mukaan talkoisiin!',
     private_event: 'Tämä ranta on varattu oman porukan talkoisiin.',
-    help_title: 'Ohjeita & Tietoja',
+    help_title: 'Näin käytät SATAKOLKYT-siivouskarttaa',
     guide_coming_title: 'Tulossa siivoamaan?',
     guide_coming_list: [
-      'Valitse kartalta haluamasi rantapätkät näppäämällä niitä',
-      'Avaa varauslomake alareunan "Ilmoita tulevat talkoot"-napista',
-      'Täytä lomakkeen tiedot ja lähetä. Varauksesi vahvistetaan pian.',
-      'Voit hakea talkoovälineet lainaan kartalla näkyvistä kirjastoista.',
+      'Ranta on jaettu kartalla noin 100 metrin pätkiin. Valitse siivottavaksi yksi tai useampi pätkä näppäämällä rantaviivaa kartalla.',
+      'Avaa varauslomake alareunan "Ilmoita tuleva siivous"-napista',
+      'Täytä tarvittavat tiedot ja lähetä. Varaamasi rannan väri kartalla muuttuu oranssiksi.',
+      'Saat yleensä seuraavana arkipäivänä sähköpostiisi varmistuksen ja lisätietoa.',
+      'Rannalla sijaitsevat isot jäteastiat saat näkyviin yläkulman "Näytä jäteastiat"-painikkeesta.',
+      'Talkoovälineet saa lainaan kartalla näkyvistä kirjastoista.',
       `Voit myös liittyä mukaan muiden järjestämiin talkoisiin etsimällä kartalta 
       tulevia talkoita (oranssi rantaviiva). Jos talkoot ovat kaikille avoimet, löydät 
       niistä lisätietoa näppäämällä.`
     ],
     guide_cleaned_title: 'Vai siivositko jo?',
     guide_cleaned_list: [
-      'Valitse siivoamasi rantapätkät kartalta näppäämällä niitä',
+      'Kartalle voi ilmoittaa suoraan myös jo siivotun rannan. Valitse siivoamasi rantapätkät kartalta näppäämällä.',
       'Avaa ilmoituslomake alareunan "Ilmoita ranta siivotuksi"-napista',
-      'Täytä lomakkeen tiedot ja lähetä. Ilmoituksesi vahvistetaan pian!',
-      'Voit samalla ilmoittaa mahdolliset kurtturuusu- ja jättipalsamihavainnot rannoilta.',
-      'Kiitos, että pidät Helsingin rannat puhtaana!'
+      'Täytä lomakkeen tiedot ja lähetä. Ilmoittamasi rannan väri kartalla muuttuu vihreäksi.',
+      'Voit samalla ilmoittaa rannalle jätetyistä pois haettavista roskasäkeistä sekä mahdollisista vieraskasvilajihavainnoista rannoilta.',
+      'Siivottu ranta säilyy kartalla vihreänä 2-6 kuukautta rannan sijainnista riippuen.'
     ],
+    help_text_title: 'Huom!',
     help_text: [
-      `Talkooroskat voi jättää rannoilla oleviin isoihin jäteastioihin, joiden sijainnit saa 
-      näkyviin kartalle ”Näytä jäteastia” painikkeesta. Jos rannalla ei ole isoja 
-      jäteastioita tai jos roskat eivät mahdu jäteastioihin, ne voi jättää tiukasti 
-      suljetussa jätesäkissä johonkin helposti löydettävään paikkaan rannalle. 
-      Kaupunki hoitaa tällöin roskien poisviennin, kunhan ilmoitat välittömästi 
-      talkoiden jälkeen roskasäkkien mahdollisimman tarkan sijainnin. Voit tehdä sen 
-      Ilmoita ranta siivotuksi –lomakkeen kautta.`,
-      `Rantaviiva on jaettu kartalla noin 100 metrin pätkiin. Voit valita siivottavaksi 
-      myös useamman rantapätkän. Siivottu ranta säilyy kartalla vihreänä 3 
-      kuukautta.`,
-      `Lintujen pesimäaikaan 15.3.-15.8. talkoita ei saa järjestää lintujen 
-      pesimäalueilla. Kartalta on siksi poistettu rauhoitusajaksi 
-      luonnonsuojelualueita, joilla pesii paljon lintuja (esim. Vanhankaupunginlahti).`,
       `Kartalla näkyvät rantaosuudet ovat Helsingin kaupungin vastuulla olevia julkisia
       viheralueita. Kartalla näkyvä rantojen rajaus ei kuitenkaan välttämättä vastaa 
-      tarkasti julkisten alueiden ja yksityisten alueiden rajausta maastossa, joten 
-      emme voi luvata kaikkien rantojen olevan täysin käytettävissä.`,
+      tarkasti julkisten alueiden ja yksityisten alueiden rajausta maastossa, joten tarkista aina maastossa, missä liikkuminen on sallittua.`,
       `Rannoilla liikkuminen tapahtuu omalla vastuulla, eikä SATAKOLKYT ota vastuuta
       mahdollisista tapaturmista, yksityisalueiden loukkauksista tai talkooväen 
       aiheuttamista vahingoista.`
     ],
-    help_contact: `Jos haluat antaa palautetta karttasovellukseen liittyen, ota yhteyttä 
+    help_contact: `Jos sinulla on kysyttävää tai haluat antaa palautetta karttasovellukseen liittyen, ota yhteyttä 
       SATAKOLKYT-koordinaattoriin`,
-    help_phone: 'puh.',
+    help_phone: 'tai puh.',
+    help_thanks: 'Kiitos kun siivoat Helsingin rantoja!',
     powered_by: 'Ohjelmiston tarjoaa:',
     remove_old_reservations: 'Poista vanhat varaukset',
     remove_old_cleanings: 'Arkistoi yli 3kk vanhat siivoukset',

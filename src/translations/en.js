@@ -118,38 +118,33 @@ export const en = {
     hide_confirmed: 'Hide confirmed',
     join_cleaning: 'Come join us!',
     private_event: 'This shore is reserved for a private cleanup event',
-    help_title: 'Guidance & Information',
-    guide_coming_title: 'Coming to clean a shore?',
+    help_title: 'How to use the SATAKOLKYT cleaning map',
+    guide_coming_title: 'Coming to clean?',
     guide_coming_list: [
-      'Select your desired piece of shore from the map by tapping it',
-      'Open the reservation form from the "Announce cleanup"-button at the bottom',
-      'Fill in the form and send it',
-      'Your reservation will be confirmed soon!',
-      'Get cleaning equipment from a library',
-      'And to the beach!'
+      'The shoreline has been divided into ca. 100 metre sections. Pick one or more sections to clean by tapping the shoreline on the map.',
+      'Open the reservation form using the ” Announce an upcoming cleaning” button at the bottom.',
+      'Fill in the necessary information and send. The colour of the shore you reserved turns orange on the map.',
+      'You’ll get a confirmation email with additional information usually on the following working day.',
+      'You can view the big trash containers located on the shore using the ”Show waste containers” button at the top corner.',
+      'Equipment can be borrowed from the libraries shown on the map.',
+      'You can also join in on a cleaning organized by others by searching the map for upcoming cleanings (orange shoreline). If the cleaning is open to all, you can find more information by tapping.'
     ],
-    guide_cleaned_title: 'Already cleaned a shore?',
+    guide_cleaned_title: 'Or did you clean already?',
     guide_cleaned_list: [
-      'Select the cleaned piece of shore from the map by tapping it',
-      'Open the report form from the "Report cleaned shore"-button at the bottom',
-      'Fill in the form and send it',
-      'Your report will be confirmed soon!',
-      'Thank you for keeping the shores of Helsinki clean!'
+      'You can also directly report an already cleaned shore on the map. Select the shore sections that you’ve cleaned by tapping on the map.',
+      'Open the notification form using the ”Report a cleaned beach” button at the bottom.',
+      'Fill in the data on the form and send. The colour of the shore you reported turns green on the map.',
+      'You can also report garbage bags left on the shore to be picked up and possible sightings of alien species on the shores.',
+      'A cleaned shore remains green on the map for 2−6 months depending on its location. '
     ],
+    help_text_title: 'Note!',
     help_text: [
-      `The pieces of shore used in the application are public places under the responsibility of the city of Helsinki.
-    The shores visible, however, do not necessarily correspond with the true shoreline and we cannot guarantee that they are in
-    public use.`,
-      `The visitors take all responsibility while traversing the shoreline, and Satakolkyt does not take any responsibility for
-    possible injuries, trespassing or damage caused by the cleaners.`,
-      `If you want to reserve, or report as cleaned more than one section of shore, you must do so separately for each section. The
-    possibility to select multiple sections on the same form is an upcoming feature!`,
-      `As bird conservation areas are protected during the summer, we have removed the possiblity to reserve them during the protected
-    period.`
+      `The shore sections visible on the map are public greenspaces under the responsibility of the city of Helsinki. The sectioning of the shores on the map might not accurately correspond to the actual limits of public and private spaces, so please always check on site where it is permissible to walk.`,
+      `Walking on the shores happens at your own responsibility, and SATAKOLKYT is not responsible for possible accidents, violations of private areas, or damages caused by volunteers.`
     ],
-    help_contact: `EN: Jos haluat antaa palautetta karttasovellukseen liittyen, ota yhteyttä 
-      hankekoordinaattoriin`,
-    help_phone: 'tel.',
+    help_contact: `If you have any questions or wish to give feedback regarding the map application, please contact the SATAKOLKYT coordinator at`,
+    help_phone: 'or tel.',
+    help_thanks: 'Thank you for cleaning Helsinki shoreline!',
     powered_by: 'App powered by:',
     remove_old_reservations: 'Remove old reservations',
     remove_old_cleanings: 'Archive cleanings over 3mo old',

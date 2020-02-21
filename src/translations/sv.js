@@ -123,33 +123,33 @@ export const sv = {
     hide_confirmed: 'Dölj bekräftad',
     join_cleaning: 'Kom och följ med oss',
     private_event: 'Den här stranden är reserverat för en privat händelse',
-    help_title: 'Vägledning & Information',
-    guide_coming_title: 'Kommer att städa upp?',
+    help_title: 'Så här använder du SATAKOLKYT-städningskarta',
+    guide_coming_title: 'Ska du städa?',
     guide_coming_list: [
-      'Välj strandstranden du vill ha på kartan genom att klicka på den',
-      'Öppna bokningsformuläret längst ner på knappen "Meddela rengöring"',
-      'Fyll i formuläret och skicka in',
-      'Din bokning kommer att bekräftas snart!',
-      'SV: Hae siivousvälineet lainaan kirjastosta',
-      'Och till stranden!'
+      'Stranden är uppdelad i delar på cirka 100 meter på kartan. Välj en eller flera bitar som ska städas genom att trycka på strandlinjen på kartan.',
+      'Öppna bokningsformuläret genom att klicka på knappen "Rapportera kommande städning" längst ner.',
+      'Fyll i önskad information och skicka in. Färgen på stranden du bokar kommer att ändras till orange på kartan.',
+      'Du kommer vanligtvis att få bekräftelse och ytterligare information via e-post nästa arbetsdag.',
+      'De stora avfallskärlen på stranden kan visas via knappen "Visa sopkärl" i det övre hörnet.',
+      'Du kan låna utrustning från biblioteken på kartan.',
+      'Du kan också delta i städning som organiseras av andra genom att söka efter event på kartan (orange strandlinje). Om eventet är öppna för alla kan du hitta mer information genom att klicka på dem.'
     ],
-    guide_cleaned_title: 'Har du redan rengjort?',
+    guide_cleaned_title: 'Eller har du redan städat?',
     guide_cleaned_list: [
-      'Klicka på kartan för att välja strandstranden du städade',
-      'Öppna anmälningsformuläret längst ner på knappen "Rapporttera en städad strand"',
-      'Fyll i formuläret och skicka in',
-      'Din annons kommer snart att bekräftas!',
-      'Tack för att du håller dina stränder i Helsingfors ren!'
+      'Redan städade stränder kan rapporteras direkt på kartan. Klicka på kartan för att välja de stränder du har städat.',
+      'Öppna formuläret med knappen " Meddela städad strand" längst ner.',
+      'Fyll i formuläret och skicka in. Stranden som du rapporterar blir grön på kartan.',
+      'Samtidigt kan du rapportera sopor för upphämtning samt eventuella Introducerade arter som finns på stranden.',
+      'Den städade stranden kommer att förbli grön på kartan i 2-6 månader, beroende på strandens plats.'
     ],
+    help_text_title: 'OBS!',
     help_text: [
-      `De stränder som används i ansökan är offentliga platser under Helsingfors stad. De synliga kusterna motsvarar emellertid inte nödvändigtvis den sanna kustlinjen och vi kan inte garantera att de är offentliga.`,
-      `Besökarna tar allt ansvar när de går över kusten, och Satakolkyt tar inget ansvar för eventuella skador, intrång eller skador som orsakats av städarna.`,
-      `Om du vill reservera, eller rapportera som rengöras mer än ett avsnitt av stranden, måste du göra det separat för varje avsnitt. Möjligheten att välja flera sektioner i samma form är en kommande funktion!`,
-      `Eftersom fågelskyddsområden är skyddade under sommaren har vi tagit bort möjligheten att reservera dem under den skyddade perioden.`
+      `Strandområdena på kartan är offentliga grönområden under Helsingfors stads ansvar. Avgränsningen av stränderna på kartan kanske inte exakt motsvarar avgränsningen av offentliga och privata områden i terrängen, så kontrollera alltid att du befinner dig i terräng där städning är tillåten.`,
+      `Att röra sig på stränderna sker på egen risk och SATAKOLKYT tar inget ansvar för olyckor, skador på privata områden eller skador orsakade av städgrupper.`
     ],
-    help_contact: `SV: Jos haluat antaa palautetta karttasovellukseen liittyen, ota yhteyttä 
-      hankekoordinaattoriin`,
-    help_phone: 'SV: puh.',
+    help_contact: `Om du har frågor eller vill ge feedback angående kart-appen, kontakta SATAKOLKYT-koordinatorn på`,
+    help_phone: 'eller tel.',
+    help_thanks: 'Tack för att du städar Helsingfors stränder!',
     powered_by: 'App drivs av:',
     remove_old_reservations: 'Ta bort gamla reservationer',
     remove_old_cleanings: 'SV:[Arkistoi] rengöringarna äldre än 3mån',
