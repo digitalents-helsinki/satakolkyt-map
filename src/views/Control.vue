@@ -501,6 +501,8 @@ export default {
       this.showReservations = false
       this.showCleanedShores = true
       const [cleanedShore] = this.$refs[`cleanedShore_${data.key}`]
+      setTimeout(() => cleanedShore.classList.remove('scrollToAnimation'), 3000)
+      cleanedShore.classList.add('scrollToAnimation')
       this.$nextTick(() => {
         cleanedShore.scrollIntoView({
           behavior: 'smooth',
@@ -1024,6 +1026,33 @@ export default {
           margin: 10px 0;
           padding: 10px;
           border-bottom: 2px solid #bbb;
+
+          @keyframes scrollToAnimation {
+            0% {
+              box-shadow: 0 0 2px darken(#eee350, 17%);
+            }
+            20% {
+              box-shadow: 0 0 4px darken(#eee350, 17%);
+            }
+            40% {
+              box-shadow: 0 0 6px darken(#eee350, 17%);
+            }
+            60% {
+              box-shadow: 0 0 8px darken(#eee350, 17%);
+            }
+            80% {
+              box-shadow: 0 0 10px darken(#eee350, 17%);
+            }
+            100% {
+              box-shadow: 0 0 12px darken(#eee350, 17%);
+            }
+          }
+          &.scrollToAnimation {
+            animation-name: scrollToAnimation;
+            animation-duration: 500ms;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+          }
 
           .clean-time,
           .clean-contact,
