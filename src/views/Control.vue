@@ -886,9 +886,9 @@ export default {
     },
     toggleSort() {
       console.log('toggle')
+      this.newestfirst = !this.newestfirst
       this.sortList(this.reservations, this.newestfirst)
       this.sortList(this.cleaned, this.newestfirst)
-      this.newestfirst = !this.newestfirst
     }
   }
 }
