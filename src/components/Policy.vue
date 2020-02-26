@@ -1,15 +1,7 @@
 <template>
   <div class="policy-container">
-    <pdf
-      src="rekisteriseloste.pdf"
-      :page="1"
-      style="width: 100%; min-width: 750px;"
-    />
-    <pdf
-      src="rekisteriseloste.pdf"
-      :page="2"
-      style="width: 100%; min-width: 750px;"
-    />
+    <pdf :src="pdf" :page="1" style="width: 100%; min-width: 750px;" />
+    <pdf :src="pdf" :page="2" style="width: 100%; min-width: 750px;" />
   </div>
 </template>
 <script>
@@ -19,6 +11,18 @@ export default {
   name: 'policy',
   components: {
     pdf
+  },
+  computed: {
+    pdf() {
+      switch (this.$i18n.locale) {
+        case 'sv':
+          return 'rekisteriseloste-sv.pdf'
+        case 'en':
+          return 'rekisteriseloste-en.pdf'
+        default:
+          return 'rekisteriseloste.pdf'
+      }
+    }
   }
 }
 </script>

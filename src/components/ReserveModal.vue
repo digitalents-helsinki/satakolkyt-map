@@ -128,7 +128,7 @@
                       <textarea
                         rows="3"
                         v-model="reservationdata.openinfo"
-                        maxlength="200"
+                        maxlength="400"
                       />
                     </div>
                     <div class="input-field">
@@ -342,7 +342,7 @@ export default {
           this.reservationdata.starttime.mm
         for (let s of this.selected) {
           this.$emit('reservation-action', {
-            data: { ...reservation, selected: s },
+            data: { ...reservation, selected: s, language: this.$i18n.locale },
             okCB: this.reservationOk
           })
         }
@@ -602,7 +602,7 @@ form {
 }
 
 .privacy-policy-button {
-  max-width: 180px;
+  max-width: 200px;
   background-color: #fda218;
   display: flex;
   align-items: center;

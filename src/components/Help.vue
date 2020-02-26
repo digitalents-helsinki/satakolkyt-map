@@ -35,14 +35,16 @@
               {{ item }}
             </li>
           </ul>
+          <h2>{{ $t('message.help_text_title') }}</h2>
           <p v-for="(para, index) in $t('message.help_text')" :key="index">
             {{ para }}
           </p>
           <p>
             {{ $t('message.help_contact') }}
-            <a href="mailto:eeva.puustjarvi@hel.fi">eeva.puustjarvi@hel.fi</a>,
+            <a href="mailto:info@satakolkyt.fi">info@satakolkyt.fi</a>
             {{ $t('message.help_phone') }} 044 270 0573
           </p>
+          <h2>{{ $t('message.help_thanks') }}</h2>
           <div class="digitalents">
             <h3>{{ $t('message.powered_by') }}</h3>
             <a href="http://digitalents.munstadi.fi" target="_blank">
@@ -127,14 +129,10 @@ export default {
         p {
           font-size: 16px;
           padding: 10px 0;
-
-          &:first-of-type {
-            margin-top: 20px;
-          }
         }
 
         .digitalents {
-          margin: 10px auto 0 auto;
+          margin: 20px auto 0 auto;
           padding-top: 40px;
           border-top: 1px solid #bbb;
           max-width: 350px;

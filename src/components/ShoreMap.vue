@@ -97,6 +97,21 @@ export default {
       })
     },
     addShoreClickHandler(map, shoretype) {
+      if (!this.adminmode) {
+        map.on('mouseenter', shoretype + 'Shore', e => {
+          if (shoretype === 'cleaned') {
+            const clickedShore = e.features[0]
+            const clickpos = [e.lngLat.lng, e.lngLat.lat]
+            this.$emit(shoretype + '-click', clickedShore.properties)
+          }
+        })
+        map.on('mouseleave', shoretype + 'Shore', e => {
+          if (shoretype === 'cleaned') {
+            this.unHighlightAll()
+            this.$emit('exit-hover')
+          }
+        })
+      }
       map.on('click', shoretype + 'Shore', e => {
         //remove highlighting on all shores if we clicked on a non-free, non-reserved shore or
         //if a non-free, non-reserved shore was already highlighted
@@ -249,9 +264,7 @@ export default {
           <h3>${lib.address}</h3>
           <h3><img alt="" src="email.svg" width="24px"/> ${lib.email}</h3>
           <h3><img alt="" src="phone.svg" width="24px"/> ${lib.phone}</h3>
-          <a href="${
-            lib.site
-          }" target="_blank">Lisätietoja, kuten aukioloajat, löydät kirjaston sivuilta</a>
+          <a href="${lib.site}" target="_blank">Lisätietoja, kuten aukioloajat, löydät kirjaston sivuilta</a>
         `)
         new mapboxgl.Marker({ element: el, offset: [0, -20] })
           .setLngLat([lib.coords.long, lib.coords.lat])
@@ -292,6 +305,7 @@ export default {
       this.addShoreClickHandler(map, 'free')
       if (this.adminmode) {
         this.addShoreClickHandler(map, 'hidden')
+        this.addShoreClickHandler(map, 'cleaned')
       } else {
         this.addShoreClickHandler(map, 'reserved')
         this.addShoreClickHandler(map, 'cleaned')
@@ -317,6 +331,7 @@ export default {
         this.addHoverHandler(canv, 'reservedShore')
         this.addHoverHandler(canv, 'cleanedShore')
       } else {
+        this.addHoverHandler(canv, 'cleanedShore')
         this.addHoverHandler(canv, 'hiddenShore')
       }
     },
@@ -344,6 +359,10 @@ export default {
         m.remove()
       }
     }
+  },
+  mounted() {
+    if (this.adminmode)
+      this.$el.querySelector('.mapboxgl-ctrl-bottom-right').style.bottom = '0px'
   }
 }
 </script>

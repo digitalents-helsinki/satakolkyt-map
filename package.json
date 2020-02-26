@@ -59,6 +59,9 @@
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"
   },
+  "resolutions": {
+    "serialize-javascript": "^2.1.1"
+  },
   "eslintConfig": {
     "root": true,
     "env": {

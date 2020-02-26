@@ -8,7 +8,6 @@ import store from './store'
 import vueHeadful from 'vue-headful'
 import moment from 'moment'
 import 'moment/locale/fi'
-
 import 'moment/locale/sv'
 import VueOffline from 'vue-offline'
 import { library } from '@fortawesome/fontawesome-svg-core'

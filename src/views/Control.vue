@@ -6,17 +6,6 @@
     class="controlpanel-wrapper"
     @click="$emit('close')"
   >
-    <app-footer
-      adminmode="true"
-      :data="selectedShoreData"
-      :action="mapOverlayAction"
-      :counterSteps="counterSteps"
-      :counterKm="counterKm"
-      @hide-shore="shoreHidden"
-      @unhide-shore="shoreUnhidden"
-      @unselect="unSelect"
-    />
-
     <div class="editor-wrapper">
       <div class="editor">
         <div class="adminMapContainer">
@@ -27,6 +16,7 @@
             @map-loaded="mapLoaded"
             @free-click="populateSelectedShoreData"
             @hidden-click="populateSelectedHiddenShoreData"
+            @cleaned-click="scrollToClickedCleanShore"
             :showOnMap="showOnMap"
             :freeshores="this.$store.state.maplayers.freelayer"
             :reservedshores="this.$store.state.maplayers.reservedlayer"
@@ -38,10 +28,16 @@
 
       <div class="list-wrapper">
         <div class="list-tabs">
-          <div class="tab" @click="toggleReservationList">
+          <div
+            :class="showReservations ? 'tab-active' : 'tab'"
+            @click="toggleReservationList"
+          >
             <h1>{{ $t('message.reservations') }}</h1>
           </div>
-          <div class="tab" @click="toggleCleanedShoresList">
+          <div
+            :class="showCleanedShores ? 'tab-active' : 'tab'"
+            @click="toggleCleanedShoresList"
+          >
             <h1>{{ $t('message.cleaned') }}</h1>
           </div>
         </div>
@@ -166,6 +162,7 @@
                 confirmed: clean.confirmed,
                 unconfirmed: !clean.confirmed
               }"
+              :ref="`cleanedShore_${clean.selected.key}`"
               v-for="clean in cleaned"
               :key="clean._id"
               v-show="shouldShowClean(clean)"
@@ -282,6 +279,14 @@
                     {{ $t('message.confirm_cleaned') }}
                   </button>
                 </div>
+                <button
+                  :disabled="!clean.confirmed"
+                  class="small-button archive-button"
+                  :id="clean.selected.key"
+                  @click="openConfirmCleanArchival(clean)"
+                >
+                  {{ $t('message.archive_cleaned') }}
+                </button>
               </div>
             </li>
           </div>
@@ -334,6 +339,20 @@
           </button>
 
           <button @click="confirmCleaned(cleanToConfirm)">
+            {{ $t('message.yes') }}
+          </button>
+        </div>
+      </div>
+
+      <div class="confirmation-wrapper" v-if="showCleanArchivalConfirmation">
+        <div class="confirmation-container">
+          {{ $t('message.clean_archival_confirmation_message') }}
+
+          <button @click="showCleanArchivalConfirmation = false">
+            {{ $t('message.cancel') }}
+          </button>
+
+          <button @click="archiveCleaned(cleanToArchive)">
             {{ $t('message.yes') }}
           </button>
         </div>
@@ -395,6 +414,8 @@ export default {
       showDeleteCleanConfirmation: false,
       cleanToConfirm: null,
       showCleanConfirmConfirmation: false,
+      cleanToArchive: null,
+      showCleanArchivalConfirmation: false,
       counterSteps: null,
       counterKm: null,
       hideConfirmed: false,
@@ -403,7 +424,6 @@ export default {
     }
   },
   components: {
-    AppFooter,
     ShoreMap
   },
   methods: {
@@ -475,6 +495,21 @@ export default {
       this.mapOverlayAction = 'unhide'
       this.$refs.adminmap.highlight(data.key, 'hiddenShore')
     },
+    scrollToClickedCleanShore(data) {
+      this.unSelect()
+      this.$refs.adminmap.highlight(data.key, 'cleanedShore')
+      this.showReservations = false
+      this.showCleanedShores = true
+      const [cleanedShore] = this.$refs[`cleanedShore_${data.key}`]
+      setTimeout(() => cleanedShore.classList.remove('scrollToAnimation'), 3000)
+      cleanedShore.classList.add('scrollToAnimation')
+      this.$nextTick(() => {
+        cleanedShore.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+      })
+    },
     toggleReservationList() {
       this.showCleanedShores = false
       this.showReservations = !this.showReservations
@@ -494,6 +529,10 @@ export default {
     openConfirmCleanConfirmation(clean) {
       this.cleanToConfirm = clean
       this.showCleanConfirmConfirmation = true
+    },
+    openConfirmCleanArchival(clean) {
+      this.cleanToArchive = clean
+      this.showCleanArchivalConfirmation = true
     },
     shoreHidden(data) {
       this.$refs.adminmap.unHighlightAll()
@@ -522,21 +561,26 @@ export default {
       this.$refs.adminmap.addSegmentToLayer('freeShore', 'freelayer', data)
     },
     confirmReservation(e, reservation) {
-      const id = e.target.id
-      axios({
-        method: 'POST',
-        url: process.env.VUE_APP_URL + '/api/map/confirmreservation/',
-
-        data: { key: id, reservation: reservation._key }
-      })
-        .then(response => {
-          if (response.data.status === 'ok') {
-            reservation.confirmed = true
-          }
+      const confirmReservation = reservation => {
+        axios({
+          method: 'POST',
+          url: process.env.VUE_APP_URL + '/api/map/confirmreservation/',
+          data: { key: reservation.selected.key, reservation: reservation._key }
         })
-        .catch(function(error) {
-          console.log(error)
-        })
+          .then(response => {
+            if (response.data.status === 'ok') {
+              reservation.confirmed = true
+            }
+          })
+          .catch(function(error) {
+            console.log(error)
+          })
+      }
+      confirmReservation(reservation)
+      if (reservation.multiples)
+        reservation.multiples.forEach(reservation =>
+          confirmReservation(reservation)
+        )
     },
     shoreUnreserved(data) {
       if (data.status === 'cleaned') {
@@ -583,39 +627,65 @@ export default {
     },
     deleteReservation(reservation) {
       this.showDeleteReservationConfirmation = false
-      axios
-        .delete(process.env.VUE_APP_URL + '/api/map/reservation', {
-          data: {
-            reservkey: reservation._key,
-            shorekey: reservation.selected.key
-          }
-        })
-        .then(res => {
-          if (res.data.status === 'ok') {
-            this.shoreUnreserved(res.data.json)
-            this.reservations = this.reservations.filter(v => {
-              return v !== reservation
-            })
-          }
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      const deleteReservation = reservation => {
+        axios
+          .delete(process.env.VUE_APP_URL + '/api/map/reservation', {
+            data: {
+              reservkey: reservation._key,
+              shorekey: reservation.selected.key
+            }
+          })
+          .then(res => {
+            if (res.data.status === 'ok') {
+              this.shoreUnreserved(res.data.json)
+              this.reservations = this.reservations.filter(v => {
+                return v !== reservation
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
+      deleteReservation(reservation)
+      if (reservation.multiples)
+        reservation.multiples.forEach(reservation =>
+          deleteReservation(reservation)
+        )
     },
     cancelReservation(e, reservation) {
+      const cancelReservation = reservation => {
+        axios
+          .post(process.env.VUE_APP_URL + '/api/map/cancelreservation/', {
+            key: reservation.selected.key,
+            reservation: reservation._key
+          })
+          .then(response => {
+            if (response.data.status === 'ok') {
+              reservation.confirmed = false
+            }
+          })
+          .catch(error => console.log(error))
+      }
+      cancelReservation(reservation)
+      if (reservation.multiples)
+        reservation.multiples.forEach(reservation =>
+          cancelReservation(reservation)
+        )
+    },
+    archiveCleaned(clean) {
+      this.showCleanArchivalConfirmation = false
       axios
-        .post(process.env.VUE_APP_URL + '/api/map/cancelreservation/', {
-          key: e.target.id,
-          reservation: reservation._key
+        .post(process.env.VUE_APP_URL + '/api/map/archive/', {
+          key: clean._key
         })
         .then(response => {
           if (response.data.status === 'ok') {
-            reservation.confirmed = false
+            this.getCleaned()
+            this.shoreUncleaned(response.data.shore)
           }
         })
-        .catch(function(error) {
-          console.log(error)
-        })
+        .catch(err => console.error(err))
     },
     confirmCleaned(clean) {
       this.showCleanConfirmConfirmation = false
@@ -659,16 +729,29 @@ export default {
     showreservation(ev) {
       this.$refs.adminmap.unHighlightAll()
 
+      const reservation = this.reservations.find(
+        reservation => reservation.selected.key === ev.target.id
+      )
       let data = this.$store.state.maplayers['reservedlayer'].find(e => {
-        return e._key === ev.target.id
+        return e._key === reservation.selected.key
       })
+      const highlights = reservation.multiples
+        ? [
+            reservation.selected.key,
+            ...reservation.multiples.map(res => res.selected.key)
+          ]
+        : [reservation.selected.key]
       if (data) {
-        this.$refs.adminmap.highlight(ev.target.id, 'reservedShore')
+        highlights.forEach(highlight =>
+          this.$refs.adminmap.highlight(highlight, 'reservedShore')
+        )
       } else {
         data = this.$store.state.maplayers['cleanlayer'].find(e => {
-          return e._key === ev.target.id
+          return e._key === reservation.selected.key
         })
-        this.$refs.adminmap.highlight(ev.target.id, 'cleanedShore')
+        highlights.forEach(highlight =>
+          this.$refs.adminmap.highlight(highlight, 'cleanedShore')
+        )
       }
 
       this.map.flyTo({
@@ -703,8 +786,17 @@ export default {
     getReservations() {
       axios
         .get(process.env.VUE_APP_URL + '/api/map/reservations/')
-        .then(reservation => {
-          this.reservations = reservation.data.data
+        .then(res => {
+          this.reservations = res.data.data.reduce((arr, reservation) => {
+            const sameMultiID = arr.find(
+              res => res.multiID === reservation.multiID
+            )
+            if (sameMultiID) {
+              if (sameMultiID.multiples) sameMultiID.multiples.push(reservation)
+              else sameMultiID.multiples = [reservation]
+              return arr
+            } else return [...arr, reservation]
+          }, [])
           this.sortList(this.reservations, this.newestfirst)
         })
         .catch(error => {
@@ -794,9 +886,9 @@ export default {
     },
     toggleSort() {
       console.log('toggle')
+      this.newestfirst = !this.newestfirst
       this.sortList(this.reservations, this.newestfirst)
       this.sortList(this.cleaned, this.newestfirst)
-      this.newestfirst = !this.newestfirst
     }
   }
 }
@@ -876,10 +968,14 @@ export default {
           height: 50px;
           background-color: white;
           border: 1px solid #bbb;
-          border-bottom: none;
           border-top-left-radius: 10px;
           border-top-right-radius: 10px;
           cursor: pointer;
+
+          &-active {
+            @extend .tab;
+            border-bottom: none;
+          }
 
           &:hover {
             background-color: #eee;
@@ -931,6 +1027,33 @@ export default {
           padding: 10px;
           border-bottom: 2px solid #bbb;
 
+          @keyframes scrollToAnimation {
+            0% {
+              box-shadow: 0 0 2px darken(#eee350, 17%);
+            }
+            20% {
+              box-shadow: 0 0 4px darken(#eee350, 17%);
+            }
+            40% {
+              box-shadow: 0 0 6px darken(#eee350, 17%);
+            }
+            60% {
+              box-shadow: 0 0 8px darken(#eee350, 17%);
+            }
+            80% {
+              box-shadow: 0 0 10px darken(#eee350, 17%);
+            }
+            100% {
+              box-shadow: 0 0 12px darken(#eee350, 17%);
+            }
+          }
+          &.scrollToAnimation {
+            animation-name: scrollToAnimation;
+            animation-duration: 500ms;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+          }
+
           .clean-time,
           .clean-contact,
           .clean-trash,
@@ -949,6 +1072,10 @@ export default {
           .clean-cta {
             margin-top: 10px;
             display: flex;
+
+            .archive-button[disabled] {
+              opacity: 38%;
+            }
           }
         }
       }

@@ -39,6 +39,7 @@ export default {
     window.addEventListener('resize', () => {
       this.$data.vh = window.innerHeight * 0.01
     })
+    this.$i18n.locale = this.$route.params.pathMatch || 'fi'
   },
 
   methods: {},

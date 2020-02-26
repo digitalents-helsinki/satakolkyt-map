@@ -15,6 +15,7 @@
         @free-click="selectFree"
         @reserved-click="selectReserved"
         @cleaned-click="selectCleaned"
+        @exit-hover="showInfoBox = false"
       />
       <app-footer
         @show-reservationform="showReservationForm = true"
@@ -325,15 +326,13 @@ export default {
       this.$refs.usermap.unHighlightAll()
     },
     getStepsKm() {
-      axios.get(process.env.VUE_APP_URL + '/api/map/stepskm/').then(
-        res => {
-          this.counterKm = res.data.km
-          this.counterSteps = res.data.steps
-        },
-        err => {
-          console.log(err)
-        }
-      )
+      fetch(process.env.VUE_APP_URL + '/api/map/stepskm/')
+        .then(res => res.json())
+        .then(data => {
+          this.counterKm = data.km
+          this.counterSteps = data.steps
+        })
+        .catch(err => console.log(err))
     },
     toggleTrashBins(ev) {
       if (this.showTrashBins) {
@@ -343,7 +342,6 @@ export default {
       }
     }
   },
-
   mounted() {
     this.initMap()
     this.getStepsKm()

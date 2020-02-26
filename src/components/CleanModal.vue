@@ -112,7 +112,7 @@
                     v-model="cleandata.trash_bags_info"
                     rows="2"
                     :required="cleandata.trash_left === 'yes' && required"
-                    maxlength="60"
+                    maxlength="300"
                   />
                 </div>
 
@@ -215,13 +215,12 @@
                   </div>
                 </div>
                 <div class="foreign-species-detail">
-                  <h5>{{ $t('message.foreign_species1_detail') }}</h5>
-                  <p>{{ $t('message.foreign_species1_detail_sub') }}</p>
+                  <p>{{ $t('message.foreign_species_detail') }}</p>
                   <textarea
                     rows="3"
                     v-model="cleandata.kurtturuusu_detail"
                     :required="cleandata.kurtturuusu === 'yes' && required"
-                    maxlength="200"
+                    maxlength="400"
                   />
                 </div>
 
@@ -274,13 +273,12 @@
                   </div>
                 </div>
                 <div class="foreign-species-detail">
-                  <h5>{{ $t('message.foreign_species2_detail') }}</h5>
-                  <p>{{ $t('message.foreign_species2_detail_sub') }}</p>
+                  <p>{{ $t('message.foreign_species_detail') }}</p>
                   <textarea
                     rows="3"
                     v-model="cleandata.jattipalsami_detail"
                     :required="cleandata.jattipalsami === 'yes' && required"
-                    maxlength="200"
+                    maxlength="400"
                   />
                 </div>
               </div>
@@ -306,7 +304,7 @@
                   <textarea
                     rows="4"
                     v-model="cleandata.cleanmoreinfo"
-                    maxlength="200"
+                    maxlength="400"
                   />
                 </div>
 
@@ -416,7 +414,11 @@ export default {
           axios({
             method: 'POST',
             url: process.env.VUE_APP_URL + '/api/map/cleaninfo',
-            data: { ...this.cleandata, selected: s }
+            data: {
+              ...this.cleandata,
+              selected: s,
+              language: this.$i18n.locale
+            }
           })
             .then(res => {
               if (res.data.status === 'ok') {
@@ -726,7 +728,7 @@ export default {
 }
 
 .privacy-policy-button {
-  max-width: 180px;
+  max-width: 200px;
   background-color: #fda218;
   display: flex;
   align-items: center;
