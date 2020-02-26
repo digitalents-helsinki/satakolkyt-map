@@ -117,7 +117,7 @@ export const sv = {
     clean_deletion_confirmation_message:
       'Vill du verkligen rensa rengöringsrapporten?',
     clean_confirm_confirmation_message:
-      'SV: Do you really want to confirm the cleaning? Contact info will be permanently deleted!',
+      'Vill du verkligen bekräfta städningen? Kontaktinformation kommer att raderas permanent!',
     clean_archival_confirmation_message:
       'Är du säker på att du vill arkivera rengöringen? Arkivering kan inte ångras.',
     hide_confirmed: 'Dölj bekräftad',
@@ -152,7 +152,7 @@ export const sv = {
     help_thanks: 'Tack för att du städar Helsingfors stränder!',
     powered_by: 'App drivs av:',
     remove_old_reservations: 'Ta bort gamla reservationer',
-    remove_old_cleanings: 'SV:[Arkistoi] rengöringarna äldre än 3mån',
+    remove_old_cleanings: 'Arkiv rengöringarna äldre än 3mån',
     old_first: 'Gamla först',
     new_first: 'Nya första',
     reservation_open:
