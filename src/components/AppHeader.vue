@@ -210,11 +210,11 @@ export default {
           justify-content: flex-end;
 
           .locale-changer {
-            height: 30px;
+            height: 25px;
 
             .locale-button {
-              width: 30px;
-              font-size: 14px;
+              width: 25px;
+              font-size: 12px;
             }
           }
         }
@@ -228,7 +228,8 @@ export default {
   }
 
   .help-icon {
-    font-size: 30px !important;
+    font-size: 25px !important;
+    margin: 0 10px !important;
   }
 }
 

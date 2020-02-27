@@ -349,13 +349,12 @@ export default {
 
           .stepcount,
           .kilometercount {
-            font-size: 32px;
+            font-size: 26px;
             margin: 0;
           }
           .stepinfo,
           .kiloinfo {
             font-size: 14px;
-            max-width: 90px;
             margin: 0 5px;
           }
 
@@ -368,8 +367,8 @@ export default {
     .colors {
       position: absolute;
       bottom: 64px;
-      width: 45%;
-      max-width: 200px;
+      max-width: 180px !important;
+      min-width: 0 !important;
       min-height: 0;
       pointer-events: all;
       cursor: pointer;
