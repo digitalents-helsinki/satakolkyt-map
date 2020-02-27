@@ -99,14 +99,20 @@ export default {
     addShoreClickHandler(map, shoretype) {
       if (!this.adminmode) {
         map.on('mouseenter', shoretype + 'Shore', e => {
-          if (shoretype === 'cleaned') {
+          if (
+            shoretype === 'cleaned' &&
+            !window.matchMedia('(pointer: coarse)').matches
+          ) {
             const clickedShore = e.features[0]
             const clickpos = [e.lngLat.lng, e.lngLat.lat]
             this.$emit(shoretype + '-click', clickedShore.properties)
           }
         })
         map.on('mouseleave', shoretype + 'Shore', e => {
-          if (shoretype === 'cleaned') {
+          if (
+            shoretype === 'cleaned' &&
+            !window.matchMedia('(pointer: coarse)').matches
+          ) {
             this.unHighlightAll()
             this.$emit('exit-hover')
           }
