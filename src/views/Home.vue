@@ -52,7 +52,11 @@
       <div class="trashtoggle-wrapper">
         <label for="trashcb"
           ><div class="trashtoggle">
-            {{ showTrashBins ? 'Piilota' : 'Näytä' }}
+            {{
+              showTrashBins
+                ? $t('message.hideTrashBins')
+                : $t('message.showTrashBins')
+            }}
             <img
               alt=""
               :src="showTrashBins ? 'hide_bins.svg' : 'show_bins.svg'"

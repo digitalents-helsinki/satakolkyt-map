@@ -153,6 +153,8 @@ export const en = {
     reservation_open:
       'This shore is reserved for an open cleanup event. Welcome!',
     loanequipment: 'Borrow supplies',
-    trashbins: 'Waste container'
+    trashbins: 'Waste container',
+    hideTrashBins: 'Hide',
+    showTrashbins: 'Show'
   }
 }

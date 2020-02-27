@@ -158,6 +158,8 @@ export const sv = {
     reservation_open:
       'Denna strand är reserverad för en öppen rengöring händelse. Välkommen!',
     loanequipment: 'Utlåning av redskap',
-    trashbins: 'Sopkärl'
+    trashbins: 'Sopkärl',
+    hideTrashBins: 'Dölj',
+    showTrashbins: 'Visa'
   }
 }

@@ -163,6 +163,8 @@ export const fi = {
     reservation_open:
       'Tämä ranta on varattu kaikille avoimiin talkoisiin. Tervetuloa mukaan!',
     loanequipment: 'Tarvikkeiden lainaus',
-    trashbins: 'Jäteastia'
+    trashbins: 'Jäteastia',
+    hideTrashBins: 'Piilota',
+    showTrashbins: 'Näytä'
   }
 }
