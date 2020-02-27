@@ -160,6 +160,6 @@ export const sv = {
     loanequipment: 'Utlåning av redskap',
     trashbins: 'Sopkärl',
     hideTrashBins: 'Dölj',
-    showTrashbins: 'Visa'
+    showTrashBins: 'Visa'
   }
 }

@@ -165,6 +165,6 @@ export const fi = {
     loanequipment: 'Tarvikkeiden lainaus',
     trashbins: 'Jäteastia',
     hideTrashBins: 'Piilota',
-    showTrashbins: 'Näytä'
+    showTrashBins: 'Näytä'
   }
 }

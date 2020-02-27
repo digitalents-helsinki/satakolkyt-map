@@ -155,6 +155,6 @@ export const en = {
     loanequipment: 'Borrow supplies',
     trashbins: 'Waste container',
     hideTrashBins: 'Hide',
-    showTrashbins: 'Show'
+    showTrashBins: 'Show'
   }
 }
