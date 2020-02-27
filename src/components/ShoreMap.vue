@@ -459,6 +459,7 @@ export default {
     .mapboxgl-ctrl-zoom-in,
     .mapboxgl-ctrl-zoom-out {
       height: 50px;
+      min-width: 100%;
     }
 
     .mapboxgl-ctrl-compass {
