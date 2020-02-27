@@ -22,7 +22,10 @@
           >
           </admin-shore-info>
         </div>
-        <div class="counter" :class="{ hide: seltype && !adminmode }">
+        <div
+          class="counter"
+          :class="{ hide: seltype && seltype !== 'cleaned' && !adminmode }"
+        >
           <div class="stepcount green">
             <ICountUp :endVal="counterSteps" :options="countOptions" />
           </div>
