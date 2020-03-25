@@ -462,10 +462,18 @@ export default {
     width: 50px;
     margin: 0;
 
+    @media (min-resolution: 110dpi) and (min-width: 768px) and (max-width: 1920px) {
+      width: 40px;
+    }
+
     .mapboxgl-ctrl-zoom-in,
     .mapboxgl-ctrl-zoom-out {
       height: 50px;
       min-width: 100%;
+
+      @media (min-resolution: 110dpi) and (min-width: 768px) and (max-width: 1920px) {
+        height: 40px;
+      }
     }
 
     .mapboxgl-ctrl-compass {

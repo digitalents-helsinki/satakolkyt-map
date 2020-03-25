@@ -425,4 +425,9 @@ export default {
     }
   }
 }
+@media (min-resolution: 110dpi) and (min-width: 768px) and (max-width: 1920px) {
+  .colors {
+    font-size: 14px;
+  }
+}
 </style>
